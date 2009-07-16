@@ -1,0 +1,953 @@
+@import url(reset.css);
+@import url(text.css);
+@import url(960.css);
+.Hidden {
+   display: none;
+}
+/* Messages */
+div.Messages {
+   text-align: center;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 200;
+   margin: 0px !important;
+   padding: 0px !important;
+   list-style: none !important;
+   font-size: 14px;
+   display: block;
+   width: 100%;
+}
+* html div.Messages {
+  position: absolute;
+  width: 100%;/*IE5.5*/
+  top: 0;
+  left: 0;
+  overflow: visible; 
+  top: expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
+}
+div.Messages ul {
+   cursor: pointer;
+   width: auto !important;
+   border: 1px solid #ee8 !important;
+   margin: 0 auto !important;
+   padding: 6px 10px !important;
+   -moz-border-radius-bottomleft: 3px;
+   -moz-border-radius-bottomright: 3px;
+   -webkit-border-bottom-left-radius: 3px;
+   -webkit-border-bottom-right-radius: 3px;
+   background: #ff9 !important;
+   display:-moz-inline-stack;
+   display:inline-block;
+   zoom:1;
+   *display:inline;
+}
+div.Messages ul li {
+   list-style: none;
+   text-align: left !important;
+   border: 0 !important;
+   color: #000 !important;
+   padding: 0 !important;
+   margin: 0 !important;
+   list-style-position: outside;
+}
+
+div.Errors ul {
+   border: 0 !important;
+   background: #d50a0a !important;
+}
+div.Errors ul li {
+   font-size: 14px;
+   color: #fff !important;
+}
+/*
+.Warning {
+   background: #ff9;
+   color: #000;
+   padding: 3px 6px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+}
+*/
+a,
+a:link,
+a:active,
+a:visited {
+   color: #2786C2;
+   text-decoration: none;
+}
+a:hover {
+   color: #FF0084;
+   text-decoration: none;
+}
+.Header {
+   padding: 2px 0;
+   border-bottom: 1px solid #daf4fd;
+}
+.Header h1 {
+   margin: 0;
+   padding: 0;
+}
+.Header h1 a {
+   display: block;
+   height: 87px;
+   width: 199px;
+   background: url('vanilla2.png') center center no-repeat;
+}
+.Header h1 a span {
+   display: none;
+}
+.Header ul {
+   list-style: none;
+   margin: 0 0 0 26px;
+   padding: 0;
+}
+.Header ul li {
+   float: left;
+   margin: 28px 0 0 10px;
+   padding: 0;
+   display: inline;
+}
+.Header ul li a {
+   float: left;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   display: block;
+   font-family:"Lucida Grande",Tahoma,"Bitstream Vera Sans",Arial,sans-serif;
+   font-size:14px;
+   font-weight:bold;
+   text-decoration: none;
+   padding: 6px 12px;
+   color: #34B7f4;
+   background: #daf4fd;   
+   text-shadow:1px 1px 1px #fff; 
+}
+#vanillaforumsorg_home_index .Header ul li.Home a,
+#vanillaforumsorg_home_index .Header ul li.Home a:hover,
+#vanillaforumsorg_addon_index .Header ul li.Addons a,
+#vanillaforumsorg_addon_index .Header ul li.Addons a:hover,
+body.Addon .Header ul li.Addons a,
+body.Addon .Header ul li.Addons a:hover,
+body.hosting .Header ul li.Hosting a,
+body.hosting .Header ul li.Hosting a:hover,
+.Header ul li.Active a,
+.Header ul li a:hover {
+   text-shadow:1px 1px 1px #148eb8; 
+   color:#fff;
+   background: #44c7f4;   
+}
+.Header ul li.Download a {
+   text-shadow:1px 1px 1px #00c400; 
+   color:#fff;
+   background: #11e420;
+}
+.Header ul li.Download a:hover {
+   background: #00d410;
+}
+.SubTitleWrapper {
+   border-bottom: 1px solid #DAF4FD;
+}
+.SubTitle {
+   border-top: 1px solid #e9f9ff;
+   border-bottom: 1px solid #e9f9ff;
+   background: #daf4fd;
+}
+.SubTitle h1 {
+   width: 946px;
+   margin: 0 auto;
+   padding: 12px 0;
+   color:#666;
+   font-family: 'helvetica neue',helvetica,arial,sans-serif;
+   font-weight: bold;
+   text-shadow: 1px 1px 1px #fff;
+   font-size: 24px;
+}
+#Content p.Download {
+   padding: 30px 0 20px;
+   text-align: center;
+}
+p.Download a,
+p.Download a:link,
+p.Download a:active,
+p.Download a:visited {
+   cursor: pointer;
+   margin: 0;
+   padding: 10px 14px 8px;
+   font-size: 18px;
+   background: url('button_bg2.png') repeat-x center left #f8f8f8;
+   color: #555;
+   border: 1px solid #bbb;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+}
+p.Download a:hover {
+   color: #333;
+   border: 1px solid #888;
+}
+body.Addon #Content img.Icon {
+   float: left;
+   margin: 6px 12px 12px 6px;
+   padding: 8px;
+   border: 1px solid #ddd;
+}
+body.Addon #Content h2 {
+   clear: left;
+}
+body.Addon .Panel {
+   font-size: 90%;
+}
+body.Addon .SideMenu li a {
+   font-size: 90% !important;
+}
+.DownloadBox {
+   background: #FFFFCC;
+   color: #555;
+   border: 1px solid #FFFF55;
+   padding: 6px;
+   margin: 6px 0 0;
+   font-size: 96%;
+   -moz-border-radius: 4px;
+}
+.DownloadBox a,
+.DownloadBox a:link,
+.DownloadBox a:active,
+.DownloadBox a:visited {
+   line-height: 1;
+   display: block;
+   -moz-border-radius:4px;
+   background: #11e420;
+   color: #fff;
+   font-size:20px;
+   font-weight: bold;
+   margin:0;
+   padding:10px 10px 6px;
+   text-align: center;
+   text-shadow: 1px 1px 1px #00C400;
+}
+.DownloadBox a:hover {
+   background: #00c80e;
+   text-shadow: 1px 1px 1px #00a400;
+}
+.DownloadBox dl {
+   padding: 10px 0 0 !important;
+}
+.DownloadBox dl dt {
+   color: #000;
+   width: 90px;
+   float: left;
+}
+.DownloadBox dl dd {
+   color: #555;
+}
+div.Requirements,
+div.Testing {
+   background: #fafafa;
+   border: 1px solid #eee;
+   padding: 6px;
+}
+div.Requirements h3,
+div.Testing h3,
+div.Requirements p,
+div.Testing p {
+   margin: 0 !important;
+   padding: 0 !important;
+}
+div.Requirements h3,
+div.Testing h3 {
+   margin: 0 0 6px 0 !important;
+}
+#Content {
+   font-size: 120%;
+}
+#Content h1 {
+   font-size: 130%;
+   border-bottom: 1px solid #ddd;
+   font-weight: bold;
+   padding: 20px 6px 0;
+}
+#Content h2 {
+   color: #333;
+   font-weight: bold;
+   font-size: 105%;
+   border-bottom: 1px solid #ddd;
+   padding: 0 6px;
+   margin: 20px 0 0;
+}
+#vanillaforumsorg_addon_index #Content h2 {
+   margin: 40px 0 0;
+}
+#vanillaforumsorg_addon_index #Content .Warning {
+   background: #FF0063;
+   color: #fff;
+   padding: 8px;
+   line-height: 1.5;
+   margin: 10px 6px;
+}
+.Warning strong {
+   font-weight: bold;
+   display: block;
+}
+#Content h3 {
+   color: #555;
+   font-weight: bold;
+   font-size: 100%;
+   border-bottom: 1px solid #eee;
+   margin: 20px 0 0;
+   padding: 0 6px;
+   -moz-border-radius-topleft: 2px;
+   -moz-border-radius-topright: 2px;
+   -webkit-border-top-left-radius: 2px;
+   -webkit-border-top-right-radius: 2px;
+}
+#Content h4 {
+   color: #333;
+   font-weight: bold;
+   font-size: 100%;
+   margin: 20px 0 0;
+   padding: 0 6px;
+   -moz-border-radius-topleft: 2px;
+   -moz-border-radius-topright: 2px;
+   -webkit-border-top-left-radius: 2px;
+   -webkit-border-top-right-radius: 2px;
+}
+#Content p {
+   padding: 2px 6px 10px;
+   font-size: 95%;
+}
+#Content p strong {
+   font-weight: bold;
+}
+#Content p em {
+   font-style: italic;
+}
+#Content ol {
+   padding: 2px 28px 10px;
+}
+#Content ul {
+   padding: 2px 32px 10px;
+}
+#Content ul li {
+   list-style: disc;
+   padding-left: 6px;
+   margin: 0;
+}
+#Content li strong {
+   font-weight: bold;
+}
+#Content ol li {
+   list-style: decimal;
+}
+#Content blockquote {
+   color: #555;
+   margin: 10px 10px 20px;
+   padding: 4px 8px;
+   background: #fafafa;
+   border: 1px solid #eee;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+}
+#Content blockquote p {
+   padding: 4px 0;
+   margin: 0;
+}
+#Content code,
+#Content pre {
+   border: 1px solid #ff5;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   background: #ffc;
+   font-family:Monaco,Verdana,Sans-serif;
+   overflow:auto;
+   padding:4px 8px;
+   white-space:pre;
+   font-size: 80%;
+   color: #333;
+}
+#Content pre {
+   margin: 10px 10px 20px;
+   display:block;
+   line-height: 140%;
+}
+#Content img.Border {
+   padding: 6px;
+   border: 1px solid #ddd;
+}
+#Content dl {
+   margin: 0;
+   padding: 2px 6px 10px;
+}
+#Content dl dt {
+   color: #999;
+}
+#Content dl dt strong {
+   font-family: Monaco,Verdana,Sans-serif;
+   font-size: 85%;
+   font-weight: bold;
+   padding: 0 8px 0 0;
+   color: #000;
+}
+#Content dd {
+   padding: 0 0 0 40px;
+}
+
+/* Side Menu */
+#Content ul.SideMenu,
+#Content ul.SideMenu li {
+   margin: 0px;
+   padding: 0px;
+   list-style: none;
+}
+#Content ul.SideMenu {
+   border: 1px solid #CAF0FE;
+   font-size: 110%;
+   color: #2786c2;
+   font-weight: bold;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   background: #e9f9ff;
+   padding: 6px 6px 4px;
+   margin: 10px 0;   
+}
+#Content ul.SideMenu li a {
+   font-size: 14px;
+   font-weight: normal;
+}
+#Content ul.SideMenu li.Highlight a {
+   color: #ff0084;
+}
+
+/* Form Stuff */
+
+form ul {
+   list-style: none;
+   margin: 0px;
+   padding: 0px;
+}
+form ul li {
+   border-bottom: 1px solid #eee;
+   margin: 0 0 10px;
+   padding: 0px 0px 10px 3px;
+   font-size: 12px;
+   color: #555555;
+}
+form ul li div.Info {
+   line-height: 1;
+   background: #fafafa;
+   padding: 12px 12px 10px;
+   margin: 0 0 8px;
+   font-size: 110%;
+   color: #888;
+   -moz-border-radius: 4px;
+}
+form ul li label {
+   color: #222;
+   float: left;
+   display: block;
+   width: 250px;
+   font-size: 150%;
+   padding: 6px 6px 0px 4px;
+   }
+form ul li label.CheckBoxLabel {
+   float: none;
+   width: auto;
+   display: block;
+   font-size: 140%;
+   cursor: pointer;
+   margin: 0px;
+   padding: 0px;
+   line-height: 27px;
+}
+form ul li label.CheckBoxLabel input {
+   margin: 7px 16px 4px 6px;
+   padding: 0px;
+   float: left;
+   
+}
+form ul li label span {
+   font-size: 11px;
+   color: #999;
+   padding-left: 6px;
+   }
+input.SmallButton {
+   cursor: pointer;
+   margin: 0px 0px 0px 0px;
+   font-size: 11px;
+}
+input.SmallInput {
+   width: 80px;
+}
+div.Form h2 {
+   clear: left;
+   color: #333;
+   font-weight: bold;
+   font-size: 130%;
+   border-bottom: 1px solid #ddd;
+   margin: 0 0 10px;
+   padding:20px 6px 0;
+}
+
+/* Common formatting for form inputs */
+input.File {
+   font-family: arial;
+   color: #222;
+   font-size: 150%;
+   padding: 6px;
+   margin: 0px;   
+}
+input.DateBox,
+input.InputBox,
+textarea {
+   font-family: arial;
+   color: #222;
+   font-size: 150%;
+   padding: 6px;
+   margin: 0px;
+   width: 500px;
+   border: 1px solid #aaa;
+}
+input.DateBox:focus,
+input.InputBox:focus,
+textarea:focus {
+   border: 1px solid #555;
+}
+textarea {
+   min-height: 80px;
+   max-height: 500px;
+   line-height: 128%;
+}
+select {
+   font-family: arial;
+   font-size: 14px;
+   color: #222;
+   margin: 0px;
+   padding: 3px;
+   }
+select.Day,
+select.Year {
+   margin-left: 4px;
+}
+.Button {
+   cursor: pointer;
+   margin: 0px 0px 0px 0px;
+   font-family: Tahoma, 'Trebuchet MS', Arial, Verdana;
+   padding: 4px;
+   font-size: 11px;
+   background: url('button_bg2.png') repeat-x center left #f8f8f8;
+   color: #555;
+   border: 1px solid #bbb;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   }
+input.Button {
+   font-weight: bold;
+}
+.Button:hover {
+   color: #333;
+   border: 1px solid #888;
+}
+.Form .Button {
+   font-size: 13px;
+}
+
+/* Picture Box */
+.PictureBox {
+   border: 1px solid #e5e5e5;
+   background: #fafafa;
+   padding: 10px 10px 4px;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+}
+.PictureBox img {
+   border: 1px solid #e5e5e5;
+   padding: 2px;
+   margin: 4px;
+}
+.PictureBox img:hover {
+   border: 1px solid #bbb;
+}
+/* Comments */
+#Discussion,
+#Discussion li,
+#Discussion ul,
+#Discussion ul li {
+   list-style: none !important;
+   margin: 0px;
+   padding: 0px !important;
+}
+li.Empty,
+#Discussion li.Empty {
+   font-size: 15px;
+   padding: 8px !important;
+   border-bottom: 1px solid #ddd;
+   margin-bottom: 1px;
+}
+#vanillaforumsorg_addon_browse li.Empty {
+   border-bottom: 0; 
+}
+#Discussion {
+   margin-bottom: 1px;
+}
+#Discussion .Comment {
+   clear: left;
+   border-bottom: 1px solid #ddd;
+}
+#Discussion li ul.Info {
+   list-style: none;
+   float: left;
+   font-size: 11px;
+   color: #777;
+   padding: 8px 0px 0px 8px !important;
+}
+#Discussion li ul.Info li.Author img {
+   height: 40px;
+   width: 40px;
+   border: 0px;
+   margin: 0px 10px 0px 0px;
+   float: left;
+}
+#Discussion li ul.Info li {
+   display: inline;
+}
+#Discussion li ul.Info li.Created,
+#Discussion li ul.Info li.Permalink {
+   padding-left: 10px !important;
+}
+#Discussion li ul.Info li.Author a {
+   font-size: 15px;
+   font-weight: bold;
+}
+#Discussion li .Body {
+   clear: both;
+   padding: 1px 8px 4px;
+   line-height: 170%;
+   color: #454545;
+}
+#Discussion li .Body p {
+   margin: 0;
+   padding: 0;
+}
+#Discussion a.DeleteComment {
+   -moz-border-radius-bottomleft:2px;
+   -moz-border-radius-bottomright:2px;
+   -moz-border-radius-topleft:2px;
+   -moz-border-radius-topright:2px;
+   background:#F8F8F8 url(button_bg2.png) repeat-x scroll left center;
+   border:1px solid #BBBBBB;
+   color:#555555;
+   cursor:pointer;
+   float:right;
+   font-family:Tahoma,'Trebuchet MS',Arial,Verdana;
+   font-size:11px;
+   font-weight:normal;
+   line-height:100%;
+   margin:3px 1px 0 0;
+   padding:4px;
+   width:auto;
+}
+#Discussion a.DeleteComment:hover {
+   border: 1px solid #888;
+   color: #333;
+}
+
+/* Addon Comment Form */
+#CommentForm {
+   background: #e9f9ff;
+   padding: 8px;
+}
+#CommentForm h3 {
+   font-size: 115%;
+   color: #2786C2;
+   font-weight: bold;
+}
+#CommentForm textarea {
+   width: 670px;
+   height: 100px;
+   min-height: 100px;
+   margin: 0px 0px 6px;
+   font-size: 15px;
+}
+#CommentForm input.Button {
+   margin-right: 6px;
+}
+#CommentForm label.Heading {
+   font-weight: bold;
+   font-size: 100%;
+   color: #2786c2;
+   line-height: 100%;
+   display: block;
+   margin-bottom: 4px;
+}
+.CommentOption {
+   -moz-border-radius-bottomleft: 2px;
+   -moz-border-radius-bottomright: 2px;
+   -webkit-border-radius-bottom-left: 2px;
+   -webkit-border-radius-bottom-right: 2px;
+   background:#E9F9FF none repeat scroll 0 0;
+   font-size: 13px;
+   color:#555555;
+   margin:1px 0 0;
+   padding:6px;
+}
+/* Search Form */
+div.SearchForm {
+   margin: 20px 0 0;
+   -moz-border-radius: 6px;
+   background: #e9f9ff;
+   padding: 8px 8px 6px;   
+}
+div.SearchForm input.InputBox {
+   width: 535px;
+   margin: 0 8px 0 0;
+}
+div.SearchForm input.Button {
+   font-size: 14px;
+   padding: 8px 4px;
+}
+div.SearchForm div.Options {
+   font-size: 110%;
+   padding: 8px 0 0;
+}
+div.SearchForm div.Options a {
+   padding: 0 8px;
+}
+
+/* User Info Box */
+div.UserOptions {
+   margin: 20px 0 0;
+   -moz-border-radius: 3px;
+   background: #44C7F4;
+   padding: 8px;
+   color: #fff;
+}
+#AddonPage div.UserOptions,
+#AddonHome div.UserOptions {
+   margin: 10px 0 0;
+}
+div.UserOptions h3 {
+   font-weight: bold;
+   font-size: 16px;
+   margin: 0;
+   padding: 0;
+   text-shadow:1px 1px 1px #148EB8;
+}
+div.UserOptions ul {
+   margin: 0;
+   padding: 0;
+}
+div.UserOptions ul li {
+   list-style-image: url(arrow.gif);
+   margin: 0 0 0 20px;
+   padding: 0 0 0 2px;
+}
+div.UserOptions ul li:hover {
+   margin: 0 0 0 22px;
+   padding: 0 0 0 0;   
+}
+div.UserOptions a {
+   color: #fff;
+}
+div.UserOptions a:hover {
+   text-decoration: underline;
+}
+
+/* Panel Boxes */
+.Box {
+   margin: 10px 0 0 0;
+   -moz-border-radius: 3px;
+   padding: 8px;
+}
+.Blue1 {
+   background: #E9F9FF;
+}
+.Blue2 {
+   background: #D4F3FF;
+}
+.Blue3 {
+   background: #A5E5FF;
+}
+.Blue4 {
+   background: #79D9FF;
+}
+.Green1 {
+   background: #FFFF66;
+}
+.Green2 {
+   background: #A6FF00;
+}
+
+/* Homepage */
+#AddonHome h2 {
+   border-bottom:1px solid #DDDDDD;
+   font-size:130%;
+   font-weight:bold;
+   padding:20px 6px 0;
+   margin: 0;
+}
+#AddonHome .Box h3 {
+   font-size:130%;
+   font-weight:bold;
+   color: #555;
+   padding: 0 0 6px;
+   margin: 0;
+}
+#AddonHome .Box p {
+   font-size: 110%;
+   color: #888;
+   padding: 0 0 6px;
+   margin: 0;
+}
+#AddonHome p.Download {
+   margin: 6px 0 0;
+}
+#AddonHome p.Download a {
+   display: block;
+   text-align: center;
+   font-size: 15px;
+   padding: 6px 0 4px;
+}
+
+/* DataList */
+
+ul.DataList li {
+   margin: 0;
+   padding: 6px;
+   border-bottom: 1px solid #ddd;
+}
+ul.DataList li li {
+   border: 0;
+   padding: 0;
+}
+ul.DataList,
+ul.DataList ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+ul.DataList a.Icon {
+   padding: 0 8px 8px 0;
+   float: left;
+}
+ul.DataList li a {
+   margin: 0;
+   padding: 0;
+   line-height: 130%;
+   color: #777;
+   font-size: 105%;
+   display: block;
+}
+ul.DataList li h3 {
+   padding: 0;
+   margin: 0;
+   font-size: 110%;
+   font-weight: bold;
+}
+ul.DataList li h3 a {
+   display: inline;
+   border: 0;
+   padding: 0;
+   margin: 0;
+   color: #2786C2;
+}
+ul.DataList li h3 a:hover {
+   color: #FF0084;
+}
+ul.DataList li a:hover {
+   color: #111;
+}
+ul.DataList li ul.Meta {
+   /* background: #f5f5f5; */
+   -moz-border-radius: 2px;
+   clear: left;
+   font-family: tahoma;
+   font-size: 90%;
+   color: #777;
+   padding: 4px 0;
+}
+ul.DataList li ul.Meta li {
+   padding-left: 20px;
+   display: inline;
+}
+ul.DataList li ul.Meta li span,
+ul.DataList li ul.Meta li span {
+   color: #333;
+   padding: 2px 4px;
+   margin-left: 6px;
+   background: #fafafa;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+}
+ul.DataList li ul.Meta li.Vanilla1,
+ul.DataList li ul.Meta li.Vanilla2,
+ul.DataList li ul.Meta li.Approved {
+   padding-left: 0;
+}
+ul.DataList li ul.Meta li.Approved span {
+   background: #50C04C;
+   color: #fff;
+}
+ul.DataList li ul.Meta li.Vanilla1 span {
+   color: #fff;
+   background: #999;
+   margin: 0 0 0 4px;
+}
+ul.DataList li ul.Meta li.Vanilla2 span {
+   color: #fff;
+   background: #44c7f4;
+   margin: 0 0 0 4px;
+}
+/* Pager */
+.MorePager {
+   list-style: none;
+   margin: 1px 0;
+   padding:6px 8px;
+   text-align: right;
+   background: #e9f9ff;
+   -moz-border-radius-bottomleft: 4px;
+   -moz-border-radius-bottomright: 4px;
+}
+#AddonPage .MorePager {
+   -moz-border-radius: 0;
+}
+.MorePager a {
+   font-weight: normal;
+   text-align: right;
+}
+.MorePager a:hover {
+   color: #2786c2 !important;
+   text-decoration: underline;
+}
+#PagerLess {
+   -moz-border-radius-topright: 2px;
+   -moz-border-radius-topleft: 2px;
+   -webkit-border-top-right-radius: 2px;
+   -webkit-border-top-left-radius: 2px;
+}
+a.More {
+   -moz-border-radius-bottomleft: 4px;
+   -moz-border-radius-bottomright: 4px;
+   background:#E9F9FF none repeat scroll 0 0;
+   margin: 1px 0 0;
+   padding:6px 8px;
+   text-align: right;
+   display: block;
+}
+/* Close buttons */
+a.Close {
+   font-weight: bold;
+   font-family: tahoma;
+   font-size: 10px;
+   text-transform: uppercase;
+   color: #bbb;
+   background: #f9f9f9;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+   padding: 1px 4px 2px 5px;
+   margin: 0px;
+   line-height: 100%;
+   border: 1px solid #ddd;
+}
+a.Close:hover {
+   border: 1px solid #bbb;
+   color: #999;
+   background: #fff;
+}

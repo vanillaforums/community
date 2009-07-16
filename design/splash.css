@@ -1,0 +1,36 @@
+#Splash {
+   border-top: 1px solid #fff;
+   border-bottom: 1px solid #ddd;
+   background: url(fade.jpg) top left repeat-x #daf4fd;
+   padding: 24px 0 16px;
+   color:#666;
+   font-family: 'helvetica neue',helvetica,arial,sans-serif;
+   font-size: 16px;
+}
+h2 {
+   font-size: 18px;
+   text-shadow: 1px 1px 1px #fff;
+}
+p.DownloadVanilla {
+   padding: 20px 0 0;
+   text-align: center;
+}
+a.DownloadVanilla,
+a.DownloadVanilla:link,
+a.DownloadVanilla:active,
+a.DownloadVanilla:visited {
+   -moz-border-radius:4px;
+   background: #11e420 url(downloadbg.png) repeat-x left center;
+   border: 1px solid #3f7316;
+   color: #fff;
+   text-shadow: 1px 1px 1px #3f7316;
+   /* font-family:Tahoma,'Trebuchet MS',Arial,Verdana;*/
+   font-size:20px;
+   font-weight: bold;
+   margin:0;
+   padding:10px 18px;
+}
+a.DownloadVanilla:hover {
+   background: #00c80e;
+   border: 1px solid #2f6306;
+}
