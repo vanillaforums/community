@@ -1,7 +1,7 @@
 <?php if (!defined('APPLICATION')) exit();
 
 /// <summary>
-/// Lussumo Update Controller
+/// Update Controller
 /// </summary>
 class UpdateController extends VanillaForumsComController {
    public $Uses = array('Database');
