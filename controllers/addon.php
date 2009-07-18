@@ -40,7 +40,7 @@ class AddonController extends VanillaForumsOrgController {
          if (!is_object($this->Addon)) {
             $this->View = 'NotFound';
          } else {
-            $this->AddCssFile('popup.screen.css');
+            $this->AddCssFile('popup.css');
             $this->AddCssFile('prettyPhoto.css');
             $this->Head->AddScript('/applications/vanillaforumsorg/js/jquery.prettyPhoto.js');
    			$this->Head->AddScript('/js/library/jquery.gardenmorepager.js');

@@ -515,7 +515,7 @@ class ImportController extends VanillaForumsOrgController {
       $this->Head->AddScript('js/library/jquery.gardenhandleajaxform.js');
       $this->Head->AddScript('js/global.js');
 
-      $this->AddCssFile('setup.screen.css');
+      $this->AddCssFile('setup.css');
       Gdn_Controller::Initialize();
    }   
 }

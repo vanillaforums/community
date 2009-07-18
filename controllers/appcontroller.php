@@ -25,7 +25,7 @@ class VanillaForumsOrgController extends Gdn_Controller {
          $this->Head->AddScript('js/global.js');
       }
       
-      $this->AddCssFile('vanillaforumsorg.screen.css');
+      $this->AddCssFile('vanillaforumsorg.css');
       parent::Initialize();
    }
 }
