@@ -17,6 +17,16 @@ class AddonController extends VanillaForumsOrgController {
    
    public function Initialize() {
       parent::Initialize();
+      if ($this->Head) {
+         $this->Head->AddScript('js/library/jquery.js');
+         $this->Head->AddScript('js/library/jquery.livequery.js');
+      /*
+         $this->Head->AddScript('js/library/jquery.form.js');
+         $this->Head->AddScript('js/library/jquery.popup.js');
+         $this->Head->AddScript('js/library/jquery.gardenhandleajaxform.js');
+         $this->Head->AddScript('js/global.js');
+      */
+      }
    }
    
    public function NotFound() {

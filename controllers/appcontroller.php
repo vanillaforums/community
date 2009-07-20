@@ -15,16 +15,9 @@ class VanillaForumsOrgController extends Gdn_Controller {
    }
    
    public function Initialize() {
-      if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
+      if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
          $this->Head = new HeadModule($this);
-         $this->Head->AddScript('js/library/jquery.js');
-         $this->Head->AddScript('js/library/jquery.livequery.js');
-         $this->Head->AddScript('js/library/jquery.form.js');
-         $this->Head->AddScript('js/library/jquery.popup.js');
-         $this->Head->AddScript('js/library/jquery.gardenhandleajaxform.js');
-         $this->Head->AddScript('js/global.js');
-      }
-      
+         
       $this->AddCssFile('vanillaforumsorg.css');
       parent::Initialize();
    }

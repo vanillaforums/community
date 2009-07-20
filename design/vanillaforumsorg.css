@@ -82,7 +82,7 @@ a:hover {
 }
 .Header {
    padding: 2px 0;
-   border-bottom: 1px solid #daf4fd;
+   border-bottom: 1px solid #C0E7F5;
 }
 .Header h1 {
    margin: 0;
@@ -145,44 +145,47 @@ body.hosting .Header ul li.Hosting a:hover,
    background: #00d410;
 }
 .SubTitleWrapper {
-   border-bottom: 1px solid #DAF4FD;
+   border-bottom: 1px solid #C0E7F5;
 }
 .SubTitle {
    border-top: 1px solid #e9f9ff;
    border-bottom: 1px solid #e9f9ff;
-   background: #daf4fd;
+   background: #dcf5fe url('slicesplash.jpg') no-repeat top center;
 }
 .SubTitle h1 {
-   width: 946px;
+   width: 938px;
    margin: 0 auto;
-   padding: 12px 0;
-   color:#666;
-   font-family: 'helvetica neue',helvetica,arial,sans-serif;
+   padding: 22px 0 18px;
+   line-height: 1;
    font-weight: bold;
-   text-shadow: 1px 1px 1px #fff;
    font-size: 24px;
+   color:#076C8E;
+   text-shadow:0 1px 0 #FFFFFF;
 }
 #Content p.Download {
    padding: 30px 0 20px;
    text-align: center;
 }
-p.Download a,
-p.Download a:link,
-p.Download a:active,
-p.Download a:visited {
-   cursor: pointer;
-   margin: 0;
-   padding: 10px 14px 8px;
-   font-size: 18px;
-   background: url('button_bg2.png') repeat-x center left #f8f8f8;
-   color: #555;
-   border: 1px solid #bbb;
-   -moz-border-radius: 4px;
-   -webkit-border-radius: 4px;
+p.Download {
+   padding: 12px 0 0;
+}
+p.Download a {
+   font-weight: bold;
+   color: #364e57;
+   font-size: 17px;
+   text-align: center;
+   display: block;
+   height: 59px;
+   width: 244px;
+   background: url('button.png') center center no-repeat;
+   line-height: 3.5;
 }
 p.Download a:hover {
-   color: #333;
-   border: 1px solid #888;
+   background: url('button2.png') center center no-repeat;
+}
+#vanillaforumsorg_home_index p.Download a {
+   line-height: 3.1;
+   font-size: 20px;
 }
 body.Addon #Content img.Icon {
    float: left;
