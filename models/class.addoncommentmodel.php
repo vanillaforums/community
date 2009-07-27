@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class AddonCommentModel extends Model {
+class Gdn_AddonCommentModel extends Gdn_Model {
    public function __construct() {
       parent::__construct('AddonComment');
    }
@@ -119,7 +119,7 @@ class AddonCommentModel extends Model {
       
    public function RecordActivity($AddonID, $ActivityUserID, $AddonCommentID) {
       // Get the author of the discussion
-      $AddonModel = new AddonModel();
+      $AddonModel = new Gdn_AddonModel();
       $Addon = $AddonModel->GetID($AddonID);
       if ($Addon->InsertUserID != $ActivityUserID) 
          AddActivity(

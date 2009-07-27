@@ -13,7 +13,7 @@ Contact Mark O'Sullivan at mark [at] lussumo [dot] com
  */
 class AddonController extends VanillaForumsOrgController {
    
-   public $Uses = array('Form', 'AddonModel', 'AddonCommentModel');
+   public $Uses = array('Form', 'Gdn_AddonModel', 'Gdn_AddonCommentModel');
    
    public function Initialize() {
       parent::Initialize();
@@ -55,7 +55,7 @@ class AddonController extends VanillaForumsOrgController {
             $this->Head->AddScript('/applications/vanillaforumsorg/js/jquery.prettyPhoto.js');
    			$this->Head->AddScript('/js/library/jquery.gardenmorepager.js');
             $this->Head->AddScript('/applications/vanillaforumsorg/js/addon.js');
-            $PictureModel = new Model('AddonPicture');
+            $PictureModel = new Gdn_Model('AddonPicture');
             $this->PictureData = $PictureModel->GetWhere(array('AddonID' => $AddonID));
             
             $this->SetData('CommentData', $this->CommentData = $this->AddonCommentModel->Get($AddonID, $Limit, $this->Offset), TRUE);
@@ -119,7 +119,7 @@ class AddonController extends VanillaForumsOrgController {
       }
       
       $this->Form->SetModel($this->AddonModel);
-      $AddonTypeModel = new Model('AddonType');
+      $AddonTypeModel = new Gdn_Model('AddonType');
       $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1'));
       
       if ($this->Form->AuthenticatedPostBack()) {
@@ -171,7 +171,7 @@ class AddonController extends VanillaForumsOrgController {
          
       $this->Form->SetModel($this->AddonModel);
       $this->Form->AddHidden('AddonID', $AddonID);
-      $AddonTypeModel = new Model('AddonType');
+      $AddonTypeModel = new Gdn_Model('AddonType');
       $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1'));
       
       if ($this->Form->AuthenticatedPostBack() === FALSE) {
@@ -192,7 +192,7 @@ class AddonController extends VanillaForumsOrgController {
       if (!is_object($Addon))
          return FALSE;
       
-      $AddonVersionModel = new Model('AddonVersion');
+      $AddonVersionModel = new Gdn_Model('AddonVersion');
       $this->Form->SetModel($AddonVersionModel);
       $this->Form->AddHidden('AddonID', $AddonID);
       
@@ -235,7 +235,7 @@ class AddonController extends VanillaForumsOrgController {
       $this->Permission('Addons.Addon.Approve');
       $Session = Gdn::Session();
       $Addon = $this->Addon = $this->AddonModel->GetID($AddonID);
-      $VersionModel = new Model('AddonVersion');
+      $VersionModel = new Gdn_Model('AddonVersion');
       if ($Addon->DateReviewed == '') {
          $VersionModel->Save(array('AddonVersionID' => $Addon->AddonVersionID, 'DateReviewed' => Format::ToDateTime()));
       } else {
@@ -376,7 +376,7 @@ class AddonController extends VanillaForumsOrgController {
       if (!$Session->IsValid())
          $this->Form->AddError('You must be authenticated in order to use this form.');
          
-      $AddonPictureModel = new Model('AddonPicture');
+      $AddonPictureModel = new Gdn_Model('AddonPicture');
       $this->Form->SetModel($AddonPictureModel);
       $this->Form->AddHidden('AddonID', $AddonID);
       if ($this->Form->AuthenticatedPostBack() === TRUE) {
@@ -412,7 +412,7 @@ class AddonController extends VanillaForumsOrgController {
          }
          // If there were no errors, insert the picture
          if ($this->Form->ErrorCount() == 0) {
-            $AddonPictureModel = new Model('AddonPicture');
+            $AddonPictureModel = new Gdn_Model('AddonPicture');
             $AddonPictureID = $AddonPictureModel->Insert(array('AddonID' => $AddonID, 'File' => $ImageBaseName));
          }
          // If there were no problems, redirect back to the addon
@@ -424,7 +424,7 @@ class AddonController extends VanillaForumsOrgController {
    
    public function DeletePicture($AddonPictureID = '') {
       $this->Permission('Addons.Picture.Delete');
-      $AddonPictureModel = new Model('AddonPicture');
+      $AddonPictureModel = new Gdn_Model('AddonPicture');
       $Picture = $AddonPictureModel->GetWhere(array('AddonPictureID' => $AddonPictureID));
       if ($Picture) {
          @unlink(PATH_ROOT . DS . 'uploads' . DS . 'ao'.$Picture->Name);
@@ -489,7 +489,7 @@ class AddonController extends VanillaForumsOrgController {
       $RemoteIp = @$_SERVER['REMOTE_ADDR'];
       
       // Record that it was downloaded
-      $Model = new Model('Download');
+      $Model = new Gdn_Model('Download');
       $Model->Save(array('AddonID' => $Addon->AddonID, 'RemoteIp' => $RemoteIp, 'DateInserted' => Format::ToDateTime()));
       $Count = $Model->GetCount(array('AddonID' => $Addon->AddonID));
       $this->AddonModel->Save(array('AddonID' => $Addon->AddonID, 'CountDownloads' => $Count));

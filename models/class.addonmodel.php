@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class AddonModel extends Model {
+class Gdn_AddonModel extends Gdn_Model {
    public function __construct() {
       parent::__construct('Addon');
    }
@@ -120,7 +120,7 @@ class AddonModel extends Model {
          // Save the version
          if ($AddonID > 0 && $FileName != '') {
             // Save the addon file & version
-            $AddonVersionModel = new Model('AddonVersion');
+            $AddonVersionModel = new Gdn_Model('AddonVersion');
             $AddonVersionID = $AddonVersionModel->Save(array(
                'AddonID' => $AddonID,
                'File' => $FileName,
