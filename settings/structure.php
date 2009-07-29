@@ -86,6 +86,40 @@ $Construct->Table('Download')
    ->Column('RemoteIp', 'varchar', '50', TRUE)
    ->Set($Explicit, $Drop);
 
+$Construct->Table('UpdateCheckSource')
+   ->Column('SourceID', 'int', 11, FALSE, NULL, 'primary', TRUE)
+   ->Column('Location', 'varchar', 255, TRUE)
+   ->Column('DateInserted', 'datetime', '', TRUE)
+   ->Column('RemoteIp', 'varchar', '50', TRUE)
+   ->Set($Explicit, $Drop);
+
+$Construct->Table('UpdateCheck')
+   ->Column('UpdateCheckID', 'int', 11, FALSE, NULL, 'primary', TRUE)
+   ->Column('SourceID', 'int', 11, TRUE, NULL, 'key')
+   ->Column('CountUsers', 'int', 4, FALSE, '0')
+   ->Column('CountDiscussions', 'int', 4, FALSE, '0')
+   ->Column('CountComments', 'int', 4, FALSE, '0')
+   ->Column('CountConversations', 'int', 4, FALSE, '0')
+   ->Column('CountConversationMessages', 'int', 4, FALSE, '0')
+   ->Column('DateInserted', 'datetime', '', TRUE)
+   ->Column('RemoteIp', 'varchar', '50', TRUE)
+   ->Set($Explicit, $Drop);
+
+// Need to use this table instead of linking directly with the Addon table
+// because we might not have all of the addons being checked for.
+$Construct->Table('UpdateAddon')
+   ->Column('UpdateAddonID', 'int', 11, FALSE, NULL, 'primary', TRUE)
+   ->Column('AddonID', 'int', 11, TRUE, NULL, 'key')
+   ->Column('Name', 'varchar', 255, TRUE)
+   ->Column('Type', 'varchar', 255, TRUE)
+   ->Column('Version', 'varchar', 255, TRUE)
+   ->Set($Explicit, $Drop);
+   
+$Construct->Table('UpdateCheckAddon')
+   ->Column('UpdateCheckID', 'int', 11, TRUE, NULL, 'key')
+   ->Column('UpdateAddonID', 'int', 11, TRUE, NULL, 'key')
+   ->Set($Explicit, $Drop);
+
 // Insert some activity types
 ///  %1 = ActivityName
 ///  %2 = ActivityName Possessive
