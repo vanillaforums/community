@@ -116,6 +116,451 @@ class ImportController extends VanillaForumsOrgController {
       } else if ($Step == 1) {
          // 1. Add Import IDs to various tables where necessary 
          $Construct->Table('Role')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
+         /*
+         $Construct->Table('User')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
+         $Construct->Table('Category')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
+         $Construct->Table('Discussion')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
+         $Construct->Table('Addon')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
+         */
+         $Construct->DatabasePrefix($SourcePrefix);
+         $Construct->Table('Comment')->Column('ConversationID', 'int', 11, FALSE, NULL, 'key')->Set();
+         $Construct->DatabasePrefix($DestPrefix);
+         
+         $this->Message = Gdn::Translate('<strong>2/19</strong> Preparing tables for import.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/2');
+      } else if ($Step == 2) {
+         // 2. Move roles from old database into new one.
+         $RoleModel = new Gdn_RoleModel();
+         // Get the old roles
+         $OldRoles = $Database->Query('select * from '.$SourcePrefix.'Role');
+         // Loop through each, inserting if it doesn't exist and updating ImportID if it does
+         foreach ($OldRoles->Result() as $OldRole) {
+            $RoleData = $Database->Query("select * from ".$DestPrefix."Role where Name = '".$OldRole->Name."'");
+            if ($RoleData->NumRows() == 0) {
+               $Role = array();
+               $Role['ImportID'] = $OldRole->RoleID;
+               $Role['Name'] = $OldRole->Name;
+               $Role['Description'] = $OldRole->Description;
+               $RoleModel->Save($Role);
+            } else {
+               $Database->Query("update ".$DestPrefix."Role set ImportID = '".$OldRole->RoleID."' where RoleID = ".$RoleData->FirstRow()->RoleID);
+            }
+         }
+         
+         $this->Message = Gdn::Translate('<strong>3/19</strong> Importing roles.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/3');
+      } else if ($Step == 3) {
+         // 3. Import users
+         $Database->Query("insert into ".$DestPrefix."User
+         (UserID, Name, Password, Email, ShowEmail,    Gender, CountVisits, CountInvitations, InviteUserID, DiscoveryText, Preferences, Permissions, Attributes, DateSetInvitations, DateOfBirth, DateFirstVisit, DateLastActive, DateInserted,   DateUpdated,    HourOffset, About, CountNotifications, CountUnreadConversations, CountDiscussions, CountUnreadDiscussions, CountComments, CountDrafts, CountBookmarks) select
+          UserID, Name, Password, Email, UtilizeEmail, 'm',    CountVisit,  0,                null,         Discovery,     null,        null,        null,       null,               null,        DateFirstVisit, DateLastActive, DateFirstVisit, DateLastActive, 0,          null,  0,                  0,                        CountDiscussions, 0,                      CountComments, 0,           0
+         from ".$SourcePrefix."User");
+
+         $this->Message = Gdn::Translate('<strong>4/19</strong> Importing users.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/4');
+      } else if ($Step == 4) {
+         // 4. Import user role relationships
+         $Database->Query("insert into ".$DestPrefix."UserRole
+         (UserID, RoleID)
+         select u.UserID, r.RoleID
+         from ".$SourcePrefix."User u
+         inner join ".$DestPrefix."Role r
+            on u.RoleID = r.ImportID");
+
+         $this->Message = Gdn::Translate('<strong>5/19</strong> Importing user/role relationships.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/5');
+      } else if ($Step == 5) {
+         // 5. Import user role history into activity table
+         $Database->Query("insert into ".$DestPrefix."Activity
+         (ActivityTypeID, ActivityUserID, RegardingUserID, Story, InsertUserID, DateInserted)
+         select 8, rh.AdminUserID, rh.UserID, concat('Assigned to ', r.Name, ' Role <blockquote>', rh.Notes, '</blockquote>'), rh.AdminUserID, rh.Date
+         from ".$SourcePrefix."UserRoleHistory rh
+         inner join ".$DestPrefix."Role r
+            on rh.RoleID = r.ImportID
+         order by rh.Date asc");
+
+         $this->Message = Gdn::Translate('<strong>6/19</strong> Importing role histories.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/6');
+      } else if ($Step == 6) {
+         // 6. Update the WhisperUserID on all comments that are within whispered discussions
+         $Database->Query("update ".$SourcePrefix."Comment c
+         join ".$SourcePrefix."Discussion d
+           on c.DiscussionID = d.DiscussionID
+         set c.WhisperUserID = d.WhisperUserID
+         where d.WhisperUserID > 0
+           and c.AuthUserID <> d.WhisperUserID");
+         
+         $Database->Query("update ".$SourcePrefix."Comment c
+         join ".$SourcePrefix."Discussion d
+           on c.DiscussionID = d.DiscussionID
+         set c.WhisperUserID = d.AuthUserID
+         where d.WhisperUserID > 0
+           and c.AuthUserID <> d.AuthUserID");
+         
+         $this->Message = Gdn::Translate('<strong>7/19</strong> Preparing whispers.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/7');
+      } else if ($Step == 7) {
+         // 7. Create conversations
+         $Database->Query("insert into ".$DestPrefix."Conversation
+         (InsertUserID, DateInserted, UpdateUserID, DateUpdated, Contributors)
+         select AuthUserID, now(), WhisperUserID, now(), ''
+         from ".$SourcePrefix."Comment
+         where WhisperUserID > 0
+         group by AuthUserID, WhisperUserID");
+
+         // 7b. Remove duplicate combinations
+         $Database->Query("delete ".$DestPrefix."Conversation c
+         from ".$DestPrefix."Conversation c
+         join ".$DestPrefix."Conversation c2
+           on c.InsertUserID = c2.UpdateUserID
+           and c.UpdateUserID = c2.InsertUserID
+         where c.ConversationID > c2.ConversationID");
+         
+         $this->Message = Gdn::Translate('<strong>8/19</strong> Creating conversations.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/8');
+      } else if ($Step == 8) {
+         // 8. Update old comment table with conversation ids
+         $Database->Query("update ".$SourcePrefix."Comment cm
+         inner join ".$DestPrefix."Conversation cn
+           on cm.AuthUserID = cn.InsertUserID
+           and cm.WhisperUserID = cn.UpdateUserID
+         set cm.ConversationID = cn.ConversationID");
+
+         $Database->Query("update ".$SourcePrefix."Comment cm
+         inner join ".$DestPrefix."Conversation cn
+           on cm.WhisperUserID = cn.InsertUserID
+           and cm.AuthUserID = cn.UpdateUserID
+         set cm.ConversationID = cn.ConversationID");
+
+         $this->Message = Gdn::Translate('<strong>9/19</strong> Preparing conversations messages.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/9');
+      } else if ($Step == 9) {
+         // 9. Insert whispers as conversation messages
+         $Database->Query("insert into ".$DestPrefix."ConversationMessage
+         (ConversationID, Body, InsertUserID, DateInserted)
+         select ConversationID, Body, AuthUserID, DateCreated
+         from ".$SourcePrefix."Comment
+         where ConversationID > 0");
+
+         $this->Message = Gdn::Translate('<strong>10/19</strong> Transforming whispers into conversations.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/10');
+      } else if ($Step == 10) {
+         // 10. Insert the userconversation records so that messages are linked to conversations
+         $Database->Query("insert into ".$DestPrefix."UserConversation
+         (UserID, ConversationID, CountNewMessages, CountMessages, LastMessageID, DateLastViewed)
+         select InsertUserID, ConversationID, 0, 0, max(MessageID), null
+         from ".$DestPrefix."ConversationMessage
+         group by InsertUserID, ConversationID");
+
+         $this->Message = Gdn::Translate('<strong>11/19</strong> Finalizing whisper messages.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/11');
+      } else if ($Step == 11) {
+         // 11. Update the conversation record fields
+         $Database->Query("update ".$DestPrefix."Conversation c
+         join (
+           select ConversationID, min(MessageID) as FirstMessageID, min(DateInserted) as DateInserted
+           from ".$DestPrefix."ConversationMessage
+           group by ConversationID
+         ) cm
+           on c.ConversationID = cm.ConversationID
+         set c.FirstMessageID = cm.FirstMessageID,
+           c.DateInserted = cm.DateInserted");
+         
+         $Database->Query("update ".$DestPrefix."Conversation c
+         join (
+           select ConversationID, max(MessageID) as LastMessageID
+           from ".$DestPrefix."ConversationMessage
+           group by ConversationID
+         ) cm
+           on c.ConversationID = cm.ConversationID
+         join ".$DestPrefix."ConversationMessage lm
+           on cm.LastMessageID = lm.MessageID
+         set c.UpdateUserID = lm.InsertUserID,
+           c.DateUpdated = lm.DateInserted");
+
+         // Fudge your way back from the messages
+         $Database->Query("update ".$DestPrefix."Conversation c
+         join ".$DestPrefix."ConversationMessage m
+           on c.FirstMessageID = m.MessageID
+         set c.InsertUserID = m.InsertUserID");
+
+         // Update the UserConversation.LastMessageID records
+         // (ie. the last message in a conversation by someone other than the userconversation.userid person)
+         $Database->Query("update ".$DestPrefix."userconversation uc
+         join (
+           select ConversationID, InsertUserID, max(MessageID) as LastMessageID
+           from ".$DestPrefix."conversationmessage
+           group by ConversationID, InsertUserID
+         ) m
+           on uc.ConversationId = m.ConversationID
+           and uc.UserID <> m.InsertUserID
+         set uc.LastMessageID = m.LastMessageID");
+
+         // Update the message count for all users and all conversations
+         $Database->Query("update ".$DestPrefix."UserConversation uc
+         join (
+           select ConversationID, count(MessageID) as CountMessages
+           from ".$DestPrefix."ConversationMessage
+           group by ConversationID
+         ) m
+           on uc.ConversationID = m.ConversationID
+         set uc.CountMessages = m.CountMessages");
+
+         $this->Message = Gdn::Translate('<strong>12/19</strong> Finalizing conversations.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/12');
+      } else if ($Step == 12) {
+         // 12. Import Categories
+         $Database->Query("insert into ".$DestPrefix."Category
+         (CategoryID, Name, Description, Sort, InsertUserID, UpdateUserID, DateInserted, DateUpdated)
+         select CategoryID, left(Name,30), Description, Priority, 1, 1, now(), now()
+         from ".$SourcePrefix."Category");
+
+         $this->Message = Gdn::Translate('<strong>13/19</strong> Importing discussion categories.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/13');
+      } else if ($Step == 13) {
+         // 13. Import Discussions
+         $Database->Query("insert into ".$DestPrefix."Discussion
+         (DiscussionID, CategoryID, InsertUserID, UpdateUserID, Name, CountComments, Closed, Announce, Sink, DateInserted, DateUpdated, DateLastComment)
+         select DiscussionID, CategoryID, AuthUserID, LastUserID, Name, CountComments, Closed, Sticky, Sink, DateCreated, DateLastActive, DateLastActive
+         from ".$SourcePrefix."Discussion
+         where WhisperUserID = 0
+            and Active = '1'");
+
+         $this->Message = Gdn::Translate('<strong>14/19</strong> Importing discussions.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/14');
+      } else if ($Step == 14) {
+         // 14. Import Comments
+         $Database->Query("insert into ".$DestPrefix."Comment
+         (CommentID, DiscussionID, InsertUserID, UpdateUserID, Body, Format, DateInserted, DateUpdated)
+         select CommentID, DiscussionID, AuthUserID, EditUserID, Body, case FormatType when 'Text' then 'Display' else FormatType end, DateCreated, DateEdited
+         from ".$SourcePrefix."Comment
+         where (WhisperUserID is null or WhisperUserID = 0)
+            and Deleted = '0'");
+
+         $this->Message = Gdn::Translate('<strong>15/19</strong> Importing comments.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/15');
+      } else if ($Step == 15) {
+         // 15. Update Discussions with first & last comment ids
+         $Database->Query("update ".$DestPrefix."Discussion d
+         join (
+           select DiscussionID, min(CommentID) as FirstCommentID
+           from ".$DestPrefix."Comment
+           group by DiscussionID
+         ) c
+           on d.DiscussionID = c.DiscussionID
+         set d.FirstCommentID = c.FirstCommentID");
+         
+         $Database->Query("update ".$DestPrefix."Discussion d
+         join (
+           select DiscussionID, max(CommentID) as LastCommentID
+           from ".$DestPrefix."Comment
+           group by DiscussionID
+         ) c
+           on d.DiscussionID = c.DiscussionID
+         set d.LastCommentID = c.LastCommentID");
+         
+         // Update the CountDiscussions column on the category table
+         $Database->Query("update ".$DestPrefix."Category c
+         join (
+           select CategoryID, count(DiscussionID) as CountDiscussions
+           from ".$DestPrefix."Discussion
+           group by CategoryID
+         ) cc
+           on c.CategoryID = cc.CategoryID
+         set c.CountDiscussions = cc.CountDiscussions");
+
+         $this->Message = Gdn::Translate('<strong>16/19</strong> Finalizing discussions.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/16');
+      } else if ($Step == 16) {
+         // 16. Import UserDiscussion (watch & bookmark data)
+         $Database->Query("insert into ".$DestPrefix."UserDiscussion
+         (UserID, DiscussionID, CountComments, DateLastViewed, Bookmarked)
+         select ow.UserID, ow.DiscussionID, ow.CountComments, ow.LastViewed, if(isnull(ob.DiscussionID), '0', '1') as Bookmarked
+         from ".$SourcePrefix."UserDiscussionWatch ow
+         left join ".$SourcePrefix."UserBookmark ob
+            on ow.DiscussionID = ob.DiscussionID
+            and ow.UserID = ob.UserID
+         where od.Active = '1'");
+
+         $this->Message = Gdn::Translate('<strong>17/19</strong> Importing bookmarks & watch data.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/17');
+         
+      } else if ($Step == 17) {
+         // Import Addons
+         $Database->Query("insert into ".$DestPrefix."Addon
+         (AddonID, AddonTypeID, InsertUserID, UpdateUserID, Name, Description, Visible, Vanilla2, DateInserted, DateUpdated)
+         select oa.AddOnID, oa.AddOnTypeID, nd.InsertUserID, nd.UpdateUserID, nd.Name, nc.Body, case oa.Hidden when '1' then '0' else '1' end, '0', oa.DateCreated, oa.DateUpdated
+         from ".$SourcePrefix."Addon oa
+         join ".$DestPrefix."Discussion nd
+            on oa.DiscussionID = nd.DiscussionID
+         join ".$DestPrefix."Comment nc
+            on nd.FirstCommentID = nc.CommentID");
+         
+         // Update CurrentAddonVersionID
+         $Database->Query("update ".$DestPrefix."Addon set CurrentAddonVersionID = AddonID");
+
+         // Import Addon Versions
+         $Database->Query("insert into ".$DestPrefix."AddonVersion
+         (AddonID, File, Version, InsertUserID, DateInserted, DateReviewed)
+         select AddonID, FileUrl, Version, AuthUserID, DateCreated, DateApproved
+         from ".$SourcePrefix."Addon");
+         
+         // Update AddonVersion AddonID
+         $Database->Query("update ".$DestPrefix."AddonVersion set AddonID = AddonVersionID");
+         
+         // Insert all comments related to addons
+         $Database->Query("insert into ".$DestPrefix."AddonComment
+         (AddonID, InsertUserID, Body, Format, DateInserted)
+         select oa.AddonID, nc.InsertUserID, nc.Body, nc.Format, nc.DateInserted
+         from ".$SourcePrefix."Addon oa
+         join ".$DestPrefix."Discussion nd
+            on oa.DiscussionID = nd.DiscussionID
+         join ".$DestPrefix."Comment nc
+            on nd.DiscussionID = nc.DiscussionID
+         where nc.CommentID <> nd.FirstCommentID");
+         
+         // Delete all addon comments
+         $Database->Query("delete ".$DestPrefix."Comment c
+            from ".$DestPrefix."Comment c
+            join ".$SourcePrefix."Addon a
+              on c.DiscussionID = a.DiscussionID");         
+         
+         // Delete all addon discussions
+         $Database->Query("delete ".$DestPrefix."Discussion d
+            from ".$DestPrefix."Discussion d
+            join ".$SourcePrefix."Addon a
+              on d.DiscussionID = a.DiscussionID");         
+
+         $this->Message = Gdn::Translate('<strong>17/19</strong> Importing addons.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/18');         
+      } else if ($Step == 18) {
+         // 17. Remove temp columns
+         $Construct->Table('Role')->DropColumn('ImportID');
+         $Construct->DatabasePrefix($SourcePrefix);
+         $Construct->Table('Comment')->DropColumn('ConversationID');
+         $Construct->DatabasePrefix($DestPrefix);
+
+         $this->Message = Gdn::Translate('<strong>18/19</strong> Removing import structure.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/19');
+      } else if ($Step == 19) {
+         // 18. remove whisperuserids from old comment table where the entire discussion is whispered
+         $Database->Query("update ".$SourcePrefix."Comment c
+         inner join ".$SourcePrefix."Discussion d
+            on c.DiscussionID = d.DiscussionID
+         set c.WhisperUserID = null
+         where d.WhisperUserID > 0");
+
+         $this->Message = Gdn::Translate('<strong>19/19</strong> Restoring original comment structure.');
+         $this->RedirectUrl = Url('/vanillaforumsorg/import/20');
+      } else if ($Step == 20) {
+         // Finished!
+         $this->RedirectUrl = 'Finished';
+         $this->View = 'finished';
+      }
+      
+      $this->SetJson('NextUrl', $this->RedirectUrl);
+      $this->RedirectUrl = '';
+      
+      $this->MasterView = 'setup';
+      $this->Render();
+   }
+   
+   public function OldIndex($Step = 0) {
+      $this->Permission('Garden.Data.Import'); // This permission doesn't exist, so only users with Admin == '1' will succeed.
+      
+      if ($this->Head)
+         $this->Head->AddScript('/applications/vanilla/js/import.js');
+      
+      $Step = is_numeric($Step) && $Step >= 0 && $Step < 30 ? $Step : '';
+      $Database = Gdn::Database();
+      $Construct = $Database->Structure();
+      $SourcePrefix = Gdn::Config('Import.SourcePrefix', 'LUM_');
+      $DestPrefix = Gdn::Config('Database.DatabasePrefix', '');
+      if ($Step == 0) {
+         $this->View = 'import';
+         if ($this->Form->AuthenticatedPostBack()) {
+            // Make sure that all of the destination tables exist (assuming that
+            // columns are there if tables are there since they were likely just
+            // installed moments ago).
+            $DbTables = $Database->SQL()->FetchTables();
+            $DestTables = explode(',', 'Role,User,UserRole,Conversation,ConversationMessage,UserConversation,Category,Discussion,Comment,UserDiscussion');
+            for ($i = 0; $i < count($DestTables); ++$i) {
+               $Table = $DestPrefix.$DestTables[$i];
+               if (!InArrayI($Table, $DbTables)) {
+                  $this->Form->AddError('The "'.$Table.'" table is required for import.');
+                  break;
+               }
+            }
+            
+            if ($this->Form->ErrorCount() == 0) {
+               // Make sure that all of the source tables & columns exist.
+               $SourcePrefix = $this->Form->GetFormValue('SourcePrefix');
+               $SourceTables = explode(',', 'Role,User,UserRoleHistory,UserDiscussionWatch,UserBookmark,Category,Discussion,Comment');
+               for ($i = 0; $i < count($SourceTables); ++$i) {
+                  $Table = $SourcePrefix.$SourceTables[$i];
+                  if (!InArrayI($Table, $DbTables)) {
+                     $this->Form->AddError('The "'.$Table.'" source table was not found. Are you sure "'.$SourcePrefix.'" is the correct table prefix for your Vanilla 1 tables?');
+                     break;
+                  }
+                  $Columns = $Database->SQL()->FetchColumns($Table);
+                  switch ($SourceTables[$i]) {
+                     case 'Role':
+                        $RequiredColumns = explode(',', 'RoleID,Name,Description');
+                        break;
+                     case 'User':
+                        $RequiredColumns = explode(',', 'UserID,RoleID,Name,Email,UtilizeEmail,CountVisit,Discovery,DateFirstVisit,DateLastActive,DateFirstVisit,DateLastActive,CountDiscussions,CountComments');
+                        break;
+                     case 'UserRoleHistory':
+                        $RequiredColumns = explode(',', 'UserID,RoleID,AdminUserID,Notes,Date');
+                        break;
+                     case 'UserDiscussionWatch':
+                        $RequiredColumns = explode(',', 'UserID,DiscussionID,CountComments,LastViewed');
+                        break;
+                     case 'UserBookmark':
+                        $RequiredColumns = explode(',', 'UserID,DiscussionID');
+                        break;
+                     case 'Category':
+                        $RequiredColumns = explode(',', 'CategoryID,Name,Description,Priority');
+                        break;
+                     case 'Discussion':
+                        $RequiredColumns = explode(',', 'DiscussionID,CategoryID,AuthUserID,LastUserID,WhisperUserID,Active,Name,CountComments,Closed,Sticky,Sink,DateCreated,DateLastActive');
+                        break;
+                     case 'Comment':
+                        $RequiredColumns = explode(',', 'CommentID,DiscussionID,AuthUserID,EditUserID,WhisperUserID,Deleted,Body,FormatType,DateCreated,DateEdited');
+                        break;
+                     default:
+                        $RequiredColumns = array();
+                        break;                     
+                  }
+                  if (is_array($RequiredColumns)) {
+                     for ($j = 0; $j < count($RequiredColumns); ++ $j) {
+                        if (!InArrayI($RequiredColumns[$j], $Columns)) {
+                           $this->Form->AddError('The "'.$Table.'" source table does not have the "'.$RequiredColumns[$j].'" column.');
+                           break;
+                        }
+                     }
+                  }
+               }
+            }
+            // If there were no errors...
+            if ($this->Form->ErrorCount() == 0) {
+               // Save the sourceprefix
+               $Config = Gdn::Factory(Gdn::AliasConfig);
+               $Config->Load(PATH_CONF . DS . 'config.php', 'Save');
+               $Config->Set('Garden.Import.SourcePrefix', $SourcePrefix);
+               $Config->Save();
+               
+               // Proceed with the next step
+               $this->Message = Gdn::Translate('<strong>1/19</strong> Checking source & destination tables.');
+               $this->View = 'index';
+               $this->RedirectUrl = Url('/vanillaforumsorg/import/1');
+               if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
+                  Redirect('/import/1');
+            }
+         }
+      } else if ($Step == 1) {
+         // 1. Add Import IDs to various tables where necessary 
+         $Construct->Table('Role')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
          $Construct->Table('User')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
          $Construct->Table('Category')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();
          $Construct->Table('Discussion')->Column('ImportID', 'int', 11, FALSE, NULL, 'key')->Set();

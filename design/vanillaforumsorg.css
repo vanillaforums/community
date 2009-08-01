@@ -167,25 +167,21 @@ body.hosting .Header ul li.Hosting a:hover,
    text-align: center;
 }
 p.Download {
-   padding: 12px 0 0;
+   margin: 40px 0 0;
+   padding: 0;
 }
 p.Download a {
    font-weight: bold;
-   color: #364e57;
-   font-size: 17px;
-   text-align: center;
-   display: block;
-   height: 59px;
-   width: 244px;
-   background: url('button.png') center center no-repeat;
-   line-height: 3.5;
+   font-size: 22px;
+   background: #11E420;
+   color: #FFFFFF;
+   text-shadow: 1px 1px 1px #00C400;
+   padding: 15px 15px 10px;
+   line-height: 1;
+   -moz-border-radius: 4px;
 }
 p.Download a:hover {
-   background: url('button2.png') center center no-repeat;
-}
-#vanillaforumsorg_home_index p.Download a {
-   line-height: 3.1;
-   font-size: 20px;
+   background: #00D410;
 }
 body.Addon #Content img.Icon {
    float: left;
