@@ -431,8 +431,8 @@ class ImportController extends VanillaForumsOrgController {
 
          // Import Addon Versions
          $Database->Query("insert into ".$DestPrefix."AddonVersion
-         (AddonID, File, Version, InsertUserID, DateInserted, DateReviewed)
-         select 1, oa.FileUrl, oa.Version, na.UserID, oa.DateCreated, oa.DateApproved
+         (AddonID, File, Version, InsertUserID, DateInserted, DateReviewed, TestedWith)
+         select 1, oa.FileUrl, oa.Version, na.UserID, oa.DateCreated, oa.DateApproved, ''
          from ".$SourcePrefix."Addon oa
          join ".$DestPrefix."User na
             on oa.AuthUserID = na.ImportID");
