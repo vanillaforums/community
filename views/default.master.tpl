@@ -4,12 +4,13 @@
 <body id="{$BodyIdentifier|escape}" class="{$CssClass|escape}">
 <div class="Header">
 	<div class="container_12 clearfix">
-		<div class="grid_4">
+		<div class="grid_3">
 			<h1><a href="{url dest='/'}"><span>Vanilla</span></a></h1>
 		</div>
-		<div class="grid_8">
+		<div class="grid_9">
 			<ul>
 				<li class="Home">{anchor text="Home" destination="/"}</li>
+				<li class="Blog">{anchor text="Blog" destination="/blog"}</li>
 				<li class="Addons">{anchor text="Addons" destination="/addons"}</li>
 				<li>{anchor text="Forums" destination="/discussions"}</li>
 				<li>{anchor text="Documentation" destination="/docs"}</li>

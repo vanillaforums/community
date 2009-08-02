@@ -950,3 +950,22 @@ a.Close:hover {
    color: #999;
    background: #fff;
 }
+div.Hosting div.Host {
+   padding: 8px 12px;
+   margin: 0 0 10px;
+}
+div.Hosting div.Featured {
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border: 1px solid #fff997;
+   background: #fffbb5;
+}
+div.Hosting div.Host h4,
+div.Hosting div.Host p {
+   margin: 0 !important;
+   padding: 0 !important;
+}
+div.Hosting div.Host img {
+   float: right;
+   margin: 0 0 2px 8px;
+}
