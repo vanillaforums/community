@@ -18,7 +18,8 @@ class GetController extends VanillaForumsOrgController {
    public function Index($AddonID = '', $ServeFile = '0') {
       if ($this->Head) {
          $this->Head->AddScript('js/library/jquery.js');
-			$this->Head->AddScript('applications/vanillaforumsorg/js/get.js');
+			if ($ServeFile != '1')
+				$this->Head->AddScript('applications/vanillaforumsorg/js/get.js');
       }
 
 		// Define the item being downloaded
