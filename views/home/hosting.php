@@ -11,8 +11,9 @@
          <p>There are a bajillion hosting companies out there on the web, and finding the right place to host your Vanilla forum can be tough. Listed to the right are some of our recommended hosting partners that not only meet the Vanilla minimum requirements, but offer great service and support.</p>
          
          <p>If you do end up choosing one of the hosting companies listed on this page, you'll get all the benefits of working with a great hosting company, and they will donate a portion of your payment back to Vanilla and will help to keep Vanilla alive and well.</p>
-   
+   <!--
          <p>If you don't need the flexibility of a full web host, you should <a href="http://vanillaforums.com">consider signing up for a forum at VanillaForums.com</a>.</p>
+   -->
       </div>
       <div class="grid_6">
          <div class="Host Featured">
@@ -24,9 +25,9 @@
             <p style="color: #d00;">If you choose to sign up with Rackspace, be sure to enter our referral code: <strong>PTNR-VANILLA</strong></p>
          </div>
          <div class="Host">
-            <h4><a href="http://www.dreamhost.com/r.cgi?570354">BlueHost</a></h4>
+            <h4><a href="http://www.BlueHost.Com/track/vanilla">BlueHost</a></h4>
             <p>
-               <a href="http://www.dreamhost.com/r.cgi?570354"><img alt="DreamHost" src="<?php echo Asset('/applications/vanillaforumsorg/design/bluehost.gif'); ?>" /></a>
+               <a href="http://www.BlueHost.Com/track/vanilla"><img alt="DreamHost" src="<?php echo Asset('/applications/vanillaforumsorg/design/bluehost.gif'); ?>" /></a>
                "Unlimited disk storage, Unlimited monthly data transfer, host unlimited domains on 1 account, 1 free domain name for as long as you host with BlueHost, 2500 POP / WebMail addresses, 50 MySQL databases, free control panel, free Fantastico, free SimpleScripts, 24/7 network monitoring, 99% uptime guarantee, mirrored storage backups, no hidden fees, voted best support in 2004, 2005, 2006, 2007, and 2008!"
             </p>
          </div>

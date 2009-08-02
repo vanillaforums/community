@@ -122,6 +122,8 @@ a:hover {
    background: #daf4fd;   
    text-shadow:1px 1px 1px #fff; 
 }
+#vanillaforumsorg_get_index .Header ul li.Addons a,
+#vanillaforumsorg_get_index .Header ul li.Addons a:hover,
 #vanillaforumsorg_home_index .Header ul li.Home a,
 #vanillaforumsorg_home_index .Header ul li.Home a:hover,
 #vanillaforumsorg_addon_index .Header ul li.Addons a,
