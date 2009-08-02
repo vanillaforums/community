@@ -73,7 +73,7 @@ class AddonController extends VanillaForumsOrgController {
             );
          
             // Define the form for the comment input
-            $this->Form = new Form('Comment');
+            $this->Form = Gdn::Factory('Form', 'Comment');
             $this->Form->AddHidden('AddonID', $this->Addon->AddonID);
             $this->Form->AddHidden('CommentID', '');
             $this->Form->Action = Url('/addon/comment/');
