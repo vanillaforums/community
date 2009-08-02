@@ -110,7 +110,7 @@ if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
 				echo $this->SideMenu->ToString();
 			?>
 			<div class="Box DownloadBox">
-				<?php echo Anchor('Download', '/addon/get/'.$this->Addon->AddonID); ?>
+				<?php echo Anchor('Download', '/get/'.$this->Addon->AddonID); ?>
 				<dl>
 					<dt>Version</dt>
 					<dd><?php echo $this->Addon->Version.'&nbsp;'; ?></dd>

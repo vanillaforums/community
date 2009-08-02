@@ -73,7 +73,7 @@ class AddonController extends VanillaForumsOrgController {
             );
          
             // Define the form for the comment input
-            $this->Form = new Form('Comment');
+            $this->Form = Gdn::Factory('Form', 'Comment');
             $this->Form->AddHidden('AddonID', $this->Addon->AddonID);
             $this->Form->AddHidden('CommentID', '');
             $this->Form->Action = Url('/addon/comment/');
@@ -129,7 +129,7 @@ class AddonController extends VanillaForumsOrgController {
             $TmpFile = $Upload->ValidateUpload('File');
             $Extension = pathinfo($Upload->GetUploadedFileName(), PATHINFO_EXTENSION);
             
-            // Generate the target image name
+            // Generate the target file name
             $TargetFile = $Upload->GenerateTargetName(PATH_ROOT . DS . 'uploads', $Extension);
             $FileBaseName = pathinfo($TargetFile, PATHINFO_BASENAME);
             
@@ -481,6 +481,8 @@ class AddonController extends VanillaForumsOrgController {
       $this->Render();
    }
    
+   /*
+    Moved this to the GetController
    public function Get($AddonID = '') {
       $Addon = $this->AddonModel->GetID($AddonID);
       if (!$Addon)
@@ -497,4 +499,5 @@ class AddonController extends VanillaForumsOrgController {
       // Deliver the file
       Gdn_FileSystem::ServeFile('uploads/'.$Addon->File, Format::Url($Addon->Name.'-'.$Addon->Version));
    }
+   */
 }
