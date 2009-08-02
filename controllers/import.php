@@ -29,6 +29,7 @@ class ImportController extends VanillaForumsOrgController {
       $Step = is_numeric($Step) && $Step >= 0 && $Step < 30 ? $Step : '';
       $Database = Gdn::Database();
       $Construct = $Database->Structure();
+      $SQL = $Database->SQL();
       $SourcePrefix = Gdn::Config('Import.SourcePrefix', 'LUM_');
       $DestPrefix = Gdn::Config('Database.DatabasePrefix', '');
       if ($Step == 0) {
@@ -112,6 +113,8 @@ class ImportController extends VanillaForumsOrgController {
                if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
                   Redirect('/import/1');
             }
+         } else {
+            $this->Form->SetFormValue('SourcePrefix', $SourcePrefix);
          }
       } else if ($Step == 1) {
          // 1. Add Import IDs to various tables where necessary 
@@ -151,10 +154,35 @@ class ImportController extends VanillaForumsOrgController {
          $this->RedirectUrl = Url('/vanillaforumsorg/import/3');
       } else if ($Step == 3) {
          // 3. Import users
+         
+         // Grab the current admin user.
+         $AdminUser = $SQL->GetWhere('User', array('Admin' => 1))->FirstRow('', DATASET_TYPE_ARRAY);
+         // Delete the users.
+         $SQL->Delete('User', array('UserID <>' => 0)); // where kludge
+         
          $Database->Query("insert into ".$DestPrefix."User
          (UserID, Name, Password, Email, ShowEmail,    Gender, CountVisits, CountInvitations, InviteUserID, DiscoveryText, Preferences, Permissions, Attributes, DateSetInvitations, DateOfBirth, DateFirstVisit, DateLastActive, DateInserted,   DateUpdated,    HourOffset, About, CountNotifications, CountUnreadConversations, CountDiscussions, CountUnreadDiscussions, CountComments, CountDrafts, CountBookmarks) select
           UserID, Name, Password, Email, UtilizeEmail, 'm',    CountVisit,  0,                null,         Discovery,     null,        null,        null,       null,               null,        DateFirstVisit, DateLastActive, DateFirstVisit, DateLastActive, 0,          null,  0,                  0,                        CountDiscussions, 0,                      CountComments, 0,           0
          from ".$SourcePrefix."User");
+         
+         // Check to see if there is an existing user in the database that should now be root.
+         $User = $SQL->GetWhere('User', array('Name' => $AdminUser['Name']))->FirstRow('', DATASET_TYPE_ARRAY);
+         if(is_array($User)) {
+            $NewUserID = $User['UserID'];
+            $SQL->Put(
+               'User',
+               array(
+                  'Password' => $AdminUser['Password'],
+                  'Admin' => 1),
+               array('UserID' => $User['UserID']));
+         } else {
+            unset($AdminUser['UserID']);
+            $NewUserID = $SQL->Insert('User', $AdminUser);
+         }
+         
+         Gdn::Session()->UserID = $NewUserID;
+         Gdn::Session()->User->UserID = $NewUserID;
+         Gdn::Authenticator()->SetIdentity($NewUserID);
 
          $this->Message = Gdn::Translate('<strong>4/19</strong> Importing users.');
          $this->RedirectUrl = Url('/vanillaforumsorg/import/4');
@@ -309,6 +337,9 @@ class ImportController extends VanillaForumsOrgController {
          $this->Message = Gdn::Translate('<strong>12/19</strong> Finalizing conversations.');
          $this->RedirectUrl = Url('/vanillaforumsorg/import/12');
       } else if ($Step == 12) {
+         // Delete old categories.
+         $SQL->Delete('Category', array('CategoryID <>' => 0));
+         
          // 12. Import Categories
          $Database->Query("insert into ".$DestPrefix."Category
          (CategoryID, Name, Description, Sort, InsertUserID, UpdateUserID, DateInserted, DateUpdated)
@@ -319,6 +350,9 @@ class ImportController extends VanillaForumsOrgController {
          $this->RedirectUrl = Url('/vanillaforumsorg/import/13');
       } else if ($Step == 13) {
          // 13. Import Discussions
+         $Database->Query('alter table '.$SourcePrefix.'Discussion CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
+         $Database->Query('alter table '.$SourcePrefix.'Comment CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
+         
          $Database->Query("insert into ".$DestPrefix."Discussion
          (DiscussionID, CategoryID, InsertUserID, UpdateUserID, Name, CountComments, Closed, Announce, Sink, DateInserted, DateUpdated, DateLastComment)
          select DiscussionID, CategoryID, AuthUserID, LastUserID, Name, CountComments, Closed, Sticky, Sink, DateCreated, DateLastActive, DateLastActive
@@ -380,6 +414,8 @@ class ImportController extends VanillaForumsOrgController {
          left join ".$SourcePrefix."UserBookmark ob
             on ow.DiscussionID = ob.DiscussionID
             and ow.UserID = ob.UserID
+         left join ".$SourcePrefix."Discussion od
+            on od.DiscussionID = ow.DiscussionID
          where od.Active = '1'");
 
          $this->Message = Gdn::Translate('<strong>17/19</strong> Importing bookmarks & watch data.');
@@ -388,8 +424,8 @@ class ImportController extends VanillaForumsOrgController {
       } else if ($Step == 17) {
          // Import Addons
          $Database->Query("insert into ".$DestPrefix."Addon
-         (AddonID, AddonTypeID, InsertUserID, UpdateUserID, Name, Description, Visible, Vanilla2, DateInserted, DateUpdated)
-         select oa.AddOnID, oa.AddOnTypeID, nd.InsertUserID, nd.UpdateUserID, nd.Name, nc.Body, case oa.Hidden when '1' then '0' else '1' end, '0', oa.DateCreated, oa.DateUpdated
+         (AddonID, AddonTypeID, InsertUserID, UpdateUserID, Name, Description, Visible, Vanilla2, DateInserted, DateUpdated, CountDownloads)
+         select oa.AddOnID, oa.AddOnTypeID, nd.InsertUserID, nd.UpdateUserID, nd.Name, nc.Body, case oa.Hidden when '1' then '0' else '1' end, '0', oa.DateCreated, oa.DateUpdated, oa.CountDownloads
          from ".$SourcePrefix."Addon oa
          join ".$DestPrefix."Discussion nd
             on oa.DiscussionID = nd.DiscussionID
@@ -401,8 +437,8 @@ class ImportController extends VanillaForumsOrgController {
 
          // Import Addon Versions
          $Database->Query("insert into ".$DestPrefix."AddonVersion
-         (AddonID, File, Version, InsertUserID, DateInserted, DateReviewed)
-         select AddonID, FileUrl, Version, AuthUserID, DateCreated, DateApproved
+         (AddonID, File, Version, InsertUserID, DateInserted, DateReviewed, TestedWith)
+         select AddonID, FileUrl, Version, AuthUserID, DateCreated, DateApproved, ''
          from ".$SourcePrefix."Addon");
          
          // Update AddonVersion AddonID
@@ -418,6 +454,10 @@ class ImportController extends VanillaForumsOrgController {
          join ".$DestPrefix."Comment nc
             on nd.DiscussionID = nc.DiscussionID
          where nc.CommentID <> nd.FirstCommentID");
+         
+         // Update comment counts in the addons.
+         $Database->Query('update '.$DestPrefix.'Addon a
+         set CountComments = (select count(*) from '.$DestPrefix.'AddonComment ac where a.AddonID = ac.AddonID);');
          
          // Delete all addon comments
          $Database->Query("delete ".$DestPrefix."Comment c

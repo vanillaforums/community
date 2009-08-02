@@ -9,7 +9,7 @@ function WriteAddon($Addon, $Alt) {
 		if ($Addon->Icon != '')
 			echo '<a class="Icon" href="'.Url($Url).'"><img src="'.Url('uploads/ai'.$Addon->Icon).'" /></a>';
 
-		echo Anchor(SliceString(Format::Text($Addon->Description), 300), $Url);
+		echo Anchor(SliceString(Format::Html($Addon->Description), 300), $Url);
 		?>
 		<ul class="Meta">
 			<li class="<?php echo $Addon->Vanilla2 == '1' ? 'Vanilla2' : 'Vanilla1'; ?>">

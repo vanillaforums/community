@@ -80,6 +80,9 @@ class Gdn_AddonModel extends Gdn_Model {
    }
    
    public function Save($FormPostValues, $FileName = '') {
+      if(!$FormPostValues['Vanilla2'])
+         $FormPostValues['Vanilla2'] = '0';
+         
       $Session = Gdn::Session();
       
       // Define the primary key in this model's table.
