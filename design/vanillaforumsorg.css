@@ -185,6 +185,9 @@ p.Download a {
 p.Download a:hover {
    background: #00D410;
 }
+body.Addon {
+   margin-bottom: 30px;
+}
 body.Addon #Content img.Icon {
    float: left;
    margin: 6px 12px 12px 6px;

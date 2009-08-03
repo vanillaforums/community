@@ -24,7 +24,7 @@ class GetController extends VanillaForumsOrgController {
 
 		// Define the item being downloaded
 		if (strtolower($AddonID) == 'vanilla')
-			$AddonID = 1;
+			$AddonID = 465;
 			
 		// Find the requested addon
 		$this->Addon = $this->AddonModel->GetID($AddonID);

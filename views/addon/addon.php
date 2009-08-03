@@ -62,7 +62,7 @@ foreach ($this->CommentData->Result() as $Comment) {
 		</ul>
 		<?php
 		if ($Session->CheckPermission('Garden.Activity.Delete'))
-			echo Anchor('Delete', 'addon/deletecomment/'.$Comment->AddonCommentID.'/'.$Session->TransientKey().'?Return='.urlencode(Gdn_Url::Request()), 'DeleteComment');
+			echo Anchor('Delete', '/addon/deletecomment/'.$Comment->AddonCommentID.'/'.$Session->TransientKey().'?Return='.urlencode(Gdn_Url::Request()), 'DeleteComment');
 
 		?>
 		<div class="Body"><?php echo Format::To($Comment->Body, $Comment->Format); ?></div>

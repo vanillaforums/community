@@ -239,7 +239,6 @@ class AddonController extends VanillaForumsOrgController {
       if ($Addon->DateReviewed == '') {
          $VersionModel->Save(array('AddonVersionID' => $Addon->AddonVersionID, 'DateReviewed' => Format::ToDateTime()));
       } else {
-         echo 'saving';
          $VersionModel->Update(array('DateReviewed' => null), array('AddonVersionID' => $Addon->AddonVersionID));
       }
       
@@ -311,8 +310,9 @@ class AddonController extends VanillaForumsOrgController {
       if (is_numeric($CommentID))
          $this->AddonCommentModel->Delete($CommentID);
 
-      if ($this->_DeliveryType === DELIVERY_TYPE_ALL)
-         Redirect(GetIncomingValue('Return', Gdn_Url::WebRoot()));
+      if ($this->_DeliveryType === DELIVERY_TYPE_ALL) {
+         Redirect(Url(GetIncomingValue('Return', ''), TRUE));
+      }
          
       $this->View = 'notfound';
       $this->Render();
