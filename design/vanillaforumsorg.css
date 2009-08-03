@@ -180,6 +180,7 @@ p.Download a {
    text-shadow: 1px 1px 1px #00C400;
    padding: 15px 15px 10px;
    line-height: 1;
+   -moz-border-radius: 4px;
    -webkit-border-radius: 4px;
 }
 p.Download a:hover {
