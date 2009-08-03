@@ -24,7 +24,7 @@ try {
 var pageTracker = _gat._getTracker(\"UA-10052497-1\");
 pageTracker._trackPageview();
 } catch(err) {}</script>";
-      $Sender->AddAsset('Content', $Analytics);
+      $Sender->AddAsset('Footer', $Analytics, 'Analytics');
    }
 
    public function Setup() {
