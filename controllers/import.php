@@ -350,8 +350,8 @@ class ImportController extends VanillaForumsOrgController {
          $this->RedirectUrl = Url('/vanillaforumsorg/import/13');
       } else if ($Step == 13) {
          // 13. Import Discussions
-         $Database->Query('alter table '.$SourcePrefix.'Discussion CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
-         $Database->Query('alter table '.$SourcePrefix.'Comment CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
+         //$Database->Query('alter table '.$SourcePrefix.'Discussion CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
+         //$Database->Query('alter table '.$SourcePrefix.'Comment CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci');
          
          $Database->Query("insert into ".$DestPrefix."Discussion
          (DiscussionID, CategoryID, InsertUserID, UpdateUserID, Name, CountComments, Closed, Announce, Sink, DateInserted, DateUpdated, DateLastComment)
@@ -424,8 +424,8 @@ class ImportController extends VanillaForumsOrgController {
       } else if ($Step == 17) {
          // Import Addons
          $Database->Query("insert into ".$DestPrefix."Addon
-         (AddonID, AddonTypeID, InsertUserID, UpdateUserID, Name, Description, Visible, Vanilla2, DateInserted, DateUpdated, CountDownloads)
-         select oa.AddOnID, oa.AddOnTypeID, nd.InsertUserID, nd.UpdateUserID, nd.Name, nc.Body, case oa.Hidden when '1' then '0' else '1' end, '0', oa.DateCreated, oa.DateUpdated, oa.CountDownloads
+         (AddonVersionID, AddonID, AddonTypeID, InsertUserID, UpdateUserID, Name, Description, Visible, Vanilla2, DateInserted, DateUpdated, CountDownloads)
+         select oa.AddOnID, oa.AddOnID, oa.AddOnTypeID, nd.InsertUserID, nd.UpdateUserID, nd.Name, nc.Body, case oa.Hidden when '1' then '0' else '1' end, '0', oa.DateCreated, oa.DateUpdated, oa.CountDownloads
          from ".$SourcePrefix."Addon oa
          join ".$DestPrefix."Discussion nd
             on oa.DiscussionID = nd.DiscussionID
@@ -433,7 +433,7 @@ class ImportController extends VanillaForumsOrgController {
             on nd.FirstCommentID = nc.CommentID");
          
          // Update CurrentAddonVersionID
-         $Database->Query("update ".$DestPrefix."Addon set CurrentAddonVersionID = AddonID");
+         //$Database->Query("update ".$DestPrefix."Addon set CurrentAddonVersionID = AddonID");
 
          // Import Addon Versions
          $Database->Query("insert into ".$DestPrefix."AddonVersion
