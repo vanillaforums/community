@@ -15,7 +15,8 @@ class VanillaForumsOrgHooks implements Gdn_IPlugin {
    }
    
    public function Base_Render_Before(&$Sender) {
-      $Analytics = "<script type=\"text/javascript\">
+      if ($Sender->DeliveryType() == DELIVERY_TYPE_ALL) {
+         $Analytics = "<script type=\"text/javascript\">
 var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
 document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
 </script>
@@ -24,7 +25,8 @@ try {
 var pageTracker = _gat._getTracker(\"UA-10052497-1\");
 pageTracker._trackPageview();
 } catch(err) {}</script>";
-      $Sender->AddAsset('Footer', $Analytics, 'Analytics');
+         $Sender->AddAsset('Footer', $Analytics, 'Analytics');
+      }
    }
 
    public function Setup() {
