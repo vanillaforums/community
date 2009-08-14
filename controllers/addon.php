@@ -86,8 +86,7 @@ class AddonController extends VanillaForumsOrgController {
             
             $Session = Gdn::Session();
             if ($Session->UserID == $this->Addon->InsertUserID || $Session->CheckPermission('Addons.Addon.Edit')) {
-               $this->SideMenu = new Gdn_MenuModule($this);
-               $this->SideMenu->CssClass = 'SideMenu';
+               $this->SideMenu = new Gdn_SideMenuModule($this);
                $this->SideMenu->AddLink('Option1', 'Edit Details', '/addon/edit/'.$this->Addon->AddonID, FALSE, array('class' => 'Popup'));
                $this->SideMenu->AddLink('Option2', 'Upload New Version', '/addon/newversion/'.$this->Addon->AddonID, FALSE, array('class' => 'Popup'));
                $this->SideMenu->AddLink('Option3', 'Upload Screen', '/addon/addpicture/'.$this->Addon->AddonID, FALSE, array('class' => 'Popup'));

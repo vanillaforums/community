@@ -201,9 +201,6 @@ body.Addon #Content h2 {
 body.Addon .Panel {
    font-size: 90%;
 }
-body.Addon .SideMenu li a {
-   font-size: 90% !important;
-}
 .DownloadBox {
    background: #FFFFCC;
    color: #555;

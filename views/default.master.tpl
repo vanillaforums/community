@@ -12,7 +12,7 @@
 				<li class="Home">{anchor text="Home" destination="/"}</li>
 				<li class="Blog">{anchor text="Blog" destination="/blog"}</li>
 				<li class="Addons">{anchor text="Addons" destination="/addons"}</li>
-				<li>{anchor text="Forums" destination="/discussions"}</li>
+				<li>{anchor text="Community" destination="/discussions"}</li>
 				<li>{anchor text="Documentation" destination="/docs"}</li>
 				<li class="Hosting">{anchor text="Hosting" destination="/hosting"}</li>
 				<li class="Download">{anchor text="Download" destination="/download"}</li>
