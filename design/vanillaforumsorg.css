@@ -1,6 +1,7 @@
 @import url(reset.css);
 @import url(text.css);
 @import url(960.css);
+.grid_13 ul { float: right; }
 .Hidden {
    display: none;
 }

@@ -3,11 +3,11 @@
 {asset name='Head' tag='head'}
 <body id="{$BodyIdentifier|escape}" class="{$CssClass|escape}">
 <div class="Header">
-	<div class="container_12 clearfix">
+	<div class="container_16 clearfix">
 		<div class="grid_3">
 			<h1><a href="{url dest='/'}"><span>Vanilla</span></a></h1>
 		</div>
-		<div class="grid_9">
+		<div class="grid_13">
 			<ul>
 				<li class="Home">{anchor text="Home" destination="/"}</li>
 				<li class="Blog">{anchor text="Blog" destination="/blog"}</li>
