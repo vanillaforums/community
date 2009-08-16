@@ -144,4 +144,4 @@ if ($SQL->GetWhere('ActivityType', array('Name' => 'AddonComment'))->NumRows() =
 
 // People mentioning others in addon comments
 if ($SQL->GetWhere('ActivityType', array('Name' => 'AddonCommentMention'))->NumRows() == 0)
-   $SQL->Insert('ActivityType', array('AllowComments' => '0', 'Name' => 'AddonCommentMention', 'FullHeadline' => 'You mentioned %3$s in a %8$s.', 'ProfileHeadline' => '%1$s mentioned you in a %8$s.', 'RouteCode' => 'comment', 'Notify' => '1', 'Public' => '0'));
+   $SQL->Insert('ActivityType', array('AllowComments' => '0', 'Name' => 'AddonCommentMention', 'FullHeadline' => '%1$s mentioned %3$s in a %8$s.', 'ProfileHeadline' => '%1$s mentioned %3$s in a %8$s.', 'RouteCode' => 'comment', 'Notify' => '1', 'Public' => '0'));
