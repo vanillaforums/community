@@ -163,7 +163,7 @@ class AddonController extends VanillaForumsOrgController {
       $Session = Gdn::Session();
       $Addon = $this->AddonModel->GetID($AddonID);
       if (!$Addon)
-         return $this->ReDispatch('garden/home/filenotfound');
+         Redirect('garden/home/filenotfound');
          
       if ($Addon->InsertUserID != $Session->UserID)
          $this->Permission('Garden.Addon.Edit');

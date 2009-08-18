@@ -11,7 +11,7 @@
 				<li class="Highlight"><?php echo Anchor('Stable Download', '/download'); ?></li>
 				<li><?php echo Anchor('Beta Releases', '/page/BetaReleases'); ?></li>
 				<li><?php echo Anchor('Release Archive', '/page/ReleaseArchive'); ?></li>
-				<li><?php echo Anchor('GitHub Access', '/page/GitHubAccess'); ?></li>
+				<li><?php echo Anchor('GitHub Access', '/page/GitHub'); ?></li>
 			</ul>
 		</div>
 		<div class="grid_9">
