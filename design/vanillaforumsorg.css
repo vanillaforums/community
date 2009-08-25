@@ -212,10 +212,10 @@ body.Addon .Panel {
    -moz-border-radius: 4px;
    -webkit-border-radius: 4px;
 }
-.DownloadBox a,
-.DownloadBox a:link,
-.DownloadBox a:active,
-.DownloadBox a:visited {
+.DownloadBox a.Download,
+.DownloadBox a.Download:link,
+.DownloadBox a.Download:active,
+.DownloadBox a.Download:visited {
    line-height: 1;
    display: block;
    -moz-border-radius:4px;
@@ -229,7 +229,7 @@ body.Addon .Panel {
    text-align: center;
    text-shadow: 1px 1px 1px #00C400;
 }
-.DownloadBox a:hover {
+.DownloadBox a.Download:hover {
    background: #00c80e;
    text-shadow: 1px 1px 1px #00a400;
 }
