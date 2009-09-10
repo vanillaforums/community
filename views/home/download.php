@@ -15,11 +15,11 @@
 			</ul>
 		</div>
 		<div class="grid_9">
-			<h4>The latest stable release of Vanilla (version 1.1.8) is available in ZIP format below. If you have no idea what
+			<h4>The latest stable release of Vanilla (version 1.1.9) is available in ZIP format below. If you have no idea what
 			to do with this download, <a href="http://vanillaforums.com">we recommend getting an account at VanillaForums.com</a>
 			and letting us take care of that stuff for you.</h4>
 			
-			<p class="Download"><?php echo Anchor('Download Vanilla 1.1.8', '/get/Vanilla'); ?></p>
+			<p class="Download"><?php echo Anchor('Download Vanilla 1.1.9', '/get/Vanilla'); ?></p>
 			
 			<h3>Next?</h3>
 			<p>Check out our <?php echo Anchor('guide to installing Vanilla', '/page/InstallationInstructions'); ?>
