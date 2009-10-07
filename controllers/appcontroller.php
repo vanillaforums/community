@@ -8,7 +8,7 @@ You should have received a copy of the GNU General Public License along with Gar
 Contact Mark O'Sullivan at mark [at] lussumo [dot] com
 */
 
-class VanillaForumsOrgController extends Gdn_Controller {
+class VFOrgController extends Gdn_Controller {
    
    public function __construct() {
       parent::__construct();
@@ -23,7 +23,7 @@ class VanillaForumsOrgController extends Gdn_Controller {
          ));
       }
          
-      $this->AddCssFile('vanillaforumsorg.css');
+      $this->AddCssFile('vforg.css');
       parent::Initialize();
    }
 }

@@ -9,7 +9,7 @@ Contact Mark O'Sullivan at mark [at] lussumo [dot] com
 */
 
 
-class VanillaForumsOrgHooks implements Gdn_IPlugin {
+class VFOrgHooks implements Gdn_IPlugin {
    public function Controller_Event_Handler($Sender) {
       // Do something
    }

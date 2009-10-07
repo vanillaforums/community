@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class HomeController extends VanillaForumsOrgController {
+class HomeController extends VFOrgController {
    
    public function Index() {
       $this->AddCssFile('splash.css');

@@ -23,22 +23,20 @@ class SetupController extends Gdn_Controller {
    public function Index() {
       $Database = Gdn::Database();
       $Config = Gdn::Factory(Gdn::AliasConfig);
-      $Drop = Gdn::Config('VanillaForumsOrg.Version') === FALSE ? TRUE : FALSE;
+      $Drop = Gdn::Config('VFOrg.Version') === FALSE ? TRUE : FALSE;
       $Explicit = TRUE;
       $Validation = new Gdn_Validation(); // This is going to be needed by structure.php to validate permission names
       try {
-         include(PATH_APPLICATIONS . DS . 'vanillaforumsorg' . DS . 'settings' . DS . 'structure.php');
+         include(PATH_APPLICATIONS . DS . 'vforg' . DS . 'settings' . DS . 'structure.php');
       } catch (Exception $ex) {
          $this->Form->AddError(strip_tags($ex->getMessage()));
       }
       
       if ($this->Form->ErrorCount() == 0) {
          $ApplicationInfo = array();
-         include(CombinePaths(array(PATH_APPLICATIONS . DS . 'vanillaforumsorg' . DS . 'settings' . DS . 'about.php')));
-         $Version = ArrayValue('Version', ArrayValue('VanillaForumsOrg', $ApplicationInfo, array()), 'Undefined');
-         $Config->Load(PATH_CONF . DS . 'config.php', 'Save');
-         $Config->Set('VanillaForumsOrg.Version', $Version);
-         $Config->Save();
+         include(CombinePaths(array(PATH_APPLICATIONS . DS . 'vforg' . DS . 'settings' . DS . 'about.php')));
+         $Version = ArrayValue('Version', ArrayValue('VFOrg', $ApplicationInfo, array()), 'Undefined');
+         SaveToConfig('VFOrg.Version', $Version);
       }
       
       return $this->Form->ErrorCount() > 0 ? FALSE : TRUE;

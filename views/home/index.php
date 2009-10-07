@@ -4,7 +4,7 @@
       <div class="grid_6">
          <?php
             echo Img(
-               '/applications/vanillaforumsorg/design/splash-img2.png',
+               '/applications/vforg/design/splash-img2.png',
                array(
                   'alt' => 'Vanilla Screenshot'
                )

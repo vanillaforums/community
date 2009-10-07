@@ -1,6 +1,6 @@
 <?php
 
-$ApplicationInfo['VanillaForumsOrg'] = array(
+$ApplicationInfo['VFOrg'] = array(
    'Name' => 'VanillaForums.org',
    'Description' => "The VanillaForums.org website.",
    'Version' => '1.0',

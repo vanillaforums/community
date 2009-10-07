@@ -123,12 +123,12 @@ a:hover {
    background: #daf4fd;   
    text-shadow:1px 1px 1px #fff; 
 }
-#vanillaforumsorg_get_index .Header ul li.Addons a,
-#vanillaforumsorg_get_index .Header ul li.Addons a:hover,
-#vanillaforumsorg_home_index .Header ul li.Home a,
-#vanillaforumsorg_home_index .Header ul li.Home a:hover,
-#vanillaforumsorg_addon_index .Header ul li.Addons a,
-#vanillaforumsorg_addon_index .Header ul li.Addons a:hover,
+#vforg_get_index .Header ul li.Addons a,
+#vforg_get_index .Header ul li.Addons a:hover,
+#vforg_home_index .Header ul li.Home a,
+#vforg_home_index .Header ul li.Home a:hover,
+#vforg_addon_index .Header ul li.Addons a,
+#vforg_addon_index .Header ul li.Addons a:hover,
 body.Addon .Header ul li.Addons a,
 body.Addon .Header ul li.Addons a:hover,
 body.hosting .Header ul li.Hosting a,

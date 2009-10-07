@@ -11,7 +11,7 @@ Contact Mark O'Sullivan at mark [at] lussumo [dot] com
 /**
  * MessagesController handles displaying lists of conversations and conversation messages.
  */
-class ContributorsController extends VanillaForumsOrgController {
+class ContributorsController extends VFOrgController {
    
    public $Uses = array('Form', 'Database');
    

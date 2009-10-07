@@ -11,7 +11,7 @@ Contact Mark O'Sullivan at mark [at] lussumo [dot] com
 /**
  * Vanilla 1 to Vanilla 2 Importer.
  */
-class ImportController extends VanillaForumsOrgController {
+class ImportController extends VFOrgController {
    
    public $Uses = array('Form');
    
@@ -101,10 +101,7 @@ class ImportController extends VanillaForumsOrgController {
             // If there were no errors...
             if ($this->Form->ErrorCount() == 0) {
                // Save the sourceprefix
-               $Config = Gdn::Factory(Gdn::AliasConfig);
-               $Config->Load(PATH_CONF . DS . 'config.php', 'Save');
-               $Config->Set('Garden.Import.SourcePrefix', $SourcePrefix);
-               $Config->Save();
+               SaveToConfig('Garden.Import.SourcePrefix', $SourcePrefix);
                
                // Proceed with the next step
                $this->Message = Gdn::Translate('<strong>1/19</strong> Checking source & destination tables.');
@@ -585,10 +582,7 @@ class ImportController extends VanillaForumsOrgController {
             // If there were no errors...
             if ($this->Form->ErrorCount() == 0) {
                // Save the sourceprefix
-               $Config = Gdn::Factory(Gdn::AliasConfig);
-               $Config->Load(PATH_CONF . DS . 'config.php', 'Save');
-               $Config->Set('Garden.Import.SourcePrefix', $SourcePrefix);
-               $Config->Save();
+               SaveToConfig('Garden.Import.SourcePrefix', $SourcePrefix);
                
                // Proceed with the next step
                $this->Message = Gdn::Translate('<strong>1/19</strong> Checking source & destination tables.');
