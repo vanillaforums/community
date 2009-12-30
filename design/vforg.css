@@ -278,10 +278,10 @@ div.Testing h3 {
    padding: 0 6px;
    margin: 20px 0 0;
 }
-#vanillaforumsorg_addon_index #Content h2 {
+#vforg_addon_index #Content h2 {
    margin: 40px 0 0;
 }
-#vanillaforumsorg_addon_index #Content .Warning {
+#vforg #Content .Warning {
    background: #FF0063;
    color: #fff;
    padding: 8px;
@@ -587,7 +587,7 @@ li.Empty,
    border-bottom: 1px solid #ddd;
    margin-bottom: 1px;
 }
-#vanillaforumsorg_addon_browse li.Empty {
+#vforg_addon_browse li.Empty {
    border-bottom: 0; 
 }
 #Discussion {
