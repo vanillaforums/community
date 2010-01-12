@@ -3,7 +3,6 @@
 class HomeController extends VFOrgController {
    
    public function Index() {
-      $this->AddCssFile('splash.css');
       $this->Render();
    }
    

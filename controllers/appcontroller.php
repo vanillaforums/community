@@ -23,6 +23,7 @@ class VFOrgController extends Gdn_Controller {
          ));
       }
          
+      $this->AddCssFile('style.css');
       $this->AddCssFile('vforg.css');
       parent::Initialize();
    }
