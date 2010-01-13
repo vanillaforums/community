@@ -8,11 +8,11 @@
 	</ul>
 </div>
 <div class="DownloadInfo">
-	<p><strong>The latest stable release of Vanilla (version 1.1.9) is available in ZIP format below. If you have no idea what
+	<p><strong>The latest stable release of Vanilla (version 1.1.10) is available in ZIP format below. If you have no idea what
 	to do with this download, <a href="http://vanillaforums.com">we recommend getting an account at VanillaForums.com</a>
 	and letting us take care of that stuff for you.</strong></p>
 	
-	<p class="ChunkyButton"><?php echo Anchor('Download Vanilla 1.1.9', '/get/Vanilla'); ?></p>
+	<p class="ChunkyButton"><?php echo Anchor('Download Vanilla 1.1.10', '/get/Vanilla'); ?></p>
 	
 	<h4>Next?</h4>
 	<p>Check out our <?php echo Anchor('guide to installing Vanilla', '/page/InstallationInstructions'); ?>
