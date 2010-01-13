@@ -20,4 +20,7 @@
 	<?php echo Anchor('instructions for that, too', '/page/UpgradeInstructions'); ?>. If you run into any issues
 	while getting set up, <?php echo Anchor('visit our forums', '/discussions'); ?> where our active and friendly
 	community of users and developers volunteer their time to help you out.</p>
+	
+	<h4 style="padding-top: 20px;">Looking for Vanilla 2?</h4>
+	<p>If you're looking for Vanilla 2, you can <a href="http://github.com/lussumo/Garden/tree/master">get the most recent development version from our repository at GitHub</a>.</p>
 </div>
