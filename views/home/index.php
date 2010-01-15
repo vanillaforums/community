@@ -10,7 +10,6 @@
             'alt' => 'Vanilla Screenshot'
          )
       );
-      
    ?>
    <div>
       <h1>The <em>sweetest</em> forum on the web.</h1>
