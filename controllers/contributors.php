@@ -36,7 +36,7 @@ class ContributorsController extends VFOrgController {
    }   
 
    public function Signed() {
-		$this->UserData = $this->Database->SQL()->Select()->From('User')->Where('DateContributorAgreement <>', '')->Get();
+		$this->UserData = $this->Database->SQL()->Select()->From('User')->Where('DateContributorAgreement <>', '')->OrderBy('DateContributorAgreement', 'asc')->Get();
       $this->Render();
    }   
 }
