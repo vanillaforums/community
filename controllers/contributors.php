@@ -26,7 +26,7 @@ class ContributorsController extends VFOrgController {
 		} else {
 			if ($this->Form->AuthenticatedPostBack() && $this->Form->GetFormValue('Agree', '') == '1') {
 				$this->Database->Structure()->Table('User')
-				   ->Column('DateContributorAgreement', 'datetime', '', TRUE)
+				   ->Column('DateContributorAgreement', 'datetime', TRUE)
 					->Set(FALSE, FALSE);
 				$this->Database->SQL()->Update('User')->Set('DateContributorAgreement', Format::ToDateTime(), TRUE, FALSE)->Where('UserID', $Session->UserID)->Put();
 				$this->View = 'done';

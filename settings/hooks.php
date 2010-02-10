@@ -14,21 +14,6 @@ class VFOrgHooks implements Gdn_IPlugin {
       // Do something
    }
    
-   public function Base_Render_Before(&$Sender) {
-      if ($Sender->DeliveryType() == DELIVERY_TYPE_ALL) {
-         $Analytics = "<script type=\"text/javascript\">
-var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
-document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
-</script>
-<script type=\"text/javascript\">
-try {
-var pageTracker = _gat._getTracker(\"UA-10052497-1\");
-pageTracker._trackPageview();
-} catch(err) {}</script>";
-         $Sender->AddAsset('Footer', $Analytics, 'Analytics');
-      }
-   }
-
    public function Setup() {
       
    }
