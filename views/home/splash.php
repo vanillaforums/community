@@ -10,7 +10,7 @@
          <?php
             echo Anchor(
                Img('/themes/vanillaforumsorg/design/icons/promotion_new_48.png')
-               ."If you are a business owner, brand manager, or a non- technical person and you want your community up and running in just a few moments hassle-free, click here for free Vanilla Forum hosting.",
+               ."If you are a business owner, brand manager, or a non- technical person and you want your community up and running in just a few minutes, click here.",
                'http://vanillaforums.com'
             );
          ?>
@@ -19,7 +19,7 @@
          <?php
             echo Anchor(
                Img('/themes/vanillaforumsorg/design/icons/down_48.png')
-               ."If you are an IT manager, a developer, or a do-it-yourselfer and want to install Vanilla Forums in your own environtment, click here for the open source download.",
+               ."If you are an IT manager, developer, or a do-it-yourselfer and want to install Vanilla Forums in your own environment, click here.",
                '/vforg/home/index'
             );
          ?>
