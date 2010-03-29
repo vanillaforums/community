@@ -2,8 +2,10 @@
 <div class="Splash">
    <div>
       <h1>The <em>sweetest</em> forum on the web.</h1>
-      <h2>Over 300,000 people use Vanilla to build community around their website, brand, or business. For free.</h2>
+      <h2>Over 300,000 customers use Vanilla to grow community around their website, brand, or business. For free.</h2>
+      <!--
       <h3>Vanilla is an open-source, standards-compliant, international, customizable, simple, free discussion forum for the web.</h3>
+      -->
       <div class="Download">
          <p>If you are an IT manager, a developer, or a do-it-yourselfer and you have web space, technical know-how, and gumption, click here for the free downloadable version of Vanilla Forums.</p>
          <?php
