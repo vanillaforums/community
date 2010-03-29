@@ -7,13 +7,13 @@
       <?php
          echo Anchor(
             Img('/themes/vanillaforumsorg/design/icons/down.png')
-            ."If you are an IT manager, a developer, or a do-it-yourself'er and you have web space, technical know-how, and gumption, click here for the free, downloadable version of Vanilla Forums.",
+            ."If you are an IT manager, a developer, or a do-it-yourselfer and you have web space, technical know-how, and gumption, click here for the free downloadable version of Vanilla Forums.",
             '/home/index',
             'Download'
          );
          echo Anchor(
             Img('/themes/vanillaforumsorg/design/icons/promotion_new.png')
-            ."If you are a business owner, brand manager, or a non-tech person and you want to have your community up and running in just a few moments with no hassles, click here for free Vanilla Forum hosting.",
+            ."If you are a business owner, brand manager, or a non- technical person and you want your community up and running in just a few moments hassle-free, click here for free Vanilla Forum hosting.",
             'http://vanillaforums.com',
             'Host'
          );
