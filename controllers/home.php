@@ -16,4 +16,11 @@ class HomeController extends VFOrgController {
       $this->Render();
    }
    
+   public function Splash() {
+      $this->MasterView = 'splash';
+      $this->ClearCssFiles();
+      $this->AddCssFile('splash.css');
+      $this->Render();
+   }
+   
 }

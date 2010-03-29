@@ -1,21 +1,3 @@
-#Splash {
-   border-top: 1px solid #fff;
-   border-bottom:1px solid #C0E7F5;
-   background: #dcf5fe url('slicesplash.jpg') no-repeat top center;
-   font-size: 17px;
-   color:#076C8E;
-   padding:50px 0;
-   text-shadow:0 1px 0 #FFFFFF;
+body {
+	background: url('shine.jpg') top center no-repeat #2a529a;
 }
-img {
-   border: 1px solid #C0E7F5;
-}
-h2 {
-   font-weight: bold;
-   font-size: 19px;
-   text-shadow: 1px 1px 1px #fff;
-}
-strong {
-   border-bottom: 1px dotted #076C8E;
-}
-
