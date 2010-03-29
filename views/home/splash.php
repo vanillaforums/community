@@ -9,16 +9,16 @@
       <div class="Host">
          <?php
             echo Anchor(
-               Img('/themes/vanillaforumsorg/design/icons/promotion_new_48.png')
-               ."If you are a business owner, brand manager, or a non- technical person and you want your community up and running in just a few minutes, click here.",
-               'http://vanillaforums.com'
+               Img('/themes/vanillaforumsorg/design/icons/promotion_new.png')
+               ."If you are a business owner, brand manager, or a non-technical person and you want your community running in just a few minutes, click here.",
+               'http://vanillaforums.com/info/features'
             );
          ?>
       </div>
       <div class="Download">
          <?php
             echo Anchor(
-               Img('/themes/vanillaforumsorg/design/icons/down_48.png')
+               Img('/themes/vanillaforumsorg/design/icons/down.png')
                ."If you are an IT manager, developer, or a do-it-yourselfer and want to install Vanilla Forums in your own environment, click here.",
                '/vforg/home/index'
             );
