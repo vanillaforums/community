@@ -8,9 +8,6 @@ You should have received a copy of the GNU General Public License along with Gar
 Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 */
 
-/**
- * MessagesController handles displaying lists of conversations and conversation messages.
- */
 class ContributorsController extends VFOrgController {
    
    public $Uses = array('Form', 'Database');
@@ -28,7 +25,7 @@ class ContributorsController extends VFOrgController {
 				$this->Database->Structure()->Table('User')
 				   ->Column('DateContributorAgreement', 'datetime', TRUE)
 					->Set(FALSE, FALSE);
-				$this->Database->SQL()->Update('User')->Set('DateContributorAgreement', Format::ToDateTime(), TRUE, FALSE)->Where('UserID', $Session->UserID)->Put();
+				$this->Database->SQL()->Update('User')->Set('DateContributorAgreement', Gdn_Format::ToDateTime(), TRUE, FALSE)->Where('UserID', $Session->UserID)->Put();
 				$this->View = 'done';
 			}
 		}

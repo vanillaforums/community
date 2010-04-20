@@ -17,7 +17,7 @@ foreach ($this->UserData->Result() as $User) {
 		?>
 		<tr>
 			<td><?php echo $User->Name; ?></td>
-			<td><?php echo date("m/d/y", Format::ToTimeStamp($User->DateContributorAgreement)); ?></td>
+			<td><?php echo date("m/d/y", Gdn_Format::ToTimeStamp($User->DateContributorAgreement)); ?></td>
 		</tr>
 		<?php
 }

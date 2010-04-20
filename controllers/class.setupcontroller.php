@@ -8,9 +8,6 @@ You should have received a copy of the GNU General Public License along with Gar
 Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 */
 
-/// <summary>
-/// Setup Controller
-/// </summary>
 class SetupController extends Gdn_Controller {
    
    public $Uses = array('Form');
