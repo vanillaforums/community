@@ -1,21 +1,36 @@
 <?php if (!defined('APPLICATION')) exit(); ?>
 <div class="Splash">
-   <?php
-      $Number = RandomString(1, '0123456');
-      $Images = array('discussion', 'discussions', 'themes', 'users', 'dashboard', 'profile');
-      $Image = $Images[$Number];
-      echo Img(
-         '/applications/vforg/design/screen_'.$Image.'.jpg',
-         array(
-            'alt' => 'Vanilla Screenshot'
-         )
-      );
-   ?>
-   <div>
-      <h1>The <em>sweetest</em> forum on the web.</h1>
-      <h2>Vanilla is an open-source, standards-compliant, multi-lingual, theme-able, pluggable discussion forum for the web.</h2>
-      <p>With over 450 plugins so far, Vanilla is ideal for custom community solutions. Vanilla has been adopted by over <strong>300,000</strong> businesses, brands, and fans.</p>
-      <p class="ChunkyButton"><?php echo Anchor('Download Vanilla', '/download/', 'DownloadVanilla'); ?></p>
-      <p class="Option">↳ Or let us host it for you at <a href="http://vanillaforums.com">VanillaForums.com</a></p>
+   <div class="SplashMessage">
+      <h2>The simple way to grow online communities.</h2>
+      <p>
+         <i class="Sprite SpriteScreen"></i>
+         Vanilla is an open-source, standards-compliant, multi-lingual, theme-able, pluggable community forum.
+      </p>
+      <p>
+         <i class="Sprite SpriteSmile"></i>
+         Over <span>350,000</span> sites use Vanilla Forums to manage feedback, spark discussion, and make customers smile.
+      </p>
+      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla 2.0; 1.1mb; Released July 21, 2010', 'download', 'Get'); ?>
+   </div>
+   <div class="SplashPreview">
+      <div class="Window">
+         <div class="Reel">
+         <?php
+            $Images = array('screen-1.png', 'screen-2.png', 'screen-3.png', 'screen-4.png', 'screen-5.png');
+            for ($i = 0; $i < count($Images); $i++) {
+               echo Img('/applications/vforg/design/images/'.$Images[$i], array('alt' => 'Vanilla Screenshot', 'height' => '361', 'width' => '539'));
+            }
+         ?>
+         </div>
+      </div>
+      <div class="ScreenNav">
+      <?php
+         $On = 'On';
+         for ($i = 0; $i < count($Images); $i++) {
+            echo Anchor('<i class="Sprite Sprite'.($i+1).' SpriteDot SpriteDot'.$On.'"></i>', '#', array('rel' => $i+1));
+            $On = 'Off';
+         }
+      ?>
+      </div>
    </div>
 </div>

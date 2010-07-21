@@ -11,8 +11,31 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 class HomeController extends VFOrgController {
    
    public function Index() {
-      $this->AddJsFile('js/library/jquery.js');
+      // If the user does not have an active session, or they have not yet viewed the "chooser", redirect them to it.
+      /*
+      $Session = Gdn::Session();
+      $ViewedChooser = ArrayValue('VanillaViewedChooser', $_COOKIE);
+      if (!$Session->IsValid() && !$ViewedChooser)
+         Redirect('/choose');
+      */
+      
+      $this->AddJsFile('jquery.js');
       $this->AddJsFile('home.js');
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/gothamround.font.js');
+      $this->Head->AddString("
+<script type=\"text/javascript\">
+   Cufon.replace('h2', {
+      fontFamily: 'Archer',
+      textShadow: '0px 1px 1px #ffffff;'
+   });
+   Cufon.replace('a.Get strong', {
+      fontFamily: 'Archer',
+      textShadow: '0px 1px 1px #00007e;'
+   });
+</script>");      
+      
       $this->Render();
    }
    
@@ -20,15 +43,31 @@ class HomeController extends VFOrgController {
       $this->Render();
    }
    
-   public function Download() {
+   public function Get() {
       $this->Render();
+   }
+   
+   public function Download() {
+      Redirect('download');
    }
    
    public function Splash() {
+      /*
       $this->MasterView = 'splash';
       $this->ClearCssFiles();
       $this->AddCssFile('splash.css');
+      */
       $this->Render();
    }
-   
+
+/*
+   public function Choose() {
+      $this->Title('Vanilla Forums - Free Forum Software');
+      setcookie('VanillaViewedChooser', 'TRUE', time()+60*60*24*300, C('Garden.Cookie.Path'), C('Garden.Cookie.Domain')); // Expire in 300 days
+      $this->MasterView = 'choose';
+      $this->ClearCssFiles();
+      $this->AddCssFile('choose.css');
+      $this->Render();
+   }
+*/   
 }

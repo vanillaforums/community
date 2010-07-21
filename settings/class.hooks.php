@@ -17,7 +17,7 @@ class VFOrgHooks implements Gdn_IPlugin {
    public function Setup() {
       $Database = Gdn::Database();
       $Config = Gdn::Factory(Gdn::AliasConfig);
-      $Drop = Gdn::Config('VFOrg.Version') === FALSE ? TRUE : FALSE;
+      $Drop = FALSE;  // Gdn::Config('VFOrg.Version') === FALSE ? TRUE : FALSE;
       $Explicit = TRUE;
       $Validation = new Gdn_Validation(); // This is going to be needed by structure.php to validate permission names
       include(PATH_APPLICATIONS . DS . 'vforg' . DS . 'settings' . DS . 'structure.php');

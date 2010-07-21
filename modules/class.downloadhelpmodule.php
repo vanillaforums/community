@@ -7,8 +7,11 @@ Garden is distributed in the hope that it will be useful, but WITHOUT ANY WARRAN
 You should have received a copy of the GNU General Public License along with Garden.  If not, see <http://www.gnu.org/licenses/>.
 Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 */
-$Database->Structure()->Table('Newsletter')
-   ->PrimaryKey('NewsletterID')
-	->Column('Email', 'varchar(200)', NULL)
-   ->Column('Subscribe', 'tinyint(1)', '0')
-	->Set($Explicit, $Drop);
+
+class DownloadHelpModule extends Gdn_Module {
+   
+   public function AssetTarget() {
+      return 'Panel';
+   }
+   
+}

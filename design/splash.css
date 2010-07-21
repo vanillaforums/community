@@ -1,3 +1,93 @@
 body {
 	background: url('shine.jpg') top center no-repeat #2a529a;
+	text-align: center;
+}
+#Frame {
+	width: 700px;
+	margin: 0 auto;
+	text-align: left;
+}
+#Head h1 a {
+	margin: 10px 0 0;
+   display: block;
+   height: 100px;
+   width: 236px;
+   background: url('vanilla_logo.png') center center no-repeat;
+	float: left;
+}
+#Head h1 a span {
+   display: none;
+}
+#Content {
+	font-family: 'lucida grande','Lucida Sans Unicode', Tahoma, sans-serif;
+}
+#Content h1 {
+	font-family: arial;
+	font-size: 28px;
+	color: #fff;
+	text-shadow: 0 2px 4px #333;
+	margin: 0;
+	padding: 72px 0 0 250px;
+}
+#Content h1 em {
+	font-style: normal;
+	color: #ff8000;
+}
+#Content h2 {
+	font-size: 24px;
+	color: #ffd;
+	text-shadow: 0 0 6px #111;
+	margin: 60px 0 80px;
+	padding: 0;
+}
+#Content h3 {
+	font-size: 16px;
+	color: #eec;
+	text-shadow: 0 0 6px #111;
+	margin: 0 0 50px;
+	padding: 0;
+}
+div.Download {
+	width: 300px;
+	float: right;
+}
+div.Host {
+	width: 300px;
+	float: left;
+}
+#Content a {
+	display: block;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	/* border: 2px solid #181a79; */
+	text-decoration: none;
+	padding: 12px;
+	margin: 0;
+	box-shadow: 0px 0px 10px #222;
+	-moz-box-shadow: 0px 0px 10px #222;
+	-webkit-box-shadow: 0px 0px 10px #222;
+	font-size: 14px;
+	font-weight: bold;
+	background: url('blue_button_bg.jpg') top left repeat-x #181a79;
+	color: #ffd;
+	line-height: 1.6;
+	text-shadow: 0 1px 0 #000;
+}
+#Content a:hover {
+	color: #fff;
+	box-shadow: 0px 0px 10px #000;
+	-moz-box-shadow: 0px 0px 10px #000;
+	-webkit-box-shadow: 0px 0px 10px #000;
+}
+#Content a:focus {
+	color: #ffd;
+	background: #3134a1;
+	box-shadow: 0px 0px 5px #000;
+	-moz-box-shadow: 0px 0px 5px #000;
+	-webkit-box-shadow: 0px 0px 5px #000;
+}
+#Content a img {
+	border: 0;
+	padding-left: 10px;
+	float: right;
 }
