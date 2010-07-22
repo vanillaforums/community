@@ -76,7 +76,15 @@ class DownloadController extends VFOrgController {
       $this->Render();
    }
    
-   public function Get($Version = '') {
+   public function Get($Version = '', $Serve = '0') {
+      if (InArrayI($Version, array('nightly', 'unstable'))) {
+         Redirect('http://github.com/vanillaforums/Garden/archives/unstable');
+         return;
+      }
+      
+      if ($Serve == '1')
+			$this->AddJsFile('get.js');      
+      
       // Serve the zip
 		$AddonID = 465;
 
@@ -88,7 +96,7 @@ class DownloadController extends VFOrgController {
 			$this->Addon->Name = 'Not Found';
 			$this->Addon->Version = 'undefined';
 			$this->Addon->File = '';
-      } else {
+      } else if ($ServeFile == '1') {
          // Record this download
          $this->Database->SQL()->Insert('Download', array(
             'AddonID' => $this->Addon->AddonID,
@@ -102,5 +110,9 @@ class DownloadController extends VFOrgController {
       
       $this->AddModule('DownloadHelpModule');      
       $this->Render();
+   }   
+
+   public function Nightly() {
+      $this->Get('nightly');
    }   
 }
