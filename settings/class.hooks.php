@@ -10,8 +10,9 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 
 
 class VFOrgHooks implements Gdn_IPlugin {
-   public function Controller_Event_Handler($Sender) {
-      // Do something
+   public function Base_Render_Before($Sender) {
+      if ($Sender->Application == 'Vanilla')
+         $Sender->AddModule('SignedInModule');
    }
    
    public function Setup() {
