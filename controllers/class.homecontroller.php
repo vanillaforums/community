@@ -34,12 +34,27 @@ class HomeController extends VFOrgController {
       fontFamily: 'Archer',
       textShadow: '0px 1px 1px #00007e;'
    });
-</script>");      
+</script>");
       
       $this->Render();
    }
    
    public function Hosting() {
+      $this->Render();
+   }
+   
+   public function Features() {
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
+      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/gothamround.font.js');
+      $this->Head->AddString("
+<script type=\"text/javascript\">
+   Cufon.replace('#Features h2, #Features h4', {
+      fontFamily: 'Archer',
+      textShadow: '0px 1px 1px #ffffff;'
+   });
+</script>");      
+
       $this->Render();
    }
    
