@@ -98,7 +98,7 @@ class DownloadController extends VFOrgController {
 			$this->Addon->Name = 'Not Found';
 			$this->Addon->Version = 'undefined';
 			$this->Addon->File = '';
-      } else if ($ServeFile == '1') {
+      } else if ($Serve == '1') {
          // Record this download
          $this->Database->SQL()->Insert('Download', array(
             'AddonID' => $this->Addon->AddonID,
