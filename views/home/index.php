@@ -10,7 +10,7 @@
          <i class="Sprite SpriteSmile"></i>
          Over <span>350,000</span> sites use Vanilla Forums to manage feedback, spark discussion, and make customers smile.
       </p>
-      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla 2.0; 1.1mb; Released July 21, 2010', 'download', 'Get'); ?>
+      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla 2.0; Released July 21, 2010', 'download', 'Get'); ?>
    </div>
    <div class="SplashPreview">
       <div class="Window">
