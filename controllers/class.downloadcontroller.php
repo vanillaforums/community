@@ -82,7 +82,7 @@ class DownloadController extends VFOrgController {
          return;
       }
       
-      if ($Serve == '1') {
+      if ($Serve != '1') {
          $this->AddJsFile('jquery.js');
 			$this->AddJsFile('get.js');      
       }
