@@ -37,7 +37,11 @@ class DownloadController extends VFOrgController {
             $Email = $this->Form->GetFormValue('Email');
             $Subscribe = $this->Form->GetFormValue('Newsletter', '0');
             if ($Email)
-               $this->Database->SQL()->Insert('Newsletter', array('Email' => $Email, 'Subscribe' => $Subscribe));
+               $this->Database->SQL()->Insert('Newsletter', array(
+                  'Email' => $Email,
+                  'Subscribe' => $Subscribe,
+                  'DateInserted' => Gdn_Format::ToDateTime()
+               ));
 
             // ... and redirect them appropriately
             if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {

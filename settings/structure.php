@@ -11,4 +11,5 @@ $Database->Structure()->Table('Newsletter')
    ->PrimaryKey('NewsletterID')
 	->Column('Email', 'varchar(200)', NULL)
    ->Column('Subscribe', 'tinyint(1)', '0')
+   ->Column('DateInserted', 'datetime')
 	->Set($Explicit, $Drop);
