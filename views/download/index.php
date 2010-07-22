@@ -92,5 +92,5 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
       <p class="Author">- Evan Prodromou, <em>CEO, Status.net</em></p>
       <div class="Foot"></div>
    </div>
-	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Build your community in 60 seconds.'), 'http://vanillaforums.com/plans?ref=download', 'RenderedDownloadButton'); ?>
+	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Build your community in 60 seconds.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
 </div>

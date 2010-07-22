@@ -7,8 +7,8 @@
 	download now</a>.</p>
 	
 	<p>If you have no idea what to do with this download,
-	<a href="http://vanillaforums.com">we recommend that you create a forum
-	online at VanillaForums.com</a>.</p>
+	<a href="http://vanillaforums.com">we recommend that you create a forum at
+	VanillaForums.com</a>.</p>
 	
 	<strong>What Next?</strong>
 	<p>Check out our <?php echo Anchor('guide to installing Vanilla', '/page/InstallationInstructions'); ?>

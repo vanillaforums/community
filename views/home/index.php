@@ -1,7 +1,7 @@
 <?php if (!defined('APPLICATION')) exit(); ?>
 <div class="Splash">
    <div class="SplashMessage">
-      <h2>The simple way to grow online communities.</h2>
+      <h2>The simple way to grow communities.</h2>
       <p>
          <i class="Sprite SpriteScreen"></i>
          Vanilla is an open-source, standards-compliant, multi-lingual, theme-able, pluggable community forum.
