@@ -55,7 +55,7 @@
                      <li>User comments allow for live previewing, drafting, and auto-saving.</li>
          <!--             <li>Users can attach files to comments (Not available in free plan).</li> -->
                   </ol>
-                  <?php echo Img('/applications/vfcom/design/images/screen-features-discussion.png', array('class' => 'Screenshot', 'alt' => 'Simple - Discussion')); ?>
+                  <?php echo Img('/applications/vforg/design/images/screen-features-discussion.png', array('class' => 'Screenshot', 'alt' => 'Simple - Discussion')); ?>
                </div>
             </div>
 <!--   
@@ -69,7 +69,7 @@
                      <li>Quickly find any administration section: Dashboard, Appearance, Users, Forum, and others depending on your plan.</li>
                      <li>Track & review activity in your community.</li>
                   </ol>
-                  <?php echo Img('/applications/vfcom/design/images/screen-features-dashboard.png', array('class' => 'Screenshot', 'alt' => 'Simple - Dashboard')); ?>
+                  <?php echo Img('/applications/vforg/design/images/screen-features-dashboard.png', array('class' => 'Screenshot', 'alt' => 'Simple - Dashboard')); ?>
                </div>
             </div>
 -->
@@ -88,7 +88,7 @@
                      <li>New themes added regularly.</li>
                      <li>Preview and apply themes with a single button-click.</li>
                   </ol>
-                  <?php echo Img('/applications/vfcom/design/images/screen-features-themes.png', array('class' => 'Screenshot', 'alt' => 'Customizable - Themes')); ?>
+                  <?php echo Img('/applications/vforg/design/images/screen-features-themes.png', array('class' => 'Screenshot', 'alt' => 'Customizable - Themes')); ?>
                </div>
             </div>
    
@@ -105,7 +105,7 @@
                   <h4><i class="Sprite SpriteBars"></i> Versatile: Killer Add-ons</h4>
 
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-vanillaconnect.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Vanilla Connect')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-vanillaconnect.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Vanilla Connect')); ?>
                      <strong>Vanilla Connect</strong>
                      <p>Allow your existing users to sign into your community forum quickly &amp; easily.</p>
                   </span>
@@ -116,19 +116,19 @@
                <div>
                   <h4><i class="Sprite SpriteBars"></i> Versatile: User & Role Management</h4>
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-role.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Permissions')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-role.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Permissions')); ?>
                      <strong>Permissions</strong>
                      <p>Fine-grained control over who gets to do what.</p>
                   </span>
                   
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-roles.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Roles and Permissions')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-roles.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Roles and Permissions')); ?>
                      <strong>Roles & Permissions</strong>
                      <p>Quickly &amp; easily create, manage, and organize roles.</p>
                   </span>
    
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-user.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Multi-role Users')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-user.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Multi-role Users')); ?>
                      <strong>Multi-Role Users</strong>
                      <p>Users can be assigned to many roles.</p>
                   </span>
@@ -139,13 +139,13 @@
                <div>
                   <h4><i class="Sprite SpriteBars"></i> Versatile: Extended Category Management</h4>
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-categories.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Nested Categories')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-categories.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Nested Categories')); ?>
                      <strong>Nested Categories</strong>
                      <p>Choose to have no categories, or full-on nested categories.</p>
                   </span>
    
                   <span class="Description">
-                     <?php echo Img('/applications/vfcom/design/images/screen-features-category.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Category Permissions')); ?>
+                     <?php echo Img('/applications/vforg/design/images/screen-features-category.png', array('class' => 'Screenshot', 'alt' => 'Versatile - Category Permissions')); ?>
                      <strong>Category Permissions</strong>
                      <p>You have total control over who gets to see particular discussion categories.</p>
                   </span>
