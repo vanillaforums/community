@@ -13,3 +13,7 @@ $Database->Structure()->Table('Newsletter')
    ->Column('Subscribe', 'tinyint(1)', '0')
    ->Column('DateInserted', 'datetime')
 	->Set($Explicit, $Drop);
+
+$Database->Structure()->Table('User')
+   ->Column('Newsletter', 'tinyint(1)', '0')
+   ->Set($Explicit, $Drop);

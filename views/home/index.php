@@ -4,7 +4,7 @@
       <h2>The simple way to grow communities.</h2>
       <p>
          <i class="Sprite SpriteScreen"></i>
-         Vanilla Forums is an open-source, standards-compliant, customizable, modern, community-building discussion forum.
+         Vanilla Forums is an open-source, standards-compliant, customizable, discussion forum that helps your community grow.
       </p>
       <p>
          <i class="Sprite SpriteSmile"></i>
