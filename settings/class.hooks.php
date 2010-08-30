@@ -32,14 +32,18 @@ class VFOrgHooks implements Gdn_IPlugin {
             //Optional statement to include debugging information in the result
             //$cm->debug_level = 1;
             //This is the actual call to the method, passing email address, name.
-            $result = $CM->subscriberAdd($Email, $SubscriberName);
-            /*
-               Fail Quietly: 
+            if ($Newsletter == '1') {
+               $result = $CM->subscriberAdd($Email, $SubscriberName);
+            } else {
+               $result = $CM->subscriberUnsubscribe($Email);
+            }
+//               Fail Quietly:
+/*
                if($result['Result']['Code'] == 0)
                   echo 'Success';
                else
                   echo 'Error : ' . $result['Result']['Message'];
-            */
+*/
          } catch (Exception $Ex) {
             // Do nothing with the exception (fail quietly)
          }
