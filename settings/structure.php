@@ -12,8 +12,8 @@ $Database->Structure()->Table('Newsletter')
 	->Column('Email', 'varchar(200)', NULL)
    ->Column('Subscribe', 'tinyint(1)', '0')
    ->Column('DateInserted', 'datetime')
-	->Set($Explicit, $Drop);
+	->Set(0, 0);
 
 $Database->Structure()->Table('User')
    ->Column('Newsletter', 'tinyint(1)', '0')
-   ->Set($Explicit, $Drop);
+   ->Set(0, 0);
