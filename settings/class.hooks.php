@@ -38,12 +38,12 @@ class VFOrgHooks implements Gdn_IPlugin {
                $result = $CM->subscriberUnsubscribe($Email);
             }
 //               Fail Quietly:
-/*
+
                if($result['Result']['Code'] == 0)
                   echo 'Success';
                else
                   echo 'Error : ' . $result['Result']['Message'];
-*/
+
          } catch (Exception $Ex) {
             // Do nothing with the exception (fail quietly)
          }
