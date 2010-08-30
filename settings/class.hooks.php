@@ -20,7 +20,7 @@ class VFOrgHooks implements Gdn_IPlugin {
    
    private function _UpdateCampaignMonitor($Email, $SubscriberName, $Newsletter) {
       // Update the newsletter record at campaign monitor
-      if ($Email != '' && $Newsletter) {
+      if ($Email != '') {
          try {
             require_once(PATH_APPLICATIONS . DS . 'vforg' . DS . 'vendors' . DS . 'campaignmonitor-php-1.4.5' . DS . 'CMBase.php');
             //Your API Key. Go to http://www.campaignmonitor.com/api/required/ to see where to find this and other required keys
@@ -32,18 +32,18 @@ class VFOrgHooks implements Gdn_IPlugin {
             //Optional statement to include debugging information in the result
             //$cm->debug_level = 1;
             //This is the actual call to the method, passing email address, name.
-            if ($Newsletter == '1') {
-               $result = $CM->subscriberAdd($Email, $SubscriberName);
-            } else {
+            if ($Newsletter == '0' || !$Newsletter) {
                $result = $CM->subscriberUnsubscribe($Email);
+            } else {
+               $result = $CM->subscriberAdd($Email, $SubscriberName);
             }
 //               Fail Quietly:
-
+/*
                if($result['Result']['Code'] == 0)
                   echo 'Success';
                else
                   echo 'Error : ' . $result['Result']['Message'];
-
+*/
          } catch (Exception $Ex) {
             // Do nothing with the exception (fail quietly)
          }
