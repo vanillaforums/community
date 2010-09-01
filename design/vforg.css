@@ -1,233 +1,60 @@
-/*
- div.Host {
-   padding: 8px 12px;
-   margin: 0 0 10px;
+/* Services */
+body.services #Panel {
+	display: none;
 }
-div.Featured {
-   -moz-border-radius: 3px;
-   -webkit-border-radius: 3px;
-   border: 1px solid #ccc;
-   background: #ffc;
+body.services #Body {
+   padding: 30px 0;
 }
-div.Host h4 {
-   font-weight: bold;
-   margin: 0 0 6px;
+body.services #Content {
+	width: auto;
+	color: #744000;
 }
-div.DownloadInfo p,
-div.Host p {
-   font-size: 100%;
-   margin: 0 !important;
-   padding: 0 !important;
+.Services {
+	text-align: center;
 }
-div.Host img {
-   float: right;
-   margin: 0 0 2px 8px;
+#Content .Services h1 {
+	border: none;
+	font-size: 25px;
 }
-#vforg_home_index #Panel,
-body.download #Panel,
-body.hosting #Panel {
-   display: none;
+#Content .Service h2 {
+	padding: 0 4px;
+	border: none;
 }
-#vforg_home_index #Content,
-body.download #Content,
-body.hosting #Content {
-   float: none;
-   width: auto;
+div.Service {
+	padding: 20px 0;
+	width: 304px;
+	display: inline-block;
+	vertical-align: top;
 }
-body.hosting div.HostingInfo {
-   float: left;
-   width: 400px;
+div.Support {
+	margin: 0 24px;
 }
-body.hosting div.Hosts {
-   float: right;
-   width: 540px;
+div.Service p.Buttons {
+	padding-top: 10px;
 }
-body.hosting div.HostingInfo h1 {
-   font-size: 160%;
-   border: 0;
-   text-shadow: 0 1px 0 #fff;
+div.Popup div.Plan {
+	padding: 10px;
+	background: #fdf9ed;
 }
-body.download div.DownloadInfo p,
-body.hosting div.HostingInfo p,
-body.hosting div.Host p {
-   color: #444;
-   font-family: 'lucida grande','Lucida Sans Unicode', Tahoma, sans-serif;
-}
-body.hosting div.HostingInfo p {
-   font-size: 103%;
-}
-body.hosting div.HostingInfo p strong {
-   font-weight: bold;
-}
-body.hosting .ChunkyButton {
-   width: 275px;
-}
-body.hosting .ChunkyButton a {
-   font-family: arial;
-   font-size: 17px;
-   line-height: 2.7;
-}
-body.download .ChunkyButton a {
-   font-family: arial;
-}
-body.download .ChunkyButton a:hover,
-body.hosting .ChunkyButton a:hover {
-   text-decoration: none;
-}
-body.download div.DownloadOptions {
-   font-family: 'lucida grande','Lucida Sans Unicode', Tahoma, sans-serif;
-   font-size: 100%;
-   font-weight: bold;
-   line-height: 160%;
-   width: 230px;
-   float: left;
-   border: 1px solid #aaa;
-   background: #eee;
-   -moz-border-radius: 3px;
-   padding: 8px 0;
-}
-body.download div.DownloadOptions ul.SideMenu {
-   padding: 0;
-   margin: 0;
-}
-body.download div.DownloadOptions ul.SideMenu li {
-   padding: 2px 8px;
-}
-
-body.download div.DownloadOptions ul.SideMenu li.Highlight {
-   text-align: right;
-   font-weight: bold;
-   background: #fafafa;
-}
-body.download div.DownloadOptions ul.SideMenu li.Highlight a {
-   float: left;
-}
-body.download div.DownloadInfo {
-   float: right;
-   width: 690px;
-   padding-bottom: 40px;
-}
-body.download p.ChunkyButton {
-   margin: 20px 0 !important;
-	width: 240px;
-}
-div.DownloadInfo h4 {
-   font-weight: bold;
-   color: #000;
-}
-body.download div.DownloadInfo p {
-   font-size: 101%;
-}
-body.download div.DownloadInfo p strong {
-   font-weight: bold;
-   font-size: 101%;
-}
-*/
-
-/* ---- Contributors Agreement ---- */
-/*
-body.Contributors #Content h1 {
-   -moz-border-radius-topleft: 3px;
-   -moz-border-radius-topright: 3px;
-	background: url('grey_fade.png') top left repeat-x #ECF0F9;
-   border:1px solid #9CA7B8;
-   padding:4px 8px;
-   text-shadow: 0 1px 0 #fff;
-	margin: 0;
-}
-body.Contributors div.Legal {
-	margin: 0;
-	padding: 10px 10px 0;
-	font-size: 110%;
-	background: #fff;
-   border: 1px solid #9CA7B8;
-   border-top: 0;
-   -moz-border-radius-bottomleft: 3px;
-   -moz-border-radius-bottomright: 3px;
-}
-*/
-
-
-/* ---- Splash Page ---- */
-/*
- body#vforg_home_index {
-	background: url('shine.jpg') top center no-repeat #2a529a;
-}
-#vforg_home_index #Frame {
-   background: none;
-	border: 0;
-}
-#vforg_home_index #Body {
-	padding-top: 0;
-	margin-top: 0;
-}
-#vforg_home_index #Content {
-	margin-bottom: 20px;
-}
-#vforg_home_index #Foot {
-   display: none;
-}
-#vforg_home_index .Banner {
-   background: none;
-   border: 0;
-}
-div.Splash {
-	margin: 30px 30px 0;
-	box-shadow: 1px 1px 20px #000;
-	-moz-box-shadow: 1px 1px 20px #000;
-	-webkit-box-shadow: 1px 1px 20px #000;
-	-moz-border-radius: 20px;
-	-webkit-border-radius: 20px;
-	height: 440px;
-	background: url('splash_bg2.jpg') center center no-repeat #eee;
-}
-div.Splash img {
-	float: right;
-	padding: 26px 0 0;
-}
-div.Splash div {
-	padding: 30px 0 0 30px;
-	margin-right: 440px;
-}
-div.Splash h1,
-div.Splash h2 {
-	text-shadow: 0 1px 0 #fff;
-	border: 0;
-	padding: 0 0 30px;
-	margin: 0;
-}
-div.Splash h1 {
-	font-size: 208%;	
-}
-div.Splash h1 em {
-	color: #FF8000;
-	font-style: normal;
-}
-div.Splash p {
-   font-family: 'lucida grande','Lucida Sans Unicode', Tahoma, sans-serif;
-	font-size: 110%;
-	padding: 0 0 30px;
-	margin: 0;
-}
-div.Splash p a {
-	color: #2A529A;
-}
-div.Splash p.ChunkyButton {
-   margin: 40px 0 0;
-	padding: 0;
-	width: 210px;
-}
-div.Splash p.ChunkyButton a {
-   margin: 0 0 0 5px;
-   padding: 0 3px 0 0;
-	color: #fff;
-}
-div.Splash p.ChunkyButton a:hover {
-	text-decoration: none;
-}
-div.Splash p.Option {
-	font-size: 13px;
+div.Popup div.Plan strong {
 	font-weight: bold;
-	padding: 25px 0 0;
 }
-*/
+div.Popup div.Plan div.Cost {
+	float: right;
+	color: #0a730d;
+	font-weight: bold;
+}
+div.Popup div.Plan p {
+	padding: 0 6px 6px;
+}
+div.Popup div.Plan ul {
+	margin: 0 30px;
+}
+div.Popup div.Plan ul li {
+	list-style: disc;
+}
+div.Popup div.Contact {
+	font-weight: bold;
+	padding: 10px;
+	background: #fff;
+}
