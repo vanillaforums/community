@@ -35,6 +35,12 @@ class HomeController extends VFOrgController {
       textShadow: '0px 1px 1px #00007e;'
    });
 </script>");
+      try {
+         $Data = Gdn::Database()->SQL()->Select('CountDownloads')->From('Addon')->Where('AddonID', 465)->Get()->FirstRow();
+         $this->SetData('CountDownloads', $Data ? $Data->CountDownloads : 350000);
+      } catch (Exception $ex) {
+         // Do nothing
+      }
       
       $this->Render();
    }

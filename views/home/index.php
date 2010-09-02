@@ -8,7 +8,13 @@
       </p>
       <p>
          <i class="Sprite SpriteSmile"></i>
-         Over <span>350,000</span> sites use Vanilla Forums to manage feedback, spark discussion, and make customers smile.
+         <?php
+         $CountDownloads = GetValue('CountDownloads', $this->Data);
+         if (is_numeric($CountDownloads) && $CountDownloads > 350000)
+            echo Wrap(number_format($CountDownloads));
+         else
+            echo 'Over <span>350,000</span>';
+         ?> sites use Vanilla Forums to manage feedback, spark discussion, and make customers smile.
       </p>
       <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla 2.0; Released July 21, 2010', 'download', 'Get'); ?>
    </div>
