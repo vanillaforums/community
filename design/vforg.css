@@ -11,6 +11,7 @@ body.services #Content {
 }
 .Services {
 	text-align: center;
+	margin: 20px 0 0;
 }
 #Content .Services h1 {
 	border: none;
