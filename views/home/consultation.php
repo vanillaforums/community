@@ -6,7 +6,7 @@
    <p>Bring the core Vanilla developers to your business to work with your team through a variety of topics, including:</p>
    <ul>
       <li>Application administration</li>
-      <li>Developing Custom Addons (themes, plugins, applications)</li>
+      <li>Developing custom addons (themes, plugins, applications)</li>
       <li>Integrating Vanilla with your existing applications</li>
    </ul>
 </div>

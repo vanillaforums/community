@@ -5,12 +5,12 @@
 <div class="Plan">
    <strong>Small Business Support</strong>
    <div class="Cost">$1,000 / year</div>
-   <p>Forum &amp; Email Support - Response time: 1 business day.</p>
+   <p>Forum &amp; Email Support - Response time: 1 business day, 9 - 5 EST.</p>
 </div>
 <div class="Plan">
    <strong>Business Support</strong>
    <div class="Cost">$2,995 / year</div>
-   <p>Forum, Email &amp; Phone Support - Response time: 12 hours or less.</p>
+   <p>Forum &amp; Email Support - Response time: 12 hours or less.</p>
 </div>
 <div class="Plan">
    <strong>Enterprise Support</strong>
