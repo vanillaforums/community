@@ -18,7 +18,7 @@
    and regular maintenance updates.</p>
    <p class="Buttons"><?php echo Anchor('More Information', '/vforg/home/services/support', 'BlueButton Popup'); ?></p>
 </div><div class="Service Consultation">
-   <h2>Enterprise Consultation</h2>
+   <h2>Training &amp; Consultation</h2>
    <?php echo Img('applications/vforg/design/images/services-stagescreen.png'); ?>
    <p>Your devs have questions, we have answers. Increase productivity and
    engagement by bringing the Vanilla devs to your business.</p> 
