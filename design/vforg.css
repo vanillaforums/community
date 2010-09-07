@@ -9,7 +9,7 @@ body.services #Content {
 	width: auto;
 	color: #744000;
 }
-.Services {
+div.Services {
 	text-align: center;
 	margin: 20px 0 0;
 }
