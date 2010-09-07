@@ -6,7 +6,7 @@
 <div class="Plan">
    <strong>VanillaForums.com Installation</strong>
    <div class="Cost">$195</div>
-   <p>Choose one of the hosting plans at VanillaForums.com. Includes a default Vanilla installation and any of our approved addons.</p>
+   <p>We configure a hosted forum for you at VanillaForums.com. Includes a default Vanilla installation and any of our approved addons.</p>
 </div>
 <div class="Plan">
    <strong>Remote Installation</strong>
