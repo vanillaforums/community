@@ -39,4 +39,24 @@
       ?>
       </div>
    </div>
+   
+   <div class="NewsAndEvents">
+      <div class="News">
+         <h3>News from Vanilla Forums</h3>
+         <?php echo ProxyRequest(Gdn::Request()->Url('vforg/home/getfeed/?DeliveryType=VIEW', TRUE)); ?>
+      </div><div class="Events">
+         <h3>Upcoming Vanilla Forums Events</h3>
+         <?php echo ProxyRequest(Gdn::Request()->Url('vforg/home/getfeed/events/?DeliveryType=VIEW', TRUE)); ?>
+      </div>
+   </div>
+   
+   <div class="Foot Wrapper">
+      <?php
+      echo Anchor('Free Community Support', '/discussions');
+      echo Anchor('Paid Support', '/services');
+      echo Anchor('Addons', '/addons');
+      echo Anchor('Contact Us', '/page/contact');
+      echo Anchor('Get a Free Hosted Vanilla Forum', 'http://vanillaforums.com');
+      ?>
+   </div>
 </div>

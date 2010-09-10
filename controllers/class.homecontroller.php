@@ -30,6 +30,10 @@ class HomeController extends VFOrgController {
       fontFamily: 'Archer',
       textShadow: '0px 1px 1px #ffffff;'
    });
+   Cufon.replace('h3', {
+      fontFamily: 'GothamRound',
+      textShadow: '0 1px 0 #fff;'
+   });
    Cufon.replace('a.Get strong', {
       fontFamily: 'Archer',
       textShadow: '0px 1px 1px #00007e;'
@@ -94,6 +98,15 @@ class HomeController extends VFOrgController {
 
       $this->Render();
    }
+   
+   
+   public function GetFeed($Type = 'news', $Length = 5) {
+      $this->MaxLength = is_numeric($Length) && $Length <= 50 ? $Length : 5;
+      $Url = $Type == 'news' ? 'http://vanillaforums.org/blog/feed/' : 'http://vanillaforums.com/blog/category/events/feed/';
+      $RawFeed = file_get_contents($Url);
+      $this->Feed = new SimpleXmlElement($RawFeed);
+      $this->Render();
+   }   
    
    public function Splash() {
       /*
