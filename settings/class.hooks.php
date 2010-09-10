@@ -68,6 +68,11 @@ class VFOrgHooks implements Gdn_IPlugin {
       }
    }
    
+   public function Base_GetAppSettingsMenuItems_Handler($Sender) {
+      $Menu = $Sender->EventArguments['SideMenu'];
+		$Menu->AddLink('Site Settings', 'Update Checkers', 'updates/', 'Vanilla.Forums.Manage');
+   }
+   
    public function Setup() {
       $Database = Gdn::Database();
       $Config = Gdn::Factory(Gdn::AliasConfig);
