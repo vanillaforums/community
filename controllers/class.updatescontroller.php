@@ -66,7 +66,7 @@ join (select SourceID, max(UpdateCheckID) as UpdateCheckID from GDN_UpdateCheck 
 join GDN_UpdateCheck c
 	on mc.UpdateCheckID = c.UpdateCheckID
 order by c.CountComments desc
-limit $Offset, $Limit")->Get();
+limit $Offset, $Limit");
 		
 		$TotalRecords = $this->Database->SQL()->Select('SourceID', 'count', 'CountSources')->From('UpdateCheckSource')->Get()->FirstRow()->CountSources;
 
