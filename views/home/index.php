@@ -16,7 +16,7 @@
             echo Wrap(number_format($CountDownloads));
          else
             echo 'Over <span>350,000</span>';
-         ?> sites use Vanilla Forums to manage feedback, spark discussion, and make customers &amp; users smile.
+         ?> sites use Vanilla Forums to manage feedback, cultivate activity, and make their customers &amp; users smile.
       </p>
       <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'Get'); ?>
    </div>
