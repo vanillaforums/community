@@ -40,8 +40,10 @@ class HomeController extends VFOrgController {
    });
 </script>");
       try {
-         $Data = Gdn::Database()->SQL()->Select('CountDownloads')->From('Addon')->Where('AddonID', 465)->Get()->FirstRow();
+         $Data = Gdn::Database()->SQL()->Select('CountDownloads, Version, DateUploaded')->From('Addon')->Where('AddonID', 465)->Get()->FirstRow();
          $this->SetData('CountDownloads', $Data ? $Data->CountDownloads : 350000);
+         $this->SetData('Version', $Data ? $Data->Version : '2.0');
+         $this->SetData('DateUploaded', $Data ? $Data->DateUploaded : '2010-07-21 00:00:00');
       } catch (Exception $ex) {
          // Do nothing
       }

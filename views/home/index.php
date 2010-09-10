@@ -9,6 +9,8 @@
       <p>
          <i class="Sprite SpriteSmile"></i>
          <?php
+         $Version = GetValue('Version', $this->Data, '2.0');
+         $DateUploaded = GetValue('DateUploaded', $this->Data, '2010-07-21 00:00:00');
          $CountDownloads = GetValue('CountDownloads', $this->Data);
          if (is_numeric($CountDownloads) && $CountDownloads > 350000)
             echo Wrap(number_format($CountDownloads));
@@ -16,7 +18,7 @@
             echo 'Over <span>350,000</span>';
          ?> sites use Vanilla Forums to manage feedback, spark discussion, and make customers smile.
       </p>
-      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla 2.0; Released July 21, 2010', 'download', 'Get'); ?>
+      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'Get'); ?>
    </div>
    <div class="SplashPreview">
       <div class="Window">
