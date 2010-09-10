@@ -76,7 +76,7 @@ limit $Offset, $Limit");
       $this->Pager->MoreCode = 'More';
       $this->Pager->LessCode = 'Previous';
       $this->Pager->ClientID = 'Pager';
-      $this->Pager->Wrapper = '<tr %1$s><td colspan="5">%2$s</td></tr>';
+      $this->Pager->Wrapper = '<tr %1$s><td colspan="6">%2$s</td></tr>';
       $this->Pager->Configure(
          $Offset,
          $Limit,
