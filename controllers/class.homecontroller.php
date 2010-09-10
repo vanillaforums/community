@@ -44,9 +44,9 @@ class HomeController extends VFOrgController {
             ->Select('a.CountDownloads')
             ->Select('v.DateInserted', '', 'DateUploaded')
             ->Select('v.Version')
-            ->From('Addon')
+            ->From('Addon a')
             ->Join('AddonVersion v', 'a.CurrentAddonVersionID = v.AddonVersionID')
-            ->Where('AddonID', 465)
+            ->Where('a.AddonID', 465)
             ->Get()
             ->FirstRow();
          $this->SetData('CountDownloads', $Data ? $Data->CountDownloads : 350000);
