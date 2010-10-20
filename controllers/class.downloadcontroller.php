@@ -88,20 +88,24 @@ class DownloadController extends VFOrgController {
       
       if ($Serve != '1') {
          $this->AddJsFile('jquery.js');
-			$this->AddJsFile('get.js');      
+         $this->AddJsFile('get.js');      
       }
       
       // Serve the zip
-		$AddonID = 465;
+      $AddonID = 465;
 
-  		// Find the requested addon
+      // Find the requested addon
       $AddonModel = new AddonModel();
-		$this->Addon = $AddonModel->GetID($AddonID);
-		if (!is_object($this->Addon)) {
-			$this->Addon = new stdClass();
-			$this->Addon->Name = 'Not Found';
-			$this->Addon->Version = 'undefined';
-			$this->Addon->File = '';
+      $this->Addon = $AddonModel->GetID($AddonID);
+
+      if (is_array($this->Addon) && sizeof($this->Addon))
+         $this->Addon = (object)$this->Addon;
+      
+      if (!is_object($this->Addon)) {
+         $this->Addon = new stdClass();
+         $this->Addon->Name = 'Not Found';
+         $this->Addon->Version = 'undefined';
+         $this->Addon->File = '';
       } else if ($Serve == '1') {
          // Record this download
          $this->Database->SQL()->Insert('Download', array(
