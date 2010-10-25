@@ -10,6 +10,12 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 
 
 class VFOrgHooks implements Gdn_IPlugin {
+   public function UserModel_SessionQuery_Handler($Sender) {
+      // Make sure that the VotingPlugin is not active (it messes up sorts)
+      if (IsMobile())
+         Gdn::PluginManager()->UnRegisterPlugin('VotingPlugin');
+   }
+   
    public function Base_Render_Before($Sender) {
       // If on user-facing pages
       if ($Sender->MasterView == 'default' || $Sender->MasterView == '') {
