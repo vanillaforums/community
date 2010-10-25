@@ -11,8 +11,34 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 
 class VFOrgHooks implements Gdn_IPlugin {
    public function Base_Render_Before($Sender) {
-      if ($Sender->ControllerName == 'discussionscontroller' && $Sender->RequestMethod == 'index')
-         $Sender->AddModule('DiscussionSearchModule');
+      // If on user-facing pages
+      if ($Sender->MasterView == 'default' || $Sender->MasterView == '') {
+         // and in a mobile browser
+         if (IsMobile()) {
+            // and not on forum, inbox, profile pages
+            if (!in_array(strtolower($Sender->Application), array('vanilla', 'conversations', 'dashboard'))) {
+               // use the main theme instead of mobile
+               $Sender->Theme = C('Garden.Theme');
+               Gdn::PluginManager()->UnRegisterPlugin('MobileThemeHooks');
+               /*
+               $ThemeHooks = PATH_THEMES . DS . $Sender->Theme . DS . 'class.' . strtolower($Sender->Theme) . 'themehooks.php';
+               if (file_exists($ThemeHooks)) {
+               	include_once($ThemeHooks);
+                  $ThemeInfo = array();
+                  $ThemeInfo['VanillaForums.org'] = array(
+                     'Name' => 'VanillaForums.org',
+                     'Description' => "A custom theme for VanillaForums.org. Used to customize the heading banner for the forum.",
+                     'Version' => '1.0.1',
+                     'Author' => "Mark O'Sullivan",
+                     'AuthorEmail' => 'mark@vanillaforums.com',
+                     'AuthorUrl' => 'http://markosullivan.ca'
+                  );
+                  Gdn::PluginManager()->RegisterPlugin('VFOrgThemeHooks', $ThemeInfo);
+               }
+               */
+            }
+         }
+      }
    }
    
    private function _UpdateCampaignMonitor($Email, $SubscriberName, $Newsletter) {
@@ -67,8 +93,8 @@ class VFOrgHooks implements Gdn_IPlugin {
    
    public function Base_GetAppSettingsMenuItems_Handler($Sender) {
       $Menu = $Sender->EventArguments['SideMenu'];
-		$Menu->AddLink('Site Settings', 'Update Checkers', 'updates/', 'Vanilla.Forums.Manage');
-		$Menu->AddLink('Site Settings', 'Download Summary', 'vstats', 'Vanilla.Forums.Manage');
+      $Menu->AddLink('Site Settings', 'Update Checkers', 'updates/', 'Vanilla.Forums.Manage');
+      $Menu->AddLink('Site Settings', 'Download Summary', 'vstats', 'Vanilla.Forums.Manage');
    }
    
    public function Setup() {
