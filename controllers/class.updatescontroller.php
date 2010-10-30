@@ -37,35 +37,26 @@ class UpdatesController extends Gdn_Controller {
       }
    }
 	
-	public function Index($Offset = FALSE, $Keywords = '') {
+	public function Index($Offset = FALSE, $SortField = '') {
 		$this->Permission('Vanilla.Forums.Manage');
 		$this->AddSideMenu('updates');
 		$this->AddJsFile('jquery.gardenmorepager.js');
 		$this->Title('Remote Updates');
       $this->Form->Method = 'get';
 		$Limit = 30;
+		$SortField = $SortField == 'CountComments' ? 'c.CountComments' : 'c.DateInserted';
 
       // Input Validation
       $Offset = is_numeric($Offset) ? $Offset : 0;
-      if (!$Keywords) {
-         $Keywords = $this->Form->GetFormValue('Keywords');
-         if ($Keywords)
-            $Offset = 0;
-
-      }
-
-      // Put the Keyword back in the form
-      if ($Keywords)
-         $this->Form->SetFormValue('Keywords', $Keywords);
 
 		$this->UpdateData = $this->Database->SQL()->Query("
-select s.Location, s.RemoteIp, s.DateInserted, c.CountUsers, c.CountDiscussions, c.CountComments
+select s.Location, s.RemoteIp, c.DateInserted, c.CountUsers, c.CountDiscussions, c.CountComments
 from GDN_UpdateCheckSource s
 join (select SourceID, max(UpdateCheckID) as UpdateCheckID from GDN_UpdateCheck group by SourceID) mc
 	on s.SourceID = mc.SourceID
 join GDN_UpdateCheck c
 	on mc.UpdateCheckID = c.UpdateCheckID
-order by c.CountComments desc
+order by $SortField desc
 limit $Offset, $Limit");
 		
 		$TotalRecords = $this->Database->SQL()->Select('SourceID', 'count', 'CountSources')->From('UpdateCheckSource')->Get()->FirstRow()->CountSources;
@@ -81,7 +72,7 @@ limit $Offset, $Limit");
          $Offset,
          $Limit,
          $TotalRecords,
-         'updates/index/%1$s/'.urlencode($Keywords)
+         'updates/index/%1$s/'.urlencode($SortField)
       );
       
       // Deliver json data if necessary
