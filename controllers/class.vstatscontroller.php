@@ -88,7 +88,8 @@ class VStatsController extends Gdn_Controller {
 			->From('Download d')
 			->Join('Addon a', 'a.AddonID = d.AddonID')
 			->Join('AddonType t', 'a.AddonTypeID = t.AddonTypeID')
-			->Where('t.Label <>', 'Application');
+			->Where('AddonID <>', 465); // Don't include Vanilla downloads in addon downloads.
+			// ->Where('t.Label <>', 'Application');
 		if (!$AssumeToday) $this->Database->SQL()->Where('d.DateInserted <=', $mDay);
 		$OrgData = $this->Database->SQL()->Get();
 		$AddonDownloads = $OrgData->NumRows() > 0 ? $OrgData->FirstRow()->Count : 0;
