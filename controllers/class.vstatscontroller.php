@@ -36,7 +36,7 @@ class VStatsController extends Gdn_Controller {
 		$this->Title('Vanilla Stats');
       $this->Form->Method = 'get';
       $Offset = is_numeric($Offset) ? $Offset : 0;
-		$Limit = 9;
+		$Limit = 19;
 		
 		$this->StatsData = array();
 		$Offset--;

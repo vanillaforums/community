@@ -83,6 +83,8 @@ li, p {
       <td class="Delta">+/-</td>
       <td>Addon Downloads</td>
       <td class="Delta">+/-</td>
+      <td>Total Downloads</td>
+      <td class="Delta">+/-</td>
    </tr>
    </thead>
    <tbody>
@@ -104,6 +106,7 @@ li, p {
                <?php
                   WriteDelta($VanillaDownloads, $DVanillaDownloads);
                   WriteDelta($AddonDownloads, $DAddonDownloads);
+                  WriteDelta($VanillaDownloads + $AddonDownloads, $DVanillaDownloads + $DAddonDownloads);
                ?>
             </tr>
             <?php
