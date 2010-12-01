@@ -17,7 +17,7 @@ class FeaturesController extends VFOrgController {
       } catch (Exception $e) {
          // nothing
       }
-      if ($ViewLocation)
+      if ($ViewLocation && $FeaturePageName != '')
          $this->View = $FeaturePageName;
       else
          Redirect('features/embed-vanilla/');
