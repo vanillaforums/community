@@ -127,10 +127,10 @@ div.Popup div.Contact {
 	background: #fff;
 }
 
-.Banner ul li.Features,
-.Banner ul li.Features:hover { background-position: left -64px; }
-.Banner ul li.Features a,
-.Banner ul li.Features a:hover {
+body.Features .Banner ul li.Features,
+body.Features .Banner ul li.Features:hover { background-position: left -64px; }
+body.Features .Banner ul li.Features a,
+body.Features .Banner ul li.Features a:hover {
 	background-position: right -64px;
 	color: #fff;
 	text-shadow: 0 1px 1px #4C2305;
