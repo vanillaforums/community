@@ -46,7 +46,7 @@
          <h3>News from Vanilla Forums</h3>
          <?php echo ProxyRequest(Gdn::Request()->Url('vforg/home/getfeed/blog?DeliveryType=VIEW', TRUE)); ?>
       </div><div class="Events">
-         <h3>Upcoming Vanilla Forums Events</h3>
+         <h3>Vanilla Forums Events</h3>
          <?php echo ProxyRequest(Gdn::Request()->Url('vforg/home/getfeed/events/?DeliveryType=VIEW', TRUE)); ?>
       </div>
    </div>
