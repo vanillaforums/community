@@ -45,9 +45,9 @@ class DownloadController extends VFOrgController {
 
             // ... and redirect them appropriately
             if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
-               $this->RedirectUrl = Url('download/get/stable');
+               $this->RedirectUrl = Url('/get/vanilla-core');
             } else {
-               Redirect('download/get/stable');
+               Redirect('get/vanilla-core');
             }
             
          } else {
@@ -69,9 +69,9 @@ class DownloadController extends VFOrgController {
                
                // ... and redirect them appropriately
                if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
-                  $this->RedirectUrl = Url('download/get/stable');
+                  $this->RedirectUrl = Url('/get/vanilla-core');
                } else {
-                  Redirect('download/get/stable');
+                  Redirect('get/vanilla-core');
                }
             }
          }
@@ -115,7 +115,7 @@ class DownloadController extends VFOrgController {
          ));
          
          $AddonModel->SetProperty($AddonID, 'CountDownloads', $this->Addon->CountDownloads + 1);
-         Gdn_FileSystem::ServeFile('uploads/'.$this->Addon->File, Gdn_Format::Url($this->Addon->Name.'-'.$this->Addon->Version));
+         Gdn_FileSystem::ServeFile('uploads/'.$this->Addon->File, Gdn_Format::Url($this->Addon->Name.'-'.$this->Addon->Version).'zip');
       }
       
       $this->AddModule('DownloadHelpModule');      
