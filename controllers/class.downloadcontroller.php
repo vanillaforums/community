@@ -115,7 +115,7 @@ class DownloadController extends VFOrgController {
          ));
          
          $AddonModel->SetProperty($AddonID, 'CountDownloads', $this->Addon->CountDownloads + 1);
-         Gdn_FileSystem::ServeFile('uploads/'.$this->Addon->File, Gdn_Format::Url($this->Addon->Name.'-'.$this->Addon->Version).'zip');
+         Gdn_FileSystem::ServeFile('uploads/'.$this->Addon->File, Gdn_Format::Url($this->Addon->Name.'-'.$this->Addon->Version).'.zip');
       }
       
       $this->AddModule('DownloadHelpModule');      
