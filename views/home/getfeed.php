@@ -7,13 +7,23 @@ foreach ($this->Feed->channel->item as $Item) {
       break;
    
    $Title = GetValue('title', $Item);
+   $Excerpt = GetValue('excerpt', $Item);
    $Link = GetValue('link', $Item);
    $PubDate = GetValue('pubDate', $Item);
-   echo Wrap(
-      '<i class="Sprite SpriteRarr SpriteRarrDown"><span>&rarr;</span></i>'
-      .Anchor($Title, $Link),
-      'div'
-   );
+   if ($this->FeedFormat == 'extended') {
+      echo Wrap(
+         Anchor($Title, $Link)
+         .$Excerpt,
+         'div',
+         array('class' => 'FeedItem')
+      );
+   } else {
+      echo Wrap(
+         '<i class="Sprite SpriteRarr SpriteRarrDown"><span>&rarr;</span></i>'
+         .Anchor($Title, $Link),
+         'div'
+      );
+   }
    $Loop++;
 }
 echo '</div>';

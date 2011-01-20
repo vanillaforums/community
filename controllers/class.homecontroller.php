@@ -110,13 +110,23 @@ class HomeController extends VFOrgController {
    }
    
    
-   public function GetFeed($Type = 'news', $Length = 5) {
+   public function GetFeed($Type = 'news', $Length = 5, $FeedFormat = 'normal') {
       $this->MaxLength = is_numeric($Length) && $Length <= 50 ? $Length : 5;
-      $Url = $Type == 'news' ? 'http://vanillaforums.org/blog/feed/' : 'http://vanillaforums.com/blog/category/events/feed/';
+      $this->FeedFormat = $FeedFormat;
+      switch ($Type) {
+         case 'events':
+            $Url = 'http://vanillaforums.com/blog/category/events/feed/';
+            break;
+         case 'help':
+            $Url = 'http://vanillaforums.com/blog/category/help/feed/';
+            break;
+         default:
+            $Url = 'http://vanillaforums.org/blog/feed/';
+      }
       $RawFeed = file_get_contents($Url);
       $this->Feed = new SimpleXmlElement($RawFeed);
       $this->Render();
-   }   
+   }
    
    public function Splash() {
       /*
