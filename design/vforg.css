@@ -489,6 +489,13 @@ a:hover.Plans{
 	z-index:100;
 }
 
+#FeatureSocialThemesDescriptThemes {
+    padding: 170px 0 0 60px;
+    position: absolute;
+    width: 300px;
+    z-index: 100;
+}
+
 #FeatureApiDescriptThemes{
 	padding:290px 0 0 200px;
 position:absolute;
