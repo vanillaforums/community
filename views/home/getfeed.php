@@ -5,15 +5,16 @@ echo '<div class="Feed">';
 foreach ($this->Feed->channel->item as $Item) {
    if ($Loop > $this->MaxLength)
       break;
-   
+
    $Title = GetValue('title', $Item);
-   $Excerpt = GetValue('excerpt', $Item);
    $Link = GetValue('link', $Item);
-   $PubDate = GetValue('pubDate', $Item);
+   $PubDate = strtotime(GetValue('pubDate', $Item));
    if ($this->FeedFormat == 'extended') {
+      $Description = GetValue('description', $Item);
       echo Wrap(
          Anchor($Title, $Link)
-         .$Excerpt,
+         .Wrap(Gdn_Format::Date($PubDate), 'div', array('class' => 'Date'))
+         .Wrap($Description, 'em'),
          'div',
          array('class' => 'FeedItem')
       );
