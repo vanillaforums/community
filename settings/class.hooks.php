@@ -78,6 +78,44 @@ class VFOrgHooks implements Gdn_IPlugin {
          }
       }
    }
+
+   public function Base_ConfigError_Handler($Sender, $Args) {
+      $Data = $Args['Data'];
+      $Backtrace = $Args['Backtrace'];
+      
+      // Generate a file to show the error.
+      $PathBase = PATH_CONF.'/config_error_'.Gdn_Format::ToDate();
+      $Path = $PathBase;
+      for($i = 0  ; file_exists($Path.'.php'); $Path = $PathBase.'_'.$i) {
+         $i++;
+      }
+      $Path .= '.php';
+
+      $Lines = array("<?php if (!defined('APPLICATION')) exit(); ?>");
+      $Lines[] = '<pre>';
+      $Lines[] = 'Error saving config.php on '.Gdn_Format::ToDateTime();
+
+      $Lines[] = '';
+      $Lines[] = 'Backtrace:';
+      foreach ($Backtrace as $Trace) {
+         $Line = '';
+         if ($Trace['class'])
+            $Line .= "{$Trace['class']}{$Trace['type']}";
+         $Line .= "{$Trace['function']}()";
+         if ($Trace['file'])
+            $Line .= ", {$Trace['file']}, line {$Trace['line']}";
+         $Lines[] = $Line;
+      }
+
+      $Lines[] = '';
+      $Lines[] = 'Data:';
+      $Lines[] = print_r($Data, TRUE);
+
+      $Lines[] = '</pre>';
+
+      file_put_contents($Path, implode(PHP_EOL, $Lines));
+
+   }
    
    // Add the newsletter checkbox to the edit account form
    public function ProfileController_EditMyAccountAfter_Handler($Sender) {

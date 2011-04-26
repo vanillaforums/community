@@ -121,7 +121,7 @@ class HomeController extends VFOrgController {
             $Url = 'http://vanillaforums.com/blog/category/help/feed/';
             break;
          default:
-            $Url = 'http://vanillaforums.org/blog/feed/';
+            $Url = 'http://vanillaforums.com/blog/category/news/feed/';
       }
       $RawFeed = file_get_contents($Url);
       $this->Feed = new SimpleXmlElement($RawFeed);
