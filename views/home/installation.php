@@ -10,7 +10,7 @@
 </div>
 <div class="Plan">
    <strong>Remote Installation</strong>
-   <div class="Cost">$595</div>
+   <div class="Cost">$795</div>
    <p>Includes a default Vanilla installation and any of our approved addons.</p>
 </div>
 <div class="Plan">
