@@ -14,7 +14,7 @@ Vanilla's powerful API enables you to create social experiences to drive growth 
 
 
      
-           <img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/api2.png" border="0" />
+           <img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/api.png" border="0" />
            </div>
 		
 
