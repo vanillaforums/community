@@ -2,25 +2,24 @@
 
 <div class="Services">
    <h1>Vanilla Forums Services</h1>
-   <p>Need help with your installation? Want to write an addon, but not sure how? We are here to help.</p>
+   <p>Our experienced service professionals can customize and implement your Vanilla installation.</p>
 </div>
 
-<div class="Service Installation">
-   <h2>Installation &amp; Setup</h2>
+<div class="Service">
+   <h2>VanillaForums.com Installation</h2>
    <?php echo Img('applications/vforg/design/images/services-scripts.png'); ?>
-   <p>Our experienced service professionals can customize and implement your
-   Vanilla installation.</p>
-   <p class="Buttons"><?php echo Anchor('More Information', '/vforg/home/services/installation', 'BlueButton Popup'); ?></p>
-</div><div class="Service Support">
-   <h2>Support &amp; Maintenance</h2>
-   <?php echo Img('applications/vforg/design/images/services-audience.png'); ?>
-   <p>Annual support & maintenance subscriptions give you faster response times
-   and regular maintenance updates.</p>
-   <p class="Buttons"><?php echo Anchor('More Information', '/vforg/home/services/support', 'BlueButton Popup'); ?></p>
-</div><div class="Service Consultation">
-   <h2>Training &amp; Consultation</h2>
+   <p>We configure a hosted forum for you at <a href="http://vanillaforums.com">VanillaForums.com</a>. Includes a default Vanilla installation and any of our approved addons.</p>
+</div>
+<div class="Service" style="margin: 0 18px;">
+   <h2>Custom Development</h2>
    <?php echo Img('applications/vforg/design/images/services-stagescreen.png'); ?>
-   <p>Your devs have questions, we have answers. Increase productivity and
-   engagement by bringing the Vanilla devs to your business.</p> 
-   <p class="Buttons"><?php echo Anchor('More Information', '/vforg/home/services/consultation', 'BlueButton Popup'); ?></p>
+   <p>Includes a default Vanilla installation &amp; custom built addons.</p>
+</div>
+<div class="Service">
+   <h2>Remote Installation</h2>
+   <?php echo Img('applications/vforg/design/images/services-audience.png'); ?>
+   <p>We no longer support remote installations. <a href="http://vanillaforums.org/docs/CustomDevelopment">Contact our development partners</a> for help with your self-hosted installations.</p>
+</div>
+<div style="clear: both; font-size: 14px; text-align: center; padding: 20px 0 60px;">
+   <strong>Contact sales for more information: <?php echo Gdn_Format::Email('sales@vanillaforums.com'); ?> or 1-855-836-7867</strong>
 </div>
