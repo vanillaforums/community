@@ -134,7 +134,7 @@ class HomeController extends VFOrgController {
       $Key = 'Feed|'.$Url;
       $Feed = Gdn::Cache()->Get($Key);
       if (!$Feed) {
-//         $Feed = ProxyRequest($Url, 5);
+         $Feed = ProxyRequest($Url, 5);
          Gdn::Cache()->Store($Key, $Feed, array(Gdn_Cache::FEATURE_EXPIRY => 5 * 60));
 //      } else {
 //         $Feed = 'Cached'.$Feed;
