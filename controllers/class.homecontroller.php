@@ -42,18 +42,23 @@ class HomeController extends VFOrgController {
       try {
          $AddonModel = new AddonModel();
          $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
-
-         
-
          
          $this->SetData('CountDownloads', $Addon ? $Addon['CountDownloads'] : 350000);
          $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
          $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
+
+         
+         $NewsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/blog?DeliveryType=VIEW', TRUE));
+         $this->SetData('NewsFeed', $NewsFeed);
+
+         $EventsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/events?DeliveryType=VIEW', TRUE));
+         $this->Data('EventsFeed', $EventsFeed);
       } catch (Exception $ex) {
          // Do nothing
       }
       
       $this->Render();
+      die();
    }
    
    public function Hosting() {
@@ -123,6 +128,18 @@ class HomeController extends VFOrgController {
       $RawFeed = file_get_contents($Url);
       $this->Feed = new SimpleXmlElement($RawFeed);
       $this->Render();
+   }
+
+   public function ProxyFeed($Url) {
+      $Key = 'Feed|'.$Url;
+      $Feed = Gdn::Cache()->Get($Key);
+      if (!$Feed) {
+//         $Feed = ProxyRequest($Url, 5);
+         Gdn::Cache()->Store($Key, $Feed, array(Gdn_Cache::FEATURE_EXPIRY => 5 * 60));
+//      } else {
+//         $Feed = 'Cached'.$Feed;
+      }
+      return $Feed;
    }
    
    public function Splash() {
