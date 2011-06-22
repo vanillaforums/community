@@ -24,8 +24,8 @@
             </div>
             
              <div class="FeatureIcons">
-            <a class="Popup" href="http://vanillaforums.org/blog/wp-content/themes/BigVanillaOrg/upload_video.php"><img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/upload_video_ico.png" border="0" /></a>
-            <span class="FeatureMore"><a class="Popup" href="http://vanillaforums.org/blog/wp-content/themes/BigVanillaOrg/upload_video.php">Watch the video</a></span>
+            <a href="http://www.screenr.com/iI4"><img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/upload_video_ico.png" border="0" /></a>
+            <span class="FeatureMore"><a href="http://www.screenr.com/iI4">Watch the video</a></span>
             </div>
   </div> 
    
