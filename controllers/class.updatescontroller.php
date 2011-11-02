@@ -38,7 +38,7 @@ class UpdatesController extends Gdn_Controller {
    }
 	
 	public function Index($Offset = FALSE, $SortField = '') {
-		$this->Permission('Vanilla.Forums.Manage');
+		$this->Permission('Garden.Settings.Manage');
 		$this->AddSideMenu('updates');
 		$this->AddJsFile('jquery.gardenmorepager.js');
 		$this->Title('Remote Updates');

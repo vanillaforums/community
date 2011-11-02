@@ -137,8 +137,8 @@ class VFOrgHooks implements Gdn_IPlugin {
    
    public function Base_GetAppSettingsMenuItems_Handler($Sender) {
       $Menu = $Sender->EventArguments['SideMenu'];
-      $Menu->AddLink('Site Settings', 'Update Checkers', 'updates/', 'Vanilla.Forums.Manage');
-      $Menu->AddLink('Site Settings', 'Download Summary', 'vstats', 'Vanilla.Forums.Manage');
+      $Menu->AddLink('Site Settings', 'Update Checkers', 'updates/', 'Garden.Settings.Manage');
+      $Menu->AddLink('Site Settings', 'Download Summary', 'vstats', 'Garden.Settings.Manage');
    }
    
    public function Setup() {

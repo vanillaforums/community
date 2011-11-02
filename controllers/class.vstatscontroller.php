@@ -30,7 +30,7 @@ class VStatsController extends Gdn_Controller {
    }
 	
 	public function Index($Offset = FALSE, $Keywords = '') {
-		$this->Permission('Vanilla.Forums.Manage');
+		$this->Permission('Garden.Settings.Manage');
 		$this->AddSideMenu('vstats');
 		$this->AddJsFile('jquery.gardenmorepager.js');
 		$this->Title('Vanilla Stats');
