@@ -21,12 +21,6 @@ class DownloadController extends VFOrgController {
       $this->AddJsFile('jquery.livequery.js');
       $this->AddJsFile('global.js');
       $this->AddJsFile('download.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
-      $this->Head->AddString("
-<script type=\"text/javascript\">
-   Cufon.replace('h1', { textShadow: '0px 1px 1px #ffffff;' });
-</script>");
       
       // Create an account for the user if they fill out the form.
       if ($this->Form->IsPostBack() === TRUE) {

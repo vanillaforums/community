@@ -24,16 +24,6 @@ class FeaturesController extends VFOrgController {
 
 
       $this->AddJsFile('jquery.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
-//      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/gothamround.font.js');
-      $this->Head->AddString("
-<script type=\"text/javascript\">
-   Cufon.replace('.Features h1', {
-      fontFamily: 'Archer',
-      textShadow: '0px 1px 1px #ffffff;'
-   });
-</script>");
       
       $this->Render();
    }

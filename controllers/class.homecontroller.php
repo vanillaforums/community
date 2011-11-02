@@ -21,24 +21,6 @@ class HomeController extends VFOrgController {
       
       $this->AddJsFile('jquery.js');
       $this->AddJsFile('home.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
-      $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/gothamround.font.js');
-      $this->Head->AddString("
-<script type=\"text/javascript\">
-   Cufon.replace('h2', {
-      fontFamily: 'Archer',
-      textShadow: '0px 1px 1px #ffffff;'
-   });
-   Cufon.replace('h3', {
-      fontFamily: 'GothamRound',
-      textShadow: '0 1px 0 #fff;'
-   });
-   Cufon.replace('a.Get strong', {
-      fontFamily: 'Archer',
-      textShadow: '0px 1px 1px #00007e;'
-   });
-</script>");
       try {
          $AddonModel = new AddonModel();
          $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);

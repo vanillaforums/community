@@ -16,6 +16,7 @@ div.Features {
 	clear: both;
 }
 #Content .Features h1 {
+   font-family: Archer, Arial;
 	border: none;
 	font-size: 25px;
 }
