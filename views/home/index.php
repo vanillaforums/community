@@ -1,65 +1,86 @@
-<?php if (!defined('APPLICATION')) exit(); ?>
-<div class="Splash">
-   <div class="SplashMessage">
-      <h2>The best way to make your community grow.</h2>
-      <p>
-         <i class="Sprite SpriteScreen"></i>
-         Vanilla Forums are open-source, standards-compliant, customizable discussion forums.
-      </p>
-      <p>
-         <i class="Sprite SpriteSmile"></i> Migrate from any platform today, and join over <span><?php
-         $Version = GetValue('Version', $this->Data, '2.0');
-         $DateUploaded = GetValue('DateUploaded', $this->Data, '2010-07-21 00:00:00');
-         $CountDownloads = GetValue('CountDownloads', $this->Data);
-         if (is_numeric($CountDownloads) && $CountDownloads > 350000)
-            echo number_format($CountDownloads);
-         else
-            echo '350,000';
-         ?></span> sites using Vanilla Forums for effective community growth.
-      </p>
-      <?php echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'Get'); ?>
-   </div>
-   <div class="SplashPreview">
-      <div class="Window">
-         <div class="Reel">
-         <?php
-            $Images = array('screen-1.png', 'screen-2.png', 'screen-3.png', 'screen-4.png', 'screen-5.png', 'screen-6.png', 'screen-7.png', 'screen-8.png');
-            for ($i = 0; $i < count($Images); $i++) {
-               echo Img('/applications/vforg/design/images/'.$Images[$i], array('alt' => 'Vanilla Screenshot', 'height' => '361', 'width' => '539'));
-            }
-         ?>
-         </div>
-      </div>
-      <div class="ScreenNav">
+<?php if (!defined('APPLICATION')) exit();
+$this->Title('The most powerful custom community solution in the world');
+?>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+   $("#Slider").easySlider({
+         controlsContainer: '.SplashNav',
+			speed: 			400,
+			auto:			true,
+			pause:			20000,
+			continuous:		true, 
+			numeric: 		true,
+			numericId: 		'controls'
+   });
+});
+</script>
+<div class="Content Wrapper">
+   <div class="Actions">
       <?php
-         $On = 'On';
-         for ($i = 0; $i < count($Images); $i++) {
-            echo Anchor('<i class="Sprite Sprite'.($i+1).' SpriteDot SpriteDot'.$On.'"></i>', '#', array('rel' => $i+1));
-            $On = 'Off';
-         }
-      ?>
-      </div>
-   </div>
-   
-   <div class="NewsAndEvents">
-      <div class="News">
-         <?php
-            echo '<h3>News from Vanilla Forums</h3>';
-            echo $this->Data('NewsFeed');
-         ?>
-<!--      </div><div class="Events">
-         <h3>Vanilla Forums Events</h3>
-         <?php //echo $this->Data('EventsFeed') ?>
-      </div>-->
-   </div>
-   
-   <div class="Foot Wrapper">
-      <?php
-      echo Anchor('Free Community Support', '/discussions');
-      echo Anchor('Paid Support', '/services');
-      echo Anchor('Addons', '/addons');
-      echo Anchor('Contact Us', '/page/contact');
-      echo Anchor('Get a Free Hosted Vanilla Forum', 'http://vanillaforums.com');
+      $Version = GetValue('Version', $this->Data, '2.0');
+      $DateUploaded = GetValue('DateUploaded', $this->Data, '2010-07-21 00:00:00');
+      $CountDownloads = GetValue('CountDownloads', $this->Data);
+      
+      // echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'plans', 'GreenRibbon Plans');
+      // echo Anchor('<strong>See Plans and Pricing to Get Started</strong> 30-day free trial. <span>YES, there is a free plan!</span>', 'plans', 'GreenRibbon Plans');
+
+      echo Anchor("<strong>Get Started Now!</strong> Plans &amp; Pricing", 'http://vanillaforums.com', 'CredRibbon Plans');
+      
+      echo '<div class="Action">';
+
+      echo Anchor('<strong>Host With Us!</strong> See Plans and Pricing to Get Started', 'http://vanillaforums.com', 'GreenButton HostButton');
+      echo Wrap('or');
+      echo Anchor('<strong>Download Vanilla</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'OrangeButton DownloadButton');
+      echo '</div>';
       ?>
    </div>
+   <div class="Splashes">
+      <div id="Slider">
+         <ul>
+            <li>
+               <div class="Splash Splash1">
+                  <div class="Feature">
+                     <?php echo Img('applications/vfcom/design/images/feature-pennyarcade.png'); ?>
+                  </div>
+                  <h1>Custom Community Solutions</h1>
+                  <p>Vanilla is forum software that powers discussions on over <?php
+                     if (is_numeric($CountDownloads) && $CountDownloads > 500000)
+                        echo number_format($CountDownloads);
+                     else
+                        echo '500,000';
+                     ?> sites. Built for flexibility and integration, Vanilla is the most powerful community solution in the world.</p>
+						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion platform for your stack.</p>
+                  <p><?php echo Anchor('Learn More About Our Solutions', 'http://vanillaforums.com/solutions', 'BlueButton'); ?></p>
+               </div>
+            </li>
+            <li>
+               <div class="Splash Splash2">
+                  <div class="Feature">
+                     <?php echo Img('applications/vfcom/design/images/feature-community-analytics.png'); ?>
+                  </div>
+                  <h2>Community-Specific Analytics</h2>
+                  <p>We give you the data that Google Analytics just doesn't have. Get a deep understanding of the activity on your community with breakdowns between guests, members, and moderators.</p>
+						<p>Calculate ROI by understanding how many questions are answered by your community members vs your staff.</p>
+                  <p><?php echo Anchor('Learn More About our Social CRM Solution', 'http://vanillaforums.com/solutions/customer-support-forum', 'BlueButton'); ?></p>
+               </div>
+            </li>
+            <li>
+               <div class="Splash Splash3">
+                  <div class="Feature">
+                     <?php echo Img('applications/vfcom/design/images/features-social-mobile.png'); ?>
+                  </div>
+                  <h2>Works Everywhere!</h2>
+						<p>Vanilla works naturally on any device from computer to iPad to phone and has deep integrations with Facebook, Twitter, Google and any other social network you can throw our way.</p>
+                  <p>VanillaForums.com provides a complete notification and email solution so discussions can happen naturally whether on the community or sitting in your inbox.</p>
+                  <p><a class="BlueButton" href="http://vanillaforums.com/features">Learn More About Our Unparalleled Features</a></p>
+               </div>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="SplashNav"></div>
+<div class="Cred">
+   Awesome companies use Vanilla to power their communities:
+   <strong>9to5 Mac, HubSpot, Corptax, O'Reilly Media, Boagworld, Car Talk, Penny Arcade, Mozilla, and plenty more.</strong>
 </div>

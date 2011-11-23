@@ -1,95 +1,240 @@
-body {
-	background: url('shine.jpg') top center no-repeat #2a529a;
-	text-align: center;
+@font-face {
+	font-family: Aarcher;
+   font-weight: normal;
+	src: url('fonts/Archer-Medium-Pro.otf');
 }
-#Frame {
-	width: 700px;
-	margin: 0 auto;
-	text-align: left;
+@font-face {
+	font-family: Aarcher;
+	font-weight: bold;
+	src: url('fonts/Archer-Bold-Pro.otf');
 }
-#Head h1 a {
-	margin: 10px 0 0;
-   display: block;
-   height: 100px;
-   width: 236px;
-   background: url('vanilla_logo.png') center center no-repeat;
-	float: left;
+body.Info {
+	border-radius: none;
+	-moz-border-radius: none;
+	webkit-border-radius: none;
+	background: #fff;
+	border: none;
+	color: #000;
+	font-size: inherit;
+	margin: 0;
+	padding: 0;
 }
-#Head h1 a span {
-   display: none;
+#Panel {
+	display: none;
 }
 #Content {
-	font-family: 'lucida grande','Lucida Sans Unicode', Tahoma, sans-serif;
-}
-#Content h1 {
-	font-family: arial;
-	font-size: 28px;
-	color: #fff;
-	text-shadow: 0 2px 4px #333;
+	float: none;
+	width: auto;
 	margin: 0;
-	padding: 72px 0 0 250px;
 }
-#Content h1 em {
-	font-style: normal;
-	color: #ff8000;
+div.Wrapper {
+	text-align: left !important /* this is overriding what's in custom.css */;
+	position: relative;
+	padding: 10px 0 0;
 }
-#Content h2 {
-	font-size: 24px;
-	color: #ffd;
-	text-shadow: 0 0 6px #111;
-	margin: 60px 0 80px;
-	padding: 0;
+#Slider ul, #Slider li {
+	margin:0;
+	padding:0;
+	list-style:none;
 }
-#Content h3 {
-	font-size: 16px;
-	color: #eec;
-	text-shadow: 0 0 6px #111;
-	margin: 0 0 50px;
-	padding: 0;
+#Slider li { 
+	/* 
+		define width and height of list item (slide)
+		entire slider area will adjust according to the parameters provided here
+	*/ 
+	width:960px;
+	height:510px;
+	overflow:hidden; 
+}	
+.Splashes {
+	background: url('images/bg-splash.jpg') center top no-repeat #222;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 0 3px #333;
+	-moz-box-shadow: 0 0 3px #333;
+	-webkit-box-shadow: 0 0 3px #333;
+	height: 510px;
+	width: 960px;
+	overflow: hidden;
+	position: relative;
+	z-index: 100;
 }
-div.Download {
-	width: 300px;
-	float: right;
+.Splash {
+	padding: 40px 570px 40px 40px;
+	min-height: 430px;
+	position: relative;
 }
-div.Host {
-	width: 300px;
-	float: left;
+.Splash h1,
+.Splash h2 {
+	font-family: Aarcher, arial;
+	font-weight: normal;
+	color: #fff;
+	font-size: 30px;
+	margin: 0;
+	padding: 0 0 10px;
+	line-height: 1.2;
+	text-shadow: 0 0 1px #000;
 }
-#Content a {
+.Splash p {
+	padding: 10px 0;
+	margin: 0;
+	line-height: 1.4;
+	font-size: 15px;
+	max-width: 400px;
+	color: #ddd;
+	text-shadow: 0 0 1px #000;
+}
+.Splash .Feature {
+	position: absolute;
+	right: -100px;
+	top: 46px;
+}
+.Splash3 .Feature {
+	right: -40px;
+	top: 20px;
+}
+.CredRibbon {
 	display: block;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	/* border: 2px solid #181a79; */
-	text-decoration: none;
-	padding: 12px;
-	margin: 0;
-	box-shadow: 0px 0px 10px #222;
-	-moz-box-shadow: 0px 0px 10px #222;
-	-webkit-box-shadow: 0px 0px 10px #222;
-	font-size: 14px;
-	font-weight: bold;
-	background: url('blue_button_bg.jpg') top left repeat-x #181a79;
-	color: #ffd;
-	line-height: 1.6;
-	text-shadow: 0 1px 0 #000;
+	height: 183px;
+	width: 183px;
+	background: url('images/ribbon-green-plans-and-pricing.png') 0 0 no-repeat transparent;
+   color: #000;
+   font-size: 1px;
+   text-align: left;
+	position: absolute;
+	top: 10px;
+	right: 0;
+	z-index: 200;
+	text-indent: -1000px;
+	overflow: hidden;
 }
-#Content a:hover {
+.CredRibbon:hover {
+	background-position: 0 -183px;
+}
+.CredRibbon:active {
+	background-position: 0 -366px;
+}
+.Actions .Action {
+	position: absolute;
+	top: 407px;
+	left: -11px;
+	z-index: 200;
+	color: #aaa;
+	vertical-align: top;
+}
+.Actions .Action span {
+	padding: 0 10px;
+	vertical-align: middle;
+	height: 70px;
+	display: inline-block;
+}
+.OrangeButton,
+.GreenButton {
+	text-align: center;
+	padding: 4px 10px !important;
+	background-image: url('images/sprite-menu-big.png') !important;
+	background-position: 0 -480px !important;
+	font-weight: normal !important;
+	height: auto !important;
+	line-height: 1.6 !important;
+}
+.GreenButton:hover {
+	background-position: 0 -560px !important;
 	color: #fff;
-	box-shadow: 0px 0px 10px #000;
-	-moz-box-shadow: 0px 0px 10px #000;
-	-webkit-box-shadow: 0px 0px 10px #000;
 }
-#Content a:focus {
-	color: #ffd;
-	background: #3134a1;
-	box-shadow: 0px 0px 5px #000;
-	-moz-box-shadow: 0px 0px 5px #000;
-	-webkit-box-shadow: 0px 0px 5px #000;
+.GreenButton:focus {
+	background-position: 0 -640px !important;
 }
-#Content a img {
-	border: 0;
-	padding-left: 10px;
-	float: right;
+.OrangeButton {
+	background-position: 0 0 !important;
+	border: 1px solid #952701 !important;
+	color: #fff !important;
+	text-shadow: 0 1px 1px #4C2305 !important;
 }
-
-
+.OrangeButton:hover {
+	background-position: 0 -80px !important;
+	color: #744000;
+}
+.OrangeButton:focus {
+	background-position: 0 -160px !important;
+}
+.OrangeButton strong,
+.GreenButton strong {
+	line-height: 1.4;
+	font-family: Aarcher, arial;
+	font-weight: normal;
+	color: #FFFFFF;
+	display: block;
+	font-size: 20px;
+	padding: 0;
+	text-shadow: 0 1px 1px #000;
+}
+.SplashArrow {
+	top: 70px;
+	position: absolute;
+	padding: 0;
+	height: 510px;
+	width: 50%;
+	display: block;
+	z-index: 50;
+	cursor: pointer;
+}
+.SplashLeft { left: 0; }
+.SplashRight {
+	text-align: right;
+	right: 0;
+}
+.SplashArrow a {
+	margin: 230px 20px 0;
+	display: none;
+	height: 38px;
+	width: 38px;
+	background: url('images/nav-arrows.png') 0 -38px no-repeat transparent;
+	line-height: 1;
+	z-index: 300;
+}
+.SplashLeft:hover a,
+.SplashLeft:active a,
+.SplashRight:hover a,
+.SplashRight:active a {
+	display: inline-block !important;	
+}
+.SplashLeft a:hover { background-position: 0 0; }
+.SplashRight a { background-position: -38px -38px; }
+.SplashRight a:hover { background-position: -38px 0; }
+.SplashDots {
+	text-align: center;
+	position: relative;
+	margin: -33px auto 0;
+	left: 0;
+	z-index: 150;
+}
+.SplashDots a {
+	display: inline-block;
+	height: 22px;
+	width: 22px;
+	background: url('images/nav-dots.png') -22px 0 no-repeat transparent;
+	line-height: 1;
+	z-index: 200;
+}
+.SplashDots a:hover {
+	background-position: -44px 0;
+}
+.SplashDots a.Current {
+	background-position: 0 0 !important;
+}
+.Cred {
+	margin: 20px 0 0;
+	clear: left;
+	background: url('images/who-uses-us.png') 0 40px no-repeat transparent;
+	height: 90px;
+	width: 960px;
+	overflow: hidden;
+	color: #777;
+	font-size: 13px;
+	text-align: center;
+}
+.Cred strong {
+	display: none;
+}

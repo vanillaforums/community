@@ -7,7 +7,7 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
 	<i class="Sprite SpriteTools"></i>
 	<h1>
 		Hobbyists
-		<span>Download &amp; do-it-yourself</span>
+		<span>Download, install, configure, and optimize yourself</span>
 	</h1>
 	<?php
 	echo $this->Form->Open();
@@ -73,24 +73,8 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
 <div class="HostingForm">
 	<i class="Sprite SpriteSuit"></i>
 	<h1>
-		Businesses
-		<span>Get help growing your community</span>
+		Big Communities
+		<span>Get help hosting &amp; growing your community</span>
 	</h1>
-   <div class="Quote">
-      <?php echo Img('/applications/vforg/design/images/icon-moody.png', array('alt' => 'Chris Moody')); ?>
-      <p><strong>Vanilla is a great example of what happens when talented people take a fresh approach to an old problem.</strong></p>
-      <p class="Author">- Chris Moody, <em>President, Aquent On Demand</em></p>
-      <div class="Foot"></div>
-   </div>
-
-   <div class="Quote">
-      <?php echo Img('/applications/vforg/design/images/icon-evan.png', array('alt' => 'Evan Prodromou')); ?>
-      <p><strong>
-			<!-- We were reluctant to launch a community forum because the software we knew was difficult to maintain and gave a very poor first impression. -->
-			We've been delighted with our forum on vanillaforums.com; it set up almost instantly and has been a breeze to use and manage. Best of all, it makes us look good to our customers.
-		</strong></p>
-      <p class="Author">- Evan Prodromou, <em>CEO, Status.net</em></p>
-      <div class="Foot"></div>
-   </div>
-	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Build your community in 60 seconds.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
+	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Take control of your community.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
 </div>

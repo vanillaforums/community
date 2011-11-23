@@ -21,6 +21,8 @@ class HomeController extends VFOrgController {
       
       $this->AddJsFile('jquery.js');
       $this->AddJsFile('home.js');
+      $this->AddJsFile('easySlider1.7.js');
+      $this->AddCssFile('splash.css');
       try {
          $AddonModel = new AddonModel();
          $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
@@ -29,12 +31,13 @@ class HomeController extends VFOrgController {
          $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
          $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
 
-         
+/*         
          $NewsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/blog?DeliveryType=VIEW', TRUE));
          $this->SetData('NewsFeed', $NewsFeed);
 
          $EventsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/events?DeliveryType=VIEW', TRUE));
          $this->Data('EventsFeed', $EventsFeed);
+*/
       } catch (Exception $ex) {
          // Do nothing
       }
@@ -44,10 +47,14 @@ class HomeController extends VFOrgController {
    }
    
    public function Hosting() {
-      $this->Render();
+      Redirect('http://vanillaforums.com', 301);
+      // $this->Render();
+      
    }
    
    public function Features() {
+      Redirect('http://vanillaforums.com/features', 301);
+      /*
       $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/cufon-yui.js');
       $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/archer.font.js');
       $this->Head->AddScript('http://vanillaforums.com/applications/vfcom/js/gothamround.font.js');
@@ -58,8 +65,8 @@ class HomeController extends VFOrgController {
       textShadow: '0px 1px 1px #ffffff;'
    });
 </script>");      
-
       $this->Render();
+      */
    }
    
    public function Get() {
@@ -71,6 +78,8 @@ class HomeController extends VFOrgController {
    }
    
    public function Services($Service = '') {
+      Redirect('http://vanillaforums.com', 301);
+      /*
       if ($Service != '' && in_array($Service, array('installation', 'consultation', 'support'))) {
          $this->View = $Service;
       } else {
@@ -91,6 +100,7 @@ class HomeController extends VFOrgController {
       }
 
       $this->Render();
+      */
    }
    
    
@@ -135,12 +145,12 @@ class HomeController extends VFOrgController {
 
 /*
    public function Choose() {
-      $this->Title('Vanilla Forums - Free Forum Software');
+      $this->Title('The most powerful custom community solution in the world - Vanilla Forums');
       setcookie('VanillaViewedChooser', 'TRUE', time()+60*60*24*300, C('Garden.Cookie.Path'), C('Garden.Cookie.Domain')); // Expire in 300 days
-      $this->MasterView = 'choose';
+      $this->MasterView = 'empty';
       $this->ClearCssFiles();
       $this->AddCssFile('choose.css');
       $this->Render();
    }
-*/   
+*/
 }
