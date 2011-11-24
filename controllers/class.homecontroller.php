@@ -27,7 +27,7 @@ class HomeController extends VFOrgController {
       } catch (Exception $ex) {
       }
       $this->Title('The most powerful custom community solution in the world');
-      $this->SetData('Description', "Vanilla is forum software that powers discussions on over $CountDownloads sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.");
+      $this->SetData('Description', "Vanilla is forum software that powers discussions on $CountDownloads sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.");
       $this->Head->AddTag('meta', array('name' => 'description', 'content' => $this->Data('Description')));
    }
    
