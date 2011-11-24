@@ -61,7 +61,7 @@ div.Wrapper {
 	z-index: 100;
 }
 .Splash {
-	padding: 40px 570px 40px 40px;
+	padding: 40px 540px 40px 40px;
 	min-height: 430px;
 	position: relative;
 }
@@ -74,7 +74,7 @@ div.Wrapper {
 	margin: 0;
 	padding: 0 0 10px;
 	line-height: 1.2;
-	text-shadow: 0 0 1px #000;
+	text-shadow: 0 1px 1px #000;
 }
 .Splash p {
 	padding: 10px 0;
@@ -83,7 +83,7 @@ div.Wrapper {
 	font-size: 15px;
 	max-width: 400px;
 	color: #ddd;
-	text-shadow: 0 0 1px #000;
+	text-shadow: 0 1px 1px #000;
 }
 .Splash .Feature {
 	position: absolute;

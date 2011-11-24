@@ -10,7 +10,7 @@
          ?>
          <h1>The <em>sweetest</em> forum on the web.</h1>
       </div>
-      <h2>Over 350,000 sites have used Vanilla Forums to grow <br />community around their website, brand, or business. For free.</h2>
+      <h2>Over 500,000 sites have used Vanilla Forums to grow <br />community around their website, brand, or business. For free.</h2>
       <div class="Host">
          <?php
             echo Anchor(

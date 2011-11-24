@@ -17,10 +17,6 @@ class VFOrgController extends Gdn_Controller {
    public function Initialize() {
       if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
          $this->Head = new HeadModule($this);
-         $this->Head->AddTag('meta', array(
-            'name' => 'description',
-            'content' => "Vanilla is an open-source, standards-compliant, multi-lingual, fully extensible discussion forum for the web. Anyone can download and use the Vanilla forum package with no limitations for free!"
-         ));
       }
          
       $this->AddCssFile('style.css');
