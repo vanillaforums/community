@@ -9,6 +9,28 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 */
 
 class HomeController extends VFOrgController {
+   public function Initialize() {
+      parent::Initialize();
+      
+      try {
+         $AddonModel = new AddonModel();
+         $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
+         
+         $this->SetData('CountDownloads', $Addon ? $Addon['CountDownloads'] : 350000);
+         $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
+         $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
+         
+         $CountDownloads = $this->Data('CountDownloads', 0);
+         if ($CountDownloads < 500000)
+            $CountDownloads = 500000;
+         $CountDownloads = number_format($CountDownloads);
+      } catch (Exception $ex) {
+      }
+      $this->Title('The most powerful custom community solution in the world');
+      $this->SetData('Description', "Vanilla is forum software that powers discussions on over $CountDownloads sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.");
+      $this->Head->AddTag('meta', array('name' => 'description', 'content' => $this->Data('Description')));
+   }
+   
    
    public function Index() {
       // If the user does not have an active session, or they have not yet viewed the "chooser", redirect them to it.
@@ -20,6 +42,8 @@ class HomeController extends VFOrgController {
       */
       
       $this->AddJsFile('jquery.js');
+      $this->AddJsFile('jquery.livequery.js');
+      $this->AddJsFile('global.js');
       $this->AddJsFile('home.js');
       $this->AddJsFile('easySlider1.7.js');
       $this->AddCssFile('splash.css');
