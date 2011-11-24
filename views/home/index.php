@@ -24,11 +24,11 @@ jQuery(document).ready(function($) {
       // echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'plans', 'GreenRibbon Plans');
       // echo Anchor('<strong>See Plans and Pricing to Get Started</strong> 30-day free trial. <span>YES, there is a free plan!</span>', 'plans', 'GreenRibbon Plans');
 
-      echo Anchor("<strong>Get Started Now!</strong> Plans &amp; Pricing", 'http://vanillaforums.com', 'CredRibbon Plans');
+      echo Anchor("<strong>Get Started Now!</strong> Plans &amp; Pricing", 'http://vanillaforums.com/plans', 'CredRibbon Plans');
       
       echo '<div class="Action">';
 
-      echo Anchor('<strong>Host With Us!</strong> See Plans and Pricing to Get Started', 'http://vanillaforums.com', 'GreenButton HostButton');
+      echo Anchor('<strong>Host With Us!</strong> On our Fully Scalable Infrastructure', 'http://vanillaforums.com', 'GreenButton HostButton');
       echo Wrap('or');
       echo Anchor('<strong>Download Vanilla</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'OrangeButton DownloadButton');
       echo '</div>';
@@ -48,8 +48,8 @@ jQuery(document).ready(function($) {
                         echo number_format($CountDownloads);
                      else
                         echo '500,000';
-                     ?> sites. Built for flexibility and integration, Vanilla is the most powerful community solution in the world.</p>
-						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion platform for your stack.</p>
+                     ?> sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.</p>
+						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion & support platform for your stack.</p>
                   <p><?php echo Anchor('Learn More About Our Solutions', 'http://vanillaforums.com/solutions', 'BlueButton'); ?></p>
                </div>
             </li>
