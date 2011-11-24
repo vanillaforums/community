@@ -43,11 +43,11 @@ jQuery(document).ready(function($) {
                      <?php echo Img('applications/vfcom/design/images/feature-pennyarcade.png'); ?>
                   </div>
                   <h1>Custom Community Solutions</h1>
-                  <p>Vanilla is forum software that powers discussions on over <?php
+                  <p>Vanilla is forum software that powers discussions on <?php
                      if (is_numeric($CountDownloads) && $CountDownloads > 500000)
                         echo number_format($CountDownloads);
                      else
-                        echo '500,000';
+                        echo 'over 500,000';
                      ?> sites. Built for flexibility and integration, Vanilla is the most powerful community solution in the world.</p>
 						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion platform for your stack.</p>
                   <p><?php echo Anchor('Learn More About Our Solutions', 'http://vanillaforums.com/solutions', 'BlueButton'); ?></p>
