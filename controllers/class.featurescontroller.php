@@ -12,6 +12,24 @@ class FeaturesController extends VFOrgController {
    
    public function Index($FeaturePageName = '') {
       $ViewLocation = FALSE;
+      
+      $Redirects = array(
+//          'embed-vanilla' => 'http://vanillaforums.com/features',
+          'mobile' => 'http://vanillaforums.com/features/mobile-friendly#toc',
+          'social-connect' => 'http://vanillaforums.com/features/authentication-connects-and-sso#toc',
+          'themes' => 'http://vanillaforums.com/features/custom-appearance#toc',
+          'banner' => 'http://vanillaforums.com/features/custom-appearance#toc',
+          'file-upload' => 'http://vanillaforums.com/features/file-and-data-storage#toc',
+          'import-tool' => 'http://vanillaforums.com/features/data-import-export#toc',
+          'vanilla-connect' => 'http://vanillaforums.com/features/authentication-connects-and-sso#toc'
+      );
+      
+      if (isset($Redirects[$FeaturePageName]))
+         Redirect($Redirects[$FeaturePageName]);
+      else
+         Redirect('http://vanillaforums.com/features');
+      
+      
       try {
          $ViewLocation = $this->FetchViewLocation($FeaturePageName);
       } catch (Exception $e) {

@@ -24,11 +24,11 @@ jQuery(document).ready(function($) {
       // echo Anchor('<strong>Get Your Vanilla Forum Now</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'plans', 'GreenRibbon Plans');
       // echo Anchor('<strong>See Plans and Pricing to Get Started</strong> 30-day free trial. <span>YES, there is a free plan!</span>', 'plans', 'GreenRibbon Plans');
 
-      echo Anchor("<strong>Get Started Now!</strong> Plans &amp; Pricing", 'http://vanillaforums.com', 'CredRibbon Plans');
+      echo Anchor("<strong>Get Started Now!</strong> Plans &amp; Pricing", 'http://vanillaforums.com/plans', 'CredRibbon Plans');
       
       echo '<div class="Action">';
 
-      echo Anchor('<strong>Host With Us!</strong> See Plans and Pricing to Get Started', 'http://vanillaforums.com', 'GreenButton HostButton');
+      echo Anchor('<strong>Host With Us!</strong> On our Fully Scalable Infrastructure', 'http://vanillaforums.com', 'GreenButton HostButton');
       echo Wrap('or');
       echo Anchor('<strong>Download Vanilla</strong> Vanilla '.$Version.' - Released '.Gdn_Format::Date($DateUploaded), 'download', 'OrangeButton DownloadButton');
       echo '</div>';
@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
             <li>
                <div class="Splash Splash1">
                   <div class="Feature">
-                     <?php echo Img('applications/vfcom/design/images/feature-pennyarcade.png'); ?>
+                     <?php echo Img('applications/vforg/design/images/feature-pennyarcade.png'); ?>
                   </div>
                   <h1>Custom Community Solutions</h1>
                   <p>Vanilla is forum software that powers discussions on <?php
@@ -48,15 +48,27 @@ jQuery(document).ready(function($) {
                         echo number_format($CountDownloads);
                      else
                         echo 'over 500,000';
-                     ?> sites. Built for flexibility and integration, Vanilla is the most powerful community solution in the world.</p>
-						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion platform for your stack.</p>
+                     ?> sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.</p>
+						<p>Vanilla can integrate seamlessly with your existing infrastructure to provide you with a completely custom community discussion & support platform for your stack.</p>
                   <p><?php echo Anchor('Learn More About Our Solutions', 'http://vanillaforums.com/solutions', 'BlueButton'); ?></p>
+               </div>
+            </li>
+            <li>
+               <div class="Splash Splash4">
+                  <div class="Feature">
+                     <?php echo Img('applications/vforg/design/images/feature-migrate.png'); ?>
+                  </div>
+                  <h2>Growth Problems?</h2>
+                  <p>Your community is growing, this should be a great time for you!</p>
+                  <p>Instead, you're dealing with your servers crashing, searches failing, confusing design, senseless features, difficult administration &amp; configuration, frustrated users complaining, angry users leaving!</p>
+						<p>We get it, and we're here to help.</p>
+                  <p><?php echo Anchor('Learn More About Moving to Vanilla', 'http://vanillaforums.com/solutions/legacy-forum', 'BlueButton'); ?></p>
                </div>
             </li>
             <li>
                <div class="Splash Splash2">
                   <div class="Feature">
-                     <?php echo Img('applications/vfcom/design/images/feature-community-analytics.png'); ?>
+                     <?php echo Img('applications/vforg/design/images/feature-community-analytics.png'); ?>
                   </div>
                   <h2>Community-Specific Analytics</h2>
                   <p>We give you the data that Google Analytics just doesn't have. Get a deep understanding of the activity on your community with breakdowns between guests, members, and moderators.</p>
@@ -67,7 +79,7 @@ jQuery(document).ready(function($) {
             <li>
                <div class="Splash Splash3">
                   <div class="Feature">
-                     <?php echo Img('applications/vfcom/design/images/features-social-mobile.png'); ?>
+                     <?php echo Img('applications/vforg/design/images/features-social-mobile.png'); ?>
                   </div>
                   <h2>Works Everywhere!</h2>
 						<p>Vanilla works naturally on any device from computer to iPad to phone and has deep integrations with Facebook, Twitter, Google and any other social network you can throw our way.</p>
