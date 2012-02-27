@@ -117,6 +117,9 @@ class HomeController extends VFOrgController {
          default:
             $Url = 'http://vanillaforums.com/blog/category/news/feed/';
       }
+      // Just use the core feed!
+      $Url = 'http://vanillaforums.com/blog/feed/';
+      
       $RawFeed = file_get_contents($Url);
       $this->Feed = new SimpleXmlElement($RawFeed);
       $this->Render();
