@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
 	font-family: Aarcher;
    font-weight: normal;
 	src: url('fonts/Archer-Medium-Pro.otf');
@@ -7,7 +7,7 @@
 	font-family: Aarcher;
 	font-weight: bold;
 	src: url('fonts/Archer-Bold-Pro.otf');
-}
+}*/
 body.Info {
 	border-radius: none;
 	-moz-border-radius: none;
