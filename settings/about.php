@@ -3,7 +3,7 @@
 $ApplicationInfo['VFOrg'] = array(
    'Name' => 'VanillaForums.org',
    'Description' => "The VanillaForums.org website.",
-   'Version' => '1.2.1',
+   'Version' => '1.2.2',
    'RegisterPermissions' => FALSE,
    'SetupController' => 'setup',
    'Author' => "Mark O'Sullivan",

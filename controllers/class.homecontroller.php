@@ -33,39 +33,24 @@ class HomeController extends VFOrgController {
    
    
    public function Index() {
-      // If the user does not have an active session, or they have not yet viewed the "chooser", redirect them to it.
-      /*
-      $Session = Gdn::Session();
-      $ViewedChooser = ArrayValue('VanillaViewedChooser', $_COOKIE);
-      if (!$Session->IsValid() && !$ViewedChooser)
-         Redirect('/choose');
-      */
-      
+      $this->ClearJsFiles();
       $this->AddJsFile('jquery.js');
-      $this->AddJsFile('jquery.livequery.js');
-      $this->AddJsFile('global.js');
-      $this->AddJsFile('home.js');
       $this->AddJsFile('easySlider1.7.js');
-      $this->AddCssFile('splash.css');
+      $Options = array('Save' => FALSE);
+      SaveToConfig('Garden.Embed.Allow', FALSE, $Options); // Prevent JS errors
       try {
          $AddonModel = new AddonModel();
          $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
-         
          $this->SetData('CountDownloads', $Addon ? $Addon['CountDownloads'] : 350000);
          $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
          $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
-
-/*         
-         $NewsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/blog?DeliveryType=VIEW', TRUE));
-         $this->SetData('NewsFeed', $NewsFeed);
-
-         $EventsFeed = $this->ProxyFeed(Url('/vforg/home/getfeed/events?DeliveryType=VIEW', TRUE));
-         $this->Data('EventsFeed', $EventsFeed);
-*/
       } catch (Exception $ex) {
          // Do nothing
       }
       
+      $this->ClearCssFiles();      
+      $this->AddCssFile('splash.css');
+      $this->MasterView = 'empty';
       $this->Render();
       die();
    }
