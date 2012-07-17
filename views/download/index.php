@@ -5,10 +5,10 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
 ?>
 <div class="DownloadForm">
 	<i class="Sprite SpriteTools"></i>
-	<h1>
-		Hobbyists
-		<span>Download, install, configure, and optimize yourself</span>
-	</h1>
+   <div class="FooWrap">
+      <h1>Developers</h1>
+      <p>Download, install, configure, and optimize yourself</p>
+   </div>
 	<?php
 	echo $this->Form->Open();
 	echo $this->Form->Errors();
@@ -72,9 +72,9 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
 </div>
 <div class="HostingForm">
 	<i class="Sprite SpriteSuit"></i>
-	<h1>
-		Big Communities
-		<span>Get help hosting &amp; growing your community</span>
-	</h1>
+   <div class="FooWrap">
+      <h1>Big Communities</h1>
+      <p>Get help hosting &amp; growing your community</p>
+   </div>
 	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Take control of your community.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
 </div>
