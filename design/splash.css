@@ -104,6 +104,7 @@ a:hover {
     font-size: 14px;
     font-weight: bold;
 }
+/*
 .Menu a.Hosting {
     margin: 0;
     color: #f60;
@@ -113,6 +114,8 @@ a:hover {
     text-align: center;
     vertical-align: baseline;
 }
+*/
+/*
 .Menu a.Hosting:hover {
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -135,7 +138,7 @@ a:hover {
 .Hosting:hover span {
     color: #fff;
 }
-/*
+
 .Menu a.Download {
     margin: 0;
     color: #393;
@@ -155,22 +158,44 @@ a:hover {
 .Column {
    vertical-align: top;
 }
-.Col1, .Col2 {
-    padding: 0 20px;
-    stext-align: center;
+.Col {
+    padding: 0 0 0 60px;
+    text-align: left;
 }
 .Col1 {
-    width: 445px;
+    padding: 0 0 0 130px;
+    width: 360px;
     float: left;
 }
 .Col2 {
-    width: 410px;
+    width: 360px;
     overflow: hidden;
+}
+.Col3 {
+    padding: 0 0 0 130px;
+    width: 360px;
+    float: left;
+    text-align: left;
+    float: left;
+}
+.Col4 {
+    padding: 0 0 0 60px;
+    width: 360px;
+    overflow: visible;
+    text-align: left;
+    float: left;
 }
 .AboveFold .Col1 p {
    padding-right: 10px;
 }
 .AboveFold p strong {
+    font-weight: bold;
+    color: #a00;
+}
+.AboutFold .Col3 p {
+   padding-right: 10px;
+}
+.AboutFold p strong {
     font-weight: bold;
     color: #a00;
 }
@@ -303,7 +328,15 @@ a:hover {
 .SplashRight a:hover { background-position: -38px 0; }
 .Fold .Row {
    clear: left;
-   border-bottom: 1px solid #ddd;
+   border-bottom: 0px solid #ddd;
+}
+.AboutFold .Col3 p {
+   padding-right: 10px;
+   position: relative;
+}
+.AboutFold p strong {
+    font-weight: bold;
+    color: #a00;
 }
 .Foot .Row {
    clear: left;
@@ -318,8 +351,6 @@ a:hover {
     top: 20px;
     left: 160px;
 }
-
-
 
 .SpFlat,
 .SpFrown,
@@ -350,14 +381,12 @@ h2 {
     margin: 20px 10px;
 }
 .AboutVanilla p {
-    display: inline-block;
-    width: 450px;
+    float: right;
+    width: 100%;
     vertical-align: top;
-    margin: 0 0 20px;
+    margin: 0 0 0px;
 }
-.AboutVanilla p:last-child {
-    margin-left: 50px;
-}
+
 .HostInfo,
 .DownloadInfo {
     background: #fafafa;
@@ -435,7 +464,7 @@ h2 {
 	-moz-box-shadow: inset 0 0 1px #c2ffbc, 0 0 4px #bbb;
 	-webkit-box-shadow: inset 0 0 1px #c2ffbc, 0 0 4px #bbb;
    padding: 4px 14px;
-   margin: 10px 0 0;
+   margin: 10px 10px 0;
 	font-weight: bold;
    font-size: 14px;
    line-height: 2;

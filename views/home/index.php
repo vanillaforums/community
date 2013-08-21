@@ -32,7 +32,8 @@ jQuery(document).ready(function($) {
          echo Anchor('Community', 'discussions');
          echo Anchor('Documentation', 'docs');
          echo Anchor('Blog', 'http://vanillaforums.com/blog');
-         echo Anchor('Hosting'.Wrap('Start using Vanilla today'), 'http://vanillaforums.com', array('class' => 'Hosting'));
+         echo Anchor('Looking for our cloud software?', 'http://vanillaforums.com', 'GreenButton');
+//echo Anchor('Vanilla SaaS'.Wrap('Looking for our hosted product?'), 'http://vanillaforums.com', array('class' => 'Hosting'));
          // echo Anchor('Download', 'download', array('class' => 'Download'));
       echo '</div>';
       ?>
@@ -61,24 +62,6 @@ jQuery(document).ready(function($) {
       </div>
       <div class="AboutVanilla">
          <div class="SplashNav"></div>
-         <p>
-            <strong>We believe that online communities should be unique, 
-            intuitive and engaging.</strong> 
-            Vanilla allows you to create a 
-            customized community that rewards positive participation, 
-            automatically curates content and lets members drive 
-            moderation. 
-         </p>
-         <p>
-            Vanilla provides hosted and open source community forum 
-            software that powers discussion forums on <?php
-            if (is_numeric($CountDownloads) && $CountDownloads > 500000)
-               echo number_format($CountDownloads);
-            else
-               echo 'over 500,000';
-            ?> sites. Built for flexibility and integration, <strong>Vanilla is 
-            the best, most powerful community solution in the world.</strong>
-         </p>
       </div>
    </div>
 </div>
@@ -86,17 +69,17 @@ jQuery(document).ready(function($) {
 <div class="BelowFold">
    <div class="Row">
       <div class="Col Col1 HostingCol">
-         <h2>Vanilla Hosting</h2>
+         <h2>Vanilla Cloud Platform</h2>
          <ul>
             <li><?php echo Sprite('SpCheck'); ?> Optimized for speed</li>
-            <li><?php echo Sprite('SpCheck'); ?> More features</li>
+            <li><?php echo Sprite('SpCheck'); ?> Premium features</li>
             <li><?php echo Sprite('SpCheck'); ?> Customer Support</li>
-            <li><?php echo Sprite('SpCheck'); ?> Legacy Forum Migration</li>
+            <li><?php echo Sprite('SpCheck'); ?> Migration Services</li>
          </ul>
          <p class="HostInfo">
             <strong>Always Stable</strong>
             <br />
-            <?php echo Anchor('Get a Hosted Community Forum', 'http://vanillaforums.com/plans', 'GreenButton'); ?>
+            <?php echo Anchor('30-Day Free Trial', 'http://vanillaforums.com/plans', 'GreenButton'); ?>
             &nbsp;
             <?php echo Anchor('Take a Tour', 'http://vanillaforums.com/features', 'PurpleButton'); ?>
          </p>
@@ -117,10 +100,33 @@ jQuery(document).ready(function($) {
       </div>
    </div>
 </div>
+<div class="Fold"><div class="Row"></div></div> 
+<div class="Row">
+        <div class="AboutFold Col3">
+          <p><strong>We believe that online communities should be 
+            intuitive, engaging and true to your brand.</strong> 
+            Vanilla allows you to create a 
+            customized community that rewards positive participation, 
+            automatically curates content and lets members drive 
+            moderation. 
+         </p></div>    
+      <div class="AboutFold Col4">
+         <p>
+            Vanilla provides cloud and open source community forum 
+            software that powers discussion forums on <?php
+            if (is_numeric($CountDownloads) && $CountDownloads > 500000)
+               echo number_format($CountDownloads);
+            else
+               echo 'over 500,000';
+            ?> sites. Built for flexibility and integration, <strong>Vanilla is 
+            the best, most powerful community solution in the world.</strong>
+         </p></div>
+ </div>
+ 
 <div class="Foot">
    <div class="Row">
       <div class="Cred">
-         <label>Awesome companies use Vanilla's community forum software:</label>
+         <label>Awesome companies use Vanilla's community forum software:</label><br><br>
          <strong>9to5 Mac, HubSpot, Corptax, O'Reilly Media, Boagworld, Car Talk, Penny Arcade, Mozilla, and plenty more.</strong>
       </div>
    </div>
