@@ -1,0 +1,67 @@
+#zoom_table {
+	border-collapse:collapse;
+	width:100%;
+	height:100%;
+}
+#zoom_table td.tl {
+	background: url('fancyzoom/tl.png') 0 0 no-repeat;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_table td.tm {
+	background: url('fancyzoom/tm.png') 0 0 repeat-x;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_table td.tr {
+	background: url('fancyzoom/tr.png') 100% 0 no-repeat;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_table td.ml {
+	background: url('fancyzoom/ml.png') 0 0 repeat-y;
+	width:20px;
+	overflow:hidden;
+}
+#zoom_table td.mm {
+	background:#fff;
+	vertical-align:top;
+	padding:10px;
+}
+#zoom_table td.mr {
+	background: url('fancyzoom/mr.png') 100% 0 repeat-y;
+	width:20px;
+	overflow:hidden;
+}
+#zoom_table td.bl {
+	background: url('fancyzoom/bl.png') 0 100% no-repeat;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_table td.bm {
+	background: url('fancyzoom/bm.png') 0 100% repeat-x;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_table td.br {
+	background: url('fancyzoom/br.png') 100% 100% no-repeat;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+}
+#zoom_close {
+	position:absolute;
+	top:0;
+	left:0;
+}
+#zoom_close div {
+	height: 30px;
+	width: 30px;
+	background: url('fancyzoom/closebox.png') center center no-repeat;
+}
+#zoom_close div span {
+	display: none;
+}
