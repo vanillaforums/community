@@ -196,6 +196,76 @@ ul, ol {
    white-space: nowrap;
 }
 
+/**
+ * Buttons
+ */
+
+.Button {
+   display: inline-block;
+   padding: 4px 14px;
+   border-radius: 3px;
+   color: #FFF;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 2;
+   text-align: center;
+   text-shadow: 0 -1px 2px rgba(0, 0, 0, .5);
+}
+
+.Button,
+.Button:hover { text-decoration: none; }
+
+.Button {
+   -webkit-box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
+      -moz-box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
+           box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.Button:focus {
+   -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+           box-shadow: none;
+}
+
+.Button.Green {
+   background: #2c9000;
+   background: -webkit-gradient(linear, center bottom, center top, from(#2c9000), to(#4cbc01));
+   background: -moz-linear-gradient(top, #4cbc01, #2c9000);
+   background: linear-gradient(top, #4cbc01, #2c9000);
+   border: 1px solid #2a690f;
+}
+
+.Button.Green:hover {
+   background: #4cbc01;
+   text-shadow: 0 0 2px #174901;
+}
+
+.Button.Green:focus {
+   background: #1f6600;
+   border-color: #0a2100;
+}
+
+.Button.Purple {
+   background: #981d5a;
+   background: -webkit-gradient(linear, center bottom, center top, from(#981d5a), to(#d43f8b));
+   background: -moz-linear-gradient(top, #d43f8b, #981d5a);
+   background: linear-gradient(top, #d43f8b, #981d5a);
+   border: 1px solid #5c0531;
+}
+
+.Button.Purple:hover {
+   background: #d43f8b;
+   text-shadow: 0 0 2px #53042c;
+}
+
+.Button.Purple:focus {
+   background: #8b114f;
+}
+
+/**
+ * Slider
+ */
+
 #Slider > ul, #Slider > ul > li {
    margin: 0;
    padding: 0;
@@ -337,70 +407,4 @@ ul, ol {
    margin-right: 6px;
    vertical-align: middle;
    background: url("../../dashboard/design/images/check.png") 0 0 no-repeat transparent;
-}
-
-/**
- * Buttons
- */
-
-.Button {
-   display: inline-block;
-   padding: 4px 14px;
-   border-radius: 3px;
-   color: #FFF;
-   font-weight: bold;
-   font-size: 14px;
-   line-height: 2;
-   text-align: center;
-   text-shadow: 0 -1px 2px rgba(0, 0, 0, .5);
-}
-
-.Button,
-.Button:hover { text-decoration: none; }
-
-.Button {
-   -webkit-box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
-      -moz-box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
-           box-shadow: 0 0 4px #BBB, inset 0 0 1px rgba(255, 255, 255, .5);
-}
-
-.Button:focus {
-   -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-           box-shadow: none;
-}
-
-.Button.Green {
-   background: #2c9000;
-   background: -webkit-gradient(linear, center bottom, center top, from(#2c9000), to(#4cbc01));
-   background: -moz-linear-gradient(top, #4cbc01, #2c9000);
-   background: linear-gradient(top, #4cbc01, #2c9000);
-   border: 1px solid #2a690f;
-}
-
-.Button.Green:hover {
-   background: #4cbc01;
-   text-shadow: 0 0 2px #174901;
-}
-
-.Button.Green:focus {
-   background: #1f6600;
-   border-color: #0a2100;
-}
-
-.Button.Purple {
-   background: #981d5a;
-   background: -webkit-gradient(linear, center bottom, center top, from(#981d5a), to(#d43f8b));
-   background: -moz-linear-gradient(top, #d43f8b, #981d5a);
-   background: linear-gradient(top, #d43f8b, #981d5a);
-   border: 1px solid #5c0531;
-}
-
-.Button.Purple:hover {
-   background: #d43f8b;
-   text-shadow: 0 0 2px #53042c;
-}
-
-.Button.Purple:focus {
-   background: #8b114f;
 }
