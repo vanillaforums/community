@@ -71,7 +71,7 @@ else {
    <div class="Columns">
       <div class="Column">
          <h2>Vanilla Cloud</h2>
-         <ul>
+         <ul class="Features">
             <li><?php echo Sprite('SpCheck'); ?> Optimized for speed</li>
             <li><?php echo Sprite('SpCheck'); ?> Premium features</li>
             <li><?php echo Sprite('SpCheck'); ?> Customer Support</li>
@@ -90,7 +90,7 @@ else {
       </div>
       <div class="Column">
          <h2>Vanilla Open Source</h2>
-         <ul>
+         <ul class="Features">
             <li><?php echo Sprite('SpCheck'); ?> Free Download</li>
             <li><?php echo Sprite('SpCheck'); ?> You Host It</li>
             <li><?php echo Sprite('SpCheck'); ?> You Optimize It</li>

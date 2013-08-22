@@ -54,15 +54,10 @@ h2 {
    margin: 20px 0;
 }
 
-ul {
+ul, ol {
    list-style: none;
    margin: 0;
    padding: 0;
-}
-
-ul li {
-   line-height: 2;
-   padding-left: 20px;
 }
 
 .Head .Row {
@@ -112,6 +107,14 @@ ul li {
 
 .Menu a:last-child {
    margin-right: 0;
+}
+
+.Features {
+   padding-left: 15px;
+}
+
+.Features li {
+   line-height: 2;
 }
 
 .Info {
