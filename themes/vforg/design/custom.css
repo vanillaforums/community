@@ -1,0 +1,1118 @@
+/** Grid **/
+/* line 3, ../sass/custom.scss */
+.PanelColumn {
+  width: 220px;
+}
+
+/* line 6, ../sass/custom.scss */
+.ContentColumn {
+  margin-left: 250px;
+}
+
+/* line 10, ../sass/custom.scss */
+.Row {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1200px;
+  min-width: 940px;
+}
+
+@media (max-width: 1100px) {
+  /* line 18, ../sass/custom.scss */
+  #Panel {
+    width: 220px;
+  }
+
+  /* line 22, ../sass/custom.scss */
+  #Body .ContentColumn {
+    margin-left: 240px;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait), (max-width: 960px) {
+  /* line 33, ../sass/custom.scss */
+  #Panel {
+    display: none;
+  }
+
+  /* line 37, ../sass/custom.scss */
+  #Body .ContentColumn {
+    margin: 0;
+  }
+
+  /* line 41, ../sass/custom.scss */
+  .Row {
+    width: inherit;
+    margin: 0 20px;
+    min-width: inherit;
+  }
+
+  /* line 47, ../sass/custom.scss */
+  #Head .MeWrap {
+    right: 40px !Important;
+  }
+
+  /* line 51, ../sass/custom.scss */
+  #Content .BoxNewDiscussion {
+    display: inline-block;
+  }
+
+  /* line 55, ../sass/custom.scss */
+  #Content .BoxNewDiscussion .MenuItems {
+    min-width: 175px;
+  }
+}
+/** Header **/
+/* line 62, ../sass/custom.scss */
+.Head .Home {
+  background: url("images/vanilla-forums-logo-132x61.png") center center no-repeat;
+  display: block;
+  height: 61px;
+  width: 135px;
+  overflow: hidden;
+  color: transparent;
+  font-size: 1px;
+  text-indent: -1000px;
+  white-space: nowrap;
+  margin: 0 0 0 20px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  /* line 81, ../sass/custom.scss */
+  .Head .Home {
+    background-image: url("images/vanilla_logo.png");
+    background-size: 135px;
+  }
+
+  /* line 86, ../sass/custom.scss */
+  .PoweredByVanilla {
+    background-image: url("images/vanilla_logo.png");
+    background-size: 70px;
+  }
+}
+/* line 92, ../sass/custom.scss */
+a {
+  color: #012f6e;
+  text-decoration: none;
+}
+
+/* line 96, ../sass/custom.scss */
+.Menu a:hover {
+  text-decoration: underline;
+}
+
+/* line 99, ../sass/custom.scss */
+.Head {
+  margin: 20px 0 0;
+}
+
+/* line 102, ../sass/custom.scss */
+.Head .Row {
+  position: relative;
+  padding: 0 0 20px;
+}
+
+/* line 106, ../sass/custom.scss */
+.Menu {
+  position: absolute;
+  top: auto;
+  bottom: 12px;
+  right: 0;
+}
+
+/* line 112, ../sass/custom.scss */
+.Menu a {
+  margin: 0 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* line 117, ../sass/custom.scss */
+.Menu a.Hosting {
+  margin: 0;
+  color: #f60;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  display: inline-block;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+/* line 126, ../sass/custom.scss */
+.Menu a.Hosting:hover {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  color: #fff;
+  background: #f60;
+  text-decoration: none;
+  box-shadow: inset 0 0 2px #fccfb1;
+  -moz-box-shadow: inset 0 0 2px #fccfb1;
+  -webkit-box-shadow: inset 0 0 2px #fccfb1;
+  border: 1px solid #f60;
+  text-shadow: 0 -1px 0 #a94502;
+}
+
+/* line 139, ../sass/custom.scss */
+.Hosting span {
+  display: block;
+  font-weight: normal;
+  font-size: 12px;
+  color: #000;
+}
+
+/* line 145, ../sass/custom.scss */
+.Hosting:hover span {
+  color: #fff;
+}
+
+/* line 149, ../sass/custom.scss */
+.OpenSource {
+  background: url("images/open-source.png") center center no-repeat transparent;
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  height: 76px;
+  width: 76px;
+  top: 20px;
+  left: 160px;
+}
+
+/* line 160, ../sass/custom.scss */
+.Head {
+  margin: 20px 0 2px !Important;
+  padding: 0 !Important;
+}
+
+/* line 165, ../sass/custom.scss */
+.SiteSearch {
+  margin: 10px auto;
+  width: 600px;
+  max-width: 100%;
+}
+
+/* line 171, ../sass/custom.scss */
+.SiteSearch #Form_Search {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: .4ex;
+  border: solid 2px #ddd;
+}
+
+/* line 179, ../sass/custom.scss */
+.SiteSearch .Button {
+  top: 7px;
+  right: 6px;
+}
+
+/* line 184, ../sass/custom.scss */
+.MeModuleWrap {
+  float: right;
+}
+
+/* line 188, ../sass/custom.scss */
+.Alert {
+  border-radius: .2ex;
+}
+
+/* line 192, ../sass/custom.scss */
+.MeButton .Alert {
+  font-size: 10px;
+  padding: 1px 3px;
+  min-width: 16px;
+  top: -13px;
+  left: 3px;
+  right: inherit;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* line 203, ../sass/custom.scss */
+.MeButton .Alert::before {
+  content: "";
+  position: absolute;
+  border: solid 4px transparent;
+  border-top-color: #d00;
+  top: 100%;
+  left: 6px;
+}
+
+/* line 212, ../sass/custom.scss */
+.BreadcrumbsWrapper {
+  margin: 0px auto 15px;
+  background: #efefef;
+  padding: 4px 8px;
+  line-height: 24px;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+}
+
+/* line 222, ../sass/custom.scss */
+.BreadcrumbsWrapper,
+.BreadcrumbsWrapper .Breadcrumbs a {
+  color: #1f1e1e;
+}
+
+/* line 226, ../sass/custom.scss */
+.BreadcrumbsWrapper .MeBox img.ProfilePhoto {
+  margin-bottom: 2px;
+}
+
+/** End of header. **/
+/* line 232, ../sass/custom.scss */
+.TagCloud li {
+  background: #31b5f4;
+  color: #fff;
+  border: none;
+  border-radius: .2ex;
+  line-height: 1;
+  padding: 3px 4px 5px;
+  font-size: 11px;
+}
+
+/* line 242, ../sass/custom.scss */
+.TagCloud li a {
+  color: #fff;
+}
+
+/* line 245, ../sass/custom.scss */
+.TagCloud .Count {
+  display: none;
+}
+
+/* line 249, ../sass/custom.scss */
+.Box {
+  background: #f7f6e4;
+  padding: 5px 10px;
+  border-radius: .5ex;
+  border: solid 2px #dcdccb;
+  margin: 20px 0;
+}
+
+/* line 258, ../sass/custom.scss */
+.Box.Tags,
+.Box.BadgeGrid {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* line 264, ../sass/custom.scss */
+.FilterMenu {
+  margin: 20px 0;
+}
+
+/* line 268, ../sass/custom.scss */
+.Box h4, .Box h4 a {
+  color: #300c1c;
+}
+
+/* line 272, ../sass/custom.scss */
+.Box .PanelInfo li:last-child {
+  border: none;
+}
+
+/* line 276, ../sass/custom.scss */
+.Count {
+  background: #eee;
+  color: #555;
+  border-radius: .2ex;
+}
+
+/* line 282, ../sass/custom.scss */
+.Box .Count {
+  background: #dcdccb;
+  color: #300c1c;
+}
+
+/** View Counts **/
+/* line 289, ../sass/custom.scss */
+.DataList.Discussions .MCount, .DataList.Discussions .NewCommentCount {
+  position: absolute;
+  background: #31b5f4;
+  border-bottom: solid 2px #1192cf;
+  color: #fff;
+  width: 75px;
+  padding: 6px 2px;
+  margin: 0;
+  top: 8px;
+  text-align: center;
+  line-height: 1;
+  height: 35px;
+  border-radius: 0;
+}
+
+/* line 304, ../sass/custom.scss */
+.DataList.Discussions .MCount .Number, .DataList.Discussions .NewCommentCount .Number {
+  font-size: 20px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+/* line 311, ../sass/custom.scss */
+.DataList.Discussions .ViewCount {
+  right: -85px;
+}
+
+/* line 315, ../sass/custom.scss */
+.DataList.Discussions .CommentCount, .DataList.Discussions .NewCommentCount {
+  right: -167px;
+}
+
+/* line 319, ../sass/custom.scss */
+.DataList.Discussions {
+  margin-right: 167px;
+}
+
+/* line 323, ../sass/custom.scss */
+.DataList.Discussions .NewCommentCount {
+  font-weight: normal;
+  background: #e78874;
+  border-bottom-color: #d56e59;
+  font-size: 11px;
+}
+
+/* line 330, ../sass/custom.scss */
+.DataBox + .CommentsWrap {
+  margin-top: 15px;
+}
+
+/* line 334, ../sass/custom.scss */
+.Item.Read {
+  opacity: 1;
+  background: #efefef;
+}
+
+/* line 339, ../sass/custom.scss */
+.Item.Read a {
+  color: #777;
+}
+
+/* line 343, ../sass/custom.scss */
+.Item.Read .Tag, .Item.Read .Tag a {
+  background: #bbb !Important;
+  color: #f7f7f7 !Important;
+}
+
+/* line 348, ../sass/custom.scss */
+.Tag {
+  border-radius: .2ex;
+  padding: 1px 6px 2px;
+}
+
+/* line 353, ../sass/custom.scss */
+.Tag, .QnA-Tag-Question {
+  background-color: #2A529A;
+}
+
+/* line 358, ../sass/custom.scss */
+.QnA-Tag-Answered, .QnA-Tag-Accepted {
+  background-color: #31b5f4;
+}
+
+/* line 362, ../sass/custom.scss */
+.QnA-Accepted {
+  background: url("check.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  height: 40px;
+  right: -65px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: -1000px;
+  top: 10px;
+  white-space: nowrap;
+  width: 40px;
+}
+
+/** Pages **/
+/* line 377, ../sass/custom.scss */
+.Pages #Panel {
+  display: none;
+}
+
+/* line 381, ../sass/custom.scss */
+body.Pages #Content {
+  margin: 0;
+  float: none;
+  width: 100%;
+}
+
+/* line 387, ../sass/custom.scss */
+.MainTOC {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* line 392, ../sass/custom.scss */
+.MainTOC .Section {
+  text-align: left;
+  vertical-align: top;
+  display: inline-block;
+  width: 290px;
+  padding: 10px;
+}
+
+/** Download Links **/
+/* line 402, ../sass/custom.scss */
+.FooWrap {
+  margin-left: 65px;
+}
+
+/* line 406, ../sass/custom.scss */
+.FooWrap h1 {
+  color: #0155ba;
+  border: none;
+  font-size: 25px;
+}
+
+/* line 412, ../sass/custom.scss */
+.FooWrap p {
+  margin: 5px 0 15px;
+  font-size: 14px;
+}
+
+/* line 418, ../sass/custom.scss */
+i.Sprite {
+  display: inline-block;
+  background-image: url("images/sprites.png");
+  background-repeat: no-repeat;
+}
+
+/* line 423, ../sass/custom.scss */
+i.Sprite span {
+  display: none !important;
+}
+
+/* line 426, ../sass/custom.scss */
+i.SpriteLogo {
+  height: 40px;
+  width: 142px;
+  background-position: top left;
+}
+
+/* line 432, ../sass/custom.scss */
+i.SpriteTools {
+  background-position: -48px -136px;
+}
+
+/* line 433, ../sass/custom.scss */
+i.SpriteSuit {
+  background-position: -48px -184px;
+}
+
+/* line 435, ../sass/custom.scss */
+i.SpriteTools, i.SpriteSuit {
+  position: absolute;
+  top: 0;
+  margin: 5px;
+  height: 48px;
+  width: 48px;
+}
+
+/* line 443, ../sass/custom.scss */
+.DownloadForm, .HostingForm {
+  width: 375px;
+  float: left;
+  margin: 40px 50px;
+  position: relative;
+}
+
+/* line 450, ../sass/custom.scss */
+a.RenderedDownloadButton:hover {
+  background-position: 0 -60px;
+}
+
+/* line 454, ../sass/custom.scss */
+a.RenderedDownloadButton {
+  display: block;
+  height: 60px;
+  width: 370px;
+  background: url("images/btn-hosting.png") 0 0 no-repeat;
+}
+
+/* line 461, ../sass/custom.scss */
+a.RenderedDownloadButton span {
+  display: none;
+}
+
+/* line 465, ../sass/custom.scss */
+.Reactions .Count {
+  background: #012f6e;
+  color: #fff;
+}
+
+/* line 470, ../sass/custom.scss */
+.Reactions a:hover .Count {
+  background: #ff0084;
+}
+
+/*.MeMenu .Sprite16 {
+    background-image: url('me_sprites.png');
+}
+
+.SpNotifications {
+    background-position: -2px -2px;
+}
+
+.SpInbox {
+    background-position: -2px -22px;
+}
+
+.SpBookmarks {
+    background-position: -2px -42px;
+}
+
+.SpDashboard {
+    background-position: -2px -62px;
+}
+
+.SpSignOut {
+    background-position: -2px -102px;
+}*/
+/* line 498, ../sass/custom.scss */
+.PhotoGrid .GuestCountBox {
+  display: inline-block;
+}
+
+/* line 502, ../sass/custom.scss */
+.PhotoGrid .GuestCountBox * {
+  line-height: 32px;
+}
+
+/* line 506, ../sass/custom.scss */
+.PhotoGridSmall .GuestCountBox * {
+  line-height: 24px;
+}
+
+/* line 510, ../sass/custom.scss */
+.PhotoGrid .GuestCount {
+  font-size: 16px;
+}
+
+/* line 514, ../sass/custom.scss */
+.PhotoGrid .GuestLabel {
+  font-size: 11px;
+}
+
+/* line 518, ../sass/custom.scss */
+.AuthorInfo {
+  color: #707070;
+}
+
+/* line 522, ../sass/custom.scss */
+.AuthorInfo .MItem {
+  margin: 0;
+}
+
+/* line 526, ../sass/custom.scss */
+.AuthorInfo .MItem:before {
+  content: " • ";
+  color: #C9C9C9;
+}
+
+/* line 531, ../sass/custom.scss */
+.PhotoGridSmall {
+  margin: 1px 0 0 3px;
+}
+
+/* line 535, ../sass/custom.scss */
+.PhotoGridSmall {
+  margin: 0px;
+}
+
+/* line 539, ../sass/custom.scss */
+.CommentsWrap .Item.Rank-Vanilla {
+  padding: 15px;
+  margin: -1px -7px -1px -7px;
+  padding-bottom: 8px;
+  background: #ECF8FF;
+  border-bottom-color: #CAE8FF;
+  border-top: 1px solid #CAE8FF;
+}
+
+/* line 548, ../sass/custom.scss */
+.CommentsWrap .Item.Rank-Vanilla .Message {
+  position: relative;
+}
+
+/* line 552, ../sass/custom.scss */
+.CommentsWrap .Item .Rank.Rank-Vanilla {
+  background: transparent url("images/vanilla-rank-logo.png") no-repeat 0px 14px;
+  height: 82px;
+  width: 220px;
+  color: transparent;
+  overflow: hidden;
+  line-height: 1000px;
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+/* line 572, ../sass/custom.scss */
+.CommentsWrap .Item:hover .Rank.Rank-Vanilla {
+  background-position: 0px 30px;
+}
+
+/* line 576, ../sass/custom.scss */
+.CommentsWrap .Item .Rank.Rank-Vanilla:before {
+  content: "";
+}
+
+/* line 580, ../sass/custom.scss */
+.CommentsWrap .Item.Rank-Vanilla::after {
+  background: transparent url("images/vanilla-rank-logo-shadow.png") no-repeat 0px 1px;
+  height: 6px;
+  width: 227px;
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+/* line 591, ../sass/custom.scss */
+select {
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  height: 28px;
+}
+
+/* line 597, ../sass/custom.scss */
+.Hero {
+  background: #EFEFEF;
+  border: solid 1px #ddd;
+  border-radius: .5ex;
+  font-size: 105%;
+}
+
+/* line 604, ../sass/custom.scss */
+.CommentsWrap .Item.Rank-Vanilla .Message {
+  position: relative;
+}
+
+/* line 608, ../sass/custom.scss */
+.CommentsWrap .Item .Rank.Rank-Vanilla {
+  background: transparent url("images/vanilla-rank-logo.png") no-repeat 0px 14px;
+  height: 82px;
+  width: 220px;
+  color: transparent;
+  overflow: hidden;
+  line-height: 1000px;
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+/* line 628, ../sass/custom.scss */
+.CommentsWrap .Item:hover .Rank.Rank-Vanilla {
+  background-position: 0px 30px;
+}
+
+/* line 632, ../sass/custom.scss */
+.CommentsWrap .Item .Rank.Rank-Vanilla:before {
+  content: "";
+}
+
+/* line 636, ../sass/custom.scss */
+.CommentsWrap .Item.Rank-Vanilla::after {
+  background: transparent url("images/vanilla-rank-logo-shadow.png") no-repeat 0px 1px;
+  height: 6px;
+  width: 227px;
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+/* line 647, ../sass/custom.scss */
+select {
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  height: 28px;
+}
+
+/* line 653, ../sass/custom.scss */
+.ReactSprite {
+  background-image: url("http://vanillicon.com/sprites/sprites-14-012f6e.png");
+  background-size: 396px;
+  width: 16px;
+  height: 16px;
+}
+
+/* line 660, ../sass/custom.scss */
+.MenuItems .ReactSprite {
+  background-image: url("http://vanillicon.com/sprites/sprites-14-000000.png");
+  background-size: 396px;
+}
+
+/* line 665, ../sass/custom.scss */
+.Reactions .MenuItems a:hover .ReactSprite, .MenuItems a:hover .Sprite {
+  background-image: url("http://vanillicon.com/sprites/sprites-14-ffffff.png");
+}
+
+/* line 669, ../sass/custom.scss */
+a:hover .ReactSprite {
+  background-image: url("http://vanillicon.com/sprites/sprites-14c-ff0084.png");
+  background-size: 396px;
+}
+
+/* line 674, ../sass/custom.scss */
+.MeButton .Sprite16 {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: text-top;
+  border: solid 2px transparent;
+  margin: -2px;
+  display: inline-block;
+  background-image: url(http://vanillicon.com/sprites/sprites-14-777777.png);
+  background-size: 396px;
+}
+
+/* line 686, ../sass/custom.scss */
+.UserReactionWrap .ReactSprite {
+  background-image: url(http://vanillicon.com/sprites/sprites-14-outline-28519F.png);
+  background-size: 396px;
+}
+
+/* line 694, ../sass/custom.scss */
+.OptionsTitle,
+a.Bookmark,
+a.Bookmarked,
+a.Bookmarking {
+  background-image: url("http://vanillicon.com/sprites/ui_sprites-16c-000000.png");
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  /* line 705, ../sass/custom.scss */
+  .ReactSprite {
+    background-image: url("http://vanillicon.com/sprites/sprites-28-012f6e.png");
+  }
+
+  /* line 709, ../sass/custom.scss */
+  a:hover .ReactSprite {
+    background-image: url("http://vanillicon.com/sprites/sprites-28c-ff0084.png");
+  }
+
+  /* line 713, ../sass/custom.scss */
+  .MenuItems .ReactSprite {
+    background-image: url("http://vanillicon.com/sprites/sprites-28-000000.png");
+  }
+
+  /* line 717, ../sass/custom.scss */
+  .Reactions .MenuItems a:hover .ReactSprite, .MenuItems a:hover .Sprite {
+    background-image: url("http://vanillicon.com/sprites/sprites-28-ffffff.png");
+  }
+
+  /* line 721, ../sass/custom.scss */
+  .MeButton .Sprite16 {
+    background-image: url(http://vanillicon.com/sprites/sprites-28-777777.png);
+  }
+
+  /* line 728, ../sass/custom.scss */
+  .OptionsTitle,
+  a.Bookmark,
+  a.Bookmarked,
+  a.Bookmarking {
+    background-image: url("http://vanillicon.com/sprites/ui_sprites-32c-000000.png");
+    background-size: 30px;
+  }
+}
+/* line 734, ../sass/custom.scss */
+.ReactEverything {
+  background-position: -360px -100px;
+}
+
+/* line 735, ../sass/custom.scss */
+.ReactAwesome {
+  background-position: -240px -20px;
+}
+
+/* line 736, ../sass/custom.scss */
+.ReactFlag {
+  background-position: -60px -60px;
+}
+
+/* line 737, ../sass/custom.scss */
+.ReactInsightful {
+  background-position: -140px -20px;
+}
+
+/* line 738, ../sass/custom.scss */
+.ReactOffTopic {
+  background-position: -160px -20px;
+}
+
+/* line 739, ../sass/custom.scss */
+.ReactAbuse {
+  background-position: -20px -60px;
+}
+
+/* line 740, ../sass/custom.scss */
+.SpSpam, .ReactSpam {
+  background-position: -120px -20px;
+}
+
+/* line 741, ../sass/custom.scss */
+.ReactTroll {
+  background-position: -100px -20px;
+}
+
+/* line 742, ../sass/custom.scss */
+.ReactPromote {
+  background-position: -60px -40px;
+}
+
+/* line 743, ../sass/custom.scss */
+.ReactDisagree {
+  background-position: -40px -20px;
+}
+
+/* line 744, ../sass/custom.scss */
+.ReactAgree {
+  background-position: -20px -20px;
+}
+
+/* line 745, ../sass/custom.scss */
+.ReactDislike {
+  background-position: -40px -40px;
+}
+
+/* line 746, ../sass/custom.scss */
+.ReactLike {
+  background-position: -20px -40px;
+}
+
+/* line 747, ../sass/custom.scss */
+.ReactDown {
+  background-position: -200px -40px;
+}
+
+/* line 748, ../sass/custom.scss */
+.ReactUp {
+  background-position: -180px -40px;
+}
+
+/* line 749, ../sass/custom.scss */
+.ReactWTF {
+  background-position: -80px -20px;
+}
+
+/* line 750, ../sass/custom.scss */
+.ReactLOL {
+  background-position: -60px -20px;
+}
+
+/* line 751, ../sass/custom.scss */
+.ReactQuote {
+  background-position: -280px -20px;
+}
+
+/* line 752, ../sass/custom.scss */
+.ReactInfraction {
+  background-position: -200px -20px;
+}
+
+/* line 753, ../sass/custom.scss */
+.ReactAccept {
+  background-position: -20px -100px;
+}
+
+/* line 754, ../sass/custom.scss */
+.ReactReject {
+  background-position: -40px -100px;
+}
+
+/* line 755, ../sass/custom.scss */
+.ReactFacebook {
+  background-position: -40px -120px;
+}
+
+/* line 756, ../sass/custom.scss */
+.ReactTwitter {
+  background-position: -60px -120px;
+}
+
+/* line 757, ../sass/custom.scss */
+.ReactGooglePlus {
+  background-position: -80px -120px;
+}
+
+/* line 759, ../sass/custom.scss */
+.SpActivity {
+  background-position: -160px -120px;
+}
+
+/* line 760, ../sass/custom.scss */
+.SpAllCategories {
+  background-position: -60px -140px;
+}
+
+/* line 761, ../sass/custom.scss */
+.SpApplicants {
+  background-position: -260px -40px;
+}
+
+/* line 762, ../sass/custom.scss */
+.SpBadge {
+  background-position: -240px -140px;
+}
+
+/* line 763, ../sass/custom.scss */
+.SpBan {
+  background-position: -300px -20px;
+}
+
+/* line 764, ../sass/custom.scss */
+.SpBookmarks {
+  background-position: -100px -80px;
+}
+
+/* line 765, ../sass/custom.scss */
+.SpComments, .SpComment {
+  background-position: -160px -80px;
+}
+
+/* line 766, ../sass/custom.scss */
+.SpDashboard {
+  background-position: -340px -20px;
+}
+
+/* line 767, ../sass/custom.scss */
+.SpDelete {
+  background-position: -340px -140px;
+}
+
+/* line 768, ../sass/custom.scss */
+.SpDiscussions, .SpMyDiscussions {
+  background-position: -200px -80px;
+}
+
+/* line 769, ../sass/custom.scss */
+.SpImage {
+  background-position: -120px -140px;
+}
+
+/* line 770, ../sass/custom.scss */
+.SpInbox {
+  background-position: -80px -100px;
+}
+
+/* line 771, ../sass/custom.scss */
+.SpMessage {
+  background-position: -100px -100px;
+}
+
+/* line 772, ../sass/custom.scss */
+.SpMod {
+  background-position: -260px -60px;
+}
+
+/* line 773, ../sass/custom.scss */
+.SpMyDrafts {
+  background-position: -180px -20px;
+}
+
+/* line 774, ../sass/custom.scss */
+.SpNotifications {
+  background-position: -160px -100px;
+}
+
+/* line 775, ../sass/custom.scss */
+.SpOptions {
+  background-position: -180px -60px;
+}
+
+/*.SpProfile, .SpEditProfile { background-position: -220px -40px; }*/
+/* line 777, ../sass/custom.scss */
+.SpSignOut {
+  background-position: -240px -100px;
+}
+
+/* line 778, ../sass/custom.scss */
+.SpText {
+  background-position: -160px -80px;
+}
+
+/* line 779, ../sass/custom.scss */
+.SpUnansweredQuestions {
+  background-position: -60px -100px;
+}
+
+/* line 780, ../sass/custom.scss */
+.SpWarn, .SpWarnings {
+  background-position: -200px -20px;
+}
+
+/* line 787, ../sass/custom.scss */
+input[type=text],
+input[type=password],
+textarea,
+ul.token-input-list {
+  border-radius: 1px;
+}
+
+/* line 791, ../sass/custom.scss */
+.ButtonBar + .TextBoxWrapper textarea {
+  border-radius: 0 0 1px 1px;
+}
+
+/* line 795, ../sass/custom.scss */
+.AdvancedSearch {
+  max-width: 700px;
+}
+/* line 800, ../sass/custom.scss */
+.AdvancedSearch .KeywordsWrap .InputBox,
+.AdvancedSearch .KeywordsWrap .Button {
+  height: 34px;
+}
+/* line 804, ../sass/custom.scss */
+.AdvancedSearch .KeywordsWrap .InputBox {
+  border-width: 2px;
+  border-color: #bbb;
+}
+/* line 809, ../sass/custom.scss */
+.AdvancedSearch .KeywordsWrap .Handle {
+  top: 2px;
+}
+
+/* line 819, ../sass/custom.scss */
+.Section-SearchResults #Panel {
+  display: none;
+}
+/* line 823, ../sass/custom.scss */
+.Section-SearchResults #Content {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* line 831, ../sass/custom.scss */
+.Signature {
+  font-size: 80%;
+  opacity: .8;
+  line-height: 1.2;
+}
+/* line 836, ../sass/custom.scss */
+.Item-Body .Signature {
+  border-top: solid 1px #777;
+  margin-top: 15px;
+  padding-top: 5px;
+}
+/* line 841, ../sass/custom.scss */
+.Item-Body .Signature :first-child {
+  margin-top: 0;
+}
