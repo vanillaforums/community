@@ -15,13 +15,13 @@ class FeaturesController extends VFOrgController {
       
       $Redirects = array(
 //          'embed-vanilla' => 'http://vanillaforums.com/features',
-          'mobile' => 'http://vanillaforums.com/features/mobile-friendly#toc',
-          'social-connect' => 'http://vanillaforums.com/features/authentication-connects-and-sso#toc',
-          'themes' => 'http://vanillaforums.com/features/custom-appearance#toc',
-          'banner' => 'http://vanillaforums.com/features/custom-appearance#toc',
-          'file-upload' => 'http://vanillaforums.com/features/file-and-data-storage#toc',
-          'import-tool' => 'http://vanillaforums.com/features/data-import-export#toc',
-          'vanilla-connect' => 'http://vanillaforums.com/features/authentication-connects-and-sso#toc'
+          'mobile' => 'http://vanillaforums.com/features/mobile',
+          'social-connect' => 'http://vanillaforums.com/features/social-media',
+          'themes' => 'http://vanillaforums.com/features/custom-theme',
+          'banner' => 'http://vanillaforums.com/features/user-experience',
+          'file-upload' => 'http://vanillaforums.com/features/user-experience',
+          'import-tool' => 'http://vanillaforums.com/resources/migration',
+          'vanilla-connect' => 'http://vanillaforums.com/features/single-sign-on'
       );
       
       if (isset($Redirects[$FeaturePageName]))
