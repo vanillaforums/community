@@ -1,0 +1,201 @@
+af,0x0036,Afrikaans
+af-ZA,0x0436,Afrikaans - South Africa
+sq,0x001C,Albanian
+sq-AL,0x041C,Albanian - Albania
+ar,0x0001,Arabic
+ar-DZ,0x1401,Arabic - Algeria
+ar-BH,0x3C01,Arabic - Bahrain
+ar-EG,0x0C01,Arabic - Egypt
+ar-IQ,0x0801,Arabic - Iraq
+ar-JO,0x2C01,Arabic - Jordan
+ar-KW,0x3401,Arabic - Kuwait
+ar-LB,0x3001,Arabic - Lebanon
+ar-LY,0x1001,Arabic - Libya
+ar-MA,0x1801,Arabic - Morocco
+ar-OM,0x2001,Arabic - Oman
+ar-QA,0x4001,Arabic - Qatar
+ar-SA,0x0401,Arabic - Saudi Arabia
+ar-SY,0x2801,Arabic - Syria
+ar-TN,0x1C01,Arabic - Tunisia
+ar-AE,0x3801,Arabic - United Arab Emirates
+ar-YE,0x2401,Arabic - Yemen
+hy,0x002B,Armenian
+hy-AM,0x042B,Armenian - Armenia
+az,0x002C,Azeri
+az-AZ-Cyrl,0x082C,Azeri (Cyrillic) - Azerbaijan
+az-AZ-Latn,0x042C,Azeri (Latin) - Azerbaijan
+eu,0x002D,Basque
+eu-ES,0x042D,Basque - Basque
+be,0x0023,Belarusian
+be-BY,0x0423,Belarusian - Belarus
+bg,0x0002,Bulgarian
+bg-BG,0x0402,Bulgarian - Bulgaria
+ca,0x0003,Catalan
+ca-ES,0x0403,Catalan - Catalan
+zh-HK,0x0C04,Chinese - Hong Kong SAR
+zh-MO,0x1404,Chinese - Macao SAR
+zh-CN,0x0804,Chinese - China
+zh-CHS,0x0004,Chinese (Simplified)
+zh-SG,0x1004,Chinese - Singapore
+zh-TW,0x0404,Chinese - Taiwan
+zh-CHT,0x7C04,Chinese (Traditional)
+hr,0x001A,Croatian
+hr-HR,0x041A,Croatian - Croatia
+cs,0x0005,Czech
+cs-CZ,0x0405,Czech - Czech Republic
+da,0x0006,Danish
+da-DK,0x0406,Danish - Denmark
+div,0x0065,Dhivehi
+div-MV,0x0465,Dhivehi - Maldives
+nl,0x0013,Dutch
+nl-BE,0x0813,Dutch - Belgium
+nl-NL,0x0413,Dutch - The Netherlands
+en,0x0009,English
+en-AU,0x0C09,English - Australia
+en-BZ,0x2809,English - Belize
+en-CA,0x1009,English - Canada
+en-CB,0x2409,English - Caribbean
+en-IE,0x1809,English - Ireland
+en-JM,0x2009,English - Jamaica
+en-NZ,0x1409,English - New Zealand
+en-PH,0x3409,English - Philippines
+en-ZA,0x1C09,English - South Africa
+en-TT,0x2C09,English - Trinidad and Tobago
+en-GB,0x0809,English - United Kingdom
+en-US,0x0409,English - United States
+en-ZW,0x3009,English - Zimbabwe
+et,0x0025,Estonian
+et-EE,0x0425,Estonian - Estonia
+fo,0x0038,Faroese
+fo-FO,0x0438,Faroese - Faroe Islands
+fa,0x0029,Farsi
+fa-IR,0x0429,Farsi - Iran
+fi,0x000B,Finnish
+fi-FI,0x040B,Finnish - Finland
+fr,0x000C,French
+fr-BE,0x080C,French - Belgium
+fr-CA,0x0C0C,French - Canada
+fr-FR,0x040C,French - France
+fr-LU,0x140C,French - Luxembourg
+fr-MC,0x180C,French - Monaco
+fr-CH,0x100C,French - Switzerland
+gl,0x0056,Galician
+gl-ES,0x0456,Galician - Galician
+ka,0x0037,Georgian
+ka-GE,0x0437,Georgian - Georgia
+de,0x0007,German
+de-AT,0x0C07,German - Austria
+de-DE,0x0407,German - Germany
+de-LI,0x1407,German - Liechtenstein
+de-LU,0x1007,German - Luxembourg
+de-CH,0x0807,German - Switzerland
+el,0x0008,Greek
+el-GR,0x0408,Greek - Greece
+gu,0x0047,Gujarati
+gu-IN,0x0447,Gujarati - India
+he,0x000D,Hebrew
+he-IL,0x040D,Hebrew - Israel
+hi,0x0039,Hindi
+hi-IN,0x0439,Hindi - India
+hu,0x000E,Hungarian
+hu-HU,0x040E,Hungarian - Hungary
+is,0x000F,Icelandic
+is-IS,0x040F,Icelandic - Iceland
+id,0x0021,Indonesian
+id-ID,0x0421,Indonesian - Indonesia
+it,0x0010,Italian
+it-IT,0x0410,Italian - Italy
+it-CH,0x0810,Italian - Switzerland
+ja,0x0011,Japanese
+ja-JP,0x0411,Japanese - Japan
+kn,0x004B,Kannada
+kn-IN,0x044B,Kannada - India
+kk,0x003F,Kazakh
+kk-KZ,0x043F,Kazakh - Kazakhstan
+kok,0x0057,Konkani
+kok-IN,0x0457,Konkani - India
+ko,0x0012,Korean
+ko-KR,0x0412,Korean - Korea
+ky,0x0040,Kyrgyz
+ky-KG,0x0440,Kyrgyz - Kyrgyzstan
+lv,0x0026,Latvian
+lv-LV,0x0426,Latvian - Latvia
+lt,0x0027,Lithuanian
+lt-LT,0x0427,Lithuanian - Lithuania
+mk,0x002F,Macedonian
+mk-MK,0x042F,Macedonian - Former Yugoslav Republic of Macedonia
+ms,0x003E,Malay
+ms-BN,0x083E,Malay - Brunei
+ms-MY,0x043E,Malay - Malaysia
+mr,0x004E,Marathi
+mr-IN,0x044E,Marathi - India
+mn,0x0050,Mongolian
+mn-MN,0x0450,Mongolian - Mongolia
+no,0x0014,Norwegian
+nb-NO,0x0414,Norwegian (Bokmål) - Norway
+nn-NO,0x0814,Norwegian (Nynorsk) - Norway
+pl,0x0015,Polish
+pl-PL,0x0415,Polish - Poland
+pt,0x0016,Portuguese
+pt-BR,0x0416,Portuguese - Brazil
+pt-PT,0x0816,Portuguese - Portugal
+pa,0x0046,Punjabi
+pa-IN,0x0446,Punjabi - India
+ro,0x0018,Romanian
+ro-RO,0x0418,Romanian - Romania
+ru,0x0019,Russian
+ru-RU,0x0419,Russian - Russia
+sa,0x004F,Sanskrit
+sa-IN,0x044F,Sanskrit - India
+sr-SP-Cyrl,0x0C1A,Serbian (Cyrillic) - Serbia
+sr-SP-Latn,0x081A,Serbian (Latin) - Serbia
+sk,0x001B,Slovak
+sk-SK,0x041B,Slovak - Slovakia
+sl,0x0024,Slovenian
+sl-SI,0x0424,Slovenian - Slovenia
+es,0x000A,Spanish
+es-AR,0x2C0A,Spanish - Argentina
+es-BO,0x400A,Spanish - Bolivia
+es-CL,0x340A,Spanish - Chile
+es-CO,0x240A,Spanish - Colombia
+es-CR,0x140A,Spanish - Costa Rica
+es-DO,0x1C0A,Spanish - Dominican Republic
+es-EC,0x300A,Spanish - Ecuador
+es-SV,0x440A,Spanish - El Salvador
+es-GT,0x100A,Spanish - Guatemala
+es-HN,0x480A,Spanish - Honduras
+es-MX,0x080A,Spanish - Mexico
+es-NI,0x4C0A,Spanish - Nicaragua
+es-PA,0x180A,Spanish - Panama
+es-PY,0x3C0A,Spanish - Paraguay
+es-PE,0x280A,Spanish - Peru
+es-PR,0x500A,Spanish - Puerto Rico
+es-ES,0x0C0A,Spanish - Spain
+es-UY,0x380A,Spanish - Uruguay
+es-VE,0x200A,Spanish - Venezuela
+sw,0x0041,Swahili
+sw-KE,0x0441,Swahili - Kenya
+sv,0x001D,Swedish
+sv-FI,0x081D,Swedish - Finland
+sv-SE,0x041D,Swedish - Sweden
+syr,0x005A,Syriac
+syr-SY,0x045A,Syriac - Syria
+ta,0x0049,Tamil
+ta-IN,0x0449,Tamil - India
+tt,0x0044,Tatar
+tt-RU,0x0444,Tatar - Russia
+te,0x004A,Telugu
+te-IN,0x044A,Telugu - India
+th,0x001E,Thai
+th-TH,0x041E,Thai - Thailand
+tr,0x001F,Turkish
+tr-TR,0x041F,Turkish - Turkey
+uk,0x0022,Ukrainian
+uk-UA,0x0422,Ukrainian - Ukraine
+ur,0x0020,Urdu
+ur-PK,0x0420,Urdu - Pakistan
+uz,0x0043,Uzbek
+uz-UZ-Cyrl,0x0843,Uzbek (Cyrillic) - Uzbekistan
+uz-UZ-Latn,0x0443,Uzbek (Latin) - Uzbekistan
+vi,0x002A,Vietnamese
+vi-VN,0x042A,Vietnamese - Vietnam

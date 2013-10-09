@@ -1,0 +1,595 @@
+/*#Content {
+   float: right;
+}
+#Panel {
+   float: left;
+}
+*/
+body.add #Panel {
+   display: block;
+}
+body.add #Content {
+   width: 680px;
+}
+.AddonRow .Icon .IconWrap {
+   /* border: 1px solid #ddd; */
+   padding: 1px;
+   line-height: 100%;
+}
+
+body.Addon #Content img.Icon {
+   float: left;
+   margin: 0 6px 6px 0;
+   padding: 2px;
+   /* border: 1px solid #ddd; */
+}
+.AddonRow {
+   overflow: hidden;
+}
+.AddonRow .Icon img {
+   height: 40px;
+   width: 40px;
+}
+
+input.Button {
+   margin-top: 4px;
+   margin-bottom: 4px;
+}
+
+div.DownloadPanel {
+   margin-left: 20px;
+   width: 270px;
+   float: right;
+}
+div.RequirementBox,
+div.DownloadBox,
+.AddonBox {
+   background: #F6DAA8 !important;
+   color: #744000 !important;
+   border: none !important;
+   padding: 6px;
+   margin: 0 0 12px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   overflow: hidden;
+   font-size: 12px;
+}
+div.DownloadBox dl {
+   padding: 0 !important;
+   background: none;
+   border: none;
+}
+div.RequirementBox dl dt,
+div.DownloadBox dl dt {
+   color: inherit;
+   width: 100px;
+   float: left;
+}
+.DownloadBox dl dd {
+   color: #555;
+}
+div.Requirements,
+div.Testing {
+   background: #fafafa;
+   border: 1px solid #eee;
+   padding: 6px;
+}
+div.Requirements h3,
+div.Testing h3,
+div.Requirements p,
+div.Testing p {
+   margin: 0 !important;
+   padding: 0 !important;
+}
+div.Requirements h3,
+div.Testing h3 {
+   margin: 0 0 6px 0 !important;
+}
+#Content {
+   font-size: 120%;
+}
+.Addons #Content h1 {
+   padding-bottom: 4px;
+}
+#addons_addon_index #Content h1 div {
+   display: inline;
+   float: right;
+   font-family:'lucida grande','Lucida Sans Unicode',tahoma,sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+}
+#addons_addon_index #Content .Legal {
+/*   width: 706px;
+   float: left;*/
+   overflow: hidden;
+   background: #FEF7DF;
+   padding: 12px;
+   margin: 0 0 20px;
+   border-bottom:1px solid #EED3A2;
+   font-size: 14px;
+}
+#addons_addon_index #Content div.Approved,
+#addons_addon_index #Content div.Warning {
+   font-size: 14px;
+   padding: 8px;
+   line-height: 1.5;
+   padding: 10px 8px;
+   -moz-border-radius: 0;
+   -webkit-border-radius: 0;
+   border-radius: 0;
+}
+#addons_addon_index #Content div.Approved {
+   padding: 10px 8px 10px 70px;
+   background: url('images/check.png') 20px 20px no-repeat #d4efc5;
+   color: #1e6000;
+}
+div.Approved strong,
+div.Warning strong {
+   font-weight: bold;
+   display: block;
+}
+#Content img.Border {
+   padding: 6px;
+   border: 1px solid #ddd;
+}
+.AddonOptions {
+   font-size: 12px;
+   font-weight: bold;
+   text-align: center;
+   background: #fffcf1;
+   padding: 3px 0;
+   border: none;
+   -moz-border-radius-bottomleft: 2px;
+   -moz-border-radius-bottomright: 2px;
+   -webkit-border-bottom-left-radius: 2px;
+   -webkit-border-bottom-right-radius: 2px;
+}
+.AddonOptions a {
+   margin: 0 6px;
+}
+
+/* Side Menu */
+#Content #SideMenu,
+#Content #SideMenu li {
+   margin: 0px;
+   padding: 0px;
+   list-style: none;
+}
+#Content #SideMenu {
+   border: 1px solid #CAF0FE;
+   font-size: 110%;
+   color: #2786c2;
+   font-weight: bold;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   background: #e9f9ff;
+   padding: 6px 6px 4px;
+   margin: 10px 0;   
+}
+#Content #SideMenu li a {
+   font-size: 14px;
+   font-weight: normal;
+}
+#Content #SideMenu li.Highlight a {
+   color: #ff0084;
+}
+
+/* Picture Box */
+.PictureBox {
+   padding: 10px 10px 4px;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   background: #FEF7DF;
+   border:1px solid #EED3A2;
+   color:#B76600;
+   margin-top: 20px;
+/*   clear: both;*/
+}
+.PictureBox img {
+   border: 1px solid #e5e5e5;
+   padding: 2px;
+   margin: 4px;
+}
+.PictureBox img:hover {
+   border: 1px solid #bbb;
+}
+/* Comments */
+#Discussion,
+#Discussion li,
+#Discussion ul,
+#Discussion ul li {
+   list-style: none !important;
+   margin: 0px;
+   padding: 0px !important;
+}
+li.Empty,
+#Discussion li.Empty {
+   font-size: 15px;
+   padding: 8px 2px !important;
+}
+#vforg_addon_browse li.Empty {
+   border-bottom: 0; 
+}
+#Discussion {
+   margin-bottom: 1px;
+}
+#Discussion .Comment {
+   clear: left;
+   border-bottom: 1px solid #ddd;
+}
+#Discussion li ul.Info {
+   list-style: none;
+   float: left;
+   font-size: 11px;
+   color: #777;
+   padding: 8px 0px 0px 8px !important;
+}
+#Discussion li ul.Info li.Author img {
+   height: 40px;
+   width: 40px;
+   border: 0px;
+   margin: 0px 10px 0px 0px;
+   float: left;
+}
+#Discussion li ul.Info li {
+   display: inline;
+}
+#Discussion li ul.Info li.Created,
+#Discussion li ul.Info li.Permalink {
+   padding-left: 10px !important;
+}
+#Discussion li ul.Info li.Author a {
+   font-size: 15px;
+   font-weight: bold;
+}
+#Discussion li .Body {
+   clear: both;
+   padding: 1px 8px 4px;
+   line-height: 170%;
+   color: #454545;
+}
+#Discussion li .Body p {
+   margin: 0;
+   padding: 0;
+}
+#Discussion a.DeleteComment {
+   -moz-border-radius-bottomleft:2px;
+   -moz-border-radius-bottomright:2px;
+   -moz-border-radius-topleft:2px;
+   -moz-border-radius-topright:2px;
+   background:#F8F8F8 url('images/buttonbg.png') repeat-x scroll left center;
+   border:1px solid #BBBBBB;
+   color:#555555;
+   cursor:pointer;
+   float:right;
+   font-size:11px;
+   font-weight:normal;
+   line-height:100%;
+   margin:3px 1px 0 0;
+   padding:4px;
+   width:auto;
+}
+#Discussion a.DeleteComment:hover {
+   border: 1px solid #888;
+   color: #333;
+}
+
+/* Addon Comment Form */
+#CommentForm {
+   background: #e9f9ff;
+   padding: 8px;
+}
+#CommentForm h3 {
+   font-size: 115%;
+   color: #2786C2;
+   font-weight: bold;
+}
+#CommentForm textarea {
+   width: 655px;
+   height: 100px;
+   min-height: 100px;
+   margin: 0px 0px 6px;
+   font-size: 15px;
+}
+#CommentForm input.Button {
+   margin-right: 6px;
+}
+#CommentForm label.Heading {
+   font-weight: bold;
+   font-size: 100%;
+   color: #2786c2;
+   line-height: 100%;
+   display: block;
+   margin-bottom: 4px;
+}
+.CommentOption {
+   -moz-border-radius-bottomleft: 2px;
+   -moz-border-radius-bottomright: 2px;
+   -webkit-border-radius-bottom-left: 2px;
+   -webkit-border-radius-bottom-right: 2px;
+   background:#E9F9FF none repeat scroll 0 0;
+   font-size: 13px;
+   color:#555555;
+   margin:1px 0 0;
+   padding:6px;
+}
+/* Search Form */
+div.SearchForm {
+   margin: 0;
+   padding: 8px 8px 6px;
+   color: #B76600;
+	background: #FEF7DF;
+	border: 1px solid #EED3A2;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   
+}
+div.SearchForm input.InputBox {
+   width: 515px;
+   margin: 0 8px 0 0;
+}
+div.SearchForm input.Button {
+   font-size: 14px;
+   padding: 8px 4px;
+}
+div.SearchForm div.Options {
+   font-size: 12px;
+   padding: 8px 0 0 8px;
+}
+div.SearchForm a {
+   margin: 0 4px 0;
+}
+div.SearchForm a.ShowAll {
+   margin: 0 4px 0 0;
+}
+div.SearchForm a.Active {
+   background: url("images/sprite-menu-buttons.png") center -66px no-repeat;
+   padding: 3px 4px 2px;
+   color:#FFFFFF;
+   text-shadow:0 1px 1px #4C2305;
+   border: 1px solid #c4560d;
+   border-top: 1px solid #893907;
+   border-bottom: 1px solid #E3610C;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+}
+
+/* User Info Box */
+div.Box p.ChunkyButton {
+   width: 190px;
+   padding: 0;
+}
+div.DownloadBox p.ChunkyButton {
+   width: 270px;
+}
+#Panel p.ChunkyButton {
+   width: auto;
+   margin: 10px 0 0 0;
+   padding: 0;
+}
+#Panel p.ChunkyButton a {
+   font-size: 18px;
+   line-height: 2.6;
+}
+p.ChunkyButton a:hover {
+   text-decoration: none !important;
+}
+
+div.DownloadPanelBox h4 {
+   padding-bottom: 16px;
+}
+
+
+/* DataList */
+ul.Addons li.Item {
+   margin: 0;
+   padding: 6px;
+   border-bottom: 1px solid #ddd;
+}
+ul.DataList li li {
+   border: 0;
+   padding: 0;
+}
+ul.DataList,
+ul.DataList ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+ul.DataList a.Icon {
+   padding: 0 8px 8px 0;
+   float: left;
+}
+ul.Addons li a {
+   margin: 0;
+   padding: 0;
+   line-height: 160%;
+   color: #444;
+   font-size: 80%;
+}
+ul.DataList li h3 {
+   padding: 0;
+   margin: 0;
+   font-size: 110%;
+   font-weight: bold;
+}
+ul.DataList li a.Title {
+   font-size: 90%;
+   display: inline;
+   border: 0;
+   padding: 0;
+   margin: 0;
+   color: #045dcd;
+}
+ul.DataList li a.Title:hover {
+   color: #FF0084;
+}
+ul.DataList li a:hover {
+   color: #111;
+   text-decoration: none;
+}
+/*
+BUG
+li.AddonRow div.Meta {
+   clear: left;
+}
+*/
+body.Addons .SearchForm .Options {
+   float: none;
+}
+ul.DataList li.AddonRow div.Meta span span {
+   color: #333;
+}
+ul.DataList div.Meta span {
+   margin-right:4px;
+}
+span.Approved,
+span.Vanilla1,
+span.Vanilla2 {
+   line-height: 1;
+   color: #fff;
+   font-weight: bold;
+   padding: 2px 6px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   text-align: center;
+   color: #fff;
+   background: #999;
+}
+span.Vanilla2 {
+   color: #fff;
+   background: #2A529A;
+}
+span.Approved {
+   background: #50C04C;
+   color: #fff;
+}
+div.Hosting div.Host {
+   padding: 8px 12px;
+   margin: 0 0 10px;
+}
+div.Hosting div.Featured {
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border: 1px solid #fff997;
+   background: #fffbb5;
+}
+div.Hosting div.Host h4,
+div.Hosting div.Host p {
+   margin: 0 !important;
+   padding: 0 !important;
+}
+div.Hosting div.Host img {
+   float: right;
+   margin: 0 0 2px 8px;
+}
+#Content div.Box h3 {
+   font-size: 13px;
+   border: none;
+   margin: 0;
+   padding: 0 0 4px;
+}
+/*#Content h2 {
+   margin-bottom: 0 !important;
+}*/
+/*body.Addon #Content h2.Questions {
+   clear: both;
+   margin-bottom: 0;
+   display: block;
+   position: relative;
+}*/
+body.Addon h2.Questions a.TabLink {
+   margin-left: 40px;
+   font-size: 12px;
+   position: absolute;
+   top: -6px;
+   right: 0;
+}
+
+/* Get/Download Addon page */
+body#addons_get_index #Content h1 {
+   border: none;
+}
+.DownloadInfo {
+   border: none !important;
+   background: #F6DAA8 !important;
+   color: #744000 !important;
+}
+.DownloadInfo strong {
+   padding: 12px 0 0 !important;
+   font-size: 14px !important;
+   font-weight: bold;
+}
+.DownloadInfo p {
+   font-size: 13px !important;
+   padding: 0 0 12px !important;
+   margin: 0;
+}
+
+table.Data {
+   background: #FEF7DF;
+}
+
+table.Data td, table.Data th {
+   padding: 4px;
+}
+
+table.Data th, table.Data thead td {
+   font-weight: bold;
+}
+
+table.Data .Alt {
+   background: #F6DAA8;
+}
+
+.AddonPicture {
+   position: relative;
+}
+
+.AddonPicture .DeletePicture {
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
+   color: #fff;
+   padding: 0 2px 1px 2px;
+   font-family: arial;
+   font-weight: bold;
+   text-shadow: 0px 0px 10px #000;
+}
+
+.Legal .Help {
+   width: 357px;
+   margin-bottom: 10px;
+
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   background: #ff9;
+   padding: 4px 8px;
+	border: 1px solid #eec;
+}
+
+.VersionsTable {
+   width: 100%;
+}
+
+.DateColumn {
+   text-align: right;
+}
+
+body.add #Content h1,
+body.newversion #Content h1,
+body.icon #Content h1,
+body.addpicture #Content h1 {
+   padding: 0;
+   margin: 0;
+}
+body.add #Content .Info,
+body.newversion #Content .Info,
+body.icon #Content .Info,
+body.addpicture #Content .Info {
+   font-size: 11px;
+   padding: 0;
+   border: none;
+   background: none;
+}

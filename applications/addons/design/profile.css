@@ -1,0 +1,110 @@
+.AddonRow .Icon .IconWrap {
+   /* border: 1px solid #ddd; */
+   padding: 1px;
+   line-height: 100%;
+}
+
+body.Addon #Content img.Icon {
+   float: left;
+   margin: 0 6px 6px 0;
+   padding: 2px;
+   /* border: 1px solid #ddd; */
+}
+
+.AddonRow .Icon img {
+   height: 64px;
+   width: 64px;
+}
+#Content img.Border {
+   padding: 6px;
+   border: 1px solid #ddd;
+}
+
+/* DataList */
+ul.Addons {
+	background: #FEF7DF;
+}
+ul.Addons li.Item {
+   margin: 0;
+   padding: 6px;
+   border-bottom: 1px solid #ddd;
+}
+ul.DataList li li {
+   border: 0;
+   padding: 0;
+}
+ul.DataList,
+ul.DataList ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+ul.DataList a.Icon {
+   padding: 0 8px 8px 0;
+   float: left;
+}
+ul.Addons li a {
+   margin: 0;
+   padding: 0;
+   line-height: 160%;
+   color: #444;
+}
+ul.Addons li h3 {
+   padding: 0;
+   margin: 0;
+   font-size: 110%;
+   font-weight: bold;
+}
+ul.Addons li a.Title {
+   font-size: 90%;
+   display: inline;
+   border: 0;
+   padding: 0;
+   margin: 0;
+   color: #045dcd;
+}
+ul.Addons li a.Title:hover {
+   color: #FF0084;
+}
+ul.Addons li a:hover {
+   color: #111;
+   text-decoration: none;
+}
+li.AddonRow div.Meta {
+   clear: left;
+}
+ul.Addons li.Empty {
+   padding: 10px;
+}
+ul.Addons li div.Meta span span {
+   color: #333;
+   padding: 2px 4px;
+   margin-left: 2px;
+   background: #ffa;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+}
+ul.Addons div.Meta span {
+   margin-right:4px;
+}
+span.Approved,
+span.Vanilla1,
+span.Vanilla2 {
+   line-height: 1;
+   color: #fff;
+   font-weight: bold;
+   padding: 2px 6px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   text-align: center;
+   color: #fff;
+   background: #999;
+}
+span.Vanilla2 {
+   color: #fff;
+   background: #2A529A;
+}
+span.Approved {
+   background: #50C04C;
+   color: #fff;
+}
