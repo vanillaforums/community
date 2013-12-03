@@ -21,7 +21,7 @@ else {
 
 <script type="text/javascript">
    gdn = {};
-   gdn.definition = function() {};
+   gdn.definition = function() { return ''; };
 
    jQuery(function() {
       $('#Slider').easySlider({
