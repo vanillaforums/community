@@ -15,61 +15,61 @@
 }
 
 @media (max-width: 1100px) {
-   #Panel {
-      width: 220px;
-   }
-   
-   #Body .ContentColumn {
-      margin-left: 240px;
-   }
+    #Panel {
+        width: 220px;
+    }
+
+    #Body .ContentColumn {
+        margin-left: 240px;
+    }
 }
 
-@media only screen 
-   and (min-device-width : 768px) 
-   and (max-device-width : 1024px) 
-   and (orientation : portrait),
-   (max-width: 960px) {
-      
-   #Panel {
-      display: none;
-   }
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait),
+(max-width: 960px) {
 
-   #Body .ContentColumn {
-      margin: 0;
-   }
+    #Panel {
+        display: none;
+    }
 
-   .Row {
-      width: inherit;
-      margin: 0 20px;
-      min-width: inherit;
-   }
-   
-   #Head .MeWrap {
-      right: 40px !Important;
-   }
-   
-   #Content .BoxNewDiscussion {
-      display: inline-block;
-   }
+    #Body .ContentColumn {
+        margin: 0;
+    }
 
-   #Content .BoxNewDiscussion .MenuItems {
-      min-width: 175px;
-   }
+    .Row {
+        width: inherit;
+        margin: 0 20px;
+        min-width: inherit;
+    }
+
+    #Head .MeWrap {
+        right: 40px !Important;
+    }
+
+    #Content .BoxNewDiscussion {
+        display: inline-block;
+    }
+
+    #Content .BoxNewDiscussion .MenuItems {
+        min-width: 175px;
+    }
 }
 
 /** Header **/
 
 .Head .Home {
-   background: url('images/vanilla-forums-logo-132x61.png') center center no-repeat;
-   display: block;
-   height: 61px;
-   width: 135px;
-   overflow: hidden;
-   color: transparent;
-   font-size: 1px;
-   text-indent: -1000px;
-   white-space: nowrap;
-   margin: 0 0 0 20px;
+    background: url('images/logo-vanilla.png') center center no-repeat;
+    display: block;
+    height: 69px;
+    width: 170px;
+    overflow: hidden;
+    color: transparent;
+    font-size: 1px;
+    text-indent: -1000px;
+    white-space: nowrap;
+    margin: 0 0 0 20px;
 }
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2),
@@ -78,15 +78,15 @@ only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
-   .Head .Home {
-      background-image: url('images/vanilla_logo.png');
-      background-size: 135px;
-   }
-   
-   .PoweredByVanilla {
-      background-image: url('images/vanilla_logo.png');
-      background-size: 70px;
-   }
+    .Head .Home {
+        background-image: url('images/vanilla_logo.png');
+        background-size: 135px;
+    }
+
+    .PoweredByVanilla {
+        background-image: url('images/vanilla_logo.png');
+        background-size: 70px;
+    }
 }
 
 a {
@@ -100,8 +100,8 @@ a {
     margin: 20px 0 0;
 }
 .Head .Row {
-   position: relative;
-   padding: 0 0 20px;
+    position: relative;
+    padding: 0 0 20px;
 }
 .Menu {
     position: absolute;
@@ -153,78 +153,78 @@ a {
     position: absolute;
     height: 76px;
     width: 76px;
-    top: 20px;
-    left: 160px;
+    top: 25px;
+    left: 200px;
 }
 
 .Head {
-   margin: 20px 0 2px !Important;
-   padding: 0 !Important;
+    margin: 20px 0 2px !Important;
+    padding: 0 !Important;
 }
 
 .SiteSearch {
-   margin: 10px auto;
-   width: 600px;
-   max-width: 100%;
+    margin: 10px auto;
+    width: 600px;
+    max-width: 100%;
 }
 
 .SiteSearch #Form_Search {
-   width: 100%;
-   box-sizing: border-box;
-   font-size: 14px;
-   border-radius: .4ex;
-   border: solid 2px #ddd;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: .4ex;
+    border: solid 2px #ddd;
 }
 
 .SiteSearch .Button {
-   top: 7px;
-   right: 6px;
+    top: 7px;
+    right: 6px;
 }
 
 .MeModuleWrap {
-   float: right;
+    float: right;
 }
 
 .Alert {
-   border-radius: .2ex;
+    border-radius: .2ex;
 }
 
 .MeButton .Alert {
-   font-size: 10px;
-   padding: 1px 3px;
-   min-width: 16px;
-   top: -13px;
-   left: 3px;
-   right: inherit;
-   text-align: center;
-   box-shadow: 0 1px 2px rgba(0,0,0,.5);
+    font-size: 10px;
+    padding: 1px 3px;
+    min-width: 16px;
+    top: -13px;
+    left: 3px;
+    right: inherit;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,.5);
 }
 
 .MeButton .Alert::before {
-   content: "";
-   position: absolute;
-   border: solid 4px transparent;
-   border-top-color: #d00;
-   top: 100%;
-   left: 6px;
+    content: "";
+    position: absolute;
+    border: solid 4px transparent;
+    border-top-color: #d00;
+    top: 100%;
+    left: 6px;
 }
 
 .BreadcrumbsWrapper {
-   margin: 0px auto 15px;
-   background: #efefef;
-   padding: 4px 8px;
-   line-height: 24px;
-   border-top: solid 1px #ddd;
-   border-bottom: solid 1px #ddd;
+    margin: 0px auto 15px;
+    background: #efefef;
+    padding: 4px 8px;
+    line-height: 24px;
+    border-top: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
 }
 
 .BreadcrumbsWrapper,
 .BreadcrumbsWrapper .Breadcrumbs a {
-   color: #1f1e1e;
+    color: #1f1e1e;
 }
 
 .BreadcrumbsWrapper .MeBox img.ProfilePhoto {
-   margin-bottom: 2px;
+    margin-bottom: 2px;
 }
 
 /** End of header. **/
@@ -256,13 +256,13 @@ a {
 
 .Box.Tags,
 .Box.BadgeGrid {
-   padding: 0;
-   background: none;
-   border: none;
+    padding: 0;
+    background: none;
+    border: none;
 }
 
 .FilterMenu {
-   margin: 20px 0;
+    margin: 20px 0;
 }
 
 .Box h4, .Box h4 a {
@@ -274,9 +274,9 @@ a {
 }
 
 .Count {
-   background: #eee;
-   color: #555;
-   border-radius: .2ex;
+    background: #eee;
+    color: #555;
+    border-radius: .2ex;
 }
 
 .Box .Count {
@@ -328,7 +328,7 @@ a {
 }
 
 .DataBox + .CommentsWrap {
-   margin-top: 15px;
+    margin-top: 15px;
 }
 
 .Item.Read {
@@ -341,134 +341,134 @@ a {
 }
 
 .Item.Read .Tag, .Item.Read .Tag a {
-   background: #bbb !Important;
-   color: #f7f7f7 !Important;
+    background: #bbb !Important;
+    color: #f7f7f7 !Important;
 }
 
 .Tag {
-   border-radius: .2ex;
-   padding: 1px 6px 2px;
+    border-radius: .2ex;
+    padding: 1px 6px 2px;
 }
 
 .Tag, .QnA-Tag-Question {
-   background-color: #2A529A;
-   
+    background-color: #2A529A;
+
 }
 
 .QnA-Tag-Answered, .QnA-Tag-Accepted {
-   background-color: #31b5f4;
+    background-color: #31b5f4;
 }
 
 .QnA-Accepted {
-   background: url("check.png") no-repeat scroll 0 0 transparent;
-   display: block;
-   height: 40px;
-   right: -65px;
-   overflow: hidden;
-   position: absolute;
-   text-indent: -1000px;
-   top: 10px;
-   white-space: nowrap;
-   width: 40px;
+    background: url("check.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 40px;
+    right: -65px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -1000px;
+    top: 10px;
+    white-space: nowrap;
+    width: 40px;
 }
 
 /** Pages **/
 
 .Pages #Panel {
-   display: none;
+    display: none;
 }
 
 body.Pages #Content {
-   margin: 0;
-   float: none;
-   width: 100%;
+    margin: 0;
+    float: none;
+    width: 100%;
 }
 
 .MainTOC {
-   margin-top: 10px;
-   text-align: center;
+    margin-top: 10px;
+    text-align: center;
 }
 
 .MainTOC .Section {
-   text-align: left;
-   vertical-align: top;
-   display: inline-block;
-   width: 290px;
-   padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    display: inline-block;
+    width: 290px;
+    padding: 10px;
 }
 
 /** Download Links **/
 
 .FooWrap {
-   margin-left: 65px;
+    margin-left: 65px;
 }
 
 .FooWrap h1 {
-	color: #0155ba;
-	border: none;
-	font-size: 25px;
+    color: #0155ba;
+    border: none;
+    font-size: 25px;
 }
 
 .FooWrap p {
-   margin: 5px 0 15px;
-   font-size: 14px;
+    margin: 5px 0 15px;
+    font-size: 14px;
 }
 
 
 i.Sprite {
-	display: inline-block;
-	background-image: url('images/sprites.png');
-	background-repeat: no-repeat;
+    display: inline-block;
+    background-image: url('images/sprites.png');
+    background-repeat: no-repeat;
 }
 i.Sprite span {
-	display: none !important;
+    display: none !important;
 }
 i.SpriteLogo {
-	height: 40px;
-	width: 142px;
-	background-position: top left;
+    height: 40px;
+    width: 142px;
+    background-position: top left;
 }
 
 i.SpriteTools { background-position: -48px -136px; }
 i.SpriteSuit { background-position: -48px -184px; }
 
 i.SpriteTools, i.SpriteSuit {
-   position: absolute;
-   top: 0;
-   margin: 5px;
-   height: 48px;
-   width: 48px;
+    position: absolute;
+    top: 0;
+    margin: 5px;
+    height: 48px;
+    width: 48px;
 }
 
 .DownloadForm, .HostingForm {
-   width: 375px;
-   float: left;
-   margin: 40px 50px;
-   position: relative;
+    width: 375px;
+    float: left;
+    margin: 40px 50px;
+    position: relative;
 }
 
 a.RenderedDownloadButton:hover {
-   background-position: 0 -60px;
+    background-position: 0 -60px;
 }
 
 a.RenderedDownloadButton {
-   display: block;
-   height: 60px;
-   width: 370px;
-   background: url('images/btn-hosting.png') 0 0 no-repeat;
+    display: block;
+    height: 60px;
+    width: 370px;
+    background: url('images/btn-hosting.png') 0 0 no-repeat;
 }
 
 a.RenderedDownloadButton span {
-   display: none;
+    display: none;
 }
 
 .Reactions .Count {
-   background: #012f6e;
-   color: #fff;
+    background: #012f6e;
+    color: #fff;
 }
 
 .Reactions a:hover .Count {
-   background: #ff0084;
+    background: #ff0084;
 }
 
 /*.MeMenu .Sprite16 {
@@ -524,130 +524,130 @@ a.RenderedDownloadButton span {
 }
 
 .AuthorInfo .MItem:before {
-    content: " • ";
+    content: " \2022 ";
     color: #C9C9C9;
 }
 
 .PhotoGridSmall {
-   margin: 1px 0 0 3px;
+    margin: 1px 0 0 3px;
 }
 
 .PhotoGridSmall {
-   margin: 0px;
+    margin: 0px;
 }
 
 .CommentsWrap .Item.Rank-Vanilla {
-   padding: 15px;
-   margin: -1px -7px -1px -7px;
-   padding-bottom: 8px;
-   background: #ECF8FF;
-   border-bottom-color: #CAE8FF;
-   border-top: 1px solid #CAE8FF;
+    padding: 15px;
+    margin: -1px -7px -1px -7px;
+    padding-bottom: 8px;
+    background: #ECF8FF;
+    border-bottom-color: #CAE8FF;
+    border-top: 1px solid #CAE8FF;
 }
 
 .CommentsWrap .Item.Rank-Vanilla .Message {
-   position: relative;
+    position: relative;
 }
 
 .CommentsWrap .Item .Rank.Rank-Vanilla {
-   background: transparent url('images/vanilla-rank-logo.png') no-repeat 0px 14px;
-   height: 82px;
-   width: 220px;
-   color: transparent;
-   overflow: hidden;
-   line-height: 1000px;
-   
-   display: block;
-   position: absolute;
-   bottom: 0px;
-   right: 0px;
-   
-   -webkit-transition: all .3s ease-in-out;
-   -moz-transition: all .3s ease-in-out;
-   -o-transition: all .3s ease-in-out;
-   -ms-transition: all .3s ease-in-out;
-   transition: all .3s ease-in-out;
+    background: transparent url('images/vanilla-rank-logo.png') no-repeat 0px 14px;
+    height: 82px;
+    width: 220px;
+    color: transparent;
+    overflow: hidden;
+    line-height: 1000px;
+
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 .CommentsWrap .Item:hover .Rank.Rank-Vanilla {
-   background-position: 0px 30px;
+    background-position: 0px 30px;
 }
 
 .CommentsWrap .Item .Rank.Rank-Vanilla:before {
-   content: "";
+    content: "";
 }
 
 .CommentsWrap .Item.Rank-Vanilla::after {
-   background: transparent url('images/vanilla-rank-logo-shadow.png') no-repeat 0px 1px;
-   height: 6px;
-   width: 227px;
-   content: " ";
-   display: block;
-   position: absolute;
-   bottom: 0px;
-   right: 0px;
+    background: transparent url('images/vanilla-rank-logo-shadow.png') no-repeat 0px 1px;
+    height: 6px;
+    width: 227px;
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 
 select {
-   border: 1px solid #999;
-   border: 1px solid rgba(0, 0, 0, 0.4);
-   height: 28px;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    height: 28px;
 }
 
 .Hero {
-   background: #EFEFEF;
-   border: solid 1px #ddd;
-   border-radius: .5ex;
-   font-size: 105%;
+    background: #EFEFEF;
+    border: solid 1px #ddd;
+    border-radius: .5ex;
+    font-size: 105%;
 }
 
 .CommentsWrap .Item.Rank-Vanilla .Message {
-   position: relative;
+    position: relative;
 }
 
 .CommentsWrap .Item .Rank.Rank-Vanilla {
-   background: transparent url('images/vanilla-rank-logo.png') no-repeat 0px 14px;
-   height: 82px;
-   width: 220px;
-   color: transparent;
-   overflow: hidden;
-   line-height: 1000px;
-   
-   display: block;
-   position: absolute;
-   bottom: 0px;
-   right: 0px;
-   
-   -webkit-transition: all .3s ease-in-out;
-   -moz-transition: all .3s ease-in-out;
-   -o-transition: all .3s ease-in-out;
-   -ms-transition: all .3s ease-in-out;
-   transition: all .3s ease-in-out;
+    background: transparent url('images/vanilla-rank-logo.png') no-repeat 0px 14px;
+    height: 82px;
+    width: 220px;
+    color: transparent;
+    overflow: hidden;
+    line-height: 1000px;
+
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 .CommentsWrap .Item:hover .Rank.Rank-Vanilla {
-   background-position: 0px 30px;
+    background-position: 0px 30px;
 }
 
 .CommentsWrap .Item .Rank.Rank-Vanilla:before {
-   content: "";
+    content: "";
 }
 
 .CommentsWrap .Item.Rank-Vanilla::after {
-   background: transparent url('images/vanilla-rank-logo-shadow.png') no-repeat 0px 1px;
-   height: 6px;
-   width: 227px;
-   content: " ";
-   display: block;
-   position: absolute;
-   bottom: 0px;
-   right: 0px;
+    background: transparent url('images/vanilla-rank-logo-shadow.png') no-repeat 0px 1px;
+    height: 6px;
+    width: 227px;
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 
 select {
-   border: 1px solid #999;
-   border: 1px solid rgba(0, 0, 0, 0.4);
-   height: 28px;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    height: 28px;
 }
 
 .ReactSprite {
@@ -663,7 +663,7 @@ select {
 }
 
 .Reactions .MenuItems a:hover .ReactSprite, .MenuItems a:hover .Sprite {
-   background-image: url('http://vanillicon.com/sprites/sprites-14-ffffff.png');
+    background-image: url('http://vanillicon.com/sprites/sprites-14-ffffff.png');
 }
 
 a:hover .ReactSprite {
@@ -672,27 +672,27 @@ a:hover .ReactSprite {
 }
 
 .MeButton .Sprite16 {
-   width: 16px;
-   height: 16px;
-   line-height: 16px;
-   vertical-align: text-top;
-   border: solid 2px transparent;
-   margin: -2px;
-   display: inline-block;
-   background-image: url(http://vanillicon.com/sprites/sprites-14-777777.png);
-   background-size: 396px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: text-top;
+    border: solid 2px transparent;
+    margin: -2px;
+    display: inline-block;
+    background-image: url(http://vanillicon.com/sprites/sprites-14-777777.png);
+    background-size: 396px;
 }
 
 .UserReactionWrap .ReactSprite {
-   background-image: url(http://vanillicon.com/sprites/sprites-14-outline-28519F.png);
-   background-size: 396px;
+    background-image: url(http://vanillicon.com/sprites/sprites-14-outline-28519F.png);
+    background-size: 396px;
 }
 
 .OptionsTitle,
 a.Bookmark,
 a.Bookmarked,
 a.Bookmarking {
-   background-image: url("http://vanillicon.com/sprites/ui_sprites-16c-000000.png");
+    background-image: url("http://vanillicon.com/sprites/ui_sprites-16c-000000.png");
 }
 
 @media
@@ -702,33 +702,33 @@ only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
-   .ReactSprite {
-      background-image: url("http://vanillicon.com/sprites/sprites-28-012f6e.png");
-   }
-   
-   a:hover .ReactSprite {
-      background-image: url("http://vanillicon.com/sprites/sprites-28c-ff0084.png");
-   }
-   
-   .MenuItems .ReactSprite {
-      background-image: url("http://vanillicon.com/sprites/sprites-28-000000.png");
-   }
-   
-   .Reactions .MenuItems a:hover .ReactSprite, .MenuItems a:hover .Sprite {
-      background-image: url('http://vanillicon.com/sprites/sprites-28-ffffff.png');
-   }
-   
-   .MeButton .Sprite16 {
-      background-image: url(http://vanillicon.com/sprites/sprites-28-777777.png);
-   }
-   
-   .OptionsTitle,
-   a.Bookmark,
-   a.Bookmarked,
-   a.Bookmarking {
-      background-image: url("http://vanillicon.com/sprites/ui_sprites-32c-000000.png");
-      background-size: 30px;
-   }
+    .ReactSprite {
+        background-image: url("http://vanillicon.com/sprites/sprites-28-012f6e.png");
+    }
+
+    a:hover .ReactSprite {
+        background-image: url("http://vanillicon.com/sprites/sprites-28c-ff0084.png");
+    }
+
+    .MenuItems .ReactSprite {
+        background-image: url("http://vanillicon.com/sprites/sprites-28-000000.png");
+    }
+
+    .Reactions .MenuItems a:hover .ReactSprite, .MenuItems a:hover .Sprite {
+        background-image: url('http://vanillicon.com/sprites/sprites-28-ffffff.png');
+    }
+
+    .MeButton .Sprite16 {
+        background-image: url(http://vanillicon.com/sprites/sprites-28-777777.png);
+    }
+
+    .OptionsTitle,
+    a.Bookmark,
+    a.Bookmarked,
+    a.Bookmarking {
+        background-image: url("http://vanillicon.com/sprites/ui_sprites-32c-000000.png");
+        background-size: 30px;
+    }
 }
 
 .ReactEverything { background-position: -360px -100px; }
@@ -785,61 +785,61 @@ input[type=text],
 input[type=password],
 textarea,
 ul.token-input-list {
-   border-radius: 1px;
+    border-radius: 1px;
 }
 
 .ButtonBar + .TextBoxWrapper textarea {
-   border-radius: 0 0 1px 1px;
+    border-radius: 0 0 1px 1px;
 }
 
 .AdvancedSearch {
-   max-width: 700px;
-   
-   .KeywordsWrap {
-      .InputBox,
-      .Button {
-         height: 34px;
-      }
-      
-      .InputBox {
-         border-width: 2px;
-         border-color: #bbb;
-      }
-      
-      .Handle {
-         top: 2px;
-      }
-   }
+    max-width: 700px;
+
+    .KeywordsWrap {
+        .InputBox,
+        .Button {
+            height: 34px;
+        }
+
+        .InputBox {
+            border-width: 2px;
+            border-color: #bbb;
+        }
+
+        .Handle {
+            top: 2px;
+        }
+    }
 }
 
 
 /// Search results ///
 
 .Section-SearchResults {
-   #Panel {
-      display: none;
-   }
-   
-   #Content {
-      margin: 0 auto;
-      max-width: 800px;
-   }
+    #Panel {
+        display: none;
+    }
+
+    #Content {
+        margin: 0 auto;
+        max-width: 800px;
+    }
 }
 
 /// Signatures ///
 
 .Signature {
-   font-size: 80%;
-   opacity: .8;
-   line-height: 1.2;
-   
-   .Item-Body & {
-      border-top: solid 1px #777;
-      margin-top: 15px;
-      padding-top: 5px;
-      
-      & :first-child {
-         margin-top: 0;
-      }
-   }
+    font-size: 80%;
+    opacity: .8;
+    line-height: 1.2;
+
+    .Item-Body & {
+        border-top: solid 1px #777;
+        margin-top: 15px;
+        padding-top: 5px;
+
+        & :first-child {
+            margin-top: 0;
+        }
+    }
 }

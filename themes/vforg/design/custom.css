@@ -64,10 +64,10 @@
 /** Header **/
 /* line 62, ../sass/custom.scss */
 .Head .Home {
-  background: url("images/vanilla-forums-logo-132x61.png") center center no-repeat;
+  background: url("images/logo-vanilla.png") center center no-repeat;
   display: block;
-  height: 61px;
-  width: 135px;
+  height: 69px;
+  width: 170px;
   overflow: hidden;
   color: transparent;
   font-size: 1px;
@@ -173,8 +173,8 @@ a {
   position: absolute;
   height: 76px;
   width: 76px;
-  top: 20px;
-  left: 160px;
+  top: 25px;
+  left: 200px;
 }
 
 /* line 160, ../sass/custom.scss */
@@ -247,7 +247,7 @@ a {
   border-bottom: solid 1px #ddd;
 }
 
-/* line 222, ../sass/custom.scss */
+/* line 221, ../sass/custom.scss */
 .BreadcrumbsWrapper,
 .BreadcrumbsWrapper .Breadcrumbs a {
   color: #1f1e1e;
@@ -289,7 +289,7 @@ a {
   margin: 20px 0;
 }
 
-/* line 258, ../sass/custom.scss */
+/* line 257, ../sass/custom.scss */
 .Box.Tags,
 .Box.BadgeGrid {
   padding: 0;
@@ -607,7 +607,7 @@ a.RenderedDownloadButton span {
 
 /* line 526, ../sass/custom.scss */
 .AuthorInfo .MItem:before {
-  content: " • ";
+  content: " \2022 ";
   color: #C9C9C9;
 }
 
@@ -789,7 +789,7 @@ a:hover .ReactSprite {
   background-size: 396px;
 }
 
-/* line 694, ../sass/custom.scss */
+/* line 691, ../sass/custom.scss */
 .OptionsTitle,
 a.Bookmark,
 a.Bookmarked,
@@ -823,7 +823,7 @@ a.Bookmarking {
     background-image: url(http://vanillicon.com/sprites/sprites-28-777777.png);
   }
 
-  /* line 728, ../sass/custom.scss */
+  /* line 725, ../sass/custom.scss */
   .OptionsTitle,
   a.Bookmark,
   a.Bookmarked,
@@ -1058,7 +1058,7 @@ a.Bookmarking {
   background-position: -200px -20px;
 }
 
-/* line 787, ../sass/custom.scss */
+/* line 784, ../sass/custom.scss */
 input[type=text],
 input[type=password],
 textarea,
@@ -1075,7 +1075,7 @@ ul.token-input-list {
 .AdvancedSearch {
   max-width: 700px;
 }
-/* line 800, ../sass/custom.scss */
+/* line 799, ../sass/custom.scss */
 .AdvancedSearch .KeywordsWrap .InputBox,
 .AdvancedSearch .KeywordsWrap .Button {
   height: 34px;

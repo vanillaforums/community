@@ -36,6 +36,8 @@ else {
    });
 </script>
 
+<a href="https://github.com/vanillaforums/Garden"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
 <div class="Head">
    <div class="Row">
       <span class="OpenSource"></span>
@@ -57,10 +59,10 @@ else {
    <div class="SplashSlider">
       <div id="Slider">
          <ul>
-            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/custom-themes.png', Alt(T("Amazing Themes"))); ?></div></li>
-            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/badges-and-reactions.png', Alt(T("Badges & Reactions"))); ?></div></li>
-            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/feature-community-analytics.png', Alt(T("Community Analytics"))); ?></div></li>
-            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/vanilla-on-iphones.png', Alt(T("Works Natively on any Mobile Device"))); ?></div></li>
+            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/slide-rsi.png', Alt(T("Amazing Themes"))); ?></div></li>
+            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/slide-tableless.png', Alt(T("Badges & Reactions"))); ?></div></li>
+            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/slide-gtricks.png', Alt(T("Community Analytics"))); ?></div></li>
+            <li><div class="Splash"><?php echo Img('applications/vforg/design/images/slide-audiobus.png', Alt(T("Works Natively on any Mobile Device"))); ?></div></li>
          </ul>
       </div>
    </div>
@@ -81,7 +83,7 @@ else {
             <h3>Always Stable</h3>
             <ul class="Buttons">
                <li><?php echo Anchor('30-Day Free Trial', 'http://vanillaforums.com/plans', array('class' => 'Button Green', 'title' => T("Sign up for a 30-day free trial of Vanilla Cloud"))); ?></li>
-               <li><?php echo Anchor('Take a Tour', 'http://vanillaforums.com/features', array('class' => 'Button Purple', 'title' => T(""))); ?></li>
+               <li><?php echo Anchor('See Cloud Features', 'http://vanillaforums.com/features', array('class' => 'Button Purple', 'title' => T(""))); ?></li>
             </ul>
          </div>
          <div class="About">
