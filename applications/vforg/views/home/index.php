@@ -87,7 +87,7 @@ else {
             </ul>
          </div>
          <div class="About">
-            <strong>We believe that online communities should be intuitive, engaging and true to your brand.</strong> Vanilla allows you to create acustomized community that rewards positive participation, automatically curates content and lets members drive moderation.
+            <strong>We believe that online communities should be intuitive, engaging and true to your brand.</strong> Vanilla allows you to create a customized community that rewards positive participation, automatically curates content and lets members drive moderation.
          </div>
       </div>
       <div class="Column">
