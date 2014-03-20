@@ -4,77 +4,43 @@ $TermsOfServiceText = sprintf(T('I agree to the <a id="TermsOfService" class="Po
 $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
 ?>
 <div class="DownloadForm">
-	<i class="Sprite SpriteTools"></i>
+    <i class="Sprite SpriteTools"></i>
    <div class="FooWrap">
       <h1>Developers</h1>
       <p>Download, install, configure, and optimize yourself</p>
    </div>
-	<?php
-	echo $this->Form->Open();
-	echo $this->Form->Errors();
-	if (!Gdn::Session()->IsValid()) {
-	?>
-	<ul>
-		<li>
-			<?php
-				echo $this->Form->Label('Email', 'Email');
-				echo $this->Form->TextBox('Email');
-			?>
-		</li>
-		<li>
-			<?php
-				echo $this->Form->CheckBox('Newsletter', 'Email me news about Vanilla Forums', array('value' => '1'));
-			?>
-		</li>
-		<li>
-			<?php
-				echo $this->Form->CheckBox('CreateAccount', 'Join the VanillaForums.org developer community', array('value' => '1'));
-			?>
-		</li>
-	</ul>
-	<ul class="JoinFields">
-      <li>
-         <?php
-            echo $this->Form->Label('Username', 'Name');
-            echo $this->Form->TextBox('Name');
-            echo '<span id="NameUnavailable" class="Incorrect" style="display: none;">'.T('Name Unavailable').'</span>';
-         ?>
-      </li>
-      <li>
-         <?php
-            echo $this->Form->Label('Password', 'Password');
-            echo $this->Form->Input('Password', 'password');
-         ?>
-      </li>
-      <li>
-         <?php
-            echo $this->Form->Label('Confirm Password', 'PasswordMatch');
-            echo $this->Form->Input('PasswordMatch', 'password');
-            echo '<span id="PasswordsDontMatch" class="Incorrect" style="display: none;">'.T("Passwords don't match").'</span>';
-         ?>
-      </li>
-      <li class="CaptchaInput"><?php
-         echo $this->Form->Label("Security Check", '');
-         echo recaptcha_get_html($CaptchaPublicKey);
-      ?></li>
-      <li>
-         <?php
-            echo $this->Form->CheckBox('TermsOfService', $TermsOfServiceText, array('value' => '1'));
-            echo $this->Form->CheckBox('RememberMe', T('Remember me on this computer'), array('value' => '1'));
-         ?>
-      </li>
-	</ul>
-	<?php
-	}
-	echo $this->Form->Button('', array('type' => 'image', 'class' => '', 'src' => Asset('themes/vforg/design/images/btn-download.png')));
-	echo $this->Form->Close();
-	?>
+    <style>
+        .hs-form .hs-button,
+        .hs-form .hs-button:hover,
+        .hs-form .hs-button:focus,
+        .hs-form .hs-button:active {
+            display: block;
+            width: 370px;
+            height: 59px;
+            padding: 0;
+            font: 0/0 a;
+            color: transparent;
+            text-shadow: none;
+            background-color: transparent;
+            background-image: url("<?php echo Url('/themes/vforg/design/images/btn-download.png') ?>");
+            background-repeat: no-repeat;
+            border: 0;
+            box-shadow: none;
+        }
+    </style>
+   <script charset="utf-8" src="//js.hsforms.net/forms/current.js"></script>
+    <script>
+    hbspt.forms.create({
+    portalId: '95135',
+    formId: '8fe5349a-e5bc-403c-9962-ba3bd688f9c0'
+    });
+    </script>
 </div>
 <div class="HostingForm">
-	<i class="Sprite SpriteSuit"></i>
+    <i class="Sprite SpriteSuit"></i>
    <div class="FooWrap">
       <h1>Big Communities</h1>
       <p>Get help hosting &amp; growing your community</p>
    </div>
-	<?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Take control of your community.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
+    <?php echo Anchor(Wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Take control of your community.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
 </div>
