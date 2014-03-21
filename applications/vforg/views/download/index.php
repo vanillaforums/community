@@ -10,6 +10,10 @@ $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
       <p>Download, install, configure, and optimize yourself</p>
    </div>
     <style>
+        .hs-form .hs-input {
+          -moz-box-sizing: content-box;
+        }
+
         .hs-form .hs-button,
         .hs-form .hs-button:hover,
         .hs-form .hs-button:focus,
