@@ -1,0 +1,60 @@
+//
+// # Scaffolding
+//
+// Styleguide 1
+
+// -----------------------------------------------------------------------------
+
+// ## Box sizing reset
+//
+// No styleguide reference.
+
+* {
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// -----------------------------------------------------------------------------
+
+// ## Root styling
+//
+// Styleguide 1.1
+
+html {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: @font-family-base;
+  font-size: @font-size-base;
+  line-height: @line-height-ratio;
+  color: @text-color;
+  background-color: @body-bg;
+  -webkit-font-smoothing: antialiased;
+}
+
+// -----------------------------------------------------------------------------
+
+// ## Link styling
+//
+// Styleguide 1.2
+
+a {
+  color: @link-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: @link-hover-color;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

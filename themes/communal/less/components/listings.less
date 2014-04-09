@@ -1,0 +1,20 @@
+// # Listings
+//
+// Styleguide #
+
+// -----------------------------------------------------------------------------
+
+// ## Regular lists
+//
+// Styleguide #.1
+
+.DataList {
+  .Item {
+    padding: @item-padding-vertical @item-padding-horizontal;
+    border: @item-border solid 1px;
+
+    + .Item {
+      margin-top: 10px;
+    }
+  }
+}

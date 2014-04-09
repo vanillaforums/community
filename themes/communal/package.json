@@ -1,0 +1,34 @@
+{
+  "name": "communal",
+  "version": "1.0.0",
+  "title": "Communal",
+  "description": "TODO",
+  "license": "GPLv3",
+  "author": {
+    "name": "Kasper Kronborg Isager",
+    "email": "kasper@vanillaforums.com",
+    "url": "https://github.com/kasperisager"
+  },
+  "private": true,
+  "devDependencies": {
+    "wiredep": "*",
+    "gulp": "*",
+    "gulp-load-plugins": "*",
+    "gulp-plumber": "*",
+    "gulp-less": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-imagemin": "*",
+    "gulp-csso": "*",
+    "gulp-jshint": "*",
+    "gulp-livereload": "*",
+    "gulp-size": "*",
+    "gulp-include": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-rename": "*",
+    "gulp-csslint": "*"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

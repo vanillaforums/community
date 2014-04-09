@@ -1,0 +1,240 @@
+//
+// # Variables
+//
+// No styleguide reference.
+
+// -----------------------------------------------------------------------------
+
+// ## Colours
+//
+// No styleguide reference.
+
+@black                                  : #000;
+@white                                  : #fff;
+
+@gray-darker                            : lighten(@black, 13.5%); // #222
+@gray-dark                              : lighten(@black, 20%);   // #333
+@gray                                   : lighten(@black, 33.5%); // #555
+@gray-light                             : lighten(@black, 60%);   // #999
+@gray-lighter                           : lighten(@black, 93.5%); // #eee
+
+@brand-primary                          : #0291db;
+
+// -----------------------------------------------------------------------------
+
+// ## Scaffolding
+//
+// Settings for some of the most global styles.
+//
+// No styleguide reference.
+
+@body-bg                                : #fafafa;
+@text-color                             : #444;
+
+@link-color                             : @brand-primary;
+@link-hover-color                       : darken(@link-color, 15%);
+
+// -----------------------------------------------------------------------------
+
+// ## Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+//
+// No styleguide reference.
+
+@font-family-sans-serif                 : "Source Sans Pro", Helvetica, Arial, sans-serif;
+@font-family-monospace                  : "Source Code Pro", Menlo, Consolas, monospace;
+@font-family-base                       : @font-family-sans-serif;
+
+@font-size-base                         : 14px;
+@font-size-large                        : ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small                        : ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1                           : floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2                           : floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3                           : ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4                           : ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5                           : @font-size-base;
+@font-size-h6                           : ceil((@font-size-base * 0.85)); // ~12px
+
+@line-height-base                       : 20px;
+@line-height-ratio                      : unit((@line-height-base / @font-size-base));
+
+@headings-font-family                   : inherit;
+@headings-font-weight                   : 700;
+@headings-line-height                   : 1.2;
+@headings-color                         : #444;
+
+@post-body-font-size                    : 15px;
+@post-body-line-height                  : 1.7;
+
+// -----------------------------------------------------------------------------
+
+// ## Components
+//
+// Define common padding and border radius sizes and more. Values based on 14px
+// text and 1.428 line-height (~20px to start).
+//
+// No styleguide reference.
+
+@padding-base-vertical                  : 6px;
+@padding-base-horizontal                : 12px;
+
+@padding-large-vertical                 : 10px;
+@padding-large-horizontal               : 16px;
+
+@padding-small-vertical                 : 5px;
+@padding-small-horizontal               : 10px;
+
+@border-radius-base                     : 2px;
+
+// Global color for active items (e.g., navs or dropdowns).
+@component-active-color                 : @white;
+
+// Global background color for active items (e.g., navs or dropdowns).
+@component-active-bg                    : @brand-primary;
+
+// -----------------------------------------------------------------------------
+
+// ## Media query breakpoints
+//
+// Define the breakpoints at which your layout will change, adapting to
+// different screen sizes.
+//
+// No styleguide reference.
+
+// Small screen / tablet
+@screen-sm-min                          : 768px;
+
+// Medium screen / desktop
+@screen-md-min                          : 992px;
+
+// Large screen / wide desktop
+@screen-lg-min                          : 1200px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-sm-max                          : (@screen-md-min - 1);
+@screen-md-max                          : (@screen-lg-min - 1);
+
+// -----------------------------------------------------------------------------
+
+// ## Grid system
+//
+// No styleguide reference.
+
+@grid-gutter-width                      : 60px;
+
+@container-sm                           : ((720px + @grid-gutter-width));
+@container-md                           : ((940px + @grid-gutter-width));
+@container-lg                           : ((1140px + @grid-gutter-width));
+
+// -----------------------------------------------------------------------------
+
+// ## Forms
+//
+// No styleguide reference.
+
+@input-bg                               : @white;
+@input-bg-disabled                      : @gray-lighter;
+
+@input-color                            : @gray;
+@input-border                           : #ccc;
+@input-border-radius                    : @border-radius-base;
+@input-border-focus                     : @brand-primary;
+
+@input-color-placeholder                : @gray-light;
+
+@input-height-base                      : (@line-height-base + (@padding-base-vertical * 2) + 2);
+
+@legend-color                           : @gray-dark;
+@legend-border-color                    : #e5e5e5;
+
+@input-group-addon-bg                   : @gray-lighter;
+@input-group-addon-border-color         : @input-border;
+
+// -----------------------------------------------------------------------------
+
+// ## Buttons
+//
+// No styleguide reference.
+
+@btn-font-weight                        : 700;
+
+@btn-default-color                      : @white;
+@btn-default-bg                         : #ccc;
+
+@btn-primary-color                      : @white;
+@btn-primary-bg                         : @brand-primary;
+
+@btn-link-disabled-color                : @gray-light;
+
+// -----------------------------------------------------------------------------
+
+// ## Navs
+//
+// No styleguide reference.
+
+@nav-link-padding-vertical              : 10px;
+@nav-link-padding-horizontal            : 15px;
+@nav-link-hover-bg                      : @gray-lighter;
+
+// -----------------------------------------------------------------------------
+
+// ## Navbar
+//
+// No styleguide reference.
+
+@navbar-height                          : 60px;
+@navbar-margin-bottom                   : @line-height-base;
+@navbar-padding-horizontal              : floor((@grid-gutter-width / 2));
+@navbar-padding-vertical                : ((@navbar-height - @line-height-base) / 2);
+
+@navbar-color                           : #777;
+@navbar-bg                              : @white;
+@navbar-border                          : darken(@navbar-bg, 6.5%);
+
+@navbar-link-color                      : #777;
+@navbar-link-hover-color                : @gray-dark;
+@navbar-link-active-color               : @gray-darker;
+
+@navbar-brand-color                     : @navbar-link-color;
+@navbar-brand-hover-color               : darken(@navbar-brand-color, 10%);
+
+// -----------------------------------------------------------------------------
+
+// ## Sidebar
+//
+// No styleguide reference.
+
+@sidebar-width                          : 240px;
+@sidebar-width-collapsed                : 64px;
+@sidebar-bg                             : @gray-dark;
+@sidebar-border                         : @gray-darker;
+
+@sidebar-nav-divider-border             : @gray;
+
+@sidebar-nav-link-color                 : @white;
+@sidebar-nav-link-hover-bg              : transparent;
+
+@sidebar-nav-icon-size                  : 22px;
+@sidebar-nav-icon-color                 : @gray-light;
+
+// -----------------------------------------------------------------------------
+
+// ## Discussion
+//
+// No styleguide reference.
+
+@item-padding-vertical                  : 15px;
+@item-padding-horizontal                : 15px;
+@item-bg                                : @white;
+@item-border                            : @gray-lighter;
+@item-border-radius                     : @border-radius-base;
+
+@item-author-font-size                  : (@font-size-base + 1px);
+@item-author-font-weight                : 700;
+@item-author-color                      : @text-color;
+
+@item-meta-font-size                    : @font-size-small;
+@item-meta-color                        : @gray-light;
+@item-meta-link-color                   : @text-color;

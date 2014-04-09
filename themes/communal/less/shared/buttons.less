@@ -1,0 +1,91 @@
+// # Buttons
+//
+// Styleguide #
+
+.btn() {
+  display: inline-block;
+  vertical-align: middle;
+  padding: @padding-base-vertical @padding-base-horizontal;
+  margin-bottom: 0;
+  font-size: @font-size-base;
+  font-weight: @btn-font-weight;
+  line-height: @line-height-base;
+  color: @btn-default-color;
+  text-align: center;
+  text-shadow: none;
+  cursor: pointer;
+  white-space: nowrap;
+  background-image: none; // Reset unusual Firefox-on-Android default style
+  border-radius: @border-radius-base;
+  box-shadow: none;
+  transition: background-color 200ms;
+  user-select: none;
+  -webkit-font-smoothing: inherit;
+
+  &,
+  &:focus {
+    background-color: @btn-default-bg;
+  }
+
+  &,
+  &:hover,
+  &:focus {
+    border: 0;
+  }
+
+  &:hover,
+  &:focus {
+    color: @btn-default-color;
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken(@btn-default-bg, 10%);
+  }
+
+  &:active {
+    outline: 0;
+    background-image: none;
+    box-shadow: 0 3px 5px fade(@black, 12.5%) inset;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+    pointer-events: none; // Future-proof disabling of clicks
+    opacity: .65;
+    box-shadow: none;
+  }
+}
+
+.btn-primary() {
+  &,
+  &:focus {
+    background-color: @btn-primary-bg;
+  }
+
+  &:hover,
+  &:focus {
+    color: @btn-primary-color;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken(@btn-primary-bg, 10%);
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+.Button,
+.NavButton {
+  .btn();
+}
+
+.Button.Primary {
+  .btn-primary();
+}

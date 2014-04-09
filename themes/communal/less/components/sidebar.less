@@ -1,0 +1,107 @@
+// # Sidebar
+//
+// Styleguide #
+
+.sidebar {
+  position: fixed;
+  width: @sidebar-width;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: @sidebar-bg;
+  border-right: @sidebar-border solid 1px;
+
+  &.is-open {
+    + .page-wrapper {
+      .overlay {
+        height: 100%;
+        opacity: .5;
+        transition-delay: 0ms;
+      }
+
+      .pusher,
+      .overlay {
+        transform: translate3d((@sidebar-width - @sidebar-width-collapsed),0,0);
+      }
+    }
+  }
+
+  .nav {
+    &:hover,
+    &:focus {
+      .nav-link {
+        opacity: .65;
+      }
+    }
+  }
+
+  .nav-link {
+    line-height: @sidebar-nav-icon-size;
+    color: @sidebar-nav-link-color;
+    text-shadow: 0 1px @gray-darker;
+    transition: opacity 200ms;
+
+    &:hover,
+    &:focus {
+      opacity: 1 !important;
+      background-color: @sidebar-nav-link-hover-bg;
+    }
+
+    .icon {
+      display: inline-block;
+      width: (@sidebar-width-collapsed - (@nav-link-padding-horizontal * 2));
+      vertical-align: middle;
+      margin-right: @nav-link-padding-horizontal;
+      font-size: @sidebar-nav-icon-size;
+      color: @sidebar-nav-icon-color;
+      text-align: center;
+    }
+  }
+
+  .nav-group {
+    h3 {
+      padding: @padding-base-vertical 0;
+      font-weight: 400;
+      color: @gray;
+
+      &:before {
+        display: block;
+        float: left;
+        width: (@sidebar-width-collapsed - (@nav-link-padding-horizontal * 2));
+        height: 0;
+        margin: (@line-height-base / 2) @nav-link-padding-horizontal;
+        border-top: @sidebar-nav-divider-border solid 1px;
+        content: " ";
+      }
+    }
+  }
+}
+
+.page-wrapper {
+  min-height: 100%;
+  overflow-x: hidden;
+  margin-left: @sidebar-width-collapsed;
+
+  .pusher {
+    min-height: 100vh;
+    background-color: @body-bg;
+    transition: transform 200ms;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: @sidebar-width-collapsed;
+    bottom: 0;
+    height: 0;
+    opacity: 0;
+    background-color: @black;
+    transition: transform 200ms, opacity 200ms, height 0ms 200ms;
+  }
+
+  .pusher,
+  .overlay {
+    transform: translate3d(0,0,0);
+  }
+}

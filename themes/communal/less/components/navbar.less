@@ -1,0 +1,57 @@
+//
+// # Navbar
+//
+// Styleguide #
+
+.navbar {
+  position: relative;
+  min-height: @navbar-height;
+  margin-bottom: @navbar-margin-bottom;
+  background-color: @navbar-bg;
+  border: @navbar-border solid 1px;
+  box-shadow: 0 3px fade(@black, .5%);
+  .clearfix();
+}
+
+// -----------------------------------------------------------------------------
+
+// ## Branding
+//
+// Styleguide #.2
+
+.navbar-brand {
+  float: left;
+  height: @navbar-height;
+  padding: @navbar-padding-vertical @navbar-padding-horizontal;
+  font-size: @font-size-large;
+  line-height: @line-height-base;
+  color: @navbar-brand-color;
+
+  &:hover,
+  &:focus {
+    color: @navbar-brand-hover-color;
+    text-decoration: none;
+  }
+
+  .navbar > .container &,
+  .navbar > .container-fluid & {
+    margin-left: -@navbar-padding-horizontal;
+  }
+
+  img {
+    height: (@navbar-height - 20px);
+    display: block;
+    margin: -(@navbar-padding-vertical - 10px) 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+// ## Aligment
+//
+// Styleguide #.3
+
+.navbar-static-top {
+  // z-index: @zindex-navbar;
+  border-width: 0 0 1px;
+}
