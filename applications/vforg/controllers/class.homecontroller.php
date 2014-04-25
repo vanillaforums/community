@@ -117,17 +117,21 @@ class HomeController extends VFOrgController {
       $this->MaxLength = is_numeric($Length) && $Length <= 50 ? $Length : 5;
       $this->FeedFormat = $FeedFormat;
       switch ($Type) {
+         case 'news':
+            $Url = 'http://blog.vanillaforums.com/category/dashboardnews/feed/';
+            break;
          case 'events':
-            $Url = 'http://vanillaforums.com/blog/category/events/feed/';
+            $Url = 'http://blog.vanillaforums.com/category/events/feed/';
             break;
          case 'help':
-            $Url = 'http://vanillaforums.com/blog/category/help/feed/';
+            $Url = 'http://blog.vanillaforums.com/category/help/feed/';
+            break;
+         case 'announce':
+            $Url = 'http://vanillaforums.org/categories/blog/feed.rss';
             break;
          default:
-            $Url = 'http://vanillaforums.com/blog/category/news/feed/';
+            $Url = 'http://blog.vanillaforums.com/feed/';
       }
-      // Just use the core feed!
-      $Url = 'http://vanillaforums.com/blog/feed/';
       
       $RawFeed = file_get_contents($Url);
       $this->Feed = new SimpleXmlElement($RawFeed);
