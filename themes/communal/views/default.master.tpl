@@ -18,7 +18,7 @@
     <div class="page-wrapper">
       <div class="pusher">
 
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-fixed-top" role="navigation">
           <div class="container">
 
             <a class="navbar-brand" href="{link path="home"}">{logo}</a>

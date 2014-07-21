@@ -35,7 +35,7 @@
 .row {
   margin-right: -(@grid-gutter-width / 2);
   margin-left:  -(@grid-gutter-width / 2);
-
+  .clearfix();
 }
 
 // -----------------------------------------------------------------------------
@@ -56,4 +56,8 @@
 
 .content {
   .column-fraction(1);
+}
+
+.col-half {
+  .column-fraction(1/2);
 }

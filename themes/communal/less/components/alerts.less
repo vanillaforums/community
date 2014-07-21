@@ -1,0 +1,43 @@
+//
+// # Alerts
+//
+// Styleguide #
+
+.alert-variant(@color, @background, @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+
+  hr {
+    border-top-color: darken(@border, 5%);
+  }
+
+  a {
+    color: darken(@text-color, 10%);
+  }
+}
+
+.alert {
+  padding: @alert-padding;
+  margin-bottom: @line-height-base;
+  border: 1px solid transparent;
+  border-radius: @alert-border-radius;
+
+  h4 {
+    margin-top: 0;
+    color: inherit;
+  }
+
+  a {
+    font-weight: @alert-link-font-weight;
+  }
+
+  > p,
+  > ul {
+    margin-bottom: 0;
+  }
+
+  > p + p {
+    margin-top: 5px;
+  }
+}

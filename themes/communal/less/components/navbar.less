@@ -55,3 +55,12 @@
   // z-index: @zindex-navbar;
   border-width: 0 0 1px;
 }
+
+.navbar-fixed-top {
+  position: fixed;
+  width: 100%;
+
+  + .container {
+    padding-top: (@navbar-height + @navbar-margin-bottom);
+  }
+}
