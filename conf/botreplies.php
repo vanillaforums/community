@@ -23,8 +23,9 @@ function SayHello($Bot) {
 function SendBeer($Bot) {
    if ($Bot->PatternMatch('(^|[\s,\.>])\!beer\s@(\w{1,50})\b', $BeerWho)) {
       $Mistakes = array('Diet Coke', 'warm milk', 'prune juice', 'V8', 'frying pan');
+      $MistakeSelect = rand(0,4);
       $Reply = '/me slides @'.GetValue(2, $BeerWho).' a ';
-      $Reply .= (rand(0,4)) ? 'beer' : $Mistakes[rand(0,4)]; // 20% of the time it's something weird
+      $Reply .= (rand(0,4)) ? 'beer' : $Mistakes[$MistakeSelect]; // 20% of the time it's something weird
       return $Reply;
    }
 }
