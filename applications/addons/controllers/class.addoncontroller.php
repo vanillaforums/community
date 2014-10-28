@@ -858,8 +858,8 @@ class AddonController extends AddonsController {
             $Parsed = $UploadImage->SaveImageAs(
                $TmpImage,
                $TargetImage,
-               128,
-               128,
+               256,
+               256,
                FALSE, FALSE
             );
             $TargetImage = $Parsed['SaveName'];
