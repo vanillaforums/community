@@ -5,24 +5,55 @@
    float: left;
 }
 */
-/* line 8, ../sass/addons.scss */
+/* line 13, ../sass/addons.scss */
 body.add #Panel {
   display: block;
 }
 
-/* line 11, ../sass/addons.scss */
+/* line 16, ../sass/addons.scss */
 body.add #Content {
   width: 680px;
 }
 
-/* line 14, ../sass/addons.scss */
-.AddonRow .Icon .IconWrap {
-  /* border: 1px solid #ddd; */
-  padding: 1px;
-  line-height: 100%;
+/* line 21, ../sass/addons.scss */
+.DataList.Addons .Item {
+  padding: 16px 16px 16px 0;
 }
 
-/* line 20, ../sass/addons.scss */
+/* line 26, ../sass/addons.scss */
+.AddonRow {
+  overflow: hidden;
+}
+/* line 28, ../sass/addons.scss */
+.AddonRow .Icon {
+  float: left;
+  padding-right: 16px;
+}
+/* line 32, ../sass/addons.scss */
+.AddonRow .Icon img {
+  width: 64px;
+  height: 64px;
+}
+/* line 38, ../sass/addons.scss */
+.AddonRow .ItemContent {
+  margin-left: 80px;
+}
+/* line 42, ../sass/addons.scss */
+.AddonRow .Description {
+  font-size: 13px;
+  line-height: 21px;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+/* line 48, ../sass/addons.scss */
+.AddonRow .Meta {
+  line-height: 21px;
+}
+
+/* line 53, ../sass/addons.scss */
 body.Addon #Content img.Icon {
   float: left;
   margin: 0 6px 6px 0;
@@ -30,31 +61,20 @@ body.Addon #Content img.Icon {
   /* border: 1px solid #ddd; */
 }
 
-/* line 26, ../sass/addons.scss */
-.AddonRow {
-  overflow: hidden;
-}
-
-/* line 29, ../sass/addons.scss */
-.AddonRow .Icon img {
-  height: 40px;
-  width: 40px;
-}
-
-/* line 34, ../sass/addons.scss */
+/* line 60, ../sass/addons.scss */
 input.Button {
   margin-top: 4px;
   margin-bottom: 4px;
 }
 
-/* line 39, ../sass/addons.scss */
+/* line 65, ../sass/addons.scss */
 div.DownloadPanel {
   margin-left: 20px;
   width: 270px;
   float: right;
 }
 
-/* line 46, ../sass/addons.scss */
+/* line 70, ../sass/addons.scss */
 div.RequirementBox,
 div.DownloadBox,
 .AddonBox {
@@ -69,14 +89,14 @@ div.DownloadBox,
   font-size: 12px;
 }
 
-/* line 57, ../sass/addons.scss */
+/* line 83, ../sass/addons.scss */
 div.DownloadBox dl {
   padding: 0 !important;
   background: none;
   border: none;
 }
 
-/* line 63, ../sass/addons.scss */
+/* line 88, ../sass/addons.scss */
 div.RequirementBox dl dt,
 div.DownloadBox dl dt {
   color: inherit;
@@ -84,12 +104,12 @@ div.DownloadBox dl dt {
   float: left;
 }
 
-/* line 68, ../sass/addons.scss */
+/* line 94, ../sass/addons.scss */
 .DownloadBox dl dd {
   color: #555;
 }
 
-/* line 72, ../sass/addons.scss */
+/* line 97, ../sass/addons.scss */
 div.Requirements,
 div.Testing {
   background: #fafafa;
@@ -97,7 +117,7 @@ div.Testing {
   padding: 6px;
 }
 
-/* line 80, ../sass/addons.scss */
+/* line 103, ../sass/addons.scss */
 div.Requirements h3,
 div.Testing h3,
 div.Requirements p,
@@ -106,23 +126,23 @@ div.Testing p {
   padding: 0 !important;
 }
 
-/* line 85, ../sass/addons.scss */
+/* line 110, ../sass/addons.scss */
 div.Requirements h3,
 div.Testing h3 {
   margin: 0 0 6px 0 !important;
 }
 
-/* line 88, ../sass/addons.scss */
+/* line 114, ../sass/addons.scss */
 #Content {
   font-size: 120%;
 }
 
-/* line 91, ../sass/addons.scss */
+/* line 117, ../sass/addons.scss */
 .Addons #Content h1 {
   padding-bottom: 4px;
 }
 
-/* line 94, ../sass/addons.scss */
+/* line 120, ../sass/addons.scss */
 #addons_addon_index #Content h1 div {
   display: inline;
   float: right;
@@ -131,7 +151,7 @@ div.Testing h3 {
   font-weight: normal;
 }
 
-/* line 101, ../sass/addons.scss */
+/* line 127, ../sass/addons.scss */
 #addons_addon_index #Content .Legal {
   /*   width: 706px;
      float: left;*/
@@ -143,7 +163,7 @@ div.Testing h3 {
   font-size: 14px;
 }
 
-/* line 112, ../sass/addons.scss */
+/* line 137, ../sass/addons.scss */
 #addons_addon_index #Content div.Approved,
 #addons_addon_index #Content div.Warning {
   font-size: 14px;
@@ -155,27 +175,27 @@ div.Testing h3 {
   border-radius: 0;
 }
 
-/* line 121, ../sass/addons.scss */
+/* line 147, ../sass/addons.scss */
 #addons_addon_index #Content div.Approved {
   padding: 10px 8px 10px 70px;
   background: url("images/check.png") 20px 20px no-repeat #d4efc5;
   color: #1e6000;
 }
 
-/* line 127, ../sass/addons.scss */
+/* line 152, ../sass/addons.scss */
 div.Approved strong,
 div.Warning strong {
   font-weight: bold;
   display: block;
 }
 
-/* line 131, ../sass/addons.scss */
+/* line 157, ../sass/addons.scss */
 #Content img.Border {
   padding: 6px;
   border: 1px solid #ddd;
 }
 
-/* line 135, ../sass/addons.scss */
+/* line 161, ../sass/addons.scss */
 .AddonOptions {
   font-size: 12px;
   font-weight: bold;
@@ -189,13 +209,13 @@ div.Warning strong {
   -webkit-border-bottom-right-radius: 2px;
 }
 
-/* line 147, ../sass/addons.scss */
+/* line 173, ../sass/addons.scss */
 .AddonOptions a {
   margin: 0 6px;
 }
 
 /* Side Menu */
-/* line 153, ../sass/addons.scss */
+/* line 178, ../sass/addons.scss */
 #Content #SideMenu,
 #Content #SideMenu li {
   margin: 0px;
@@ -203,7 +223,7 @@ div.Warning strong {
   list-style: none;
 }
 
-/* line 158, ../sass/addons.scss */
+/* line 184, ../sass/addons.scss */
 #Content #SideMenu {
   border: 1px solid #CAF0FE;
   font-size: 110%;
@@ -216,19 +236,19 @@ div.Warning strong {
   margin: 10px 0;
 }
 
-/* line 169, ../sass/addons.scss */
+/* line 195, ../sass/addons.scss */
 #Content #SideMenu li a {
   font-size: 14px;
   font-weight: normal;
 }
 
-/* line 173, ../sass/addons.scss */
+/* line 199, ../sass/addons.scss */
 #Content #SideMenu li.Highlight a {
   color: #ff0084;
 }
 
 /* Picture Box */
-/* line 178, ../sass/addons.scss */
+/* line 204, ../sass/addons.scss */
 .PictureBox {
   padding: 10px 10px 4px;
   -moz-border-radius: 4px;
@@ -240,20 +260,20 @@ div.Warning strong {
   /*   clear: both;*/
 }
 
-/* line 188, ../sass/addons.scss */
+/* line 214, ../sass/addons.scss */
 .PictureBox img {
   border: 1px solid #e5e5e5;
   padding: 2px;
   margin: 4px;
 }
 
-/* line 193, ../sass/addons.scss */
+/* line 219, ../sass/addons.scss */
 .PictureBox img:hover {
   border: 1px solid #bbb;
 }
 
 /* Comments */
-/* line 200, ../sass/addons.scss */
+/* line 223, ../sass/addons.scss */
 #Discussion,
 #Discussion li,
 #Discussion ul,
@@ -263,30 +283,30 @@ div.Warning strong {
   padding: 0px !important;
 }
 
-/* line 206, ../sass/addons.scss */
+/* line 231, ../sass/addons.scss */
 li.Empty,
 #Discussion li.Empty {
   font-size: 15px;
   padding: 8px 2px !important;
 }
 
-/* line 210, ../sass/addons.scss */
+/* line 236, ../sass/addons.scss */
 #vforg_addon_browse li.Empty {
   border-bottom: 0;
 }
 
-/* line 213, ../sass/addons.scss */
+/* line 239, ../sass/addons.scss */
 #Discussion {
   margin-bottom: 1px;
 }
 
-/* line 216, ../sass/addons.scss */
+/* line 242, ../sass/addons.scss */
 #Discussion .Comment {
   clear: left;
   border-bottom: 1px solid #ddd;
 }
 
-/* line 220, ../sass/addons.scss */
+/* line 246, ../sass/addons.scss */
 #Discussion li ul.Info {
   list-style: none;
   float: left;
@@ -295,7 +315,7 @@ li.Empty,
   padding: 8px 0px 0px 8px !important;
 }
 
-/* line 227, ../sass/addons.scss */
+/* line 253, ../sass/addons.scss */
 #Discussion li ul.Info li.Author img {
   height: 40px;
   width: 40px;
@@ -304,24 +324,24 @@ li.Empty,
   float: left;
 }
 
-/* line 234, ../sass/addons.scss */
+/* line 260, ../sass/addons.scss */
 #Discussion li ul.Info li {
   display: inline;
 }
 
-/* line 238, ../sass/addons.scss */
+/* line 263, ../sass/addons.scss */
 #Discussion li ul.Info li.Created,
 #Discussion li ul.Info li.Permalink {
   padding-left: 10px !important;
 }
 
-/* line 241, ../sass/addons.scss */
+/* line 267, ../sass/addons.scss */
 #Discussion li ul.Info li.Author a {
   font-size: 15px;
   font-weight: bold;
 }
 
-/* line 245, ../sass/addons.scss */
+/* line 271, ../sass/addons.scss */
 #Discussion li .Body {
   clear: both;
   padding: 1px 8px 4px;
@@ -329,19 +349,19 @@ li.Empty,
   color: #454545;
 }
 
-/* line 251, ../sass/addons.scss */
+/* line 277, ../sass/addons.scss */
 #Discussion li .Body p {
   margin: 0;
   padding: 0;
 }
 
-/* line 255, ../sass/addons.scss */
+/* line 281, ../sass/addons.scss */
 #Discussion a.DeleteComment {
   -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-bottomright: 2px;
   -moz-border-radius-topleft: 2px;
   -moz-border-radius-topright: 2px;
-  background: #f8f8f8 url("images/buttonbg.png") repeat-x scroll left center;
+  background: #F8F8F8 url("images/buttonbg.png") repeat-x scroll left center;
   border: 1px solid #BBBBBB;
   color: #555555;
   cursor: pointer;
@@ -354,27 +374,27 @@ li.Empty,
   width: auto;
 }
 
-/* line 272, ../sass/addons.scss */
+/* line 298, ../sass/addons.scss */
 #Discussion a.DeleteComment:hover {
   border: 1px solid #888;
   color: #333;
 }
 
 /* Addon Comment Form */
-/* line 278, ../sass/addons.scss */
+/* line 304, ../sass/addons.scss */
 #CommentForm {
   background: #e9f9ff;
   padding: 8px;
 }
 
-/* line 282, ../sass/addons.scss */
+/* line 308, ../sass/addons.scss */
 #CommentForm h3 {
   font-size: 115%;
   color: #2786C2;
   font-weight: bold;
 }
 
-/* line 287, ../sass/addons.scss */
+/* line 313, ../sass/addons.scss */
 #CommentForm textarea {
   width: 655px;
   height: 100px;
@@ -383,12 +403,12 @@ li.Empty,
   font-size: 15px;
 }
 
-/* line 294, ../sass/addons.scss */
+/* line 320, ../sass/addons.scss */
 #CommentForm input.Button {
   margin-right: 6px;
 }
 
-/* line 297, ../sass/addons.scss */
+/* line 323, ../sass/addons.scss */
 #CommentForm label.Heading {
   font-weight: bold;
   font-size: 100%;
@@ -398,7 +418,7 @@ li.Empty,
   margin-bottom: 4px;
 }
 
-/* line 305, ../sass/addons.scss */
+/* line 331, ../sass/addons.scss */
 .CommentOption {
   -moz-border-radius-bottomleft: 2px;
   -moz-border-radius-bottomright: 2px;
@@ -412,7 +432,7 @@ li.Empty,
 }
 
 /* Search Form */
-/* line 317, ../sass/addons.scss */
+/* line 343, ../sass/addons.scss */
 div.SearchForm {
   margin: 0;
   padding: 8px 8px 6px;
@@ -423,35 +443,35 @@ div.SearchForm {
   -webkit-border-radius: 4px;
 }
 
-/* line 327, ../sass/addons.scss */
+/* line 353, ../sass/addons.scss */
 div.SearchForm input.InputBox {
   width: 515px;
   margin: 0 8px 0 0;
 }
 
-/* line 331, ../sass/addons.scss */
+/* line 357, ../sass/addons.scss */
 div.SearchForm input.Button {
   font-size: 14px;
   padding: 8px 4px;
 }
 
-/* line 335, ../sass/addons.scss */
+/* line 361, ../sass/addons.scss */
 div.SearchForm div.Options {
   font-size: 12px;
   padding: 8px 0 0 8px;
 }
 
-/* line 339, ../sass/addons.scss */
+/* line 365, ../sass/addons.scss */
 div.SearchForm a {
   margin: 0 4px 0;
 }
 
-/* line 342, ../sass/addons.scss */
+/* line 368, ../sass/addons.scss */
 div.SearchForm a.ShowAll {
   margin: 0 4px 0 0;
 }
 
-/* line 345, ../sass/addons.scss */
+/* line 371, ../sass/addons.scss */
 div.SearchForm a.Active {
   background: url("images/sprite-menu-buttons.png") center -66px no-repeat;
   padding: 3px 4px 2px;
@@ -465,128 +485,63 @@ div.SearchForm a.Active {
 }
 
 /* User Info Box */
-/* line 358, ../sass/addons.scss */
+/* line 384, ../sass/addons.scss */
 div.Box p.ChunkyButton {
   width: 190px;
   padding: 0;
 }
 
-/* line 362, ../sass/addons.scss */
+/* line 388, ../sass/addons.scss */
 div.DownloadBox p.ChunkyButton {
   width: 270px;
 }
 
-/* line 365, ../sass/addons.scss */
+/* line 391, ../sass/addons.scss */
 #Panel p.ChunkyButton {
   width: auto;
   margin: 10px 0 0 0;
   padding: 0;
 }
 
-/* line 370, ../sass/addons.scss */
+/* line 396, ../sass/addons.scss */
 #Panel p.ChunkyButton a {
   font-size: 18px;
   line-height: 2.6;
 }
 
-/* line 374, ../sass/addons.scss */
+/* line 400, ../sass/addons.scss */
 p.ChunkyButton a:hover {
   text-decoration: none !important;
 }
 
-/* line 378, ../sass/addons.scss */
+/* line 404, ../sass/addons.scss */
 div.DownloadPanelBox h4 {
   padding-bottom: 16px;
 }
 
 /* DataList */
-/* line 384, ../sass/addons.scss */
-ul.Addons li.Item {
-  margin: 0;
-  padding: 6px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* line 389, ../sass/addons.scss */
-ul.DataList li li {
-  border: 0;
-  padding: 0;
-}
-
-/* line 394, ../sass/addons.scss */
-ul.DataList,
-ul.DataList ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* line 399, ../sass/addons.scss */
-ul.DataList a.Icon {
-  padding: 0 8px 8px 0;
-  float: left;
-}
-
-/* line 403, ../sass/addons.scss */
-ul.Addons li a {
-  margin: 0;
-  padding: 0;
-  line-height: 160%;
-  color: #444;
-  font-size: 80%;
-}
-
-/* line 410, ../sass/addons.scss */
-ul.DataList li h3 {
-  padding: 0;
-  margin: 0;
-  font-size: 110%;
-  font-weight: bold;
-}
-
-/* line 416, ../sass/addons.scss */
-ul.DataList li a.Title {
-  font-size: 90%;
-  display: inline;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  color: #045dcd;
-}
-
-/* line 424, ../sass/addons.scss */
-ul.DataList li a.Title:hover {
-  color: #FF0084;
-}
-
-/* line 427, ../sass/addons.scss */
-ul.DataList li a:hover {
-  color: #111;
-  text-decoration: none;
-}
-
 /*
 BUG
 li.AddonRow div.Meta {
    clear: left;
 }
 */
-/* line 437, ../sass/addons.scss */
+/* line 459, ../sass/addons.scss */
 body.Addons .SearchForm .Options {
   float: none;
 }
 
-/* line 440, ../sass/addons.scss */
+/* line 462, ../sass/addons.scss */
 ul.DataList li.AddonRow div.Meta span span {
   color: #333;
 }
 
-/* line 443, ../sass/addons.scss */
+/* line 465, ../sass/addons.scss */
 ul.DataList div.Meta span {
   margin-right: 4px;
 }
 
-/* line 448, ../sass/addons.scss */
+/* line 468, ../sass/addons.scss */
 span.Approved,
 span.Vanilla1,
 span.Vanilla2 {
@@ -601,25 +556,25 @@ span.Vanilla2 {
   background: #999;
 }
 
-/* line 459, ../sass/addons.scss */
+/* line 481, ../sass/addons.scss */
 span.Vanilla2 {
   color: #fff;
   background: #2A529A;
 }
 
-/* line 463, ../sass/addons.scss */
+/* line 485, ../sass/addons.scss */
 span.Approved {
   background: #50C04C;
   color: #fff;
 }
 
-/* line 467, ../sass/addons.scss */
+/* line 489, ../sass/addons.scss */
 div.Hosting div.Host {
   padding: 8px 12px;
   margin: 0 0 10px;
 }
 
-/* line 471, ../sass/addons.scss */
+/* line 493, ../sass/addons.scss */
 div.Hosting div.Featured {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -627,20 +582,20 @@ div.Hosting div.Featured {
   background: #fffbb5;
 }
 
-/* line 478, ../sass/addons.scss */
+/* line 499, ../sass/addons.scss */
 div.Hosting div.Host h4,
 div.Hosting div.Host p {
   margin: 0 !important;
   padding: 0 !important;
 }
 
-/* line 482, ../sass/addons.scss */
+/* line 504, ../sass/addons.scss */
 div.Hosting div.Host img {
   float: right;
   margin: 0 0 2px 8px;
 }
 
-/* line 486, ../sass/addons.scss */
+/* line 508, ../sass/addons.scss */
 #Content div.Box h3 {
   font-size: 13px;
   border: none;
@@ -657,7 +612,7 @@ div.Hosting div.Host img {
    display: block;
    position: relative;
 }*/
-/* line 501, ../sass/addons.scss */
+/* line 523, ../sass/addons.scss */
 body.Addon h2.Questions a.TabLink {
   margin-left: 40px;
   font-size: 12px;
@@ -667,58 +622,58 @@ body.Addon h2.Questions a.TabLink {
 }
 
 /* Get/Download Addon page */
-/* line 510, ../sass/addons.scss */
+/* line 532, ../sass/addons.scss */
 body#addons_get_index #Content h1 {
   border: none;
 }
 
-/* line 513, ../sass/addons.scss */
+/* line 535, ../sass/addons.scss */
 .DownloadInfo {
   border: none !important;
   background: #F6DAA8 !important;
   color: #744000 !important;
 }
 
-/* line 518, ../sass/addons.scss */
+/* line 540, ../sass/addons.scss */
 .DownloadInfo strong {
   padding: 12px 0 0 !important;
   font-size: 14px !important;
   font-weight: bold;
 }
 
-/* line 523, ../sass/addons.scss */
+/* line 545, ../sass/addons.scss */
 .DownloadInfo p {
   font-size: 13px !important;
   padding: 0 0 12px !important;
   margin: 0;
 }
 
-/* line 529, ../sass/addons.scss */
+/* line 551, ../sass/addons.scss */
 table.Data {
   background: #FEF7DF;
 }
 
-/* line 533, ../sass/addons.scss */
+/* line 555, ../sass/addons.scss */
 table.Data td, table.Data th {
   padding: 4px;
 }
 
-/* line 537, ../sass/addons.scss */
+/* line 559, ../sass/addons.scss */
 table.Data th, table.Data thead td {
   font-weight: bold;
 }
 
-/* line 541, ../sass/addons.scss */
+/* line 563, ../sass/addons.scss */
 table.Data .Alt {
   background: #F6DAA8;
 }
 
-/* line 545, ../sass/addons.scss */
+/* line 567, ../sass/addons.scss */
 .AddonPicture {
   position: relative;
 }
 
-/* line 549, ../sass/addons.scss */
+/* line 571, ../sass/addons.scss */
 .AddonPicture .DeletePicture {
   position: absolute;
   bottom: 5px;
@@ -730,7 +685,7 @@ table.Data .Alt {
   text-shadow: 0px 0px 10px #000;
 }
 
-/* line 560, ../sass/addons.scss */
+/* line 582, ../sass/addons.scss */
 .Legal .Help {
   width: 357px;
   margin-bottom: 10px;
@@ -742,17 +697,17 @@ table.Data .Alt {
   border: 1px solid #eec;
 }
 
-/* line 572, ../sass/addons.scss */
+/* line 594, ../sass/addons.scss */
 .VersionsTable {
   width: 100%;
 }
 
-/* line 576, ../sass/addons.scss */
+/* line 598, ../sass/addons.scss */
 .DateColumn {
   text-align: right;
 }
 
-/* line 583, ../sass/addons.scss */
+/* line 602, ../sass/addons.scss */
 body.add #Content h1,
 body.newversion #Content h1,
 body.icon #Content h1,
@@ -761,7 +716,7 @@ body.addpicture #Content h1 {
   margin: 0;
 }
 
-/* line 590, ../sass/addons.scss */
+/* line 609, ../sass/addons.scss */
 body.add #Content .Info,
 body.newversion #Content .Info,
 body.icon #Content .Info,

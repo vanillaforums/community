@@ -1,3 +1,8 @@
+@import "compass/typography/text/ellipsis";
+
+$icon-size: 64px;
+$list-padding: 16px;
+
 /*#Content {
    float: right;
 }
@@ -11,10 +16,38 @@ body.add #Panel {
 body.add #Content {
    width: 680px;
 }
-.AddonRow .Icon .IconWrap {
-   /* border: 1px solid #ddd; */
-   padding: 1px;
-   line-height: 100%;
+
+.DataList.Addons {
+  .Item {
+    padding: $list-padding $list-padding $list-padding 0;
+  }
+}
+
+.AddonRow {
+  overflow: hidden;
+  .Icon {
+    float: left;
+    padding-right: $list-padding;
+
+    img {
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+
+  .ItemContent {
+    margin-left: $icon-size + $list-padding;
+  }
+
+  .Description {
+    font-size: 13px;
+    line-height: 21px;
+    @include ellipsis(100%);
+  }
+
+  .Meta {
+    line-height: 21px;
+  }
 }
 
 body.Addon #Content img.Icon {
@@ -22,13 +55,6 @@ body.Addon #Content img.Icon {
    margin: 0 6px 6px 0;
    padding: 2px;
    /* border: 1px solid #ddd; */
-}
-.AddonRow {
-   overflow: hidden;
-}
-.AddonRow .Icon img {
-   height: 40px;
-   width: 40px;
 }
 
 input.Button {
@@ -381,53 +407,49 @@ div.DownloadPanelBox h4 {
 
 
 /* DataList */
-ul.Addons li.Item {
-   margin: 0;
-   padding: 6px;
-   border-bottom: 1px solid #ddd;
-}
-ul.DataList li li {
-   border: 0;
-   padding: 0;
-}
-ul.DataList,
-ul.DataList ul {
-   list-style: none;
-   margin: 0;
-   padding: 0;
-}
-ul.DataList a.Icon {
-   padding: 0 8px 8px 0;
-   float: left;
-}
-ul.Addons li a {
-   margin: 0;
-   padding: 0;
-   line-height: 160%;
-   color: #444;
-   font-size: 80%;
-}
-ul.DataList li h3 {
-   padding: 0;
-   margin: 0;
-   font-size: 110%;
-   font-weight: bold;
-}
-ul.DataList li a.Title {
-   font-size: 90%;
-   display: inline;
-   border: 0;
-   padding: 0;
-   margin: 0;
-   color: #045dcd;
-}
-ul.DataList li a.Title:hover {
-   color: #FF0084;
-}
-ul.DataList li a:hover {
-   color: #111;
-   text-decoration: none;
-}
+//ul.Addons li.Item {
+//   margin: 0;
+//   padding: 6px;
+//   border-bottom: 1px solid #ddd;
+//}
+//ul.DataList li li {
+//   border: 0;
+//   padding: 0;
+//}
+//ul.DataList,
+//ul.DataList ul {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+//}
+//ul.Addons li a {
+//   margin: 0;
+//   padding: 0;
+//   line-height: 160%;
+//   color: #444;
+//   font-size: 80%;
+//}
+//ul.DataList li h3 {
+//   padding: 0;
+//   margin: 0;
+//   font-size: 110%;
+//   font-weight: bold;
+//}
+//ul.DataList li a.Title {
+//   font-size: 90%;
+//   display: inline;
+//   border: 0;
+//   padding: 0;
+//   margin: 0;
+//   color: #045dcd;
+//}
+//ul.DataList li a.Title:hover {
+//   color: #FF0084;
+//}
+//ul.DataList li a:hover {
+//   color: #111;
+//   text-decoration: none;
+//}
 /*
 BUG
 li.AddonRow div.Meta {

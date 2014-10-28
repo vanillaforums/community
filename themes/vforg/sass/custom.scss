@@ -1,5 +1,7 @@
 /** Grid **/
 
+$link-color-hover: #ff0084;
+
 .PanelColumn {
     width: 220px;
 }
@@ -93,6 +95,15 @@ a {
     color: #012f6e;
     text-decoration: none;
 }
+
+a.Title {
+  color: #045dcd;
+
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+
 .Menu a:hover {
     text-decoration: underline;
 }
@@ -547,6 +558,10 @@ a.RenderedDownloadButton span {
 
 .CommentsWrap .Item.Rank-Vanilla .Message {
     position: relative;
+}
+
+.Message a {
+  text-decoration: underline;
 }
 
 .CommentsWrap .Item .Rank.Rank-Vanilla {
