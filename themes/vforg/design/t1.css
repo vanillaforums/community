@@ -1,107 +1,33 @@
-/* line 1, ../sass/t1.scss */
-.Item .OptionsMenu {
-  visibility: hidden;
+.Item .OptionsMenu { visibility: hidden; }
+
+.Item:hover .OptionsMenu, .OptionsMenu.Open { visibility: visible; }
+
+.Item.Open { z-index: 100; opacity: 1; }
+
+a.Bookmark, a.Bookmarked, a.Bookmarking { background: url("sprites.png") 0 0px no-repeat; margin: 0; }
+
+a.Bookmark:hover { background-position: 0 -20px; }
+
+a.Bookmarked { background-position: 0 -40px; }
+
+a.Bookmarked:hover { background-position: 0 -80px; }
+
+a.Bookmarking { background-position: 0 -60px !Important; }
+
+.OptionsTitle { background: url("sprites.png") 0 -160px no-repeat; height: 20px; width: 26px; border: solid 1px transparent; border-radius: 2px; opacity: .8; }
+
+.OptionsTitle:hover { background-position: 0 -180px !Important; border-color: #bbb; background-color: #f8f8f8; opacity: 1; }
+
+.Open .OptionsTitle { background-position: 0 -200px !Important; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); border-color: #bbb; background-color: #fff; border-radius: 0; opacity: 1; }
+
+.OptionsMenu .Flyout { top: 15px; right: 0; }
+
+.MenuItems { background: #fff; color: #000; border-radius: 0; padding: 6px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); border: solid 1px #bbb; }
+
+.MenuItems:after { content: ""; position: absolute; background: #fff; width: 26px; height: 3px; top: -2px; right: 0; }
+
+/*.MenuItems a, .MenuItems a:link, .MenuItems a:visited, .MenuItems a:active { color: #000 !Important; padding: 6px 18px;
 }
 
-/* line 5, ../sass/t1.scss */
-.Item:hover .OptionsMenu, .OptionsMenu.Open {
-  visibility: visible;
-}
-
-/* line 9, ../sass/t1.scss */
-.Item.Open {
-  z-index: 100;
-  opacity: 1;
-}
-
-/* line 14, ../sass/t1.scss */
-a.Bookmark, a.Bookmarked, a.Bookmarking {
-  background: url("sprites.png") 0 0px no-repeat;
-  margin: 0;
-}
-
-/* line 19, ../sass/t1.scss */
-a.Bookmark:hover {
-  background-position: 0 -20px;
-}
-
-/* line 23, ../sass/t1.scss */
-a.Bookmarked {
-  background-position: 0 -40px;
-}
-
-/* line 27, ../sass/t1.scss */
-a.Bookmarked:hover {
-  background-position: 0 -80px;
-}
-
-/* line 31, ../sass/t1.scss */
-a.Bookmarking {
-  background-position: 0 -60px !Important;
-}
-
-/* line 35, ../sass/t1.scss */
-.OptionsTitle {
-  background: url("sprites.png") 0 -160px no-repeat;
-  height: 20px;
-  width: 26px;
-  border: solid 1px transparent;
-  border-radius: 2px;
-  opacity: .8;
-}
-
-/* line 44, ../sass/t1.scss */
-.OptionsTitle:hover {
-  background-position: 0 -180px !Important;
-  border-color: #bbb;
-  background-color: #f8f8f8;
-  opacity: 1;
-}
-
-/* line 51, ../sass/t1.scss */
-.Open .OptionsTitle {
-  background-position: 0 -200px !Important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  border-color: #bbb;
-  background-color: #fff;
-  border-radius: 0;
-  opacity: 1;
-}
-
-/* line 60, ../sass/t1.scss */
-.OptionsMenu .Flyout {
-  top: 15px;
-  right: 0;
-}
-
-/* line 65, ../sass/t1.scss */
-.MenuItems {
-  background: #fff;
-  color: #000;
-  border-radius: 0;
-  padding: 6px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  border: solid 1px #bbb;
-}
-
-/* line 74, ../sass/t1.scss */
-.MenuItems:after {
-  content: "";
-  position: absolute;
-  background: #fff;
-  width: 26px;
-  height: 3px;
-  top: -2px;
-  right: 0;
-}
-
-/*.MenuItems a, .MenuItems a:link, .MenuItems a:visited, .MenuItems a:active {
-    color: #000 !Important;
-    padding: 6px 18px;
-}
-
-.MenuItems a:hover {
-   border-radius: 0;
-   color: #fff !Important;
-   background: #0054d1;
+.MenuItems a:hover { border-radius: 0; color: #fff !Important; background: #0054d1;
 }*/
