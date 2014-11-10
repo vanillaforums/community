@@ -368,8 +368,16 @@ class AddonModel extends Gdn_Model {
       }
    }
 
+   /**
+    * Test whether a versions string is a release version or not.
+    *
+    * This is not an exhaustive regex since people can pass whatever they want for a version string.
+    *
+    * @param string $VersionString The version string to test.
+    * @return bool Returns true if the version string is a release version or false otherwise.
+    */
    public static function IsReleaseVersion($VersionString) {
-      return !preg_match('`[a-z]`i', $VersionString);
+      return !preg_match('`(?:^|[0-9\s-])[ab]`i', $VersionString);
    }
 
    public function Save($Stub, $V1 = FALSE) {
