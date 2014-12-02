@@ -2,3 +2,12 @@
 .idea
 *.iml
 .sass-cache
+*.kpf
+Thumbs.db
+*.swp
+_notes
+~*
+.project
+.settings
+.buildpath
+nbproject/
