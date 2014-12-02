@@ -1,4 +1,0 @@
-VanillaForumsOrg
-================
-
-VanillaForums.org
