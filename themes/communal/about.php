@@ -8,5 +8,5 @@ $ThemeInfo['communal'] = array(
     'Author'      => "Kasper Kronborg Isager",
     'AuthorEmail' => 'kasper@vanillaforums.com',
     'AuthorUrl'   => 'https://github.com/kasperisager',
-    'License'     => 'GPLv3'
+    'License'     => 'GPLv2'
 );
