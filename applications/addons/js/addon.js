@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-	$("a[rel^='popable']").fancyZoom({scaleImg: true, closeOnClick: true});
+	$("a[rel^='popable']").fancyZoom({closeOnClick: true});
 
    // Hide comment deletes and hijack their clicks to confirm
    $('a.DeleteComment').popup({
