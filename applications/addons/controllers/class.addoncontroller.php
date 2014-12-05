@@ -802,19 +802,24 @@ class AddonController extends AddonsController {
    }
    
    public function DeletePicture($AddonPictureID = '') {
-      $this->Permission('Addons.Addon.Manage');
-
+      $AddonPictureModel = new Gdn_Model('AddonPicture');
+      $Picture = $AddonPictureModel->GetWhere(array('AddonPictureID' => $AddonPictureID))->FirstRow();
+      $AddonModel = new AddonModel();
+      $Addon = $AddonModel->GetID($Picture->AddonID);
+      $Session = Gdn::Session();
+      
+      if($Session->UserID != $Addon['InsertUserID'] && !$Session->CheckPermission('Addons.Addon.Manage')) {
+        throw PermissionException();
+      }
+      
       if ($this->Form->AuthenticatedPostBack() && $this->Form->GetFormValue('Yes')) {
-         $AddonPictureModel = new Gdn_Model('AddonPicture');
-         $Picture = $AddonPictureModel->GetWhere(array('AddonPictureID' => $AddonPictureID))->FirstRow();
-         $Upload = new Gdn_Upload();
-         
-         if ($Picture) {
-            $Upload->Delete(ChangeBasename($Picture->File, 'ao%s'));
-            $Upload->Delete(ChangeBasename($Picture->File, 'at%s'));
-            $AddonPictureModel->Delete(array('AddonPictureID' => $AddonPictureID));
-         }
-         $this->RedirectUrl = Url('/addon/'.$Picture->AddonID);
+        if ($Picture) {
+           $Upload = new Gdn_Upload();
+           $Upload->Delete(ChangeBasename($Picture->File, 'ao%s'));
+           $Upload->Delete(ChangeBasename($Picture->File, 'at%s'));
+           $AddonPictureModel->Delete(array('AddonPictureID' => $AddonPictureID));
+        }
+        $this->RedirectUrl = Url('/addon/'.$Picture->AddonID);
       }
       $this->Render('deleteversion');
    }

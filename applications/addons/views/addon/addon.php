@@ -197,7 +197,7 @@ if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
             echo '<span class="AddonPicture">';
 				echo '<a rel="popable[gallery]" href="#Pic_'.$Picture->AddonPictureID.'"><img src="'.Gdn_Upload::Url(ChangeBasename($Picture->File, 'at%s')).'" itemprop="screenshot" /></a>';
 
-            if ($Session->CheckPermission('Addon.Addons.Manage')) {
+            if ($Session->UserID == $this->Data('InsertUserID') || $Session->CheckPermission('Addons.Addon.Manage')) {
                echo '<a class="Popup DeletePicture" href="'.Url('/addon/deletepicture/'.$Picture->AddonPictureID).'">x</a>';
             }
 
