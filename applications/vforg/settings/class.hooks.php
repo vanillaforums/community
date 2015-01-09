@@ -47,6 +47,7 @@ class VFOrgHooks implements Gdn_IPlugin {
       }
    }
    
+   /*No longer using Campaign Monitor
    private function _UpdateCampaignMonitor($Email, $SubscriberName, $Newsletter) {
       // Update the newsletter record at campaign monitor
       if ($Email != '') {
@@ -73,11 +74,14 @@ class VFOrgHooks implements Gdn_IPlugin {
                else
                   echo 'Error : ' . $result['Result']['Message'];
 */
+/*
+
          } catch (Exception $Ex) {
             // Do nothing with the exception (fail quietly)
          }
       }
    }
+*/
 
    public function Base_ConfigError_Handler($Sender, $Args) {
       $Data = $Args['Data'];
@@ -117,6 +121,7 @@ class VFOrgHooks implements Gdn_IPlugin {
 
    }
    
+   /*no longer using campaign monitor
    // Add the newsletter checkbox to the edit account form
    public function ProfileController_EditMyAccountAfter_Handler($Sender) {
       echo Wrap(
@@ -134,6 +139,7 @@ class VFOrgHooks implements Gdn_IPlugin {
             $this->_UpdateCampaignMonitor($Data->Email, $Data->Name, $Data->Newsletter);
       }
    }
+   */
    
    public function Base_GetAppSettingsMenuItems_Handler($Sender) {
       $Menu = $Sender->EventArguments['SideMenu'];
