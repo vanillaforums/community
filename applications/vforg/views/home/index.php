@@ -46,7 +46,7 @@ else {
       echo '<div class="Menu">';
          echo Anchor(T("Addons"), 'addons', array('title' => T("Themes, plugins and applications for Vanilla")));
          echo Anchor(T("Community"), 'discussions', array('title' => T("Vanilla Forums Developer Community")));
-         echo Anchor(T("Documentation"), 'docs', array('title' => T("Developer documentation for Vanilla")));
+         echo Anchor(T("Documentation"), '//docs.vanillaforums.com', array('title' => T("Developer documentation for Vanilla")));
          echo Anchor(T("Blog"), 'http://vanillaforums.com/blog', array('title' => T("Latest news from the Vanilla Team")));
          echo Anchor(T("Looking for our cloud software?"), 'http://vanillaforums.com', array('class' => 'Button Green', 'title' => T("Use Vanilla Forums in the Cloud")));
       echo '</div>';
