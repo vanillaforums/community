@@ -11,18 +11,20 @@ foreach ($this->Feed->channel->item as $Item) {
    $PubDate = strtotime(GetValue('pubDate', $Item));
    if ($this->FeedFormat == 'extended') {
       $Description = GetValue('description', $Item);
+      // Cut off after the first subheading.
+      $Description = array_shift(explode('<h', $Description));
       echo Wrap(
-         Anchor($Title, $Link)
-         .Wrap(Gdn_Format::Date($PubDate), 'div', array('class' => 'Date'))
-         .Wrap($Description, 'em'),
-         'div',
-         array('class' => 'FeedItem')
+         Wrap(Anchor($Title, $Link), 'h2')
+            .Wrap(Gdn_Format::Date($PubDate), 'div', array('class' => 'Date'))
+            .Wrap($Description, 'div', array('class' => 'FeedDescription')),
+         'div', array('class' => 'FeedItem ExtendedFormat')
       );
    } else {
       echo Wrap(
-         '<i class="Sprite SpriteRarr SpriteRarrDown"><span>&rarr;</span></i>'
-         .Anchor($Title, $Link),
-         'div'
+         '<span class="Sprite SpriteRarr SpriteRarrDown">&rarr;</span>'
+            .Anchor($Title, $Link)
+            .Wrap(Gdn_Format::Date($PubDate), 'div', array('class' => 'Date')),
+         'div', array('class' => 'FeedItem NormalFormat')
       );
    }
    $Loop++;
