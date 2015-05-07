@@ -169,7 +169,7 @@ class AddonController extends AddonsController {
                $Addon = $this->AddonModel->GetID($AddonID);
                $this->SetData('Addon', $Addon);
                
-               if ($this->DeliveryType == DELIVERY_TYPE_ALL) {
+               if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
                   // Redirect to the new addon.
                   Redirect("addon/".AddonModel::Slug($Addon, FALSE));
                }
