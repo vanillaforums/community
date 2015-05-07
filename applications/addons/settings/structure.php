@@ -58,55 +58,74 @@ if (!$Description2Exists) {
     $Construct->query("update {$Px}Addon set Description2 = Description where Checked = 0");
 }
 
-$Construct->table('AddonVersion')
-    ->primaryKey('AddonVersionID')
-    ->column('AddonID', 'int', false, 'key')
-    ->column('File', 'varchar(200)', true)
-    ->column('Version', 'varchar(20)')
-    ->column('TestedWith', 'text', null)
-    ->column('FileSize', 'int', null)
-    ->column('MD5', 'varchar(32)')
-    ->column('Notes', 'text', null)
-    ->column('Format', 'varchar(10)', 'Html')
-    ->column('InsertUserID', 'int', false, 'key')
-    ->column('DateInserted', 'datetime')
-    ->column('DateReviewed', 'datetime', true)
-    ->column('Checked', 'tinyint(1)', '0')
-    ->column('Deleted', 'tinyint(1)', '0')
-    ->set($Explicit, $Drop);
+/*
+$Construct->Table('AddonComment')
+    ->PrimaryKey('AddonCommentID')
+    ->Column('AddonID', 'int', FALSE, 'key')
+    ->Column('InsertUserID', 'int', FALSE, 'key')
+    ->Column('Body', 'text')
+    ->Column('Format', 'varchar(20)', TRUE)
+    ->Column('DateInserted', 'datetime')
+    ->Set($Explicit, $Drop);
+*/
 
-$Construct->table('AddonPicture')
-    ->primaryKey('AddonPictureID')
-    ->column('AddonID', 'int', false, 'key')
-    ->column('File', 'varchar(200)')
-    ->column('DateInserted', 'datetime')
-    ->set($Explicit, $Drop);
+$Construct->Table('AddonVersion')
+    ->PrimaryKey('AddonVersionID')
+    ->Column('AddonID', 'int', FALSE, 'key')
+    ->Column('File', 'varchar(200)', TRUE)
+    ->Column('Version', 'varchar(20)')
+    ->Column('TestedWith', 'text', NULL)
+    ->Column('FileSize', 'int', NULL)
+    ->Column('MD5', 'varchar(32)')
+    ->Column('Notes', 'text', NULL)
+    ->Column('Format', 'varchar(10)', 'Html')
+    ->Column('InsertUserID', 'int', FALSE, 'key')
+    ->Column('DateInserted', 'datetime')
+    ->Column('DateReviewed', 'datetime', TRUE)
+    ->Column('Checked', 'tinyint(1)', '0')
+    ->Column('Deleted', 'tinyint(1)', '0')
+    ->Set($Explicit, $Drop);
 
-$Construct->table('Download')
-    ->primaryKey('DownloadID')
-    ->column('AddonID', 'int', false, 'key')
-    ->column('DateInserted', 'datetime')
-    ->column('RemoteIp', 'varchar(50)', true)
-    ->set($Explicit, $Drop);
+$Construct->Table('AddonPicture')
+    ->PrimaryKey('AddonPictureID')
+    ->Column('AddonID', 'int', FALSE, 'key')
+    ->Column('File', 'varchar(200)')
+    ->Column('DateInserted', 'datetime')
+    ->Set($Explicit, $Drop);
 
-$Construct->table('UpdateCheckSource')
-    ->primaryKey('SourceID')
-    ->column('Location', 'varchar(255)', true)
-    ->column('DateInserted', 'datetime', true)
-    ->column('RemoteIp', 'varchar(50)', true)
-    ->set($Explicit, $Drop);
+$Construct->Table('AddonConfidence')
+   ->PrimaryKey('AddonConfidenceID')
+   ->Column('AddonVersionID', 'int', FALSE, 'key')
+   ->Column('CoreVersionID', 'int', FALSE, 'key')
+   ->Column('UserID', 'int', FALSE, 'key')
+   ->Column('Confidence', 'int', NULL)
+   ->Set($Explicit, $Drop);
 
-$Construct->table('UpdateCheck')
-    ->primaryKey('UpdateCheckID')
-    ->column('SourceID', 'int', false, 'key')
-    ->column('CountUsers', 'int', '0')
-    ->column('CountDiscussions', 'int', '0')
-    ->column('CountComments', 'int', '0')
-    ->column('CountConversations', 'int', '0')
-    ->column('CountConversationMessages', 'int', '0')
-    ->column('DateInserted', 'datetime')
-    ->column('RemoteIp', 'varchar(50)', true)
-    ->set($Explicit, $Drop);
+$Construct->Table('Download')
+    ->PrimaryKey('DownloadID')
+    ->Column('AddonID', 'int', FALSE, 'key')
+    ->Column('DateInserted', 'datetime')
+    ->Column('RemoteIp', 'varchar(50)', TRUE)
+    ->Set($Explicit, $Drop);
+
+$Construct->Table('UpdateCheckSource')
+    ->PrimaryKey('SourceID')
+    ->Column('Location', 'varchar(255)', TRUE)
+    ->Column('DateInserted', 'datetime', TRUE)
+    ->Column('RemoteIp', 'varchar(50)', TRUE)
+    ->Set($Explicit, $Drop);
+
+$Construct->Table('UpdateCheck')
+    ->PrimaryKey('UpdateCheckID')
+    ->Column('SourceID', 'int', FALSE, 'key')
+    ->Column('CountUsers', 'int', '0')
+    ->Column('CountDiscussions', 'int', '0')
+    ->Column('CountComments', 'int', '0')
+    ->Column('CountConversations', 'int', '0')
+    ->Column('CountConversationMessages', 'int', '0')
+    ->Column('DateInserted', 'datetime')
+    ->Column('RemoteIp', 'varchar(50)', TRUE)
+    ->Set($Explicit, $Drop);
 
 // Need to use this table instead of linking directly with the Addon table
 // because we might not have all of the addons being checked for.
