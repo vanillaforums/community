@@ -149,6 +149,11 @@ class AddonController extends AddonsController {
             $AnalyzedAddon['Description2'] = $this->Form->GetFormValue('Description2');
             Trace($AnalyzedAddon, 'Analyzed Addon');
             
+            // If the long description is blank, load up the readme if it exists
+            if($AnalyzedAddon['Description2'] == '') {
+               $AnalyzedAddon['Description2'] = $this->ParseReadme($AnalyzedAddon);
+            }
+            
             $this->Form->FormValues($AnalyzedAddon);
          } catch (Exception $ex) {
             $this->Form->AddError($ex);
@@ -882,4 +887,39 @@ class AddonController extends AddonsController {
       }
       $this->Render();
    }
+   
+   protected function ParseReadme($Addon) {
+      $Path = PATH_UPLOADS . DS . $Addon['File'];
+      if (!file_exists($Path)) {
+         throw new Exception("$Path not found.", 404);
+      }
+      
+      $ReadmePaths = array(
+         '/readme',
+         '/README',
+         '/readme.md',
+         '/README.md',
+         '/readme.txt',
+         '/README.txt',
+      );
+
+      // Get the list of potential files to analyze.
+      // TODO: get rid of this invoke call once UpdateModel is more modular
+      $UpdateModel = new UpdateModel();
+      $GetInfo = new ReflectionMethod('UpdateModel', '_GetInfoZip');
+      $GetInfo->setAccessible(true);
+      $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
+      //$Entries = UpdateModel::_GetInfoZip($Path, $ReadmePaths, false, true);
+
+      foreach ($Entries as $Entry) {
+         $ReadMeContents = file_get_contents($Entry['Path']);
+         $Description = Gdn_Format::Markdown($ReadMeContents);
+      }
+
+      $FolderPath = substr($Path, 0, -4);
+      Gdn_FileSystem::RemoveFolder($FolderPath);
+
+      return $Description;
+   }
+
 }
