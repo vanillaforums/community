@@ -542,7 +542,7 @@ class AddonController extends AddonsController {
         } else {
           $this->InformMessage(T('Successfully updated Attached Addon!'));
           $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-          $this->JsonTarget('.Item' . ucfirst($Type) . ' .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name']), 'Prepend');
+          $this->JsonTarget('.Item' . ucfirst($Type) . ' .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
           $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
         }
       }

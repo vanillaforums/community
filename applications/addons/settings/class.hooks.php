@@ -59,7 +59,7 @@ class AddonsHooks implements Gdn_IPlugin {
       if (GetValue('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
          $Data = Gdn::Database()->SQL()->Select('Name')->From('Addon')->Where('AddonID', $AddonID)->Get()->FirstRow();
          if ($Data) {
-            echo RenderDiscussionAddonWarning($AddonID, $Data->Name);
+            echo RenderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
          }
       }
    }
