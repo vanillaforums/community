@@ -1,5 +1,5 @@
 <?php if (!defined('APPLICATION')) exit();
-echo Wrap(T('Edit Attached Addon'), 'h2');
+echo Wrap(T('Edit Addon Attachment'), 'h2');
 
 echo $this->Form->Open();
 echo $this->Form->Errors();

@@ -76,7 +76,7 @@ class AddonsHooks implements Gdn_IPlugin {
        $Discussion = $Sender->EventArguments['Discussion'];
        $LabelString = T('Edit Addon Attachment...');
        if(is_null($Discussion->AddonID)) {
-           $LabelString = T('Attach to Addon...');
+           $LabelString = T('Attach Addon...');
        }
        
        $Sender->EventArguments['DiscussionOptions'][] = array(
