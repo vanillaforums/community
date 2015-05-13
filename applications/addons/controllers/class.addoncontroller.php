@@ -572,14 +572,19 @@ class AddonController extends AddonsController {
     }
 
     if ($this->Form->IsPostBack()) {
-      $Model->SetField($ID, 'AddonID', NULL);
-
-      if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-        Redirect($RedirectUrl);
-      } else {
-        $this->InformMessage(T('Successfully removed addon Attachment'));
-        $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-        $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach to Addon...'), 'Text');
+      
+      if (!$this->Form->GetFormValue('DetachConfirm', FALSE)) {
+        $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
+      }
+      else {
+        $Model->SetField($ID, 'AddonID', NULL);
+        if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+          Redirect($RedirectUrl);
+        } else {
+          $this->InformMessage(T('Successfully detached addon'));
+          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
+          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach Addon...'), 'Text');
+        }
       }
     }
     $this->Render();
