@@ -489,48 +489,106 @@ class AddonController extends AddonsController {
       }
       $VersionModel = new Gdn_Model('AddonVersion');
       $AddonVersion = $VersionModel->GetID($AddonVersionID, DATASET_TYPE_ARRAY);
-      
+
       if (!$AddonVersion['DateReviewed']) {
          $VersionModel->Save(array('AddonVersionID' => $AddonVersionID, 'DateReviewed' => Gdn_Format::ToDateTime()));
       } else {
          $VersionModel->Update(array('DateReviewed' => null), array('AddonVersionID' => $AddonVersionID));
       }
-      
+
       Redirect('/addon/'.AddonModel::Slug($Addon));
   }
-  
-   protected static function NotFoundString($Code, $Item) {
+
+  public function Attach($Type = 'discussion', $ID = NULL) {
+        $Model = new stdClass();
+        $RedirectUrl = FALSE;
+        switch (strtolower($Type)) {
+            case 'discussion':
+                $Model = new DiscussionModel();
+                $Discussion = $Model->GetID($ID);
+                if($Discussion) {
+                    $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+                    $this->Form->SetData($Addon);
+                    $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+                }
+                else {
+                    throw NotFoundException('Discussion');
+                }
+                break;
+            default:
+                throw NotFoundException("Addon attachment handler for '$Type' type");
+                break;
+        }
+
+        if ($this->Form->IsPostBack()) {
+            // Look up for an existing addon
+            $FormValues = $this->Form->FormValues();
+            $Addon = FALSE;
+            if(val('Name', $FormValues, FALSE)) {
+                $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
+            }
+            
+            if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
+                $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
+            }
+            
+            if($Addon == FALSE) {
+                $this->Form->AddError(T('Unable to find addon via Name or ID'));
+            }
+                        
+            $AddonID = $Addon['AddonID'];
+            $Message = T('Successfully updated Attached Addon!');
+            if(val('RemoveAttachment', $FormValues, FALSE)) {
+                $AddonID = NULL;
+                $Message = T('Successfully removed Addon Attachment!');
+            }
+            
+            if ($this->Form->ErrorCount() == 0) {
+                $Model->SetField($ID, 'AddonID', $AddonID);
+                if($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+                    Redirect($RedirectUrl ?: 'addon/' . $AddonID);
+                }
+                else {
+                    $this->InformMessage($Message);
+                }
+            }
+        }
+
+        $this->Render();
+    }
+
+    protected static function NotFoundString($Code, $Item) {
       return sprintf(T('%1$s "%2$s" not found.'), T($Code), $Item);
    }
-  
+
    public function ChangeOwner($AddonID) {
       $this->Permission('Garden.Settings.Manage');
       $Addon = $this->AddonModel->GetSlug($AddonID);
-      
+
       if (!$Addon)
          throw NotFoundException('Addon');
-         
+
       if ($this->Form->IsPostBack()) {
          $this->Form->ValidateRule('User', 'ValidateRequired');
-         
+
          if ($this->Form->ErrorCount() == 0) {
             $NewUser = $this->Form->GetFormValue('User');
             if (is_numeric($NewUser))
                $User = Gdn::UserModel()->GetID($NewUser, DATASET_TYPE_ARRAY);
             else
                $User = Gdn::UserModel()->GetByUsername($NewUser);
-         
+
             if (!$User)
                $this->Form->AddError('@'.self::NotFoundString('User', $NewUser));
          }
-         
+
          if ($this->Form->ErrorCount() == 0) {
             $this->AddonModel->SetField($Addon['AddonID'], 'InsertUserID', GetValue('UserID', $User));
          }
       } else {
          $this->Form->AddError('You must POST to this page.');
       }
-      
+
       $this->Render();
    }
 
