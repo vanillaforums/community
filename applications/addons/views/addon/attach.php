@@ -17,11 +17,6 @@ echo $this->Form->Errors();
         echo $this->Form->TextBox('AddonID');
         ?>
     </li>
-    <li>
-        <?php
-        echo $this->Form->CheckBox('RemoveAttachment', 'Remove the addon attachment?');
-        ?>
-    </li>
 </ul>
 <?php
 echo $this->Form->Close('Save');

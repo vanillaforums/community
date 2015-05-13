@@ -500,64 +500,92 @@ class AddonController extends AddonsController {
   }
 
   public function Attach($Type = 'discussion', $ID = NULL) {
-        $Model = new stdClass();
-        $RedirectUrl = FALSE;
-        switch (strtolower($Type)) {
-            case 'discussion':
-                $Model = new DiscussionModel();
-                $Discussion = $Model->GetID($ID);
-                if($Discussion) {
-                    $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-                    $this->Form->SetData($Addon);
-                    $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-                }
-                else {
-                    throw NotFoundException('Discussion');
-                }
-                break;
-            default:
-                throw NotFoundException("Addon attachment handler for '$Type' type");
-                break;
+    $Model = new stdClass();
+    $RedirectUrl = FALSE;
+    switch (strtolower($Type)) {
+      case 'discussion':
+        $Model = new DiscussionModel();
+        $Discussion = $Model->GetID($ID);
+        if ($Discussion) {
+          $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+          $this->Form->SetData($Addon);
+          $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+        } else {
+          throw NotFoundException('Discussion');
         }
-
-        if ($this->Form->IsPostBack()) {
-            // Look up for an existing addon
-            $FormValues = $this->Form->FormValues();
-            $Addon = FALSE;
-            if(val('Name', $FormValues, FALSE)) {
-                $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
-            }
-            
-            if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
-                $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
-            }
-            
-            if($Addon == FALSE) {
-                $this->Form->AddError(T('Unable to find addon via Name or ID'));
-            }
-                        
-            $AddonID = $Addon['AddonID'];
-            $Message = T('Successfully updated Attached Addon!');
-            if(val('RemoveAttachment', $FormValues, FALSE)) {
-                $AddonID = NULL;
-                $Message = T('Successfully removed Addon Attachment!');
-            }
-            
-            if ($this->Form->ErrorCount() == 0) {
-                $Model->SetField($ID, 'AddonID', $AddonID);
-                if($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-                    Redirect($RedirectUrl ?: 'addon/' . $AddonID);
-                }
-                else {
-                    $this->InformMessage($Message);
-                }
-            }
-        }
-
-        $this->Render();
+        break;
+      default:
+        throw NotFoundException("Addon attachment handler for '$Type' type");
+        break;
     }
 
-    protected static function NotFoundString($Code, $Item) {
+    if ($this->Form->IsPostBack()) {
+      // Look up for an existing addon
+      $FormValues = $this->Form->FormValues();
+      $Addon = FALSE;
+      if (val('Name', $FormValues, FALSE)) {
+        $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
+      }
+
+      if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
+        $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
+      }
+
+      if ($Addon == FALSE) {
+        $this->Form->AddError(T('Unable to find addon via Name or ID'));
+      }
+
+      if ($this->Form->ErrorCount() == 0) {
+        $Model->SetField($ID, 'AddonID', $Addon['AddonID']);
+        if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+          Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
+        } else {
+          $this->InformMessage(T('Successfully updated Attached Addon!'));
+          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
+          $this->JsonTarget('.Item' . ucfirst($Type) . ' .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name']), 'Prepend');
+          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
+        }
+      }
+    }
+
+    $this->Render();
+  }
+
+  public function Detach($Type = 'discussion', $ID = NULL) {
+    $Model = new stdClass();
+    $RedirectUrl = FALSE;
+    switch (strtolower($Type)) {
+      case 'discussion':
+        $Model = new DiscussionModel();
+        $Discussion = $Model->GetID($ID);
+        if ($Discussion) {
+          $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+          $this->Form->SetData($Addon);
+          $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+        } else {
+          throw NotFoundException('Discussion');
+        }
+        break;
+      default:
+        throw NotFoundException("Addon attachment handler for '$Type' type");
+        break;
+    }
+
+    if ($this->Form->IsPostBack()) {
+      $Model->SetField($ID, 'AddonID', NULL);
+
+      if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+        Redirect($RedirectUrl);
+      } else {
+        $this->InformMessage(T('Successfully removed addon Attachment'));
+        $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
+        $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach to Addon...'), 'Text');
+      }
+    }
+    $this->Render();
+  }
+
+  protected static function NotFoundString($Code, $Item) {
       return sprintf(T('%1$s "%2$s" not found.'), T($Code), $Item);
    }
 
