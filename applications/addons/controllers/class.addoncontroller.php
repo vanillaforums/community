@@ -499,26 +499,18 @@ class AddonController extends AddonsController {
       Redirect('/addon/'.AddonModel::Slug($Addon));
   }
 
-  public function Attach($Type = 'discussion', $ID = NULL) {
-    $Model = new stdClass();
-    $RedirectUrl = FALSE;
-    switch (strtolower($Type)) {
-      case 'discussion':
-        $Model = new DiscussionModel();
-        $Discussion = $Model->GetID($ID);
-        if ($Discussion) {
-          $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-          $this->Form->SetData($Addon);
-          $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-        } else {
-          throw NotFoundException('Discussion');
-        }
-        break;
-      default:
-        throw NotFoundException("Addon attachment handler for '$Type' type");
-        break;
+  public function AttachToDiscussion($DiscussionID = NULL) {
+    $this->Permission('Addons.Addon.Manage');
+    $DiscussionModel = new DiscussionModel();
+    $Discussion = $DiscussionModel->GetID($DiscussionID);
+    if ($Discussion) {
+      $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+      $this->Form->SetData($Addon);
+      $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+    } else {
+      throw NotFoundException('Discussion');
     }
-
+    
     if ($this->Form->IsPostBack()) {
       // Look up for an existing addon
       $FormValues = $this->Form->FormValues();
@@ -536,48 +528,40 @@ class AddonController extends AddonsController {
       }
 
       if ($this->Form->ErrorCount() == 0) {
-        $Model->SetField($ID, 'AddonID', $Addon['AddonID']);
+        $DiscussionModel->SetField($DiscussionID, 'AddonID', $Addon['AddonID']);
         if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
           Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
         } else {
           $this->InformMessage(T('Successfully updated Attached Addon!'));
           $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-          $this->JsonTarget('.Item' . ucfirst($Type) . ' .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
+          $this->JsonTarget('.ItemDiscussion .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
           $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
         }
       }
     }
 
-    $this->Render();
+    $this->Render('attach');
   }
 
-  public function Detach($Type = 'discussion', $ID = NULL) {
-    $Model = new stdClass();
-    $RedirectUrl = FALSE;
-    switch (strtolower($Type)) {
-      case 'discussion':
-        $Model = new DiscussionModel();
-        $Discussion = $Model->GetID($ID);
-        if ($Discussion) {
-          $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-          $this->Form->SetData($Addon);
-          $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-        } else {
-          throw NotFoundException('Discussion');
-        }
-        break;
-      default:
-        throw NotFoundException("Addon attachment handler for '$Type' type");
-        break;
+  public function DetachFromDiscussion($DiscussionID = NULL) {
+    $this->Permission('Addons.Addon.Manage');
+    $DiscussionModel = new DiscussionModel();
+    $Discussion = $DiscussionModel->GetID($DiscussionID);
+    if ($Discussion) {
+      $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+      $this->Form->SetData($Addon);
+      $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+    } else {
+      throw NotFoundException('Discussion');
     }
-
+    
     if ($this->Form->IsPostBack()) {
       
       if (!$this->Form->GetFormValue('DetachConfirm', FALSE)) {
         $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
       }
       else {
-        $Model->SetField($ID, 'AddonID', NULL);
+        $DiscussionModel->SetField($DiscussionID, 'AddonID', NULL);
         if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
           Redirect($RedirectUrl);
         } else {
@@ -587,7 +571,7 @@ class AddonController extends AddonsController {
         }
       }
     }
-    $this->Render();
+    $this->Render('detach');
   }
 
   protected static function NotFoundString($Code, $Item) {

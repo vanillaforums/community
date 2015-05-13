@@ -6,7 +6,7 @@ function RenderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
   if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
     $DeleteOption = Anchor(
                     'x',
-                    'addon/detach/discussion/' . $AttachID,
+                    'addon/detachfromdiscussion/' . $AttachID,
                     array('class' => 'Dismiss'));
   }
   $String = Wrap(

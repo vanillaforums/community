@@ -81,7 +81,7 @@ class AddonsHooks implements Gdn_IPlugin {
        
        $Sender->EventArguments['DiscussionOptions'][] = array(
            'Label' => $LabelString,
-           'Url' => 'addon/attach/discussion/' . $Discussion->DiscussionID,
+           'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
            'Class' => 'AttachAddonDiscussion Popup');
    }
    
