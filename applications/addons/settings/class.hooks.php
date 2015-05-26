@@ -59,7 +59,7 @@ class AddonsHooks implements Gdn_IPlugin {
       if (GetValue('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
          $Data = Gdn::Database()->SQL()->Select('Name')->From('Addon')->Where('AddonID', $AddonID)->Get()->FirstRow();
          if ($Data) {
-            echo '<div class="Warning">'.sprintf(T('This discussion is related to the %s addon.'), Anchor($Data->Name, 'addon/'.$AddonID.'/'.Gdn_Format::Url($Data->Name))).'</div>';
+            echo RenderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
          }
       }
    }
@@ -70,6 +70,19 @@ class AddonsHooks implements Gdn_IPlugin {
     */
    public function DiscussionModel_AfterAddColumns_Handler($Sender, $Args) {
       AddonModel::JoinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
+   }
+   
+   public function Base_DiscussionOptions_Handler($Sender) {
+       $Discussion = $Sender->EventArguments['Discussion'];
+       $LabelString = T('Edit Addon Attachment...');
+       if(is_null($Discussion->AddonID)) {
+           $LabelString = T('Attach Addon...');
+       }
+       
+       $Sender->EventArguments['DiscussionOptions'][] = array(
+           'Label' => $LabelString,
+           'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
+           'Class' => 'AttachAddonDiscussion Popup');
    }
    
    public function DiscussionsController_BeforeDiscussionContent_Handler($Sender, $Args) {
