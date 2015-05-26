@@ -500,79 +500,78 @@ class AddonController extends AddonsController {
   }
 
   public function AttachToDiscussion($DiscussionID = NULL) {
-    $this->Permission('Addons.Addon.Manage');
-    $DiscussionModel = new DiscussionModel();
-    $Discussion = $DiscussionModel->GetID($DiscussionID);
-    if ($Discussion) {
-      $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-      $this->Form->SetData($Addon);
-      $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-    } else {
-      throw NotFoundException('Discussion');
-    }
-    
-    if ($this->Form->IsPostBack()) {
-      // Look up for an existing addon
-      $FormValues = $this->Form->FormValues();
-      $Addon = FALSE;
-      if (val('Name', $FormValues, FALSE)) {
-        $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
-      }
-
-      if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
-        $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
-      }
-
-      if ($Addon == FALSE) {
-        $this->Form->AddError(T('Unable to find addon via Name or ID'));
-      }
-
-      if ($this->Form->ErrorCount() == 0) {
-        $DiscussionModel->SetField($DiscussionID, 'AddonID', $Addon['AddonID']);
-        if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-          Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
+        $this->Permission('Addons.Addon.Manage');
+        $DiscussionModel = new DiscussionModel();
+        $Discussion = $DiscussionModel->GetID($DiscussionID);
+        if ($Discussion) {
+            $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+            $this->Form->SetData($Addon);
+            $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
         } else {
-          $this->InformMessage(T('Successfully updated Attached Addon!'));
-          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-          $this->JsonTarget('.ItemDiscussion .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
-          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
+            throw NotFoundException('Discussion');
         }
-      }
+
+        if ($this->Form->AuthenticatedPostBack()) {
+            // Look up for an existing addon
+            $FormValues = $this->Form->FormValues();
+            $Addon = false;
+            if (val('Name', $FormValues, FALSE)) {
+                $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
+            }
+
+            if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
+                $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
+            }
+
+            if ($Addon == FALSE) {
+                $this->Form->AddError(T('Unable to find addon via Name or ID'));
+            }
+
+            if ($this->Form->ErrorCount() == 0) {
+                $DiscussionModel->SetField($DiscussionID, 'AddonID', $Addon['AddonID']);
+                if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+                    Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
+                } else {
+                    $this->InformMessage(T('Successfully updated Attached Addon!'));
+                    $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
+                    $this->JsonTarget('.ItemDiscussion .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
+                    $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
+                }
+            }
+        }
+
+        $this->Render('attach');
     }
 
-    $this->Render('attach');
-  }
-
-  public function DetachFromDiscussion($DiscussionID = NULL) {
-    $this->Permission('Addons.Addon.Manage');
-    $DiscussionModel = new DiscussionModel();
-    $Discussion = $DiscussionModel->GetID($DiscussionID);
-    if ($Discussion) {
-      $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-      $this->Form->SetData($Addon);
-      $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-    } else {
-      throw NotFoundException('Discussion');
-    }
-    
-    if ($this->Form->IsPostBack()) {
-      
-      if (!$this->Form->GetFormValue('DetachConfirm', FALSE)) {
-        $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
-      }
-      else {
-        $DiscussionModel->SetField($DiscussionID, 'AddonID', NULL);
-        if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-          Redirect($RedirectUrl);
+    public function DetachFromDiscussion($DiscussionID = NULL) {
+        $this->Permission('Addons.Addon.Manage');
+        $DiscussionModel = new DiscussionModel();
+        $Discussion = $DiscussionModel->GetID($DiscussionID);
+        if ($Discussion) {
+            $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+            $this->Form->SetData($Addon);
+            $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
         } else {
-          $this->InformMessage(T('Successfully detached addon'));
-          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach Addon...'), 'Text');
+            throw NotFoundException('Discussion');
         }
-      }
+
+        if ($this->Form->AuthenticatedPostBack()) {
+
+            if (!$this->Form->GetFormValue('DetachConfirm', FALSE)) {
+                $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
+            } else {
+                $DiscussionModel->SetField($DiscussionID, 'AddonID', NULL);
+                if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+                    Redirect($RedirectUrl);
+                } else {
+                    $this->InformMessage(T('Successfully detached addon'));
+                    $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
+                    $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach Addon...'), 'Text');
+                }
+            }
+        }
+        $this->Render('detach');
     }
-    $this->Render('detach');
-  }
 
   protected static function NotFoundString($Code, $Item) {
       return sprintf(T('%1$s "%2$s" not found.'), T($Code), $Item);
