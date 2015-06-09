@@ -5,7 +5,6 @@
     "font-vanillicon": "*",
     "normalize-less": "*",
     "hoverintent": "*",
-    "jquery-icheck": "1.0.x",
-    "github-fork-ribbon-css": "~0.1.0"
+    "jquery-icheck": "1.0.x"
   }
 }
