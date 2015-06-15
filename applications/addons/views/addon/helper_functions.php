@@ -54,3 +54,116 @@ function WriteAddon($Addon, $Alt) {
     </li>
 <?php
 }
+
+function writeDownloadBox($sender) {
+    ?>
+     <div class="Box DownloadBox">
+     <p><?php echo Anchor('Download Now', '/get/' . ($sender->Data('Slug') ? urlencode($sender->Data('Slug')) : $AddonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
+     <dl>
+         <dt>Author</dt>
+         <dd><?php echo UserAnchor($sender->Data, NULL, array('Px' => 'Insert', 'Rel' => 'author')); ?></dd>
+         <dt>Version</dt>
+         <dd><?php
+    echo $sender->Data('Version');
+
+    $CurrentVersion = $sender->Data('CurrentVersion');
+    if ($CurrentVersion && $CurrentVersion != $sender->Data('Version')) {
+        echo ' ', Anchor('(' . T('Current') . ')', '/addon/' . AddonModel::Slug($sender->Data, FALSE));
+    }
+    echo '&#160;';
+    ?></dd>
+         <dt>Released</dt>
+         <dd itemprop="datePublished"><?php echo Gdn_Format::Date($sender->Data('DateUploaded'), 'html'); ?></dd>
+         <dt>Downloads</dt>
+         <dd><meta itemprop="interactionCount" content="UserDownloads: <?php echo $sender->Data('CountDownloads'); ?>" /><?php echo number_format($sender->Data('CountDownloads')); ?></dd>
+    <?php
+    if ($sender->Data('FileSize'))
+        echo '<dt>File Size</dt><dd>' . '<meta itemprop="fileSize" content="' . $sender->Data('FileSize') . '"/>' . Gdn_Upload::FormatFileSize($sender->Data('FileSize')) . '</dd>';
+    if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
+        echo '<dt>Checked</dt><dd>' . ($sender->Data('Checked') ? 'Yes' : 'No') . '</dd>';
+    }
+    $sender->FireEvent('AddonProperties');
+    ?>
+     </dl>
+ </div>
+    <?php
+}
+
+function writeRequirementBox($sender) {
+    $VanillaVersion = $sender->Data('Vanilla2') == '1' ? '2' : '1';
+       ?>
+        <div class="Box RequirementBox">
+                <h3><?php echo T('Requirements'); ?></h3>
+                <div>
+    				<dl>
+    					<dt>Vanilla</dt>
+    					<dd><span class="Vanilla<?php echo $VanillaVersion; ?>">Vanilla <?php echo $VanillaVersion; ?></span></dd>
+    				</dl>
+       <?php
+       if (!$sender->Data('Checked')) {
+           $OtherRequirements = Gdn_Format::Display($sender->Data('Requirements'));
+           if ($OtherRequirements) {
+               ?>
+                              <p>Other Requirements:</p>
+               <?php
+               echo $OtherRequirements;
+           }
+       } else {
+           if (is_array($sender->Data('Requirements'))) {
+               $Reqs = '';
+               foreach ($sender->Data('Requirements') as $ReqType => $ReqItems) {
+                   if (!is_array($ReqItems) || count($ReqItems) == 0)
+                       continue;
+                   $Reqs .= '<dt>' . T($ReqType) . '</dt>';
+                   $Reqs .= '<dd>' . htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)) . '</dd>';
+               }
+               if ($Reqs)
+                   echo "<dl>$Reqs</dl>";
+           } else {
+               $OtherRequirements = Gdn_Format::Html($sender->Data('Requirements'));
+               if ($OtherRequirements) {
+                   echo $OtherRequirements;
+               }
+           }
+       }
+       ?>
+                </div>
+    		</div>
+    <?php
+}
+
+function writeVersionBox($sender) {
+    $Versions = (array) $sender->Data('Versions');
+    if (count($Versions) > 0):
+        ?>
+                 <div class="Box AddonBox VersionsBox">
+                    <h3><?php echo T('Latest Versions'); ?></h3>
+                    <table class="VersionsTable">
+                       <tr>
+                          <th><?php echo T('Version'); ?></th>
+                          <th class="DateColumn"><?php echo T('Released'); ?></th>
+                       </tr>
+        <?php
+        $i = 1;
+        foreach ($Versions as $Version) {
+            if ($i > 5)
+                break;
+            $i++;
+
+            $Url = Url('/addon/' . AddonModel::Slug($sender->Data, FALSE) . '-' . $Version['Version']);
+
+            echo '<tr>' .
+            '<td>' . Anchor(htmlspecialchars($Version['Version']), $Url) . '</td>' .
+            '<td class="DateColumn">' . Anchor(htmlspecialchars(Gdn_Format::Date($Version['DateInserted'])), $Url) . '</td>' .
+            '</tr>';
+        }
+        ?>
+                    </table>
+                 </div>
+    <?php
+    endif;
+}
+
+function writeConfidenceBox($sender) {
+    return;
+}
