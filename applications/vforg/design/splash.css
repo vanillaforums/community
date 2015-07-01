@@ -1,231 +1,231 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
 
 *, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+     margin: 0;
+     padding: 0;
 }
 
 body {
-    font-family: "Open Sans", "Lucida Grande", arial;
+     font-family: "Open Sans", "Lucida Grande", arial;
 }
 
 .Row {
-    margin: 0 auto;
-    width: 960px;
+     margin: 0 auto;
+     width: 960px;
 }
 
 .Row:before,
 .Row:after,
 .Columns:before,
 .Columns:after {
-    content: "";
-    display: table;
+     content: "";
+     display: table;
 }
 
 .Row:after,
 .Columns:after {
-    clear: both;
+     clear: both;
 }
 
 .Columns {
-    margin: 0 -20px;
+     margin: 0 -20px;
 }
 
 .Column {
-    float: left;
-    width: 50%;
-    padding: 0 20px;
+     float: left;
+     width: 50%;
+     padding: 0 20px;
 }
 
 a {
-    color: #012f6e;
-    text-decoration: none;
+     color: #012f6e;
+     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+     text-decoration: underline;
 }
 
 h1 {
-    margin: 40px 0 30px;
+     margin: 40px 0 30px;
 }
 
 h2 {
-    margin: 20px 0;
-    font-size: 20px;
+     margin: 20px 0;
+     font-size: 20px;
 }
 
 h1,
 h2 {
-    text-align: center;
+     text-align: center;
 }
 
 ul, ol {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+     padding: 0;
+     margin: 0;
+     list-style: none;
 }
 
 .Head .Row {
-    position: relative;
-    padding: 20px 0 15px;
-    border-bottom: 1px solid #ddd;
+     position: relative;
+     padding: 20px 0 15px;
+     border-bottom: 1px solid #ddd;
 }
 
 .Head .Home {
-    display: block;
-    float: left;
-    height: 69px;
-    width: 170px;
-    margin-left: 20px;
-    overflow: hidden;
-    background: url("images/logo-vanilla.png") center center no-repeat;
-    color: transparent;
-    font-size: 1px;
-    text-indent: -1000px;
-    white-space: nowrap;
+     display: block;
+     float: left;
+     height: 69px;
+     width: 170px;
+     margin-left: 20px;
+     overflow: hidden;
+     background: url("images/logo-vanilla.png") center center no-repeat;
+     color: transparent;
+     font-size: 1px;
+     text-indent: -1000px;
+     white-space: nowrap;
 }
 
 .Head .Menu {
-    margin-top: 34px;
+     margin-top: 34px;
 }
 
 .OpenSource {
-    position: absolute;
-    top: 40px;
-    left: 200px;
-    display: block;
-    width: 76px;
-    height: 76px;
-    overflow: hidden;
-    background: url("images/open-source.png") center center no-repeat transparent;
+     position: absolute;
+     top: 40px;
+     left: 200px;
+     display: block;
+     width: 76px;
+     height: 76px;
+     overflow: hidden;
+     background: url("images/open-source.png") center center no-repeat transparent;
 }
 
 .Menu {
-    float: right;
+     float: right;
 }
 
 .Menu a {
-    margin-right: 20px;
-    font-weight: bold;
-    font-size: 14px;
+     margin-right: 20px;
+     font-weight: bold;
+     font-size: 14px;
 }
 
 .Menu a:last-child {
-    margin-right: 0;
+     margin-right: 0;
 }
 
 .Menu .Button {
-    font-weight: 400;
+     font-weight: 400;
 }
 
 .Features {
-    padding: 0 15px;
+     padding: 0 15px;
 }
 
 .Features:before,
 .Features:after {
-    content: "";
-    display: table;
+     content: "";
+     display: table;
 }
 
 .Features:after {
-    clear: both;
+     clear: both;
 }
 
 .Features li {
-    float: left;
-    width: 50%;
-    line-height: 2;
+     float: left;
+     width: 50%;
+     line-height: 2;
 }
 
 .Features li:nth-child(2n+1) {
-    clear: left;
+     clear: left;
 }
 
 .Info {
-    min-height: 72px;
-    margin: 15px 0;
-    padding: 20px;
-    background: #FAFAFA;
-    border-radius: 2px;
-    border: 1px solid #EFEFEF;
-    color: #555;
-    font-size: 14px;
-    line-height: 24px;
+     min-height: 72px;
+     margin: 15px 0;
+     padding: 20px;
+     background: #FAFAFA;
+     border-radius: 2px;
+     border: 1px solid #EFEFEF;
+     color: #555;
+     font-size: 14px;
+     line-height: 24px;
 }
 
 .Info h3 {
-    color: #000;
-    font-size: 16px;
+     color: #000;
+     font-size: 16px;
 }
 
 .Info h3, .Info p {
-    margin: 0;
+     margin: 0;
 }
 
 .Info .Buttons {
-    margin: 10px -10px 0;
+     margin: 10px -10px 0;
 }
 
 .Info .Buttons:after {
-    content: "";
-    display: table;
-    clear: both
+     content: "";
+     display: table;
+     clear: both
 }
 
 .Info .Buttons li {
-    float: left;
-    width: 50%;
-    padding: 0 10px;
+     float: left;
+     width: 50%;
+     padding: 0 10px;
 }
 
 .Info .Buttons .Button {
-    display: block;
+     display: block;
 }
 
 .About {
-    margin-top: 25px;
+     margin-top: 25px;
 }
 
 .About strong {
-    font-weight: bold;
-    color: #a00;
+     font-weight: bold;
+     color: #a00;
 }
 
 .Foot {
-    margin-top: 60px;
+     margin-top: 60px;
 }
 
 .Foot .Row {
-    padding: 30px 0;
-    border-top: 1px solid #ddd;
-    text-align: center;
+     padding: 30px 0;
+     border-top: 1px solid #ddd;
+     text-align: center;
 }
 
 .Foot label {
-    display: block;
-    margin-bottom: 20px;
-    color: #999;
-    font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
-    font-size: 13px;
-    text-shadow: 0 -1px 0px #fff;
+     display: block;
+     margin-bottom: 20px;
+     color: #999;
+     font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
+     font-size: 13px;
+     text-shadow: 0 -1px 0px #fff;
 }
 
 .Foot strong {
-    display: block;
-    height: 40px;
-    overflow: hidden;
-    background: url("images/who-uses-us.png") 8px 0 no-repeat transparent;
-    text-align: left;
-    text-indent: -9999em;
-    white-space: nowrap;
+     display: block;
+     height: 40px;
+     overflow: hidden;
+     background: url("images/who-uses-us.png") 8px 0 no-repeat transparent;
+     text-align: left;
+     text-indent: -9999em;
+     white-space: nowrap;
 }
 
 /**
@@ -233,50 +233,50 @@ ul, ol {
  */
 
 .Button {
-    display: inline-block;
-    padding: 4px 14px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 2;
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 -1px rgba(0,0,0,.5);
-    border-radius: 3px;
-    -webkit-transition: background-color 400ms;
-       -moz-transition: background-color 400ms;
-        -ms-transition: background-color 400ms;
-         -o-transition: background-color 400ms;
-            transition: background-color 400ms;
+     display: inline-block;
+     padding: 4px 14px;
+     font-size: 14px;
+     font-weight: 400;
+     line-height: 2;
+     color: #fff;
+     text-align: center;
+     text-shadow: 0 -1px rgba(0,0,0,.5);
+     border-radius: 3px;
+     -webkit-transition: background-color 400ms;
+         -moz-transition: background-color 400ms;
+          -ms-transition: background-color 400ms;
+            -o-transition: background-color 400ms;
+                transition: background-color 400ms;
 }
 
 .Button,
 .Button:hover { text-decoration: none; }
 
 .Button.Green {
-    background: #3aa400;
+     background: #3aa400;
 }
 
 .Button.Green:hover {
-    background: #4cbc01;
-    text-shadow: 0 0 2px #174901;
+     background: #4cbc01;
+     text-shadow: 0 0 2px #174901;
 }
 
 .Button.Green:focus {
-    background: #1f6600;
-    border-color: #0a2100;
+     background: #1f6600;
+     border-color: #0a2100;
 }
 
 .Button.Purple {
-    background: #b32c70;
+     background: #b32c70;
 }
 
 .Button.Purple:hover {
-    background: #d43f8b;
-    text-shadow: 0 0 2px #53042c;
+     background: #d43f8b;
+     text-shadow: 0 0 2px #53042c;
 }
 
 .Button.Purple:focus {
-    background: #8b114f;
+     background: #8b114f;
 }
 
 /**
@@ -284,117 +284,117 @@ ul, ol {
  */
 
 #Slider > ul, #Slider > ul > li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+     margin: 0;
+     padding: 0;
+     list-style: none;
 }
 
 #Slider > li {
-    width: 480px;
-    height: 310px;
-    overflow: hidden;
+     width: 480px;
+     height: 310px;
+     overflow: hidden;
 }
 
 .Splash {
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    width: 960px;
-    height: 507px;
+     overflow: hidden;
+     position: relative;
+     text-align: center;
+     width: 960px;
+     height: 507px;
 }
 
 .SplashNav {
-    position: relative;
-    margin-bottom: 25px;
+     position: relative;
+     margin-bottom: 25px;
 }
 
 .SplashDots {
-    text-align: center;
-    position: relative;
-    margin: 10px auto;
-    left: 0;
-    z-index: 150;
+     text-align: center;
+     position: relative;
+     margin: 10px auto;
+     left: 0;
+     z-index: 150;
 }
 
 .SplashDots a {
-    z-index: 200;
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin: 0 4px;
-    overflow: hidden;
-    background-color: #d2d2d2;
-    border: 1px solid #aaa;
-    border-radius: 8px;
+     z-index: 200;
+     display: inline-block;
+     width: 12px;
+     height: 12px;
+     margin: 0 4px;
+     overflow: hidden;
+     background-color: #d2d2d2;
+     border: 1px solid #aaa;
+     border-radius: 8px;
 }
 
 .SplashDots a:hover {
-    background: #91DEFD;
-    border: 1px solid #279eda;
-    border-radius: 8px;
+     background: #91DEFD;
+     border: 1px solid #279eda;
+     border-radius: 8px;
 }
 
 .SplashDots a.Current {
-    background-color: #53c0f2;
-    border: 1px solid #279eda;
+     background-color: #53c0f2;
+     border: 1px solid #279eda;
 }
 
 .SplashArrow {
-    position: absolute;
-    padding: 0;
-    width: 40%;
-    display: block;
-    z-index: 50;
-    cursor: pointer;
-    top: -517px;
-    height: 507px;
+     position: absolute;
+     padding: 0;
+     width: 40%;
+     display: block;
+     z-index: 50;
+     cursor: pointer;
+     top: -517px;
+     height: 507px;
 }
 
 .SplashLeft {
-    left: 0;
+     left: 0;
 }
 
 .SplashRight {
-    text-align: right;
-    right: 0;
+     text-align: right;
+     right: 0;
 }
 
 .SplashArrow a {
-    position: relative;
-    top: 50%;
-    z-index: 300;
-    display: none;
-    height: 38px;
-    width: 38px;
-    margin: -19px 20px 0;
-    line-height: 1;
-    background: url("images/nav-arrows.png") 0 -38px no-repeat transparent;
+     position: relative;
+     top: 50%;
+     z-index: 300;
+     display: none;
+     height: 38px;
+     width: 38px;
+     margin: -19px 20px 0;
+     line-height: 1;
+     background: url("images/nav-arrows.png") 0 -38px no-repeat transparent;
 }
 
 .SplashLeft:hover a,
 .SplashLeft:active a,
 .SplashRight:hover a,
 .SplashRight:active a {
-    display: inline-block !important;
+     display: inline-block !important;
 }
 
 .SplashLeft a:hover {
-    background-position: 0 0;
+     background-position: 0 0;
 }
 
 .SplashRight a {
-    background-position: -38px -38px;
+     background-position: -38px -38px;
 }
 
 .SplashRight a:hover {
-    background-position: -38px 0;
+     background-position: -38px 0;
 }
 
 .SpCheck {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin-right: 6px;
-    vertical-align: middle;
-    background: url("../../dashboard/design/images/check.png") 0 0 no-repeat transparent;
+     display: inline-block;
+     width: 30px;
+     height: 30px;
+     margin-right: 6px;
+     vertical-align: middle;
+     background: url("../../dashboard/design/images/check.png") 0 0 no-repeat transparent;
 }

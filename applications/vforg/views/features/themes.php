@@ -1,26 +1,26 @@
 <?php echo $this->FetchView('header'); ?>
 
-	
-    <!-- Page -->
-    <div id="Features" class="Center">
 
-    
+     <!-- Page -->
+     <div id="Features" class="Center">
+
+
   
 
 <div>
-    
-    <div id="Features" class="Center">
+
+     <div id="Features" class="Center">
 
   <div id="FeatureEmbedDescriptThemes">
   <p class="Embed">
-   You can change the look of your forum with themes ranging from professional, fun, and crazy. Switch themes instantly with just a click of a button, or create your own custom CSS and HTML.
+    You can change the look of your forum with themes ranging from professional, fun, and crazy. Switch themes instantly with just a click of a button, or create your own custom CSS and HTML.
   </p>
   
   </div>
-   
+
   
-   
-           <img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/themes_feature.png" border="0" />
+
+              <img src="<?php echo Asset('/applications/vforg/views/features'); ?>/images/themes_feature.png" border="0" />
 
 </div>
 
@@ -53,8 +53,8 @@
 </div>
 
 
-    
-    </div>
-    <!-- [END] Page -->
-		
+
+     </div>
+     <!-- [END] Page -->
+
 <?php echo $this->FetchView('footer'); ?>

@@ -4,4 +4,4 @@
 <div class="ImportProgress"><?php echo $this->Message; ?></div>
 <?php
 if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
-   echo Anchor('Next', $this->RedirectUrl);
+    echo Anchor('Next', $this->RedirectUrl);
