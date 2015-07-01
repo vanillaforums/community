@@ -1,18 +1,18 @@
 div.SocialThemes {
-    position: absolute;
-    right: 516px;
-    top: 269px;
+     position: absolute;
+     right: 516px;
+     top: 269px;
 }
 div.SocialThemes div.Window {
-	position: relative;
-	overflow: hidden;
-	height: 355px;
-	width: 511px;
+    position: relative;
+    overflow: hidden;
+    height: 355px;
+    width: 511px;
 }
 div.SocialThemes div.Window div.Reel {
-	position: absolute;
+    position: absolute;
 }
 div.ScreenNav {
-	margin: 20px 0 0 64px;
-	text-align: center;
+    margin: 20px 0 0 64px;
+    text-align: center;
 }

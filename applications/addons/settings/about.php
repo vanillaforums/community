@@ -1,13 +1,12 @@
 <?php
 
 $ApplicationInfo['Addons'] = array(
-   'Name' => 'Vanilla Forums Addons',
-   'Description' => "The addon management tool for VanillaForums.org.",
-   'Version' => '1.0.5',
-   'RegisterPermissions' => FALSE,
-   'SetupController' => 'setup',
-   'Author' => "Mark O'Sullivan",
-   'AuthorEmail' => 'mark@vanillaforums.com',
-   'AuthorUrl' => 'http://markosullivan.ca',
-   'License' => 'GPLv2'
+    'Name' => 'Vanilla Forums Addons',
+    'Description' => "The addon management tool for VanillaForums.org.",
+    'Version' => '1.1',
+    'SetupController' => 'setup',
+    'Author' => "Vanilla Community",
+    'AuthorEmail' => 'support@vanillaforums.com',
+    'AuthorUrl' => 'http://vanillaforums.org',
+    'License' => 'GPLv2'
 );

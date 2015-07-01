@@ -1,27 +1,27 @@
 /* ========================================= VanillaForums.org Customizations */
 
 @font-face {
-	font-family: Archer;
+   font-family: Archer;
    font-weight: normal;
-	src: url('fonts/Archer-Medium-Pro.otf');
+   src: url('fonts/Archer-Medium-Pro.otf');
 }
 
 @font-face {
-	font-family: Archer;
-	font-weight: bold;
-	src: url('fonts/Archer-Semibold-Pro.otf');
+   font-family: Archer;
+   font-weight: bold;
+   src: url('fonts/Archer-Semibold-Pro.otf');
 }
 
 @font-face {
-	font-family: Aarcher;
+   font-family: Aarcher;
    font-weight: normal;
-	src: url('fonts/Archer-Medium-Pro.otf');
+   src: url('fonts/Archer-Medium-Pro.otf');
 }
 
 @font-face {
-	font-family: Aarcher;
-	font-weight: bold;
-	src: url('fonts/Archer-Semibold-Pro.otf');
+   font-family: Aarcher;
+   font-weight: bold;
+   src: url('fonts/Archer-Semibold-Pro.otf');
 }
 
 a {
@@ -45,8 +45,8 @@ body.Pages #Content {
    color: #744000;
    font-size: 130%;
    font-weight: bold;
-	padding: 0;
-	margin-bottom: 4px;
+   padding: 0;
+   margin-bottom: 4px;
 }
 #Content h2 {
    font-size: 115%;
@@ -65,23 +65,23 @@ body.Pages #Content {
 
 a.Button,
 .Button {
-	color:#583100;
+   color:#583100;
 }
 .Button:hover {
-	text-decoration: none;
+   text-decoration: none;
 }
 /*body {
-	background: url('images/bg-tile.png') top left repeat #f9f1dc;
+   background: url('images/bg-tile.png') top left repeat #f9f1dc;
 }*/
 #Frame {
-	border-top: 1px solid #f8f4e9;
+   border-top: 1px solid #f8f4e9;
 }
 #Body {
    margin: 0 auto;
-	padding: 30px 0;
+   padding: 30px 0;
 }
 div#Content {
-	margin-bottom: 0;
+   margin-bottom: 0;
 }
 #vforg_home_index #Content {
    margin: 0;
@@ -90,70 +90,70 @@ div#Content {
    color: #777;
    padding: 0;
    margin: 30px 0 0;  
-	border-top: 1px solid #EED3A2;
-	border-bottom: 1px solid #EED3A2;
-	background: #FEF7DF;
+   border-top: 1px solid #EED3A2;
+   border-bottom: 1px solid #EED3A2;
+   background: #FEF7DF;
 }
 div#Foot div {
-	padding: 12px 0 10px;
-	border: 0;
-	margin: 0 auto;
+   padding: 12px 0 10px;
+   border: 0;
+   margin: 0 auto;
 }
 div#Foot div,
 div#Foot div a {
-	color: #e4ab62;
+   color: #e4ab62;
 }
 div#Foot div a:hover {
-	text-decoration: none;
-	color: #B76600;
+   text-decoration: none;
+   color: #B76600;
 }
 */
 
 /* Sprites */
 i.Sprite {
-	display: inline-block;
-	background-image: url('images/sprites.png');
-	background-repeat: no-repeat;
+   display: inline-block;
+   background-image: url('images/sprites.png');
+   background-repeat: no-repeat;
 }
 i.Sprite span {
-	display: none;
+   display: none;
 }
 i.SpriteScreen {
-	display: block;
-	float: left;
-	height: 34px;
-	width: 40px;
-	margin: 2px 10px 10px 0;
-	background-position: 0 -131px;
+   display: block;
+   float: left;
+   height: 34px;
+   width: 40px;
+   margin: 2px 10px 10px 0;
+   background-position: 0 -131px;
 }
 i.SpriteSmile {
-	display: block;
-	float: left;
-	height: 44px;
-	width: 42px;
-	margin: 2px 8px 0 0;
-	background-position: -105px -179px;
+   display: block;
+   float: left;
+   height: 44px;
+   width: 42px;
+   margin: 2px 8px 0 0;
+   background-position: -105px -179px;
 }
 i.SpriteDot {
-	height: 20px;
-	width: 20px;
+   height: 20px;
+   width: 20px;
 }
 i.SpriteDotOn { background-position:  0 -212px; }
 i.SpriteDotOff { background-position:  0 -230px; }
 i.SpriteTools,
 i.SpriteSuit {
-	display: block;
-	height: 48px;
-	width: 48px;
+   display: block;
+   height: 48px;
+   width: 48px;
 }
 i.SpriteTools { background-position: -48px -136px; }
 i.SpriteSuit { background-position: -48px -184px; }
 i.SpriteNumber {
-	background-image: url('images/sprite-numbers.png');
-	height: 38px;
-	width: 38px;
-	position: absolute;
-	left: -12px;
+   background-image: url('images/sprite-numbers.png');
+   height: 38px;
+   width: 38px;
+   position: absolute;
+   left: -12px;
 }
 i.SpriteOne { background-position: 0 0; }
 i.SpriteTwo { background-position: 0 -42px; }
@@ -163,17 +163,17 @@ i.SpriteFive { background-position: 0 -148px; }
 
 /* ---- Banner ---- */
 i.Sprite {
-	display: inline-block;
-	background-image: url('images/sprites.png');
-	background-repeat: no-repeat;
+   display: inline-block;
+   background-image: url('images/sprites.png');
+   background-repeat: no-repeat;
 }
 i.Sprite span {
-	display: none !important;
+   display: none !important;
 }
 i.SpriteLogo {
-	height: 40px;
-	width: 142px;
-	background-position: top left;
+   height: 40px;
+   width: 142px;
+   background-position: top left;
 }
 
 /* MENU */
@@ -189,24 +189,24 @@ a.BigButton,
 .OrangeButton,
 .GreenButton,
 #Head .VFMenu a {
-	background: url("images/sprite-menu.png") 0 0 repeat-x;
-	display: inline-block;
-	overflow: hidden;
-	font-weight: bold;
-	line-height: 2.5;
-	padding: 0 10px 0 10px;
-	height: 30px;
-	font-size: 12px;
-	text-shadow: 0 1px 1px #FEE369;
-	color: #744000;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border: 1px solid #ce3601;
+   background: url("images/sprite-menu.png") 0 0 repeat-x;
+   display: inline-block;
+   overflow: hidden;
+   font-weight: bold;
+   line-height: 2.5;
+   padding: 0 10px 0 10px;
+   height: 30px;
+   font-size: 12px;
+   text-shadow: 0 1px 1px #FEE369;
+   color: #744000;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border: 1px solid #ce3601;
 }
 .OrangeButton:hover,
 #Head .VFMenu a:hover {
-	background-position: 0 -40px;
+   background-position: 0 -40px;
 }
 .OrangeButton:focus,
 body.Addons .VFMenu .Addons a,
@@ -214,64 +214,64 @@ body.Pages .VFMenu .Documentation a,
 body#vforg_home_index .VFMenu .Home a,
 body.Vanilla .VFMenu .Community a,
 #Head .VFMenu a:focus {
-	border: 1px solid #c5570d;
-	border-top: 1px solid #893907;
-	border-bottom: 1px solid #fdb45a;
-	background-position: 0 -80px;
-	text-shadow: 0 1px 1px #4C2305;
-	color: #fff;
+   border: 1px solid #c5570d;
+   border-top: 1px solid #893907;
+   border-bottom: 1px solid #fdb45a;
+   background-position: 0 -80px;
+   text-shadow: 0 1px 1px #4C2305;
+   color: #fff;
 }
 a.BigButton,
 .BlueButton,
 #Head .VFMenu .Hosting a {
-	background-position: 0 -120px;
-	text-shadow: 0 1px 1px #111196;
-	color: #ffffff;
-	border: 1px solid #045dcd;
+   background-position: 0 -120px;
+   text-shadow: 0 1px 1px #111196;
+   color: #ffffff;
+   border: 1px solid #045dcd;
 }
 a.BigButton:hover,
 .BlueButton:hover,
 #Head .VFMenu .Hosting a:hover {
-	background-position: 0 -160px;
-	color: #fff;
+   background-position: 0 -160px;
+   color: #fff;
 }
 a.BigButton:focus,
 .BlueButton:focus,
 #Head .VFMenu .Hosting a:focus {
-	background: url("images/sprite-menu.png") 0 -200px repeat-x !important;
-	border: 1px solid #045ECE;
-	border-top: 1px solid #0657b9;
-	border-bottom: 1px solid #89d8f7;
-	text-shadow: 0 1px 1px #003679;
-	color: #fff;
+   background: url("images/sprite-menu.png") 0 -200px repeat-x !important;
+   border: 1px solid #045ECE;
+   border-top: 1px solid #0657b9;
+   border-bottom: 1px solid #89d8f7;
+   text-shadow: 0 1px 1px #003679;
+   color: #fff;
 }
 .BlueButton {
-	height: auto;
+   height: auto;
 }
 a.BigButton {
-	height: auto;
-	font-size: 14px;
-	display: block;
+   height: auto;
+   font-size: 14px;
+   display: block;
 }
 .GreenButton,
 #Head .VFMenu .Download a {
-	background-position: 0 -240px;
-	text-shadow: 0 1px 1px #1d4909;
-	color: #ffffff;
-	border: 1px solid #237300;
+   background-position: 0 -240px;
+   text-shadow: 0 1px 1px #1d4909;
+   color: #ffffff;
+   border: 1px solid #237300;
 }
 .GreenButton:hover,
 #Head .VFMenu .Download a:hover {
-	background-position: 0 -280px;
+   background-position: 0 -280px;
 }
 .GreenButton:focus,
 #Head .VFMenu .Download a:focus {
-	border: 1px solid #237300;
-	border-top: 1px solid #1d4909;
-	border-bottom: 1px solid #7de702;
-	background-position: 0 -320px;
-	text-shadow: 0 1px 1px #153607;
-	color: #fff;
+   border: 1px solid #237300;
+   border-top: 1px solid #1d4909;
+   border-bottom: 1px solid #7de702;
+   background-position: 0 -320px;
+   text-shadow: 0 1px 1px #153607;
+   color: #fff;
 }
 
 .Aside {
@@ -279,7 +279,7 @@ a.BigButton {
 }
 
 #Head div.Logo {
-	margin: 6px 0 0 0;
+   margin: 6px 0 0 0;
    float: left;
 }
 #Head {
@@ -289,69 +289,69 @@ a.BigButton {
    padding: 10px 0 0;
 }
 .Divider {
-	height: 1px;
-	border-top: 2px solid #27b1d9;
-	background: #66deff;
-	border-bottom: 1px solid #7b939a;
+   height: 1px;
+   border-top: 2px solid #27b1d9;
+   background: #66deff;
+   border-bottom: 1px solid #7b939a;
 }
 body.Info .SubNav {
-	display: none;
+   display: none;
 }
 body.Info #Frame {
-	border-top: 1px solid #b9dde8;
+   border-top: 1px solid #b9dde8;
 }
 .SubNav {
-	border-top: 1px solid #b9dde8;
-	background: #FEF7DF;
-	border-bottom: 1px solid #EED3A2;
-	padding: 6px 0;
+   border-top: 1px solid #b9dde8;
+   background: #FEF7DF;
+   border-bottom: 1px solid #EED3A2;
+   padding: 6px 0;
    color: #9C713A
 }
 .SubNav .Center {
-	position: relative;
+   position: relative;
 }
 #Head .SubNav a {
-	font-size: 12px;
-	color: #9C713A;
-	margin: 0;
-	font-weight: bold;
+   font-size: 12px;
+   color: #9C713A;
+   margin: 0;
+   font-weight: bold;
 }
 .SubNav a.Entry {
-	font-weight: normal;
+   font-weight: normal;
 }
 body.Account .SubNav a.Account,
 body.Profile .SubNav a.Profile,
 body.Vanilla .SubNav a.Home {
-	color: #744000;
+   color: #744000;
 }
 .SubNav a:hover {
-	color: #744000;
-	text-decoration: underline;
+   color: #744000;
+   text-decoration: underline;
 }
 .SubNav a.Home {
-	position: absolute;
-	left: 0;
-	margin: 0;
+   position: absolute;
+   left: 0;
+   margin: 0;
 }
 .SubNav span.Alert {
-	font-size: 9px;
+   font-size: 9px;
    background: #744000;
 }
 /* Hide the SubNav on select pages */
 body.Home .SubNav {
-	display: none;
+   display: none;
 }
 
 .Foot {
-	background: transparent;
-	border: none;
+   background: transparent;
+   border: none;
 }
 .Foot a {
-	margin: 0 8px;
-   padding: 2px 4px;	
+   margin: 0 8px;
+   padding: 2px 4px;
 }
 #Foot div {
-	text-align: center;
+   text-align: center;
 }
 
 
@@ -359,18 +359,18 @@ body.Home .SubNav {
 
 /*
 .Banner {
-	background: url('images/bg-title.png') top center repeat-x #e15b10;
-	text-align: center;
+   background: url('images/bg-title.png') top center repeat-x #e15b10;
+   text-align: center;
    height: 58px;
 }
 .BannerWrapper {
-	width: 960px;
-	margin: 0 auto;
-	text-align: right;
-	position: relative;
+   width: 960px;
+   margin: 0 auto;
+   text-align: right;
+   position: relative;
 }
 .Banner div.UserOptions {
-	display: none;
+   display: none;
 }
 .Banner h1 {
    border: 0;
@@ -378,28 +378,28 @@ body.Home .SubNav {
    padding: 0;
 }
 .Banner h1 a {
-	position: absolute;
-	top: 5px;
-	left: 0;
-	height: 40px;
-	width: 142px;
-	background: url('images/sprites.png') top left;
+   position: absolute;
+   top: 5px;
+   left: 0;
+   height: 40px;
+   width: 142px;
+   background: url('images/sprites.png') top left;
 }
 .Banner h1 a span {
-	display: none;
+   display: none;
 }
 .Banner ul {
    list-style: none;
-	padding: 10px 0;
+   padding: 10px 0;
 }
 .Banner ul li {
-	display: inline-block;
-	height: 32px;
-	padding-left: 4px;
-	margin-left: 4px;
-	background: url('images/sprite-menu-buttons.png');
-	background-repeat: no-repeat;
-	background-position: left top;
+   display: inline-block;
+   height: 32px;
+   padding-left: 4px;
+   margin-left: 4px;
+   background: url('images/sprite-menu-buttons.png');
+   background-repeat: no-repeat;
+   background-position: left top;
 }
 .Banner ul li a {
    display: block;
@@ -409,26 +409,26 @@ body.Home .SubNav {
    text-decoration: none;
    color: #744000;
    text-shadow:0 1px 1px #FEE369;
-	height: 32px;
-	line-height: 31px;
-	padding: 0 10px 0 6px;
-	background: url('images/sprite-menu-buttons.png');
-	background-repeat: no-repeat;
-	background-position: right top;
+   height: 32px;
+   line-height: 31px;
+   padding: 0 10px 0 6px;
+   background: url('images/sprite-menu-buttons.png');
+   background-repeat: no-repeat;
+   background-position: right top;
 }
 .Banner ul li:hover { background-position: left -32px; }
 .Banner ul li:hover a { background-position: right -32px; }
 .Banner ul li.Download { background-position: left -96px; }
 .Banner ul li.Download a {
-	color: #ffffff;
-	text-shadow: 0 1px 1px #111196;
-	background-position: right -96px;
+   color: #ffffff;
+   text-shadow: 0 1px 1px #111196;
+   background-position: right -96px;
 }
 .Banner ul li.Services { background-position: left -256px; }
 .Banner ul li.Services a {
-	color: #ffffff;
-	text-shadow: 0 1px 1px #1a5300;
-	background-position: right -256px;
+   color: #ffffff;
+   text-shadow: 0 1px 1px #1a5300;
+   background-position: right -256px;
 }
 body#vforg_home_features .Banner ul li.Features,
 body#dashboard_search_index .Banner ul li.Community,
@@ -438,7 +438,7 @@ body.Profile .Banner ul li.Community,
 body.Vanilla .Banner ul li.Community,
 body.Conversations .Banner ul li.Community,
 body.Activity .Banner ul li.Community {
-	background-position: left -64px;
+   background-position: left -64px;
 }
 body#vforg_home_features .Banner ul li.Features a,
 body#vforg_home_index .Banner ul li.Home a,
@@ -449,9 +449,9 @@ body.Profile .Banner ul li.Community a,
 body.Vanilla .Banner ul li.Community a,
 body.Conversations .Banner ul li.Community a,
 body.Activity .Banner ul li.Community a {
-	background-position: right -64px;
-	color: #fff;
-	text-shadow: 0 1px 1px #4C2305;
+   background-position: right -64px;
+   color: #fff;
+   text-shadow: 0 1px 1px #4C2305;
 }
 */
 /* Reposition sprites for splash page/alternate bg */
@@ -467,16 +467,16 @@ body#vforg_home_index .Banner ul li.Home a { background-position: right -192px; 
 body#vforg_home_index .Banner ul li.Services { background-position: left -288px; }
 body#vforg_home_index .Banner ul li.Services a { background-position: right -288px; }
 body#vforg_home_index .Banner ul li {
-	margin-left: 2px;
+   margin-left: 2px;
 }
 body#vforg_home_index .Banner ul li a {
-	padding: 0 8px 0 4px;
+   padding: 0 8px 0 4px;
 }
 */
 /* Homepage Customizations */
 /*
 body#vforg_home_index {
-	background: url('images/bg-fade.png') top left repeat-x #f1e5ca;
+   background: url('images/bg-fade.png') top left repeat-x #f1e5ca;
 }
 body#vforg_download_index {
    background: url('images/bg-tile.png') top left repeat #f1e5ca;
@@ -487,178 +487,178 @@ body#vforg_home_index #Frame {
 body#vforg_home_features #Content,
 body#vforg_download_index #Content,
 body#vforg_home_index #Content {
-	float: none;
-	width: auto;
+   float: none;
+   width: auto;
 }
 body#vforg_home_features #Panel,
 body#vforg_download_index #Panel,
 body#vforg_home_index #Panel {
-	display: none;
+   display: none;
 }
 body#vforg_home_index h1,
 body#vforg_home_index h2 {
-	text-decoration: none;
-	border: none;
+   text-decoration: none;
+   border: none;
 }
 body#vforg_home_index h2 {
-	padding-top: 50px;
-	color: #744000;
-	font-size: 18px;
-	white-space: nowrap;
-	overflow: visible;
+   padding-top: 50px;
+   color: #744000;
+   font-size: 18px;
+   white-space: nowrap;
+   overflow: visible;
    font-family: Archer, Georgia, Arial;
    font-weight: bold;
 }
 body#vforg_home_index div.Wrap {
-	background:url("images/bg-shines.png") no-repeat scroll center top transparent;
-	min-height: 550px;
+   background:url("images/bg-shines.png") no-repeat scroll center top transparent;
+   min-height: 550px;
 }
 body#vforg_home_index .Banner {
-	background: none;
-	border: none;
+   background: none;
+   border: none;
 }
 body#vforg_home_index #Frame {
-	border: none;
+   border: none;
 }
 body#vforg_home_index .Banner h1 a {
-	position: absolute;
-	top: 28px;
-	left: 82px;
-	height: 92px;
-	width: 203px;
-	background-position: 0 -39px;
+   position: absolute;
+   top: 28px;
+   left: 82px;
+   height: 92px;
+   width: 203px;
+   background-position: 0 -39px;
 }
 body#vforg_home_index #Foot {
-	display: none;
+   display: none;
 }
 body#vforg_home_index .Banner ul {
    list-style: none;
-	padding: 30px 0 0;
+   padding: 30px 0 0;
 }
 body#vforg_home_index a.Active {
-	background: none;
+   background: none;
 }
 div.Splash {
-	position: relative;
-	width: 100%;
+   position: relative;
+   width: 100%;
 }
 div.SplashMessage {
-	width: 370px;
-	min-height: 411px;
-	text-align: left;
+   width: 370px;
+   min-height: 411px;
+   text-align: left;
 }
 div.SplashMessage p {
-	font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
-	text-shadow: 0 1px 0 #FFF9F0;
-	color: #744000;
-	font-size: 12px;
-	margin: 0;
-	padding: 10px 0;
-	clear: both;
-	line-height: 1.4;
+   font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
+   text-shadow: 0 1px 0 #FFF9F0;
+   color: #744000;
+   font-size: 12px;
+   margin: 0;
+   padding: 10px 0;
+   clear: both;
+   line-height: 1.4;
 }
 div.SplashMessage p span {
-	font-weight: bold;
+   font-weight: bold;
 }
 div.SplashPreview {
-	position: absolute;
-	background: url('images/bg-screenshot.png') top right no-repeat;
-	height: 411px;
-	width: 603px;
-	padding: 32px 32px 0 0;
-	right: -30px;
-	top: -16px;
+   position: absolute;
+   background: url('images/bg-screenshot.png') top right no-repeat;
+   height: 411px;
+   width: 603px;
+   padding: 32px 32px 0 0;
+   right: -30px;
+   top: -16px;
 }
 div.SplashPreview div.Window {
-	position: relative;
-	margin-left: 64px;
-	overflow: hidden;
-	height: 361px;
-	width: 539px;
+   position: relative;
+   margin-left: 64px;
+   overflow: hidden;
+   height: 361px;
+   width: 539px;
 }
 div.SplashPreview div.Window div.Reel {
-	position: absolute;
+   position: absolute;
 }
 div.ScreenNav {
-	margin: 20px 0 0 64px;
-	text-align: center;
+   margin: 20px 0 0 64px;
+   text-align: center;
 }
 a.Get {
-	font-weight: bold;
-	margin-top: 10px;
-	display: block;
-	background: url('images/bg-button-blue.png') top left repeat-x;
-	text-align: center;
-	font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
-	font-size: 12px;
-	color: #002E69;
-	text-shadow: 0 1px 0 #6FB8E0;
-	padding: 12px 0 8px;
-	border: 1px solid #045dcd;
+   font-weight: bold;
+   margin-top: 10px;
+   display: block;
+   background: url('images/bg-button-blue.png') top left repeat-x;
+   text-align: center;
+   font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
+   font-size: 12px;
+   color: #002E69;
+   text-shadow: 0 1px 0 #6FB8E0;
+   padding: 12px 0 8px;
+   border: 1px solid #045dcd;
    -moz-border-radius: 5px;
-   -webkit-border-radius: 5px;	
+   -webkit-border-radius: 5px;
 }
 a.Get:hover {
-	background-position: 0 -70px;
+   background-position: 0 -70px;
 }
 a.Get:focus {
-	background: #2274d5;
+   background: #2274d5;
 }
 a.Get strong {
    font-family: Archer, Georgia;
-	font-weight: normal;
-	padding: 0 0 2px;
-	font-size: 23.5px;
-	display: block;
-	color: #fff;
+   font-weight: normal;
+   padding: 0 0 2px;
+   font-size: 23.5px;
+   display: block;
+   color: #fff;
    text-shadow: 0 1px 1px #00007e;
 }
 */
 /* News & Events */
 /*
 div.NewsAndEvents {
-	margin: 0;
+   margin: 0;
 }
 div.News,
 div.Events {
-	display: inline-block;
-	width: 440px;
-	padding: 0 40px 0 0;
-	text-align: left;
-	vertical-align: top;
+   display: inline-block;
+   width: 440px;
+   padding: 0 40px 0 0;
+   text-align: left;
+   vertical-align: top;
 }
 div.Events {
-	padding: 0 0 0 40px;
+   padding: 0 0 0 40px;
 }
 #Content div.NewsAndEvents h3 {
-	padding: 50px 0 0;
-	margin: 0;
-	font-size: 18px;
+   padding: 50px 0 0;
+   margin: 0;
+   font-size: 18px;
 }
 div.Feed {
-	padding: 10px 0 0;
+   padding: 10px 0 0;
 }
 div.Feed div {
-	font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
-	padding: 4px 0;
-	font-size: 13px;
+   font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
+   padding: 4px 0;
+   font-size: 13px;
 }
 div.Feed a {
-	padding: 2px 4px;
-	margin: 0 4px;
-	color: #fff;
-	text-shadow: 0 1px 3px #744000;
-	background: #E3C06D;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+   padding: 2px 4px;
+   margin: 0 4px;
+   color: #fff;
+   text-shadow: 0 1px 3px #744000;
+   background: #E3C06D;
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
 }
 div.Feed a:hover {
-	color: #ffffff;
-	background: #CB7100;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+   color: #ffffff;
+   background: #CB7100;
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
 }
 */
 
@@ -677,7 +677,7 @@ div.Errors {
    -moz-border-radius: 2px;
    -webkit-border-radius: 2px;
    background: #d50a0a !important;
-	margin: 0 0 10px !important;
+   margin: 0 0 10px !important;
 }
 * html div.Errors {
   position: relative;
@@ -692,32 +692,32 @@ div.Errors ul {
    display: block;
    zoom:1;
    *display:inline;
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;  
+   box-shadow: none;
+   -moz-box-shadow: none;
+   -webkit-box-shadow: none;
 }
 div.Errors ul li {
    text-align: left !important;
    border: 0 !important;
    padding: 0 !important;
    margin: 0 !important;
-	list-style: none;
+   list-style: none;
    color: #fff !important;
 }
 
 /* Panel Boxes */
 div.Box {
-	background: #f5f5f5;
+   background: #f5f5f5;
    -moz-border-radius: 4px;
    -webkit-border-radius: 4px;
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;  
+   box-shadow: none;
+   -moz-box-shadow: none;
+   -webkit-box-shadow: none;
    padding: 10px;
 }
 div.Box h4, div.Box h4 a {
-	color:#444;
-	font-weight:bold;
+   color:#444;
+   font-weight:bold;
    text-shadow: 0 1px 2px #fff;
 }
 
@@ -730,21 +730,21 @@ div.UserOptions ul li {
    padding: 6px 2px 0;
    font-size: 13px;
    font-weight: bold;
-   color: #B76600;	
+   color: #B76600;
 }
 div.UserOptions a:hover {
    text-decoration: underline;
 }
 ul.PanelInfo,
 ul.PanelActivity  {
-	border: none;
+   border: none;
 }
 ul.PanelInfo li,
 ul.PanelActivity li {
-	background: none;
+   background: none;
 }
 div.Tags ul.PanelInfo li a {
-	font-weight: bold;
+   font-weight: bold;
    float: none;
 }
 
@@ -772,8 +772,8 @@ div.Tags ul.PanelInfo li a {
 /* Sign In Form */
 body.Entry #Content h1 { color: inherit; }
 body.Entry #Content div.Box {
-	background: #F6DAA8;
-	border-radius: 4px;
+   background: #F6DAA8;
+   border-radius: 4px;
    -moz-border-radius: 4px;
    -webkit-border-radius: 4px;
 }
@@ -781,37 +781,37 @@ body.Entry #Content div.Box {
 
 /* Popups */
 div.Popup div.Body {
-	border: 1px solid #FFF8EB;
-	background: #F6DAA8;
-	box-shadow: 0 0 5px #A59371;
-	-moz-box-shadow: 0 0 5px #A59371;
-	-webkit-box-shadow: 0 0 5px #A59371;  
+   border: 1px solid #FFF8EB;
+   background: #F6DAA8;
+   box-shadow: 0 0 5px #A59371;
+   -moz-box-shadow: 0 0 5px #A59371;
+   -webkit-box-shadow: 0 0 5px #A59371;
 }
 div.Connect h1,
 div.Connect h2,
 div.Popup h1,
 div.Popup h2 {
-	font-size:120%;
-	font-weight:bold;
-	margin-bottom: 0;
-	background: none;
-	border: none;
-	padding: 6px 9px 0;
+   font-size:120%;
+   font-weight:bold;
+   margin-bottom: 0;
+   background: none;
+   border: none;
+   padding: 6px 9px 0;
    color: #744000;
 }
 a.Close { color: #744000; }
 a.Close:hover { color: #4A2900; }
 div.SignInPopup .Content form { padding: 0 14px 10px; }
 div.Methods {
-	background: none;
-	border: none;
-	font-weight: bold;
-	color: #000;
-	font-size: 14px;
-	text-align: left;
+   background: none;
+   border: none;
+   font-weight: bold;
+   color: #000;
+   font-size: 14px;
+   text-align: left;
 }
 body.connect div.Box {
-	border: none;
+   border: none;
 }
 
 /* DataList & Headings */
@@ -822,12 +822,12 @@ body.connect div.Box {
 }
 div#MessageForm,
 div.MessageForm {
-	background: #fdfaef;
-	padding: 8px;
+   background: #fdfaef;
+   padding: 8px;
 }
 div#MessageForm h2 {
-	border: none;
-	margin: 0 0 2px;
+   border: none;
+   margin: 0 0 2px;
 }
 
 .TabLink, .TabLink:link, .TabLink:hover, .TabLink:active, .TabLink:visited {
@@ -845,7 +845,7 @@ div#MessageForm h2 {
 }
 
 div.MessageForm a.Back:hover {
-	color: #ff0084;
+   color: #ff0084;
 }
 div.MessageForm a.Cancel:hover,
 div.MorePager li a:hover,
@@ -858,19 +858,19 @@ a.Active {
    color: #744000;
 }
 .CommentTabs {
-	margin-bottom: 6px;
+   margin-bottom: 6px;
 }
 div.MessageForm div.Tabs li.Active a {
-	top: 0;
+   top: 0;
 }
 div.Tabs li a span {
    background-color: #286AD1;
    display: none; /* Lincoln hid tab counts */
 }
 body.Discussions div.Tabs div.SubTab {
-	margin: 0;
-	padding: 0;
-	background: transparent;
+   margin: 0;
+   padding: 0;
+   background: transparent;
    border-top: none;
    border-radius: none;
    -webkit-border-radius: none;
@@ -887,13 +887,13 @@ div.Tabs div.SubTab a {
    color: #744000;
 }
 div.HeadingTabs div.SubTab {
-	line-height: 2;
+   line-height: 2;
 }
 ul.SearchResults {
-	border-top:1px solid #EED3A2;
+   border-top:1px solid #EED3A2;
 }
 ul.SearchResults li.Item {
-	padding: 8px;
+   padding: 8px;
 }
 /*
 clears cause breakage!
@@ -905,15 +905,15 @@ clears cause breakage!
 div.Preview  {
    border: 1px solid #EED3A2;
    background: #FEF7DF;
-	padding: 6px;
-	margin: 0 0 8px;
+   padding: 6px;
+   margin: 0 0 8px;
 }
 .Foot  {
-	background:none;
-	border: none;
+   background:none;
+   border: none;
 }
 .Mine {
-	background: #FDFAEF;
+   background: #FDFAEF;
 }
 
 /* Dismiss Messages */
@@ -924,149 +924,149 @@ div.Info {
    -webkit-border-radius: 3px;
    background: #FEF7DF;
    color: #b76600;
-	font-size:13px;
-	margin:0 0 10px;
-	padding:6px;
-	position: relative;
+   font-size:13px;
+   margin:0 0 10px;
+   padding:6px;
+   position: relative;
 }
 div.Info strong {
-	color:#744000;
+   color:#744000;
 }
 div.DismissMessage a.Dismiss {
-	color:#744000;
-	float: none;
-	position: absolute;
-	top: 4px;
-	right: 6px;
-	line-height: 1;
+   color:#744000;
+   float: none;
+   position: absolute;
+   top: 4px;
+   right: 6px;
+   line-height: 1;
 }
 
 
 /* --- Profile Page --- */
 form.Activity,
 ul.Activities {
-	background: #FEF7DF;
+   background: #FEF7DF;
 }
 form.Activity {
-	padding: 10px;
-	border-bottom: 1px solid #EED3A2;
+   padding: 10px;
+   border-bottom: 1px solid #EED3A2;
 }
 ul.Activities li.Item {
-	padding: 4px; 
+   padding: 4px;
 }
 a.BigButton:hover {
-	text-decoration: none;
+   text-decoration: none;
 }
 div.Box dl {
-	padding: 0;
-	background: none;
-	border: none;
+   padding: 0;
+   background: none;
+   border: none;
 }
 body.Profile ul.PanelInfo,
 body.Profile ul.PanelInfo li {
-	border: none;
+   border: none;
 }
 body.Profile ul.PanelInfo li {
-	padding: 0;
+   padding: 0;
 }
 body.Profile ul.Activities {
-	border: none;
-	margin: 0;
+   border: none;
+   margin: 0;
 }
 #Status {
-	background: none;
-	padding: 6px 2px 10px;
-	color: #B76600;
+   background: none;
+   padding: 6px 2px 10px;
+   color: #B76600;
 }
 ul.Activities ul.DataList li {
-	background: #F6DAA8;
+   background: #F6DAA8;
 }
 
 /* Help Info on Post Discussion Form */
 body.Post #Content {
-	float: none;
+   float: none;
 }
 #DiscussionForm h2 {
-	border: none;
-	font-size: 18px;
+   border: none;
+   font-size: 18px;
 }
 #DiscussionForm .Tabs {
    margin: 0;
 }
 #DiscussionForm form {
-	display: block;
+   display: block;
    padding-left: 0;
-	padding-right: 270px;
-	background: transparent;
-	border: none;
+   padding-right: 270px;
+   background: transparent;
+   border: none;
 }
 #DiscussionForm label {
-	color: #744000;
+   color: #744000;
 }
 #DiscussionForm textarea,
 #DiscussionForm input.InputBox {
    width: 100%;
-	display: block;
+   display: block;
 }
 #DiscussionForm {
-	position: relative;
+   position: relative;
 }
 #DiscussionForm .FormInputs {
-	background: rgba(246, 218, 168, .5);
+   background: rgba(246, 218, 168, .5);
    padding: 10px 20px;
 }
 .PostHelp {
-	top: 140px;
-	right: 20px;
-	position: absolute;
-	width: 220px;
-	background: #FEF7DF;
-	border: 1px solid #EEC38A;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	font-size: 11px;
-	color: #B76600;
+   top: 140px;
+   right: 20px;
+   position: absolute;
+   width: 220px;
+   background: #FEF7DF;
+   border: 1px solid #EEC38A;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   font-size: 11px;
+   color: #B76600;
 }
 
 #Content .PostHelp h4 {
-	font-size: 14px;
-	font-weight: bold;
-	border: none;
-	margin: 0;
-	padding: 0;
+   font-size: 14px;
+   font-weight: bold;
+   border: none;
+   margin: 0;
+   padding: 0;
 }
 .PostHelp .Help {
-	padding: 4px 8px;
+   padding: 4px 8px;
 }
 .Help ul { margin: 0 !important; }
 .Help ul li {
-	list-style: disc;
-	margin-left: 14px;
+   list-style: disc;
+   margin-left: 14px;
 }
 div.Examples {
-	padding-top: 12px;
+   padding-top: 12px;
 }
 div.Examples,
 div.Help {
-	font-size: 11px;
+   font-size: 11px;
 }
 div.Examples div {
-	font-style: italic;
+   font-style: italic;
 }
 div.Examples div strong {
-	font-weight: bold;
-	font-style: normal;
-	display: inline-block;
+   font-weight: bold;
+   font-style: normal;
+   display: inline-block;
 }
 div.Examples div.Good strong,
 div.Examples div.Bad strong {
-	/* text-shadow: 0 0px 3px #000; */
-	color: #fff;
-	border-radius: 3px;
+   /* text-shadow: 0 0px 3px #000; */
+   color: #fff;
+   border-radius: 3px;
    -moz-border-radius: 3px;
    -webkit-border-radius: 3px;
-	line-height: 1;
-	padding: 2px 4px;
+   line-height: 1;
+   padding: 2px 4px;
 }
 div.Examples div.Good strong { background: #0a0; }
 div.Examples div.Bad strong { background: #f00; }
@@ -1074,120 +1074,120 @@ div.Examples div.Bad strong { background: #f00; }
 
 /* Download Form */
 body.Download #Content {
-	width: auto;
+   width: auto;
 }
 body.Download #Panel {
-	display: none;
+   display: none;
 }
 .DownloadForm,
 .HostingForm {
-	width: 375px;
-	float: left;
-	padding: 0 52px 40px 53px;
-	position: relative;
+   width: 375px;
+   float: left;
+   padding: 0 52px 40px 53px;
+   position: relative;
 }
 .DownloadForm {
-	float: left;
+   float: left;
 }
 #Content .DownloadForm h1,
 #Content .HostingForm h1 {
-	padding: 0 0 0 60px;
-	color: #0155ba;
-	border: none;
-	font-size: 25px;
+   padding: 0 0 0 60px;
+   color: #0155ba;
+   border: none;
+   font-size: 25px;
 }
 i.SpriteTools,
 i.SpriteSuit {
-	position: absolute;
-	top: 0;
-	left: 60px;
+   position: absolute;
+   top: 0;
+   left: 60px;
 }
 #Content .DownloadForm h1 span,
 #Content .HostingForm h1 span {
-	display: block;
-	color: #c8590e;
-	font-size: 16px;
-	text-transform: uppercase;
+   display: block;
+   color: #c8590e;
+   font-size: 16px;
+   text-transform: uppercase;
 }
 .DownloadForm ul {
-	margin-bottom: 20px;
+   margin-bottom: 20px;
 }
 li.CaptchaInput {
-	margin-bottom: 12px;
+   margin-bottom: 12px;
 }
 .DownloadForm label {
-	display: block;
-	color: #744000;
-	font-weight: bold;
+   display: block;
+   color: #744000;
+   font-weight: bold;
 }
 .DownloadForm label.CheckBoxLabel {
-	font-weight: normal;
-	margin-bottom: 4px;
+   font-weight: normal;
+   margin-bottom: 4px;
 }
 .DownloadForm input.InputBox {
-	margin-bottom: 6px;
-	width: 362px;
+   margin-bottom: 6px;
+   width: 362px;
 }
 a.RenderedDownloadButton span {
-	display: none;
+   display: none;
 }
 a.RenderedDownloadButton {
-	display:block;
-	height: 60px;
-	width: 370px;
-	background: url('images/btn-hosting.png') 0 0 no-repeat;
+   display:block;
+   height: 60px;
+   width: 370px;
+   background: url('images/btn-hosting.png') 0 0 no-repeat;
 }
 a.RenderedDownloadButton:hover { background-position: 0 -60px; }
 a.RenderedDownloadButton:focus { background-position: 0 -120px; }
 
 .Quote {
-	margin: 10px 0;
-	background: url('images/bg-quote.png') right 0 no-repeat;
+   margin: 10px 0;
+   background: url('images/bg-quote.png') right 0 no-repeat;
 }
 .Quote img {
-	margin-right: 10px;
-	border: 3px solid #fff;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+   margin-right: 10px;
+   border: 3px solid #fff;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
    box-shadow: 1px 1px 1px #989386;
-	-moz-box-shadow: 1px 1px 1px #989386;
-	-webkit-box-shadow: 1px 1px 1px #989386;
-	float: left;	
+   -moz-box-shadow: 1px 1px 1px #989386;
+   -webkit-box-shadow: 1px 1px 1px #989386;
+   float: left;
 }
 .Quote p {
-	margin: 0 10px 0 107px;
-	padding: 6px 0 2px;
-	color: #000000;
-	font-size: 12px;
-	line-height: 1.5;
+   margin: 0 10px 0 107px;
+   padding: 6px 0 2px;
+   color: #000000;
+   font-size: 12px;
+   line-height: 1.5;
 }
 .Quote p strong {
-	font-weight: bold;
+   font-weight: bold;
 }
 .Quote p.Author {
-	padding: 0;
+   padding: 0;
 }
 .Quote div.Foot {
-	background: url('images/bg-quote.png') right -536px no-repeat;
-	height: 4px;
-	overflow: hidden;
-	padding: 0;
-	margin: 6px 0 0;
+   background: url('images/bg-quote.png') right -536px no-repeat;
+   height: 4px;
+   overflow: hidden;
+   padding: 0;
+   margin: 6px 0 0;
 }
 
 /* Get the download page */
 body#vforg_download_get #Content {
-	float: right;
+   float: right;
 }
 body#vforg_download_get #Panel {
-	float: left;
+   float: left;
 }
 body#vforg_download_get #Panel strong {
-	font-weight: bold;
+   font-weight: bold;
 }
 body#vforg_download_get #Content h1 {
    border: none;
-	font-size: 20px;
+   font-size: 20px;
 }
 .DownloadInfo {
    border: none !important;
@@ -1320,17 +1320,17 @@ body.Pages div#Foot {
 }*/
 
 .StatBoxes {
-	float: right;
+   float: right;
 /*   clear: right;*/
 }
 
 .StatBox {
-	padding: 5px 5px 0;
-	height: 38px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 18px;
-	line-height: 1.2;
+   padding: 5px 5px 0;
+   height: 38px;
+   text-align: center;
+   font-weight: bold;
+   font-size: 18px;
+   line-height: 1.2;
    background: #f6daa8;
    color: #764513;
    display: inline-block;
@@ -1341,12 +1341,12 @@ body.Pages div#Foot {
    color: #764513;
 }
 .Stats-Label {
-	display: block;
-	font-weight: normal;
-	font-size:9px;
-	line-height: 1;
-	padding-bottom:2px;
-	min-width:38px;
+   display: block;
+   font-weight: normal;
+   font-size:9px;
+   line-height: 1;
+   padding-bottom:2px;
+   min-width:38px;
 }
 .CommentsBox {
    background: #f6e5c6;

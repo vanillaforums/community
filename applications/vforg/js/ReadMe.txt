@@ -9,4 +9,4 @@ Note 1: these are simply guidelines - you can name any file whatever you want an
 include it anywhere you want.
 
 Note 2: You can add a js file to the controller with:
-   $this->AddJsFile('filename.js');
+    $this->AddJsFile('filename.js');
