@@ -983,7 +983,10 @@ class AddonController extends AddonsController {
         $GetInfo = new ReflectionMethod('UpdateModel', '_GetInfoZip');
         $GetInfo->setAccessible(true);
         $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
-        //$Entries = UpdateModel::_GetInfoZip($Path, $ReadmePaths, false, true);
+        
+        if($Entries === false) {
+            return '';
+        }
 
         foreach ($Entries as $Entry) {
             $ReadMeContents = file_get_contents($Entry['Path']);
