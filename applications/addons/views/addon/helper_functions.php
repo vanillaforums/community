@@ -165,5 +165,28 @@ function writeVersionBox($sender) {
 }
 
 function writeConfidenceBox($sender) {
-    return;
+    $confidence = $sender->ConfidenceModel->getID($sender->Data('Versions')[0]['AddonVersionID'], DATASET_TYPE_OBJECT);
+    
+    echo '<div class="Box AddonBox VersionsBox">';
+    echo Wrap(T('Community Confidence'), 'h3');
+    if($confidence->TotalVotes > 10 || $confidence->TotalWeight >= 25) {
+        echo Wrap(sprintf(T('The community has confidence this plugin works with Vanilla %s.'), $confidence->CoreVersion), 'p');
+    }
+    else {
+        echo Wrap(sprintf(T('There is little confidence this plugin works with Vanilla %s.'), $confidence->CoreVersion), 'p');
+    }
+    writeConfidenceForm($sender->Form, $confidence->CoreVersionID);
+    echo '</div>';
+}
+
+function writeConfidenceForm($form, $coreVersionID) {
+    echo $form->Open();
+    echo $form->Errors();
+    
+    echo $form->Hidden('CoreVersionID', $coreVersionID);
+    echo Wrap(
+            Wrap($form->Label('Confidence', 'Weight'), 'h3') .
+            $form->TextBox('Weight'),
+            'div');
+    echo $form->Close('Save');
 }

@@ -17,7 +17,7 @@ if (!function_exists('Trace')) {
  * MessagesController handles displaying lists of conversations and conversation messages.
  */
 class AddonController extends AddonsController {
-    public $Uses = array('Form', 'AddonModel', 'AddonCommentModel');
+    public $Uses = array('Form', 'AddonModel', 'AddonCommentModel', 'ConfidenceModel');
     public $Filter = 'all';
     public $Sort = 'recent';
     public $Version = '0'; // The version of Vanilla to filter to (0 is no filter)
@@ -78,6 +78,8 @@ class AddonController extends AddonsController {
 
                 // Set the canonical url.
                 $this->CanonicalUrl(Url('/addon/'.AddonModel::Slug($Addon, FALSE), TRUE));
+
+                $this->handleConfidenceVote($Addon);
             }
         } else {
             $this->View = 'browse';
@@ -99,6 +101,30 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    private function handleConfidenceVote($addon) {
+        $session = Gdn::Session();
+        if(!$session->IsValid()) {
+            return;
+        }
+        
+        $this->Form->SetModel($this->ConfidenceModel);
+         
+        $this->Form->AddHidden('AddonVersionID', $addon['CurrentAddonVersionID']);
+        $this->Form->AddHidden('UserID', $session->UserID);
+        $this->Form->AddHidden('CoreVersionID', $this->ConfidenceModel->getCoreVersion());            
+
+        
+        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['CurrentAddonVersionID']);
+        if($existingConfidenceRecord) {
+            $this->Form->AddHidden('ConfidenceID', $existingConfidenceRecord->ConfidenceID);
+            $this->Form->SetData($existingConfidenceRecord);
+        }
+        
+        if ($this->Form->IsPostBack()) {
+            $this->Form->Save();
+        }
+    }
+    
     public function Add() {
         $this->Permission('Addons.Addon.Add');
         $this->AddJsFile('/js/library/jquery.autogrow.js');
