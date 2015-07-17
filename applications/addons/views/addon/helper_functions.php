@@ -166,23 +166,32 @@ function writeVersionBox($sender) {
 
 function writeConfidenceBox($sender) {
     $confidence = $sender->ConfidenceModel->getID($sender->Data('Versions')[0]['AddonVersionID'], DATASET_TYPE_OBJECT);
+    $coreVersion = $sender->ConfidenceModel->getCoreVersion();
     
     echo '<div class="Box AddonBox VersionsBox">';
     echo Wrap(T('Community Confidence'), 'h3');
-    if($confidence->TotalVotes > 10 || $confidence->TotalWeight >= 25) {
-        echo Wrap(sprintf(T('The community has confidence this plugin works with Vanilla %s.'), $confidence->CoreVersion), 'p');
+    
+    if(!$confidence) {
+        echo Wrap(sprintf(T('Vanilla %s: NONE'), $coreVersion->Version), 'p');
+    }
+    else if ($confidence->TotalVotes > 10 || $confidence->TotalWeight >= 25) {
+        echo Wrap(sprintf(T('Vanilla %s: HIGH'), $coreVersion->Version), 'p');
     }
     else {
-        echo Wrap(sprintf(T('There is little confidence this plugin works with Vanilla %s.'), $confidence->CoreVersion), 'p');
+        echo Wrap(sprintf(T('Vanilla %s: LOW'), $coreVersion->Version), 'p');
     }
-    writeConfidenceForm($sender->Form, $confidence->CoreVersionID);
+  
+    writeConfidenceForm($sender->Form, $coreVersion->Version);
     echo '</div>';
 }
 
 function writeConfidenceForm($form, $coreVersionID) {
+    if(!Gdn::Session()->IsValid()) {
+        return;
+    }
+    
     echo $form->Open();
     echo $form->Errors();
-    
     echo $form->Hidden('CoreVersionID', $coreVersionID);
     echo Wrap(
             Wrap($form->Label('Confidence', 'Weight'), 'h3') .

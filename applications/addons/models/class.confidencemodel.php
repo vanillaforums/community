@@ -1,6 +1,8 @@
 <?php
 class ConfidenceModel extends Gdn_Model {
 
+    private $coreVersion = null;
+    
     public function __construct($Name = '') {
         parent::__construct('Confidence');
     }
@@ -18,7 +20,8 @@ class ConfidenceModel extends Gdn_Model {
     }
 
     public function getCoreVersion() {
-        return $this->SQL->Select('av.AddonVersionID')
+        if(is_null($this->coreVersion)) {
+            $this->coreVersion = $this->SQL->Select('a.Name, av.AddonVersionID, av.Version')
                 ->From('Addon a')
                 ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
                 ->Where('a.AddonKey', 'vanilla')
@@ -26,17 +29,19 @@ class ConfidenceModel extends Gdn_Model {
                 ->OrderBy('av.DateInserted', 'desc')
                 ->Limit(1)
                 ->Get()
-                ->FirstRow()
-                ->AddonVersionID;
+                ->FirstRow();
+        }
+        
+        return $this->coreVersion;
     }
     
     public function getID($AddonVersionID, $DataType = DATASET_TYPE_ARRAY) {
-        $CoreVersion = $this->getCoreVersion();
+        $version = $this->getCoreVersion();
         $Confidence = $this->SQL
                 ->Select('c.AddonVersionID, c.CoreVersionID, av.Version as CoreVersion, COUNT(c.ConfidenceID) as TotalVotes, SUM(c.Weight) as TotalWeight, AVG(c.Weight) as AverageWeight')
                 ->From('Confidence c')
                 ->Where('c.AddonVersionID', $AddonVersionID)
-                ->Where('c.CoreVersionID', $CoreVersion)
+                ->Where('c.CoreVersionID', $version->AddonVersionID)
                 ->Join('AddonVersion av', 'c.CoreVersionID = av.AddonVersionID')
                 ->GroupBy('c.AddonVersionID')
                 ->Get()
@@ -46,12 +51,12 @@ class ConfidenceModel extends Gdn_Model {
     }
     
     public function getCurrentConfidence($userID, $addonID) {
-        $CoreVersion = $this->getCoreVersion();
+        $version = $this->getCoreVersion();
         return $this->SQL
                 ->Select('c.*')
                 ->From('Confidence c')
                 ->Where('c.AddonVersionID', $addonID)
-                ->Where('c.CoreVersionID', $CoreVersion)
+                ->Where('c.CoreVersionID', $version->AddonVersionID)
                 ->Where('c.UserID', $userID)
                 ->Get()
                 ->FirstRow();
