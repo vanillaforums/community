@@ -13,9 +13,9 @@
                <a href="{link path="/addons"}" title="{t c="Themes, plugins and applications for Vanilla"}">{t c="Addons"}</a>
                <a href="{link path="/discussions"}" title="{t c="Vanilla Forums Developer Community"}">{t c="Community"}</a>
                <a href="{link path="//docs.vanillaforums.com"}" title="{t c="User and developer documentation for Vanilla"}">{t c="Documentation"}</a>
-               <a href="http://vanillaforums.com/blog" title="{t c="Latest news from the Vanilla Team"}">{t c="Blog"}</a>
+               <a href="https://blog.vanillaforums.com" title="{t c="Latest news from the Vanilla Team"}">{t c="Blog"}</a>
                <a href="{link path="/download"}" class="Download" title="{t c="Download the latest stable version of Vanilla"}">{t c="Download"}</a>
-               <a href="http://vanillaforums.com" class="Hosting" title="{t c="Use Vanilla Forums in the Cloud"}">{t c="Vanilla Cloud"}<span>{t c="Start Using Vanilla today"}</span></a>
+               <a href="https://vanillaforums.com" class="Hosting" title="{t c="Use Vanilla Forums in the Cloud"}">{t c="Vanilla Cloud"}<span>{t c="Start Using Vanilla today"}</span></a>
             </div>
          </div>
       </div>
