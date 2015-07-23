@@ -125,6 +125,46 @@ class AddonController extends AddonsController {
         }
     }
     
+    public function works($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 1);
+    }
+    
+    public function broken($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 0);
+    }
+    
+    private function updateVote($addonVersionID, $coreVersionID, $weight) {
+        $session = Gdn::Session();
+        if(!$session->isValid()) {
+            throw permissionException('@You need to be logged in to vote.');
+        }
+                
+        $addon = $this->AddonModel->getVersion($addonVersionID);
+        if(!$addon) {
+            throw notFoundException('Addon');
+        }
+        
+        $currentVote = $this->ConfidenceModel->getConfidenceVote($session->UserID, $addon['AddonVersionID'], $coreVersionID);
+        if($currentVote === false) {
+            $this->ConfidenceModel->insert([
+                'AddonVersionID' => $addon['AddonVersionID'],
+                'UserID' => $session->UserID,
+                'Weight' => $weight]);
+        }
+        else {
+            if($currentVote->Weight != $weight) {
+                $this->ConfidenceModel->update(['Weight' => $weight], [
+                    'ConfidenceID' => $currentVote->ConfidenceID,
+                    'AddonVersionID' => $currentVote->AddonVersionID,
+                    'CoreVersionID' => $currentVote->CoreVersionID,
+                    'UserID' => $currentVote->UserID
+                ]);
+            }
+        }
+        
+        $this->renderData(['success' => true, 'weight' => $weight]);
+    }
+    
     public function Add() {
         $this->Permission('Addons.Addon.Add');
         $this->AddJsFile('/js/library/jquery.autogrow.js');

@@ -165,7 +165,8 @@ function writeVersionBox($sender) {
 }
 
 function writeConfidenceBox($sender) {
-    $confidence = $sender->ConfidenceModel->getID($sender->Data('Versions')[0]['AddonVersionID'], DATASET_TYPE_OBJECT);
+    $addonVersionID = $sender->Data('Versions')[0]['AddonVersionID'];
+    $confidence = $sender->ConfidenceModel->getID($addonVersionID, DATASET_TYPE_OBJECT);
     $coreVersion = $sender->ConfidenceModel->getCoreVersion();
     
     echo '<div class="Box AddonBox VersionsBox">';
@@ -181,21 +182,15 @@ function writeConfidenceBox($sender) {
         echo Wrap(sprintf(T('Vanilla %s: LOW'), $coreVersion->Version), 'p');
     }
   
-    writeConfidenceForm($sender->Form, $coreVersion->Version);
+    writeConfidenceForm($addonVersionID, $coreVersion->AddonVersionID);
     echo '</div>';
 }
 
-function writeConfidenceForm($form, $coreVersionID) {
+function writeConfidenceForm($addonID, $coreID) {
     if(!Gdn::Session()->IsValid()) {
         return;
     }
     
-    echo $form->Open();
-    echo $form->Errors();
-    echo $form->Hidden('CoreVersionID', $coreVersionID);
-    echo Wrap(
-            Wrap($form->Label('Confidence', 'Weight'), 'h3') .
-            $form->TextBox('Weight'),
-            'div');
-    echo $form->Close('Save');
+    echo anchor(t('Works'), "/addon/works/$addonID/$coreID", ['class' => 'Button Hijack']);
+    echo anchor(t('Broken'), "/addon/broken/$addonID/$coreID", ['class' => 'Button Hijack']);
 }

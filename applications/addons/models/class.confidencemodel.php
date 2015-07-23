@@ -35,6 +35,25 @@ class ConfidenceModel extends Gdn_Model {
         return $this->coreVersion;
     }
     
+    public function checkCoreVersion($ID) {
+        $result = $this->SQL->Select('a.Name, av.AddonVersionID, av.Version')
+                ->From('Addon a')
+                ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
+                ->Where('a.AddonKey', 'vanilla')
+                ->Where('av.AddonVersionID', $ID)
+                ->Join('AddonVersion av', 'a.AddonID = av.AddonID')
+                ->OrderBy('av.DateInserted', 'desc')
+                ->Limit(1)
+                ->Get()
+                ->FirstRow();
+        
+        if(!$result) {
+            $result = $this->getCoreVersion();
+        }
+        
+        return $result;
+    }
+    
     public function getID($AddonVersionID, $DataType = DATASET_TYPE_ARRAY) {
         $version = $this->getCoreVersion();
         $Confidence = $this->SQL
@@ -50,6 +69,18 @@ class ConfidenceModel extends Gdn_Model {
         return $Confidence;
     }
     
+    public function getConfidenceVote($userID, $addonID, $coreID) {
+        $version = $this->checkCoreVersion($coreID);
+        return $this->SQL
+                ->Select('c.*')
+                ->From('Confidence c')
+                ->Where('c.AddonVersionID', $addonID)
+                ->Where('c.CoreVersionID', $version->AddonVersionID)
+                ->Where('c.UserID', $userID)
+                ->Get()
+                ->FirstRow();
+    }
+    
     public function getCurrentConfidence($userID, $addonID) {
         $version = $this->getCoreVersion();
         return $this->SQL
@@ -60,6 +91,11 @@ class ConfidenceModel extends Gdn_Model {
                 ->Where('c.UserID', $userID)
                 ->Get()
                 ->FirstRow();
+    }
+    
+    public function insert($fields) {
+        $fields['CoreVersionID'] = $this->getCoreVersion()->AddonVersionID;
+        return parent::insert($fields);
     }
 
 }
