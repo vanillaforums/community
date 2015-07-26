@@ -151,7 +151,7 @@ class AddonController extends AddonsController {
 
                 // If the long description is blank, load up the readme if it exists
                 if($AnalyzedAddon['Description2'] == '') {
-                    $AnalyzedAddon['Description2'] = $this->ParseReadme($AnalyzedAddon);
+                    $AnalyzedAddon['Description2'] = $this->ParseReadme($TargetPath);
                 }
 
                 $this->Form->FormValues($AnalyzedAddon);
@@ -967,12 +967,7 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
-    protected function ParseReadme($Addon) {
-        $Path = PATH_UPLOADS . DS . $Addon['File'];
-        if (!file_exists($Path)) {
-            throw new Exception("$Path not found.", 404);
-        }
-
+    protected function ParseReadme($Path) {
         $ReadmePaths = array(
             '/readme',
             '/README',
@@ -988,7 +983,10 @@ class AddonController extends AddonsController {
         $GetInfo = new ReflectionMethod('UpdateModel', '_GetInfoZip');
         $GetInfo->setAccessible(true);
         $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
-        //$Entries = UpdateModel::_GetInfoZip($Path, $ReadmePaths, false, true);
+        
+        if($Entries === false) {
+            return '';
+        }
 
         foreach ($Entries as $Entry) {
             $ReadMeContents = file_get_contents($Entry['Path']);
