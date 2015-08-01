@@ -48,8 +48,8 @@ class VorgoPlugin extends Gdn_Plugin {
     /**
      * Simple call and response.
      *
-     * User: Sup @vorgo?
-     * Bot: Chillin'.
+     * User: Now we're cooking with gas!
+     * Bot: KABOOM!
      *
      * @param Bot $bot
      */
