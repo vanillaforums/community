@@ -46,6 +46,20 @@ class VorgoPlugin extends Gdn_Plugin {
     }
 
     /**
+     * Simple call and response.
+     *
+     * User: Sup @vorgo?
+     * Bot: Chillin'.
+     *
+     * @param Bot $bot
+     */
+    public function bot_gas_handler($bot) {
+        if ($bot->match('cooking with gas')) {
+            $bot->setReply('KABOOM!');
+        }
+    }
+
+    /**
      * Let users send each other beers thru the bot.
      *
      * User: ^5 @Lincoln
@@ -79,6 +93,7 @@ class VorgoPlugin extends Gdn_Plugin {
         botReply('fives');
         botReply('sup');
         botReply('shave');
+        botReply('gas');
     }
 
     /**
@@ -88,5 +103,6 @@ class VorgoPlugin extends Gdn_Plugin {
         botReplyDisable('fives');
         botReplyDisable('sup');
         botReplyDisable('shave');
+        botReplyDisable('gas');
     }
 }
