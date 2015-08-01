@@ -56,7 +56,11 @@ class VorgoPlugin extends Gdn_Plugin {
     public function bot_fives_handler($bot) {
         if ($bot->regex('(^|[\s,\.>])\^5 @([\w-]{3,64})', $target)) { // ^5
             if (isset($target[2]) && $target[2]) {
-                $bot->setReply('YEAH! ^5 @'.$target[2]);
+                if ($target[2] == 'vorgo') {
+                    $bot->setReply('^5 '.$bot->mention().'!');
+                } else {
+                    $bot->setReply('YEAH! ^5 @'.$target[2].'.');
+                }
             }
         }
     }
