@@ -10,6 +10,11 @@ $PluginInfo['vorgo'] = array(
    'AuthorUrl' => 'http://vanillaforums.org'
 );
 
+/**
+ * Vorgo in an implementation of Bot.
+ *
+ * @see https://github.com/linc/vanilla-bot
+ */
 class VorgoPlugin extends Gdn_Plugin {
 
     /**
