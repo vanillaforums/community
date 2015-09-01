@@ -34,10 +34,10 @@ class AddonController extends AddonsController {
         parent::Initialize();
         if ($this->Head) {
             $this->AddJsFile('jquery.js');
-            $this->AddJsFile('jquery.livequery.js');
             $this->AddJsFile('jquery.form.js');
             $this->AddJsFile('jquery.popup.js');
             $this->AddJsFile('jquery.gardenhandleajaxform.js');
+            $this->addJsFile('jquery.autosize.min.js');
             $this->AddJsFile('global.js');
         }
         $this->CountCommentsPerPage = 30;
@@ -101,8 +101,6 @@ class AddonController extends AddonsController {
 
     public function Add() {
         $this->Permission('Addons.Addon.Add');
-        $this->AddJsFile('/js/library/jquery.autogrow.js');
-        $this->AddJsFile('forms.js');
         $this->AddModule('AddonHelpModule', 'Panel');
 
         $this->Form->SetModel($this->AddonModel);
@@ -193,8 +191,6 @@ class AddonController extends AddonsController {
      */
     public function AddV1() {
         $this->Permission('Addons.Addon.Add');
-        $this->AddJsFile('/js/library/jquery.autogrow.js');
-        $this->AddJsFile('forms.js');
 
         $this->Form->SetModel($this->AddonModel);
         $AddonTypeModel = new Gdn_Model('AddonType');
@@ -316,9 +312,6 @@ class AddonController extends AddonsController {
     public function Edit($AddonID = '') {
         $this->Permission('Addons.Addon.Add');
 
-        $this->AddJsFile('/js/library/jquery.autogrow.js');
-        $this->AddJsFile('forms.js');
-
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
         if (!$Addon)
@@ -347,9 +340,6 @@ class AddonController extends AddonsController {
 
     public function EditV1($AddonID = '') {
         // $this->Permission('Addons.Addon.Manage');
-
-        $this->AddJsFile('/js/library/jquery.autogrow.js');
-        $this->AddJsFile('forms.js');
 
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
