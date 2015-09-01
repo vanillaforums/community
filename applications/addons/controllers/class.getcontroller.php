@@ -16,7 +16,7 @@ class GetController extends AddonsController {
     public $Uses = array('Form', 'Database', 'AddonModel');
 
     public function Index($ID = '', $ServeFile = '0') {
-        $this->AddJsFile('js/library/jquery.js');
+        $this->AddJsFile('jquery.js');
 
         // Define the item being downloaded
         if (strtolower($ID) == 'vanilla')
