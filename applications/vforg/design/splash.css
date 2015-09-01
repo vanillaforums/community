@@ -1,4 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
 *, *:before, *:after {
      -webkit-box-sizing: border-box;
@@ -12,7 +13,56 @@ html, body {
 }
 
 body {
-     font-family: "Open Sans", "Lucida Grande", arial;
+     font-family: "Lato", "Lucida Grande", arial;
+}
+
+a {
+     color: #fff;
+     text-decoration: none;
+     -webkit-transition: color 200ms;
+     -moz-transition: color 200ms;
+     -ms-transition: color 200ms;
+     -o-transition: color 200ms;
+     transition: color 200ms;
+}
+
+a:hover {
+     color: #f52C6e;
+}
+
+h1 {
+     margin: 20px;
+}
+
+h2 {
+     margin: 20px 0;
+}
+
+h1,
+h2 {
+     text-align: center;
+}
+
+ul, ol {
+     padding: 0;
+     margin: 0;
+     list-style: none;
+}
+
+i.fa-check {
+     color: #0291db;
+}
+
+.SmallText12 {
+     font-size: 12px;
+}
+
+.SmallText14 {
+     font-size: 14px;
+}
+
+.SpanMarginRight {
+     margin-right: 36px;
 }
 
 .Row {
@@ -43,49 +93,22 @@ body {
      padding: 0 20px;
 }
 
-a {
-     color: #012f6e;
-     text-decoration: none;
-}
-
-a:hover {
-     text-decoration: underline;
-}
-
-h1 {
-     margin: 40px 0 30px;
-}
-
-h2 {
-     margin: 20px 0;
-     font-size: 20px;
-}
-
-h1,
-h2 {
-     text-align: center;
-}
-
-ul, ol {
-     padding: 0;
-     margin: 0;
-     list-style: none;
+.Head {
+     background-color: #000;
 }
 
 .Head .Row {
-     position: relative;
-     padding: 20px 0 15px;
-     border-bottom: 1px solid #ddd;
+     padding: 15px 0;
 }
 
 .Head .Home {
      display: block;
      float: left;
-     height: 69px;
+     height: 73px;
      width: 170px;
      margin-left: 20px;
      overflow: hidden;
-     background: url("images/logo-vanilla.png") center center no-repeat;
+     background: url("images/logo-vanilla-white.png") center center no-repeat;
      color: transparent;
      font-size: 1px;
      text-indent: -1000px;
@@ -93,7 +116,17 @@ ul, ol {
 }
 
 .Head .Menu {
-     margin-top: 34px;
+     padding: 25px 90px 20px 0;
+}
+
+.BlueRow {
+     height: 70px;
+     background-color: #0291db;
+}
+
+.IconWrapper {
+    width: 100%;
+    text-align: center;
 }
 
 .OpenSource {
@@ -112,21 +145,58 @@ ul, ol {
 }
 
 .Menu a {
-     margin-right: 20px;
+     margin-right: 25px;
      font-weight: bold;
-     font-size: 14px;
+     font-size: 16px;
 }
 
 .Menu a:last-child {
      margin-right: 0;
 }
 
-.Menu .Button {
+.Button.Pink.Trial {
+     float: right;
      font-weight: 400;
+     margin-top: 2px;
+}
+
+.ContentRow .HeroRow {
+     text-align: center;
+     margin-bottom: 15px;
+}
+
+.HeroImg img {
+     width: 782px;
+     height: 440px;
+}
+
+.BusinessFeatures,
+.OpenSourceFeatures {
+     padding: 10px;
+     background-color: #fff;
+}
+
+.BusinessFeatures .Features,
+.OpenSourceFeatures .Features {
+     padding-left: 0;
+}
+
+.BusinessColumn .Features {
+     padding-top: 10px;
+}
+
+.OpenSourceColumn .Features {
+     padding-top: 10px;
+     padding-bottom: 59px;
+     margin-bottom: 2px;
+}
+
+.OpenSourceColumn .BigButton {
+     padding-top: 18px;
 }
 
 .Features {
-     padding: 0 15px;
+     padding: 0 10px;
 }
 
 .Features:before,
@@ -140,25 +210,188 @@ ul, ol {
 }
 
 .Features li {
-     float: left;
-     width: 50%;
      line-height: 2;
 }
 
-.Features li:nth-child(2n+1) {
-     clear: left;
+.Input {
+     padding-left: 10px;
+}
+
+.SignUpBox {
+     background-color: #f2f2f2;
+     padding-top: 20px;
+     padding-bottom: 8px;
+}
+
+.hs-form.stacked .actions {
+     padding: 0 !important;
+     margin: 0 !important;
+}
+
+.hs-form.stacked .field {
+     margin-bottom: 15px !important;
+}
+
+.hs-form {
+     margin-bottom: 15px !important;
+}
+
+.SignUpBoxBusiness {
+     background-color: #f2f2f2;
+     padding: 20px 8px 5px;
+}
+
+#DivBusinessButtonTextTop {
+     position: relative;
+     top: 129px;
+     left: 30px;
+     z-index: 100;
+     width: 200px;
+     margin-top: -44px;
+     color: #fff;
+     cursor: pointer;
+     font-size: 18px;
+}
+
+.SignUpBoxBusiness label{
+     display: none !important;
+}
+
+.SignUpBoxOpenSource label{
+     display: none !important;
+}
+
+.SignUpBoxBusiness .hs-input {
+     width: 96% !important;
+     height: 30px !important;
+     padding-left: 10px;
+     text-align: center;
+     font-size: 18px;
+     color: #000;
+     border-radius: 0;
+}
+
+.SignUpBoxBusiness input[type="submit"] {
+     display: inline-block;
+     width: 90%;
+     height: 62px;
+     padding: 0 20px;
+     font-size: 16px;
+     font-weight: 400;
+     color: #fff;
+     text-align: center;
+     text-shadow: 0 -1px rgba(0,0,0,.5);
+     border-radius: 0;
+     background: #0396dc;
+     box-shadow: none !important;
+     border: none !important;
+     -webkit-transition: background-color 200ms;
+     -moz-transition: background-color 200ms;
+     -ms-transition: background-color 200ms;
+     -o-transition: background-color 200ms;
+     transition: background-color 200ms;
+}
+
+.SignUpBoxBusiness input[type="submit"]:hover {
+     background: #0387c4;
+     text-shadow: 0 0 2px #037cb5;
+}
+
+.SignUpBoxOpenSource {
+     background-color: #f2f2f2;
+     padding: 20px 8px 5px;
+}
+
+#DivOpenSourceButtonTextTop {
+     position: relative;
+     top: 115px;
+     left: 20px;
+     width: 280px;
+     z-index: 100;
+     margin-top: -46px;
+     color: #fff;
+     text-align: center;
+     font-size: 18px;
+}
+
+.SignUpBoxOpenSource .hs-input {
+     width: 96% !important;
+     height: 30px !important;
+     padding-left: 10px;
+     text-align: center;
+     font-size: 18px;
+     color: #000;
+     border-radius: 0;
+}
+
+.SignUpBoxOpenSource input[type="submit"] {
+     display: inline-block;
+     width: 90%;
+     height: 62px;
+     padding: 0 20px;
+     font-size: 16px;
+     font-weight: 400;
+     color: #fff;
+     text-align: center;
+     text-shadow: 0 -1px rgba(0,0,0,.5);
+     border-radius: 0;
+     background: #b4b4b4;
+     box-shadow: none !important;
+     border: none !important;
+     -webkit-transition: background-color 200ms;
+     -moz-transition: background-color 200ms;
+     -ms-transition: background-color 200ms;
+     -o-transition: background-color 200ms;
+     transition: background-color 200ms;
+}
+
+.SignUpBoxOpenSource input[type="submit"]:hover {
+     background: #949494;
+     text-shadow: 0 0 2px #7d7d7d;
+}
+
+.TopRocket,
+.BottomRocket {
+     position: relative;
+     top: 140px;
+     right: 30px;
+     margin-top: -75px;
+     z-index: 1000;
+     float: right;
+     cursor: pointer;
+     color: #f52C6e;
+}
+
+.TopOSSDownload,
+.BottomOSSDownload {
+     position: relative;
+     top: 145px;
+     right: 30px;
+     margin-top: -60px;
+     z-index: 1000;
+     float: right;
+     cursor: pointer;
+     color: #fff;
+}
+
+.BusinessInput,
+.OpenSourceInput {
+     width: 98%;
+     height: 40px;
+     text-align: center;
+     font-size: 18px;
+     color: #000;
+     border: 1px solid #000;
 }
 
 .Info {
-     min-height: 72px;
      margin: 15px 0;
-     padding: 20px;
-     background: #FAFAFA;
-     border-radius: 2px;
-     border: 1px solid #EFEFEF;
+     padding: 0 10px;
      color: #555;
      font-size: 14px;
-     line-height: 24px;
+     line-height: 1;
+     text-align: center;
+     vertical-align: middle;
 }
 
 .Info h3 {
@@ -197,6 +430,57 @@ ul, ol {
 .About strong {
      font-weight: bold;
      color: #a00;
+}
+
+.BottomRow {
+}
+
+#DivBusinessButtonTextBottom {
+     position: relative;
+     top: 129px;
+     left: 30px;
+     width: 200px;
+     z-index: 100;
+     margin-top: -42px;
+     color: #fff;
+     font-size: 18px;
+}
+
+#DivOpenSourceButtonTextBottom {
+     position: relative;
+     top: 115px;
+     left: 20px;
+     width: 280px;
+     z-index: 100;
+     margin-top: -43px;
+     color: #fff;
+     text-align: center;
+     font-size: 18px;
+}
+
+.OpenSourceFeaturesWrapper {
+     padding-bottom: 198px;
+     padding-top: 4px;
+}
+
+.OpenSourceColumn .BigButton {
+     padding-top: 18px;
+}
+
+.BottomBusinessColumn .BigButton {
+    padding-top: 20px;
+}
+
+.BottomOpenSourceColumn .BigButton {
+    padding-top: 20px;
+}
+
+.BottomOpenSourceColumn .SignUpBoxOpenSource {
+     padding-bottom: 25px;
+}
+
+.SignUpBox .Text{
+     padding: 0 10px;
 }
 
 .Foot {
@@ -241,160 +525,116 @@ ul, ol {
      color: #fff;
      text-align: center;
      text-shadow: 0 -1px rgba(0,0,0,.5);
-     border-radius: 3px;
-     -webkit-transition: background-color 400ms;
-         -moz-transition: background-color 400ms;
-          -ms-transition: background-color 400ms;
-            -o-transition: background-color 400ms;
-                transition: background-color 400ms;
+     border-radius: 0;
+     -webkit-transition: background-color 200ms;
+         -moz-transition: background-color 200ms;
+          -ms-transition: background-color 200ms;
+            -o-transition: background-color 200ms;
+                transition: background-color 200ms;
+}
+
+.BigButton {
+     display: inline-block;
+     width: 100%;
+     height: 64px;
+     padding: 8px 20px;
+     font-size: 16px;
+     font-weight: 400;
+     line-height: 1.5;
+     color: #fff;
+     text-align: center;
+     text-shadow: 0 -1px rgba(0,0,0,.5);
+     border-radius: 0;
+     vertical-align: middle;
+     -webkit-transition: background-color 200ms;
+     -moz-transition: background-color 200ms;
+     -ms-transition: background-color 200ms;
+     -o-transition: background-color 200ms;
+     transition: background-color 200ms;
+}
+
+a.Button:hover,
+a.BigButton:hover {
+     color: #fff;
 }
 
 .Button,
 .Button:hover { text-decoration: none; }
 
-.Button.Green {
+.Button.Trial {
+     height: 70px;
+     padding-top: 10px;
+     font-size: 16px;
+     line-height: 1.5;
+}
+
+.Button.Blue,
+.BigButton.Blue {
+     background: #0396dc;
+}
+
+.Button.Blue:hover,
+.BigButton.Blue:hover {
+     background: #0387c4;
+     text-shadow: 0 0 2px #037cb5;
+}
+
+.Button.Green,
+.BigButton.Green {
      background: #3aa400;
 }
 
-.Button.Green:hover {
+.Button.Green:hover,
+.BigButton.Green:hover {
      background: #4cbc01;
      text-shadow: 0 0 2px #174901;
 }
 
-.Button.Green:focus {
+.Button.Green:focus,
+.BigButton.Green:focus {
      background: #1f6600;
      border-color: #0a2100;
 }
 
-.Button.Purple {
+.Button.Purple,
+.BigButton.Purple {
      background: #b32c70;
 }
 
-.Button.Purple:hover {
+.Button.Purple:hover,
+.BigButton.Purple:hover {
      background: #d43f8b;
      text-shadow: 0 0 2px #53042c;
 }
 
-.Button.Purple:focus {
+.Button.Purple:focus,
+.BigButton.Purple:focus {
      background: #8b114f;
 }
 
-/**
- * Slider
- */
-
-#Slider > ul, #Slider > ul > li {
-     margin: 0;
-     padding: 0;
-     list-style: none;
+.Button.Pink,
+.BigButton.Pink {
+     background: #f52C6e;
 }
 
-#Slider > li {
-     width: 480px;
-     height: 310px;
-     overflow: hidden;
+.Button.Pink:hover,
+.BigButton.Pink:hover {
+     background: #f40b59;
+     text-shadow: 0 0 2px #ea0b55;
 }
 
-.Splash {
-     overflow: hidden;
-     position: relative;
-     text-align: center;
-     width: 960px;
-     height: 507px;
+.Button.Pink:focus,
+.BigButton.Pink:focus {
+     background: #f64681;
 }
 
-.SplashNav {
-     position: relative;
-     margin-bottom: 25px;
+.Button.Grey,
+.BigButton.Grey {
+     background: #929292;
 }
 
-.SplashDots {
-     text-align: center;
-     position: relative;
-     margin: 10px auto;
-     left: 0;
-     z-index: 150;
-}
-
-.SplashDots a {
-     z-index: 200;
-     display: inline-block;
-     width: 12px;
-     height: 12px;
-     margin: 0 4px;
-     overflow: hidden;
-     background-color: #d2d2d2;
-     border: 1px solid #aaa;
-     border-radius: 8px;
-}
-
-.SplashDots a:hover {
-     background: #91DEFD;
-     border: 1px solid #279eda;
-     border-radius: 8px;
-}
-
-.SplashDots a.Current {
-     background-color: #53c0f2;
-     border: 1px solid #279eda;
-}
-
-.SplashArrow {
-     position: absolute;
-     padding: 0;
-     width: 40%;
-     display: block;
-     z-index: 50;
-     cursor: pointer;
-     top: -517px;
-     height: 507px;
-}
-
-.SplashLeft {
-     left: 0;
-}
-
-.SplashRight {
-     text-align: right;
-     right: 0;
-}
-
-.SplashArrow a {
-     position: relative;
-     top: 50%;
-     z-index: 300;
-     display: none;
-     height: 38px;
-     width: 38px;
-     margin: -19px 20px 0;
-     line-height: 1;
-     background: url("images/nav-arrows.png") 0 -38px no-repeat transparent;
-}
-
-.SplashLeft:hover a,
-.SplashLeft:active a,
-.SplashRight:hover a,
-.SplashRight:active a {
-     display: inline-block !important;
-}
-
-.SplashLeft a:hover {
-     background-position: 0 0;
-}
-
-.SplashRight a {
-     background-position: -38px -38px;
-}
-
-.SplashRight a:hover {
-     background-position: -38px 0;
-}
-
-.SpCheck {
-     display: inline-block;
-     width: 30px;
-     height: 30px;
-     margin-right: 6px;
-     vertical-align: middle;
-     background: url("../../dashboard/design/images/check.png") 0 0 no-repeat transparent;
+.Button.Grey:hover,
+.BigButton.Grey:hover {
+     background: #828282;
+     text-shadow: 0 0 2px #7d7d7d;
 }
