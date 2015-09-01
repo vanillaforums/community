@@ -18,7 +18,7 @@
                <a href="https://vanillaforums.com" class="Hosting" title="{t c="Use Vanilla Forums in the Cloud"}">{t c="Vanilla Cloud"}<span>{t c="Start Using Vanilla today"}</span></a>
             </div>
          </div>
-      </div>a
+      </div>
       <div id="Body">
          <div class="BreadcrumbsWrapper">
             <div class="Row">
