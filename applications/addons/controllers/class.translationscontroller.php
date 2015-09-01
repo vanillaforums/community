@@ -18,10 +18,10 @@ class TranslationsController extends AddonsController {
     public function Initialize() {
         parent::Initialize();
         $this->AddJsFile('jquery.js');
-        $this->AddJsFile('jquery.livequery.js');
         $this->AddJsFile('jquery.form.js');
         $this->AddJsFile('jquery.popup.js');
         $this->AddJsFile('jquery.gardenhandleajaxform.js');
+        $this->addJsFile('jquery.autosize.min.js');
         $this->AddJsFile('global.js');
     }
 
@@ -82,8 +82,6 @@ class TranslationsController extends AddonsController {
     public function View($UserLanguageID = '') {
         $Session = Gdn::Session();
         $this->Permission('Addons.Translations.Add');
-        $this->AddJsFile('/js/library/jquery.autogrow.js');
-        $this->AddJsFile('forms.js');
 
         $UserLanguageModel = new UserLanguageModel();
         $this->UserLanguage = $UserLanguageModel->GetID($UserLanguageID);

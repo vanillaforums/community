@@ -985,7 +985,6 @@ class ImportController extends VFOrgController {
     public function Initialize() {
         $this->Head = new HeadModule($this);
         $this->AddJsFile('jquery.js');
-        $this->AddJsFile('jquery.livequery.js');
         $this->AddJsFile('jquery.form.js');
         $this->AddJsFile('jquery.popup.js');
         $this->AddJsFile('jquery.gardenhandleajaxform.js');

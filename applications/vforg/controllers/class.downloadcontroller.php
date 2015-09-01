@@ -21,7 +21,6 @@ class DownloadController extends VFOrgController {
     public function Index() {
         include(CombinePaths(array(PATH_LIBRARY, 'vendors/recaptcha', 'functions.recaptchalib.php')));
         $this->AddJsFile('jquery.js');
-        $this->AddJsFile('jquery.livequery.js');
         $this->AddJsFile('global.js');
         $this->AddJsFile('download.js');
 
