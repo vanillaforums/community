@@ -56,7 +56,8 @@ class HomeController extends VFOrgController {
         }
 
         $this->ClearCssFiles();
-        $this->AddCssFile('splash.css');
+        //$this->AddCssFile('splash.css');
+        $this->AddCssFile('vforg-home.css');
         $this->MasterView = 'empty';
         $this->Render();
         die();
