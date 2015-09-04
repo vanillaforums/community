@@ -51,6 +51,7 @@ ul, ol {
 
 i.fa-check {
      color: #0291db;
+     font-size: 1.5em;
 }
 
 .SmallText12 {
@@ -62,7 +63,7 @@ i.fa-check {
 }
 
 .SpanMarginRight {
-     margin-right: 36px;
+     margin-right: 27px;
 }
 
 .Row {
@@ -125,8 +126,8 @@ i.fa-check {
 }
 
 .IconWrapper {
-    width: 100%;
-    text-align: center;
+     width: 100%;
+     text-align: center;
 }
 
 .OpenSource {
@@ -176,6 +177,10 @@ i.fa-check {
      background-color: #fff;
 }
 
+.BusinessFeatures {
+     margin-bottom: 10px;
+}
+
 .BusinessFeatures .Features,
 .OpenSourceFeatures .Features {
      padding-left: 0;
@@ -210,7 +215,7 @@ i.fa-check {
 }
 
 .Features li {
-     line-height: 2;
+     line-height: 1.5;
 }
 
 .Input {
@@ -435,6 +440,11 @@ i.fa-check {
 .BottomRow {
 }
 
+
+.BusinessFeaturesWrapper {
+     margin-bottom: 30px;
+}
+
 #DivBusinessButtonTextBottom {
      position: relative;
      top: 129px;
@@ -459,7 +469,7 @@ i.fa-check {
 }
 
 .OpenSourceFeaturesWrapper {
-     padding-bottom: 198px;
+     padding-bottom: 180px;
      padding-top: 4px;
 }
 
@@ -468,11 +478,11 @@ i.fa-check {
 }
 
 .BottomBusinessColumn .BigButton {
-    padding-top: 20px;
+     padding-top: 20px;
 }
 
 .BottomOpenSourceColumn .BigButton {
-    padding-top: 20px;
+     padding-top: 20px;
 }
 
 .BottomOpenSourceColumn .SignUpBoxOpenSource {
@@ -527,10 +537,10 @@ i.fa-check {
      text-shadow: 0 -1px rgba(0,0,0,.5);
      border-radius: 0;
      -webkit-transition: background-color 200ms;
-         -moz-transition: background-color 200ms;
-          -ms-transition: background-color 200ms;
-            -o-transition: background-color 200ms;
-                transition: background-color 200ms;
+     -moz-transition: background-color 200ms;
+     -ms-transition: background-color 200ms;
+     -o-transition: background-color 200ms;
+     transition: background-color 200ms;
 }
 
 .BigButton {
