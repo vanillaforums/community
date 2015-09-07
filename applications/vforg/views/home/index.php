@@ -187,7 +187,7 @@ function Alt($Alt) {
                 </script>
 
                 <div class="Text">
-                    Vanilla provides cloud and open source community forum software that powers discussion forums on 823,234 sites.
+                    Vanilla provides cloud and open source community forum software that powers discussion forums worldwide with over 832,276 downloads.
                     Built for flexibility and integration, <strong>Vanilla is the best, most powerful community solution in the world.</strong>
                 </div>
             </div>
