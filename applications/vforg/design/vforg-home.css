@@ -216,11 +216,6 @@ i.fa-check {
 
 .Features li {
      line-height: 1.5;
-     margin-top: 10px;
-}
-
-.Features li:last-child {
-    margin-bottom: 10px;
 }
 
 .Input {
