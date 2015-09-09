@@ -193,7 +193,7 @@ i.fa-check {
 .OpenSourceColumn .Features {
      padding-top: 10px;
      padding-bottom: 59px;
-     margin-bottom: 2px;
+     margin-bottom: 11px;
 }
 
 .OpenSourceColumn .BigButton {
@@ -216,6 +216,7 @@ i.fa-check {
 
 .Features li {
      line-height: 1.5;
+     margin-top: 10px;
 }
 
 .Input {
@@ -471,6 +472,7 @@ i.fa-check {
 .OpenSourceFeaturesWrapper {
      padding-bottom: 180px;
      padding-top: 4px;
+     margin-bottom: 40px;
 }
 
 .OpenSourceColumn .BigButton {
