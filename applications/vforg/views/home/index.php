@@ -15,7 +15,7 @@ function Alt($Alt) {
     <div class="Row">
         <?php
         echo Anchor(T("Vanilla Forums: Community Forums Evolved"), '/', array('class' => 'Home'));
-        echo Anchor(T('Vanilla for Business <br /> <span class="SmallText14">Free Trial</span>'), 'https://accounts.vanillaforums.com/signup/advanced', array('class' => 'Button Pink Trial', 'title' => T("Use Vanilla Forums in the Cloud")));
+        echo Anchor(T('Vanilla for Business <br /> <span class="SmallText14">Free Trial</span>'), 'https://accounts.vanillaforums.com/signup/starter', array('class' => 'Button Pink Trial', 'title' => T("Use Vanilla Forums in the Cloud")));
         echo '<div class="Menu">';
             echo Anchor(T("Pricing"), 'https://vanillaforums.com/plans', array('title' => T("Pricing for Vanilla")));
             echo Anchor(T("Addons"), 'addons', array('title' => T("Themes, plugins and applications for Vanilla")));
