@@ -17,7 +17,7 @@ if (!function_exists('Trace')) {
  * MessagesController handles displaying lists of conversations and conversation messages.
  */
 class AddonController extends AddonsController {
-    public $Uses = array('Form', 'AddonModel', 'AddonCommentModel');
+    public $Uses = array('Form', 'AddonModel', 'AddonCommentModel', 'ConfidenceModel');
     public $Filter = 'all';
     public $Sort = 'recent';
     public $Version = '0'; // The version of Vanilla to filter to (0 is no filter)
@@ -78,6 +78,8 @@ class AddonController extends AddonsController {
 
                 // Set the canonical url.
                 $this->CanonicalUrl(Url('/addon/'.AddonModel::Slug($Addon, FALSE), TRUE));
+
+                $this->handleConfidenceVote($Addon);
             }
         } else {
             $this->View = 'browse';
@@ -99,6 +101,70 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    private function handleConfidenceVote($addon) {
+        $session = Gdn::Session();
+        if(!$session->IsValid()) {
+            return;
+        }
+        
+        $this->Form->SetModel($this->ConfidenceModel);
+         
+        $this->Form->AddHidden('AddonVersionID', $addon['CurrentAddonVersionID']);
+        $this->Form->AddHidden('UserID', $session->UserID);
+        $this->Form->AddHidden('CoreVersionID', $this->ConfidenceModel->getCoreVersion()->AddonVersionID);            
+
+        
+        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['CurrentAddonVersionID']);
+        if($existingConfidenceRecord) {
+            $this->Form->AddHidden('ConfidenceID', $existingConfidenceRecord->ConfidenceID);
+            $this->Form->SetData($existingConfidenceRecord);
+        }
+        
+        if ($this->Form->IsPostBack()) {
+            $this->Form->Save();
+        }
+    }
+    
+    public function works($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 1);
+    }
+    
+    public function broken($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 0);
+    }
+    
+    private function updateVote($addonVersionID, $coreVersionID, $weight) {
+        $session = Gdn::Session();
+        if(!$session->isValid()) {
+            throw permissionException('@You need to be logged in to vote.');
+        }
+                
+        $addon = $this->AddonModel->getVersion($addonVersionID);
+        if(!$addon) {
+            throw notFoundException('Addon');
+        }
+        
+        $currentVote = $this->ConfidenceModel->getConfidenceVote($session->UserID, $addon['AddonVersionID'], $coreVersionID);
+        if($currentVote === false) {
+            $this->ConfidenceModel->insert([
+                'AddonVersionID' => $addon['AddonVersionID'],
+                'UserID' => $session->UserID,
+                'Weight' => $weight]);
+        }
+        else {
+            if($currentVote->Weight != $weight) {
+                $this->ConfidenceModel->update(['Weight' => $weight], [
+                    'ConfidenceID' => $currentVote->ConfidenceID,
+                    'AddonVersionID' => $currentVote->AddonVersionID,
+                    'CoreVersionID' => $currentVote->CoreVersionID,
+                    'UserID' => $currentVote->UserID
+                ]);
+            }
+        }
+        
+        $this->renderData(['success' => true, 'weight' => $weight]);
+    }
+    
     public function Add() {
         $this->Permission('Addons.Addon.Add');
         $this->AddModule('AddonHelpModule', 'Panel');
