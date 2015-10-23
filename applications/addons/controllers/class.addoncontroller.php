@@ -475,6 +475,11 @@ class AddonController extends AddonsController {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
 
+        $transientKey = Gdn::request()->get('TransientKey', false);
+        if (!$Session->isValid() || !$Session->validateTransientKey($transientKey)) {
+            throw new Gdn_UserException('The CSRF token is invalid.', 403);
+        }
+
         if ($AddonVersionID) {
             $AddonID = $this->AddonModel->SQL->GetWhere('AddonVersion', array('AddonVersionID' => $AddonVersionID))->Value('AddonID');
             $Addon = $this->Addon = $this->AddonModel->GetID($AddonID);
@@ -606,8 +611,14 @@ class AddonController extends AddonsController {
     public function Delete($AddonID = '') {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
-        if (!$Session->IsValid())
+        if (!$Session->IsValid()) {
             $this->Form->AddError('You must be authenticated in order to use this form.');
+        } else {
+            $transientKey = Gdn::request()->get('TransientKey', false);
+            if (!$Session->validateTransientKey($transientKey)) {
+                throw new Gdn_UserException('The CSRF token is invalid.', 403);
+            }
+        }
 
         $Addon = $this->AddonModel->GetID($AddonID);
         if (!$Addon)

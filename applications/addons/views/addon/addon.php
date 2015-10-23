@@ -37,9 +37,9 @@ if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
         if ($Session->CheckPermission('Addons.Addon.Manage'))
             echo '|'.Anchor('Check', '/addon/check/'.$AddonID);
         if ($Session->CheckPermission('Addons.Addon.Manage'))
-            echo '|'.Anchor($this->Data('DateReviewed') == '' ? 'Approve Version' : 'Unapprove Version', '/addon/approve?addonversionid='.$AddonVersionID, 'ApproveAddon');
+            echo '|'.Anchor($this->Data('DateReviewed') == '' ? 'Approve Version' : 'Unapprove Version', '/addon/approve?TransientKey='.urlencode(Gdn::session()->transientKey()).'&addonversionid='.$AddonVersionID, 'ApproveAddon');
         if ($Session->CheckPermission('Addons.Addon.Manage'))
-            echo '|'.Anchor('Delete Addon', '/addon/delete/'.$AddonID.'?Target=/addon', 'DeleteAddon');
+            echo '|'.Anchor('Delete Addon', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon');
 
         $this->FireEvent('AddonOptions');
 
