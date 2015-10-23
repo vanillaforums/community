@@ -475,6 +475,11 @@ class AddonController extends AddonsController {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
 
+        $transientKey = Gdn::request()->get('TransientKey', false);
+        if (!$Session->isValid() || !$Session->validateTransientKey($transientKey)) {
+            throw new Gdn_UserException('The CSRF token is invalid.', 403);
+        }
+
         if ($AddonVersionID) {
             $AddonID = $this->AddonModel->SQL->GetWhere('AddonVersion', array('AddonVersionID' => $AddonVersionID))->Value('AddonID');
             $Addon = $this->Addon = $this->AddonModel->GetID($AddonID);
@@ -606,8 +611,14 @@ class AddonController extends AddonsController {
     public function Delete($AddonID = '') {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
-        if (!$Session->IsValid())
+        if (!$Session->IsValid()) {
             $this->Form->AddError('You must be authenticated in order to use this form.');
+        } else {
+            $transientKey = Gdn::request()->get('TransientKey', false);
+            if (!$Session->validateTransientKey($transientKey)) {
+                throw new Gdn_UserException('The CSRF token is invalid.', 403);
+            }
+        }
 
         $Addon = $this->AddonModel->GetID($AddonID);
         if (!$Addon)
@@ -671,20 +682,6 @@ class AddonController extends AddonsController {
 
         if ($Render)
             $this->Render();
-    }
-
-    public function DeleteComment($CommentID = '') {
-        $this->Permission('Addons.Comments.Manage');
-        $Session = Gdn::Session();
-        if (is_numeric($CommentID))
-            $this->AddonCommentModel->Delete($CommentID);
-
-        if ($this->_DeliveryType === DELIVERY_TYPE_ALL) {
-            Redirect(Url(GetIncomingValue('Return', ''), TRUE));
-        }
-
-        $this->View = 'notfound';
-        $this->Render();
     }
 
     public function Browse($FilterToType = '', $Sort = '', $VanillaVersion = '', $Page = '') {
