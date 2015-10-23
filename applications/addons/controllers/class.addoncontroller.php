@@ -684,20 +684,6 @@ class AddonController extends AddonsController {
             $this->Render();
     }
 
-    public function DeleteComment($CommentID = '') {
-        $this->Permission('Addons.Comments.Manage');
-        $Session = Gdn::Session();
-        if (is_numeric($CommentID))
-            $this->AddonCommentModel->Delete($CommentID);
-
-        if ($this->_DeliveryType === DELIVERY_TYPE_ALL) {
-            Redirect(Url(GetIncomingValue('Return', ''), TRUE));
-        }
-
-        $this->View = 'notfound';
-        $this->Render();
-    }
-
     public function Browse($FilterToType = '', $Sort = '', $VanillaVersion = '', $Page = '') {
         $Checked = GetIncomingValue('checked', FALSE);
 
