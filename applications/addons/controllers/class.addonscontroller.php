@@ -28,4 +28,11 @@ class AddonsController extends Gdn_Controller {
 
         $this->CountCommentsPerPage = C('Vanilla.Comments.PerPage', 30);
     }
+
+    /**
+     * Alias /addons to /addon.
+     */
+    public function index() {
+        Gdn::dispatcher()->dispatch('/addon');
+    }
 }
