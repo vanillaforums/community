@@ -13,12 +13,6 @@
  */
 class AddonsHooks implements Gdn_IPlugin {
 
-    /** @var string  */
-    private $_EnabledApplication = 'Vanilla';
-
-    /** @var bool  */
-    private $_Translations = false;
-
     /**
      * Hook for discussion prefixes in /discussions.
      */
@@ -169,64 +163,6 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
-     * Make sure that all translations are in the GDN_Translation table for the "source" language.
-     *
-     * @param $Sender
-     */
-    public function Gdn_Locale_BeforeTranslate_Handler($Sender) {
-        $Code = ArrayValue('Code', $Sender->EventArguments, '');
-        if ($Code != '' && !in_array($Code, $this->GetTranslations())) {
-            $Session = Gdn::Session();
-            // If the code wasn't in the source list, insert it
-            $Database = Gdn::Database();
-            $Database->SQL()->Replace('Translation', array(
-                'Value' => $Code,
-                'UserLanguageID' => 1,
-                'Application' => $this->_EnabledApplication(),
-                'InsertUserID' => $Session->UserID,
-                'DateInserted' => Gdn_Format::ToDateTime(),
-                'UpdateUserID' => $Session->UserID,
-                'DateUpdated' => Gdn_Format::ToDateTime()
-                ), array('Value' => $Code));
-        }
-    }
-
-    /**
-     *
-     *
-     * @param $Sender
-     */
-    public function Gdn_Dispatcher_AfterEnabledApplication_Handler($Sender) {
-        $this->_EnabledApplication = ArrayValue('EnabledApplication', $Sender->EventArguments, 'Vanilla'); // Defaults to "Vanilla"
-    }
-
-    /**
-     *
-     *
-     * @return mixed
-     */
-    private function _EnabledApplication() {
-        return $this->_EnabledApplication;
-    }
-
-    /**
-     *
-     *
-     * @return array
-     */
-    private function GetTranslations() {
-        if (!is_array($this->_Translations)) {
-            $TranslationModel = new Gdn_Model('Translation');
-            $Translations = $TranslationModel->GetWhere(array('UserLanguageID' => 1));
-            $this->_Translations = array();
-            foreach ($Translations as $Translation) {
-                $this->_Translations[] = $Translation->Value;
-            }
-        }
-        return $this->_Translations;
-    }
-
-    /**
      * @param $Sender
      */
     public function ProfileController_AfterPreferencesDefined_Handler($Sender) {
@@ -259,16 +195,12 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param object $Sender ProfileController.
      */
     public function ProfileController_Addons_Create($Sender) {
-        $UserReference = ArrayValue(0, $Sender->RequestArgs, '');
-        $Username = ArrayValue(1, $Sender->RequestArgs, '');
+        $UserReference = val(0, $Sender->RequestArgs, '');
+        $Username = val(1, $Sender->RequestArgs, '');
         // $Offset = ArrayValue(2, $Sender->RequestArgs, 0);
         // Tell the ProfileController what tab to load
         $Sender->GetUserInfo($UserReference, $Username);
         $Sender->SetTabView('Addons', 'Profile', 'Addon', 'Addons');
-
-        // Load the data for the requested tab.
-        // if (!is_numeric($Offset) || $Offset < 0)
-        //    $Offset = 0;
 
         $Offset = 0;
         $Limit = 100;

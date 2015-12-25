@@ -1,6 +1,4 @@
-<?php if (!defined('APPLICATION')) {
-    exit();
-}
+<?php if (!defined('APPLICATION')) { exit(); }
 /**
  *
  *
@@ -64,17 +62,6 @@ $Construct->PrimaryKey('AddonID')
 if (!$Description2Exists) {
     $Construct->Query("update {$Px}Addon set Description2 = Description where Checked = 0");
 }
-
-/*
-$Construct->Table('AddonComment')
-    ->PrimaryKey('AddonCommentID')
-    ->Column('AddonID', 'int', FALSE, 'key')
-    ->Column('InsertUserID', 'int', FALSE, 'key')
-    ->Column('Body', 'text')
-    ->Column('Format', 'varchar(20)', TRUE)
-    ->Column('DateInserted', 'datetime')
-    ->Set($Explicit, $Drop);
-*/
 
 $Construct->Table('AddonVersion')
     ->PrimaryKey('AddonVersionID')
@@ -171,64 +158,6 @@ if (isset($$PermissionTableExists) && $PermissionTableExists) {
 $ActivityModel = new ActivityModel();
 $ActivityModel->DefineType('Addon');
 
-// Contains list of available languages for translating
-$Construct->Table('Language')
-    ->PrimaryKey('LanguageID')
-    ->Column('Name', 'varchar(255)')
-    ->Column('Code', 'varchar(10)')
-    ->Column('InsertUserID', 'int', false, 'key')
-    ->Column('DateInserted', 'datetime')
-    ->Column('UpdateUserID', 'int', true)
-    ->Column('DateUpdated', 'datetime', true)
-    ->Set($Explicit, $Drop);
-
-// Contains relationships of who owns translations and who can edit translations (owner decides who can edit)
-$Construct->Table('UserLanguage')
-    ->PrimaryKey('UserLanguageID')
-    ->Column('UserID', 'int', false, 'key')
-    ->Column('LanguageID', 'int', false, 'key')
-    ->Column('Owner', 'tinyint(1)', '0')
-    ->Column('CountTranslations', 'int', '0') // The number of translations this UserLanguage contains
-    ->Column('CountDownloads', 'int', '0')
-    ->Column('CountLikes', 'int', '0')
-    ->Set($Explicit, $Drop);
-
-// Contains individual translations as well as source codes
-$Construct->Table('Translation')
-    ->PrimaryKey('TranslationID')
-    ->Column('UserLanguageID', 'int', false, 'key')
-    ->Column('SourceTranslationID', 'int', true, 'key') // This is the related TranslationID where LanguageID = 1 (the source codes for translations)
-    ->Column('Application', 'varchar(100)', true)
-    ->Column('Value', 'text')
-    ->Column('InsertUserID', 'int', false, 'key')
-    ->Column('DateInserted', 'datetime')
-    ->Column('UpdateUserID', 'int', true)
-    ->Column('DateUpdated', 'datetime', true)
-    ->Set($Explicit, $Drop);
-
-// Contains records of when actions were performed on userlanguages (ie. it is
-// downloaded or "liked"). These values are aggregated in
-// UserLanguage.CountLikes and UserLanguage.CountDownloads for faster querying,
-// but saved here for reporting.
-$Construct->Table('UserLanguageAction')
-    ->PrimaryKey('UserLanguageActionID')
-    ->Column('UserLanguageID', 'int', false, 'key')
-    ->Column('Action', 'varchar(20)') // The action being performed (ie. "download" or "like")
-    ->Column('InsertUserID', 'int', true, 'key') // Allows nulls because you do not need to be authenticated to download a userlanguage
-    ->Column('DateInserted', 'datetime')
-    ->Set($Explicit, $Drop);
-
-// Make sure the default "source" translation exists
-if ($SQL->GetWhere('Language', array('LanguageID' => 1))->NumRows() == 0) {
-    $SQL->Insert('Language', array('Name' => 'Source Codes', 'Code' => 'SOURCE', 'InsertUserID' => 1, 'DateInserted' => '2009-10-19 12:00:00'));
-}
-
-// Mark (UserID 1) owns the source translation
-if ($SQL->GetWhere('UserLanguage', array('LanguageID' => 1, 'UserID' => 1))->NumRows() == 0) {
-    $SQL->Insert('UserLanguage', array('LanguageID' => 1, 'UserID' => 1, 'Owner' => '1'));
-}
-
-
 /*
     Apr 26th, 2010
     Changed all "enum" fields representing "bool" (0 or 1) to be tinyint.
@@ -248,45 +177,3 @@ if (!$Construct->CaptureOnly) {
 $Construct->Table('Discussion')
     ->Column('AddonID', 'int', null)
     ->Set();
-
-// Insert all of the existing comments into a new discussion for each addon
-$Construct->Table('AddonComment');
-$AddonCommentExists = $Construct->TableExists();
-$Construct->Reset();
-
-if ($AddonCommentExists) {
-    if ($SQL->Query('select AddonCommentID from GDN_AddonComment')->NumRows() > 0) {
-        // Create discussions for addons with comments
-        $SQL->Query("insert into GDN_Discussion
-        (AddonID, InsertUserID, UpdateUserID, LastCommentID, Name, Body, Format,
-        CountComments, DateInserted, DateUpdated, DateLastComment, LastCommentUserID)
-        select distinct a.AddonID, a.InsertUserID, a.UpdateuserID, 0, a.Name, a.Name,
-        ac.Format, a.CountComments, a.DateInserted, a.DateUpdated, a.DateUpdated, 0
-        from GDN_Addon a join GDN_AddonComment ac on a.AddonID = ac.AddonID");
-
-        // Copy the comments across to the comment table
-        $SQL->Query("insert into GDN_Comment
-        (DiscussionID, InsertUserID, Body, Format, DateInserted)
-        select d.DiscussionID, ac.InsertUserID, ac.Body, ac.Format, ac.DateInserted
-        from GDN_Discussion d join GDN_AddonComment ac on d.AddonID = ac.AddonID");
-
-        // Update the LastCommentID
-        $SQL->Query("update GDN_Discussion d
-            join (
-              select DiscussionID, max(CommentID) as LastCommentID
-              from GDN_Comment
-              group by DiscussionID
-            ) c
-              on d.DiscussionID = c.DiscussionID
-            set d.LastCommentID = c.LastCommentID");
-
-        // Update the LastCommentUserID
-        $SQL->Query("update GDN_Discussion d
-            join GDN_Comment c on d.LastCommentID = c.CommentID
-            set d.LastCommentUserID = c.InsertUserID");
-
-
-        // Delete the comments from the addon comments table
-        $SQL->Query('truncate table GDN_AddonComment');
-    }
-}
