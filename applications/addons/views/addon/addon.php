@@ -45,10 +45,6 @@ if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
 
         echo '</div>';
     }
-    if ($this->Data('DateReviewed') == '')
-        echo '<div class="Warning"><strong>Warning!</strong> This community-contributed addon has not been tested or code-reviewed. Use at your own risk.</div>';
-    else
-        echo '<div class="Approved"><strong>Approved!</strong> This addon has been reviewed and approved by Vanilla Forums staff.</div>';
 
     ?>
     <div class="Legal">

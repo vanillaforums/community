@@ -25,11 +25,6 @@
     <p>If your Vanilla forum is hosted at <a href="http://vanillaforums.com">VanillaForums.com</a>, this addon may already be installed there.</p>
 </div>
 
-<div class="Box Approved">
-    <h4>Vanilla Approved?</h4>
-    <p>We review addons to make sure they are safe and don't cause bugs. An addon is considered to be "Vanilla Approved" once our review process is complete.</p>
-</div>
-
 <div class="Box DownloadPanelBox">
     <h4>Don't have Vanilla yet?</h4>
     <?php echo Anchor('Get Vanilla Now', '/download', 'Button BigButton'); ?>
