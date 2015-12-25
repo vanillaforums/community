@@ -13,8 +13,12 @@
  */
 class UpdateController extends AddonsController {
 
+    /** @var array  */
     public $Uses = array('Database');
 
+    /**
+     *
+     */
     public function Index() {
         $Source = GetIncomingValue('source', '');
         $CountUsers = GetIncomingValue('users', '');
@@ -138,6 +142,11 @@ class UpdateController extends AddonsController {
         )));
     }
 
+    /**
+     *
+     *
+     * @param string $PluginName
+     */
     public function Find($PluginName = '') {
         // Find the requested plugin and redirect to it...
         $Data = $this->Database->SQL()
@@ -153,6 +162,13 @@ class UpdateController extends AddonsController {
         }
     }
 
+    /**
+     *
+     *
+     * @param $FieldName
+     * @param string $Default
+     * @return array|mixed|string
+     */
     private function _GetJsonString($FieldName, $Default = '') {
         $Value = ArrayValue($FieldName, $_POST, '');
         $Value = $Value == '' ? ArrayValue($FieldName, $_GET, '') : $Value;

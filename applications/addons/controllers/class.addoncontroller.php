@@ -8,28 +8,32 @@
  * @since 2.0
  */
 
-if (!function_exists('Trace')) {
-    function Trace($A, $B) {
-    }
-}
-
 /**
- * MessagesController handles displaying lists of conversations and conversation messages.
+ *
  */
 class AddonController extends AddonsController {
+
+    /** @var array  */
     public $Uses = array('Form', 'AddonModel', 'AddonCommentModel');
+
+    /** @var string  */
     public $Filter = 'all';
+
+    /** @var string  */
     public $Sort = 'recent';
+
+    /** @var string  */
     public $Version = '0'; // The version of Vanilla to filter to (0 is no filter)
-    /**
-     * @var Gdn_Form
-     */
+
+    /** @var Gdn_Form */
     public $Form;
-    /**
-     * @var AddonModel
-     */
+
+    /** @var AddonModel */
     public $AddonModel;
 
+    /**
+     *
+     */
     public function Initialize() {
         parent::Initialize();
         if ($this->Head) {
@@ -44,7 +48,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     * Home Page
+     * Homepage & single addon view.
      */
     public function Index($ID = '') {
         if ($ID != '') {
@@ -83,14 +87,6 @@ class AddonController extends AddonsController {
             $this->View = 'browse';
             $this->Browse();
             return;
-        /*
-            $this->ApprovedData = $this->AddonModel->GetWhere(array('DateReviewed is not null' => ''), 'DateUpdated', 'desc', 5);
-            $ApprovedIDs = ConsolidateArrayValuesByKey($this->ApprovedData->ResultArray(), 'AddonID');
-            if (count($ApprovedIDs) > 0)
-                $this->AddonModel->SQL->WhereNotIn('a.AddonID', $ApprovedIDs);
-
-            $this->NewData = $this->AddonModel->GetWhere(FALSE, 'DateUpdated', 'desc', 5);
-        */
         }
         $this->AddModule('AddonHelpModule');
         $this->SetData('_Types', AddonModel::$Types);
@@ -99,6 +95,9 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     */
     public function Add() {
         $this->Permission('Addons.Addon.Add');
         $this->AddModule('AddonHelpModule', 'Panel');
@@ -188,58 +187,12 @@ class AddonController extends AddonsController {
     }
 
     /**
-     * Backup version of add for Vanilla 1 addons.
+     *
+     *
+     * @param $AddonID
+     * @param bool|false $SaveVersionID
+     * @throws Exception
      */
-    public function AddV1() {
-        $this->Permission('Addons.Addon.Add');
-
-        $this->Form->SetModel($this->AddonModel);
-        $AddonTypeModel = new Gdn_Model('AddonType');
-        $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1', 'Label <>' => 'Core'));
-
-        if ($this->Form->AuthenticatedPostBack()) {
-            $Upload = new Gdn_Upload();
-            $Upload->AllowFileExtension(null);
-            $Upload->AllowFileExtension('zip');
-            try {
-                // Validate the upload
-                $TmpFile = $Upload->ValidateUpload('File');
-                $Extension = pathinfo($Upload->GetUploadedFileName(), PATHINFO_EXTENSION);
-
-                // Generate the target file name
-                $TargetFile = $Upload->GenerateTargetName('addons', $Extension);
-                $FileBaseName = pathinfo($TargetFile, PATHINFO_BASENAME);
-
-                // Save the uploaded file
-                $Upload->SaveAs(
-                    $TmpFile,
-                    $TargetFile
-                );
-                $Path = $Upload->CopyLocal($TargetFile);
-            } catch (Exception $ex) {
-                $this->Form->AddError($ex->getMessage());
-            }
-            // If there were no errors, save the addon
-            if ($this->Form->ErrorCount() == 0) {
-                // Save the addon
-                $this->Form->SetFormValue('File', "addons/$FileBaseName");
-                $this->Form->SetFormValue('Vanilla2', false);
-                $AddonID = $this->Form->Save(true);
-                if ($AddonID !== false) {
-                    // Redirect to the new addon
-                    $Name = $this->Form->GetFormValue('Name', '');
-                    Redirect('addon/'.$AddonID.'/'.Gdn_Format::Url($Name));
-                } else {
-                    // Delete an erroneous file.
-                    if (file_exists($TargetFile)) {
-                        unlink($TargetFile);
-                    }
-                }
-            }
-        }
-        $this->Render();
-    }
-
     public function Check($AddonID, $SaveVersionID = false) {
         $this->Permission('Addons.Addon.Manage');
 
@@ -296,6 +249,12 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param $VersionID
+     * @throws Gdn_UserException
+     */
     public function DeleteVersion($VersionID) {
         $this->Permission('Addons.Addon.Manage');
         $Version = $this->AddonModel->GetVersion($VersionID);
@@ -312,6 +271,13 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
     public function Edit($AddonID = '') {
         $this->Permission('Addons.Addon.Add');
 
@@ -343,41 +309,23 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
-    public function EditV1($AddonID = '') {
-        // $this->Permission('Addons.Addon.Manage');
-
-        $Session = Gdn::Session();
-        $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon) {
-            Redirect('dashboard/home/filenotfound');
-        }
-
-        if ($Addon['InsertUserID'] != $Session->UserID) {
-            $this->Permission('Addons.Addon.Manage');
-        }
-
-        $this->Form->SetModel($this->AddonModel);
-        $this->Form->AddHidden('AddonID', $AddonID);
-        $AddonTypeModel = new Gdn_Model('AddonType');
-        $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1'));
-
-        if ($this->Form->AuthenticatedPostBack() === false) {
-            $this->Form->SetData($Addon);
-        } else {
-            if ($this->Form->Save(true) !== false) {
-                $Addon = $this->AddonModel->GetID($AddonID);
-                $this->StatusMessage = T("Your changes have been saved successfully.");
-                $this->RedirectUrl = Url('/addon/'.AddonModel::Slug($Addon));
-            }
-        }
-
-        $this->Render();
-    }
-
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @throws Exception
+     */
     public function NewVersion($AddonID = '') {
         $this->_NewVersion($AddonID);
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @param bool|false $V1
+     * @throws Exception
+     */
     protected function _NewVersion($AddonID = '', $V1 = false) {
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
@@ -418,10 +366,6 @@ class AddonController extends AddonsController {
                 }
 
                 $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, true);
-//                decho($AnalyzedAddon);
-//
-//                decho();
-//                die();
 
                 // Set the filename for the CDN...
                 $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, true).'.zip';
@@ -434,13 +378,10 @@ class AddonController extends AddonsController {
                 $AnalyzedAddon['AddonID'] = $AddonID;
                 $AnalyzedAddon['File'] = $Parsed['SaveName'];
                 unset($AnalyzedAddon['Path']);
-//                $AnalyzedAddon['Description2'] = $this->Form->GetFormValue('Description2');
                 Trace($AnalyzedAddon, 'Analyzed Addon');
 
 
                 $this->Form->FormValues($AnalyzedAddon);
-//                $this->Form->SetFormValue('Path', $TargetPath);
-//                $this->Form->SetFormValue('TestedWith', 'Blank');
             } catch (Exception $ex) {
                 $this->Form->AddError($ex);
 
@@ -474,14 +415,20 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
-    public function NewVersionV1($AddonID = '') {
-        $this->_NewVersion($AddonID, true);
-    }
-
+    /**
+     *
+     */
     public function NotFound() {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @param string $AddonVersionID
+     * @throws Gdn_UserException
+     */
     public function Approve($AddonID = '', $AddonVersionID = '') {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
@@ -510,6 +457,13 @@ class AddonController extends AddonsController {
         Redirect('/addon/'.AddonModel::Slug($Addon));
     }
 
+    /**
+     *
+     *
+     * @param null $DiscussionID
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
     public function AttachToDiscussion($DiscussionID = null) {
           $this->Permission('Addons.Addon.Manage');
           $DiscussionModel = new DiscussionModel();
@@ -554,6 +508,13 @@ class AddonController extends AddonsController {
             $this->Render('attach');
     }
 
+    /**
+     *
+     *
+     * @param null $DiscussionID
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
     public function DetachFromDiscussion($DiscussionID = null) {
          $this->Permission('Addons.Addon.Manage');
          $DiscussionModel = new DiscussionModel();
@@ -584,10 +545,23 @@ class AddonController extends AddonsController {
             $this->Render('detach');
     }
 
+    /**
+     *
+     *
+     * @param $Code
+     * @param $Item
+     * @return string
+     */
     protected static function NotFoundString($Code, $Item) {
         return sprintf(T('%1$s "%2$s" not found.'), T($Code), $Item);
     }
 
+    /**
+     *
+     *
+     * @param $AddonID
+     * @throws Exception
+     */
     public function ChangeOwner($AddonID) {
         $this->Permission('Garden.Settings.Manage');
         $Addon = $this->AddonModel->GetSlug($AddonID);
@@ -622,6 +596,12 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @throws Gdn_UserException
+     */
     public function Delete($AddonID = '') {
         $this->Permission('Addons.Addon.Manage');
         $Session = Gdn::Session();
@@ -657,7 +637,11 @@ class AddonController extends AddonsController {
     }
 
     /**
-     * Add a comment to an addon
+     * Add a comment to an addon.
+     *
+     * @param string $AddonID
+     * @throws Exception
+     * @throws Gdn_UserException
      */
     public function AddComment($AddonID = '') {
         $Render = true;
@@ -706,6 +690,15 @@ class AddonController extends AddonsController {
         }
     }
 
+    /**
+     *
+     *
+     * @param string $FilterToType
+     * @param string $Sort
+     * @param string $VanillaVersion
+     * @param string $Page
+     * @throws Exception
+     */
     public function Browse($FilterToType = '', $Sort = '', $VanillaVersion = '', $Page = '') {
         $Checked = GetIncomingValue('checked', false);
 
@@ -800,6 +793,11 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param string $Search
+     */
     private function _BuildBrowseWheres($Search = '') {
         if ($Search != '') {
             $this->AddonModel
@@ -841,6 +839,13 @@ class AddonController extends AddonsController {
         }
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
     public function AddPicture($AddonID = '') {
         $Session = Gdn::Session();
         if (!$Session->IsValid()) {
@@ -904,6 +909,13 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param string $AddonPictureID
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
     public function DeletePicture($AddonPictureID = '') {
         $AddonPictureModel = new Gdn_Model('AddonPicture');
         $Picture = $AddonPictureModel->GetWhere(array('AddonPictureID' => $AddonPictureID))->FirstRow();
@@ -927,6 +939,11 @@ class AddonController extends AddonsController {
         $this->Render('deleteversion');
     }
 
+    /**
+     *
+     *
+     * @param $IDs
+     */
     public function GetList($IDs) {
         $IDs = explode(',', $IDs);
         array_map('trim', $IDs);
@@ -937,6 +954,12 @@ class AddonController extends AddonsController {
         $this->Render('browse');
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @throws Exception
+     */
     public function Icon($AddonID = '') {
         $Session = Gdn::Session();
         if (!$Session->IsValid()) {
@@ -996,6 +1019,12 @@ class AddonController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     *
+     * @param $Path
+     * @return string
+     */
     protected function ParseReadme($Path) {
         $ReadmePaths = array(
             '/readme',

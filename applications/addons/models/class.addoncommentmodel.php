@@ -12,10 +12,17 @@
  * Class AddonCommentModel
  */
 class AddonCommentModel extends Gdn_Model {
+
+    /**
+     * AddonCommentModel constructor.
+     */
     public function __construct() {
         parent::__construct('AddonComment');
     }
 
+    /**
+     *
+     */
     public function AddonCommentQuery() {
         $this->SQL->Select('c.*')
             ->Select('iu.Name', '', 'InsertName')
@@ -24,6 +31,15 @@ class AddonCommentModel extends Gdn_Model {
             ->Join('User iu', 'c.InsertUserID = iu.UserID', 'left');
     }
 
+    /**
+     *
+     *
+     * @param string $AddonID
+     * @param string $Limit
+     * @param int $Offset
+     * @return Gdn_DataSet
+     * @throws Exception
+     */
     public function Get($AddonID, $Limit, $Offset = 0) {
         $this->AddonCommentQuery();
         $this->FireEvent('BeforeGet');
@@ -34,6 +50,12 @@ class AddonCommentModel extends Gdn_Model {
             ->Get();
     }
 
+    /**
+     *
+     *
+     * @param mixed $AddonCommentID
+     * @return array|bool|stdClass
+     */
     public function GetID($AddonCommentID) {
         $this->CommentQuery();
         return $this->SQL
@@ -42,6 +64,13 @@ class AddonCommentModel extends Gdn_Model {
             ->FirstRow();
     }
 
+    /**
+     *
+     *
+     * @param $AddonID
+     * @param $LastCommentID
+     * @return Gdn_DataSet
+     */
     public function GetNew($AddonID, $LastCommentID) {
         $this->CommentQuery();
         return $this->SQL
@@ -51,12 +80,12 @@ class AddonCommentModel extends Gdn_Model {
             ->Get();
     }
 
-    /// <summary>
-    /// Returns the offset of the specified comment in it's related discussion.
-    /// </summary>
-    /// <param name="CommentID" type="int">
-    /// The comment id for which the offset is being defined.
-    /// </param>
+    /**
+     * Returns the offset of the specified comment in it's related discussion.
+     *
+     * @param int $AddonCommentID
+     * @return mixed
+     */
     public function GetOffset($AddonCommentID) {
         return $this->SQL
             ->Select('c2.AddonCommentID', 'count', 'CountComments')
@@ -70,6 +99,12 @@ class AddonCommentModel extends Gdn_Model {
             ->CountComments;
     }
 
+    /**
+     *
+     *
+     * @param array $FormPostValues
+     * @return bool|Gdn_DataSet|int|mixed|object|string
+     */
     public function Save($FormPostValues) {
         $Session = Gdn::Session();
 
@@ -130,6 +165,13 @@ class AddonCommentModel extends Gdn_Model {
         return $AddonCommentID;
     }
 
+    /**
+     *
+     *
+     * @param $AddonID
+     * @param $ActivityUserID
+     * @param $AddonCommentID
+     */
     public function RecordActivity($AddonID, $ActivityUserID, $AddonCommentID) {
         // Get the author of the discussion
         $AddonModel = new AddonModel();
@@ -145,6 +187,12 @@ class AddonCommentModel extends Gdn_Model {
         }
     }
 
+    /**
+     *
+     *
+     * @param string|unknown_type $AddonCommentID
+     * @return bool
+     */
     public function Delete($AddonCommentID) {
         $this->SQL->Delete('AddonComment', array('AddonCommentID' => $AddonCommentID));
         return true;

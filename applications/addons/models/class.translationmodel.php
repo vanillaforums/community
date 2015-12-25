@@ -12,10 +12,23 @@
  * Class TranslationModel
  */
 class TranslationModel extends Gdn_Model {
+
+    /**
+     * TranslationModel constructor.
+     */
     public function __construct() {
         parent::__construct('Translation');
     }
 
+    /**
+     *
+     *
+     * @param bool|false $Where
+     * @param bool|false $Limit
+     * @param bool|false $Offset
+     * @return Gdn_DataSet
+     * @throws Exception
+     */
     public function Get($Where = false, $Limit = false, $Offset = false) {
         $this->SQL
             ->Select('s.TranslationID', '', 'SourceTranslationID')
