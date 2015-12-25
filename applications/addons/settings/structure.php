@@ -8,16 +8,8 @@
  * @since 2.0
  */
 
-// Use this file to construct tables and views necessary for your application.
-// There are some examples below to get you started.
-
-if (!isset($Drop)) {
-    $Drop = false;
-}
-
-if (!isset($Explicit)) {
-    $Explicit = true;
-}
+$Drop = false;
+$Explicit = true;
 
 $SQL = Gdn::SQL();
 $Construct = Gdn::Structure();
@@ -129,7 +121,7 @@ $Construct->Table('UpdateCheckAddon')
     ->Set($Explicit, $Drop);
 
 $PermissionModel = Gdn::PermissionModel();
-$PermissionModel->Database = $Database;
+$PermissionModel->Database = Gdn::database();
 $PermissionModel->SQL = $SQL;
 
 // Define some global addon permissions.
