@@ -217,20 +217,17 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
-     *
+     * Runs once on enable.
      */
-    public function Setup() {
-        $Database = Gdn::Database();
-        $Config = Gdn::Factory(Gdn::AliasConfig);
-        $Drop = C('Addons.Version') === false ? true : false;
-        $Explicit = true;
-        $Validation = new Gdn_Validation(); // This is going to be needed by structure.php to validate permission names
-        include(PATH_APPLICATIONS . DS . 'addons' . DS . 'settings' . DS . 'structure.php');
+    public function setup() {
+        $this->structure();
+    }
 
-        $ApplicationInfo = array();
-        include(CombinePaths(array(PATH_APPLICATIONS . DS . 'addons' . DS . 'settings' . DS . 'about.php')));
-        $Version = ArrayValue('Version', ArrayValue('Addons', $ApplicationInfo, array()), 'Undefined');
-        SaveToConfig('Addons.Version', $Version);
+    /**
+     * Runs on /utility/update.
+     */
+    public function structure() {
+        include(PATH_APPLICATIONS . DS . 'addons' . DS . 'settings' . DS . 'structure.php');
     }
 }
 
