@@ -16,7 +16,7 @@ if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
             ?>
             <span>&rarr;</span> <?php
                 $TypesPlural = array_flip($this->Data('_TypesPlural'));
-                $TypePlural = GetValue($this->Data('AddonTypeID'), $TypesPlural, 'all');
+                $TypePlural = val($this->Data('AddonTypeID'), $TypesPlural, 'all');
                 echo Anchor(T($TypePlural), '/addon/browse/'.strtolower($TypePlural), '', array('itemprop' => 'softwareApplicationCategory'));
             ?>
         </div>

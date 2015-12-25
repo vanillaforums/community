@@ -33,17 +33,17 @@ class GetController extends AddonsController {
         $UrlFilename = Gdn::Request()->Filename();
         $PathInfo = pathinfo($UrlFilename);
 
-        $Ext = GetValue('extension', $PathInfo);
+        $Ext = val('extension', $PathInfo);
         if ($Ext == 'zip') {
             $ServeFile = '1';
-            $ID = $Ext = GetValue('filename', $PathInfo);
+            $ID = $Ext = val('filename', $PathInfo);
         }
 
         // Find the requested addon
         $this->Addon = $this->AddonModel->GetSlug($ID, true);
         $this->SetData('Addon', $this->Addon);
 
-        if (!is_array($this->Addon) || !GetValue('File', $this->Addon)) {
+        if (!is_array($this->Addon) || !val('File', $this->Addon)) {
             $this->Addon = array(
                 'Name' => 'Not Found',
                 'Version' => 'undefined',
@@ -63,7 +63,7 @@ class GetController extends AddonsController {
                 ));
                 $this->AddonModel->SetProperty($AddonID, 'CountDownloads', $this->Addon['CountDownloads'] + 1);
 
-                if (GetValue('Slug', $this->Addon)) {
+                if (val('Slug', $this->Addon)) {
                     $Filename = $this->Addon['Slug'];
                 } else {
                     $Filename = "{$this->Addon['Name']}-{$this->Addon['Version']}";

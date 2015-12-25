@@ -59,13 +59,13 @@ class AddonController extends AddonsController {
                 $AddonID = $Addon['AddonID'];
                 $this->SetData($Addon);
 
-                $Description = GetValue('Description', $Addon);
+                $Description = val('Description', $Addon);
                 if ($Description) {
                     $this->Head->AddTag('meta', array('name' => 'description', 'content' => Gdn_Format::PlainText($Description, false)));
                 }
 
 //                if ($MaxVersion) {
-//                    $this->SetData('CurrentVersion', GetValue('Version', $MaxVersion));
+//                    $this->SetData('CurrentVersion', val('Version', $MaxVersion));
 //                }
 
                 $this->AddCssFile('popup.css');
@@ -128,10 +128,6 @@ class AddonController extends AddonsController {
                 }
 
                 $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, true);
-//                decho($AnalyzedAddon);
-//
-//                decho();
-//                die();
 
                 // Set the filename for the CDN...
                 $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, true).'.zip';
@@ -264,7 +260,7 @@ class AddonController extends AddonsController {
             $this->AddonModel->DeleteVersion($VersionID);
 
             // Update the current version of the addon.
-            $AddonID = GetValue('AddonID', $Version);
+            $AddonID = val('AddonID', $Version);
             $this->AddonModel->UpdateCurrentVersion($AddonID);
             $this->RedirectUrl = Url('/addon/check/'.$AddonID);
         }
@@ -587,7 +583,7 @@ class AddonController extends AddonsController {
             }
 
             if ($this->Form->ErrorCount() == 0) {
-                $this->AddonModel->SetField($Addon['AddonID'], 'InsertUserID', GetValue('UserID', $User));
+                $this->AddonModel->SetField($Addon['AddonID'], 'InsertUserID', val('UserID', $User));
             }
         } else {
             $this->Form->AddError('You must POST to this page.');
@@ -831,7 +827,7 @@ class AddonController extends AddonsController {
             $this->AddonModel->SQL->WhereIn('a.AddonTypeID', $Types);
         }
 
-        $AddonTypeID = GetValue($this->Filter, AddonModel::$TypesPlural);
+        $AddonTypeID = val($this->Filter, AddonModel::$TypesPlural);
         if ($AddonTypeID) {
             $this->AddonModel
                 ->SQL

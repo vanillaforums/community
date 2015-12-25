@@ -11,7 +11,7 @@ function _CheckTable($Data) {
             continue;
 
         $Value = Gdn_Format::Html($Value);
-        $FileValue = Gdn_Format::Html(GetValue('File_'.$Key, $Data));
+        $FileValue = Gdn_Format::Html(val('File_'.$Key, $Data));
 
         if ($Key == 'MD5') {
             $Value = substr($Value, 0, 10);
@@ -24,7 +24,7 @@ function _CheckTable($Data) {
 
         echo "<tr{$Class}><th>$Key</th><td>$Value</td>";
 
-        if ($Error = GetValue('File_Error', $Data)) {
+        if ($Error = val('File_Error', $Data)) {
             if ($First) {
                 echo '<td rowspan="4">', htmlspecialchars($Error), '</td>';
             }
@@ -51,7 +51,7 @@ _CheckTable($this->Data('Addon'));
 
 $AddonID = $this->Data('Addon.AddonID');
 foreach ($this->Data('Versions', array()) as $Version) {
-    echo '<h2>', T('Version'), ' ', GetValue('Version', $Version), '</h2>';
+    echo '<h2>', T('Version'), ' ', val('Version', $Version), '</h2>';
     _CheckTable($Version);
     echo '<p style="text-align: right;">',
         Anchor(T('Delete'), "/addon/deleteversion/{$Version['AddonVersionID']}", 'Button Popup'),

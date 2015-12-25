@@ -35,11 +35,11 @@ class AddonsHooks implements Gdn_IPlugin {
      * Ex: [AddonName] Discussion original name
      */
     public function AddonDiscussionPrefix($Discussion) {
-        $Addon = GetValue('Addon', $Discussion);
+        $Addon = val('Addon', $Discussion);
         if ($Addon) {
             $Slug = AddonModel::Slug($Addon, false);
             $Url = "/addon/$Slug";
-            $AddonName = GetValue('Name', $Addon);
+            $AddonName = val('Name', $Addon);
             echo ' '.Wrap(Anchor(Gdn_Format::Html($AddonName), $Url), 'span', array('class' => 'Tag Tag-Addon')).' ';
         }
     }
@@ -50,9 +50,9 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param $Sender
      */
     public function DiscussionController_BeforeCommentBody_Handler($Sender) {
-        $Discussion = GetValue('Object', $Sender->EventArguments);
-        $AddonID = GetValue('AddonID', $Discussion);
-        if (GetValue('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
+        $Discussion = val('Object', $Sender->EventArguments);
+        $AddonID = val('AddonID', $Discussion);
+        if (val('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
             $Data = Gdn::Database()->SQL()->Select('Name')->From('Addon')->Where('AddonID', $AddonID)->Get()->FirstRow();
             if ($Data) {
                 echo RenderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
@@ -100,7 +100,7 @@ class AddonsHooks implements Gdn_IPlugin {
         }
 
         $Discussion = $Args['Discussion'];
-        $Addon = GetValue('Addon', $Discussion);
+        $Addon = val('Addon', $Discussion);
         if ($Addon) {
             $Slug = AddonModel::Slug($Addon, false);
             $Url = "/addon/$Slug";
@@ -132,7 +132,7 @@ class AddonsHooks implements Gdn_IPlugin {
     public function DiscussionModel_BeforeSaveDiscussion_Handler($Sender) {
         $AddonID = GetIncomingValue('AddonID');
         if (is_numeric($AddonID) && $AddonID > 0) {
-            $FormPostValues = GetValue('FormPostValues', $Sender->EventArguments);
+            $FormPostValues = val('FormPostValues', $Sender->EventArguments);
             $FormPostValues['AddonID'] = $AddonID;
             $Sender->EventArguments['FormPostValues'] = $FormPostValues;
         }
@@ -148,14 +148,14 @@ class AddonsHooks implements Gdn_IPlugin {
         $Discussion = $Args['Discussion'];
         $Activity = $Args['Activity'];
 
-        if (!GetValue('AddonID', $Discussion)) {
+        if (!val('AddonID', $Discussion)) {
             return;
         }
 
         $AddonModel = new AddonModel();
         $Addon = $AddonModel->GetID($Discussion['AddonID'], DATASET_TYPE_ARRAY);
 
-        if (GetValue('InsertUserID', $Addon) == Gdn::Session()->UserID) {
+        if (val('InsertUserID', $Addon) == Gdn::Session()->UserID) {
             return;
         }
 
