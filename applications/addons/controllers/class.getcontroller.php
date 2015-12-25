@@ -9,7 +9,7 @@
  */
 
 /**
- * MessagesController handles displaying lists of conversations and conversation messages.
+ *
  */
 class GetController extends AddonsController {
 
