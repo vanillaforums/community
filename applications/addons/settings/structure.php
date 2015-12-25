@@ -1,6 +1,4 @@
-<?php if (!defined('APPLICATION')) {
-    exit();
-}
+<?php if (!defined('APPLICATION')) { exit(); }
 /**
  *
  *
@@ -64,17 +62,6 @@ $Construct->PrimaryKey('AddonID')
 if (!$Description2Exists) {
     $Construct->Query("update {$Px}Addon set Description2 = Description where Checked = 0");
 }
-
-/*
-$Construct->Table('AddonComment')
-    ->PrimaryKey('AddonCommentID')
-    ->Column('AddonID', 'int', FALSE, 'key')
-    ->Column('InsertUserID', 'int', FALSE, 'key')
-    ->Column('Body', 'text')
-    ->Column('Format', 'varchar(20)', TRUE)
-    ->Column('DateInserted', 'datetime')
-    ->Set($Explicit, $Drop);
-*/
 
 $Construct->Table('AddonVersion')
     ->PrimaryKey('AddonVersionID')
