@@ -25,16 +25,16 @@ class AddonsController extends Gdn_Controller {
     /**
      *
      */
-    public function Initialize() {
-        parent::Initialize();
-        if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
+    public function initialize() {
+        parent::initialize();
+        if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             $this->Head = new HeadModule($this);
         }
 
-        $this->AddCssFile('style.css');
-        $this->AddCssFile('addons.css');
+        $this->addCssFile('style.css');
+        $this->addCssFile('addons.css');
 
-        $this->CountCommentsPerPage = C('Vanilla.Comments.PerPage', 30);
+        $this->CountCommentsPerPage = c('Vanilla.Comments.PerPage', 30);
     }
 
     /**
