@@ -16,11 +16,11 @@ class AddonsHooks implements Gdn_IPlugin {
     /**
      * Hook for discussion prefixes in /discussions.
      */
-    public function Base_BeforeDiscussionMeta_Handler($Sender, $Args) {
-        if (Gdn::Controller()->ControllerName == 'addoncontroller') {
+    public function base_beforeDiscussionMeta_handler($Sender, $Args) {
+        if (Gdn::controller()->ControllerName == 'addoncontroller') {
             return;
         }
-        $this->AddonDiscussionPrefix($Args['Discussion']);
+        $this->addonDiscussionPrefix($Args['Discussion']);
     }
 
     /**
@@ -28,13 +28,13 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * Ex: [AddonName] Discussion original name
      */
-    public function AddonDiscussionPrefix($Discussion) {
+    public function addonDiscussionPrefix($Discussion) {
         $Addon = val('Addon', $Discussion);
         if ($Addon) {
-            $Slug = AddonModel::Slug($Addon, false);
+            $Slug = AddonModel::slug($Addon, false);
             $Url = "/addon/$Slug";
             $AddonName = val('Name', $Addon);
-            echo ' '.Wrap(Anchor(Gdn_Format::Html($AddonName), $Url), 'span', array('class' => 'Tag Tag-Addon')).' ';
+            echo ' '.wrap(anchor(Gdn_Format::html($AddonName), $Url), 'span', array('class' => 'Tag Tag-Addon')).' ';
         }
     }
 
@@ -43,13 +43,13 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param $Sender
      */
-    public function DiscussionController_BeforeCommentBody_Handler($Sender) {
+    public function discussionController_beforeCommentBody_handler($Sender) {
         $Discussion = val('Object', $Sender->EventArguments);
         $AddonID = val('AddonID', $Discussion);
         if (val('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
-            $Data = Gdn::Database()->SQL()->Select('Name')->From('Addon')->Where('AddonID', $AddonID)->Get()->FirstRow();
+            $Data = Gdn::database()->sql()->select('Name')->from('Addon')->where('AddonID', $AddonID)->get()->firstRow();
             if ($Data) {
-                echo RenderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
+                echo renderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
             }
         }
     }
@@ -59,8 +59,8 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param DiscussionsController $Sender
      */
-    public function DiscussionModel_AfterAddColumns_Handler($Sender, $Args) {
-        AddonModel::JoinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
+    public function discussionModel_afterAddColumns_handler($Sender, $Args) {
+        AddonModel::joinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
     }
 
     /**
@@ -68,17 +68,17 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param $Sender
      */
-    public function Base_DiscussionOptions_Handler($Sender) {
-         $Discussion = $Sender->EventArguments['Discussion'];
-         $LabelString = T('Edit Addon Attachment...');
+    public function base_discussionOptions_handler($Sender) {
+        $Discussion = $Sender->EventArguments['Discussion'];
+        $LabelString = t('Edit Addon Attachment...');
         if (is_null($Discussion->AddonID)) {
-             $LabelString = T('Attach Addon...');
+             $LabelString = t('Attach Addon...');
         }
 
-         $Sender->EventArguments['DiscussionOptions'][] = array(
-              'Label' => $LabelString,
-              'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
-              'Class' => 'AttachAddonDiscussion Popup');
+        $Sender->EventArguments['DiscussionOptions'][] = array(
+            'Label' => $LabelString,
+            'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
+            'Class' => 'AttachAddonDiscussion Popup');
     }
 
     /**
@@ -87,7 +87,7 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param $Sender
      * @param $Args
      */
-    public function DiscussionsController_BeforeDiscussionContent_Handler($Sender, $Args) {
+    /*public function discussionsController_beforeDiscussionContent_handler($Sender, $Args) {
         static $AddonModel = null;
         if (!$AddonModel) {
             $AddonModel = new AddonModel();
@@ -96,7 +96,7 @@ class AddonsHooks implements Gdn_IPlugin {
         $Discussion = $Args['Discussion'];
         $Addon = val('Addon', $Discussion);
         if ($Addon) {
-            $Slug = AddonModel::Slug($Addon, false);
+            $Slug = AddonModel::slug($Addon, false);
             $Url = "/addon/$Slug";
 //            if ($Addon['Icon']) {
 //                echo Anchor(Img(Gdn_Upload::Url($Addon['Icon'])), $Url, array('class' => 'Addon-Icon Author'));
@@ -104,17 +104,17 @@ class AddonsHooks implements Gdn_IPlugin {
 //                echo Wrap(Anchor('Addon', $Url), 'span', array('class' => 'Tag Tag-Addon'));
 //            }
         }
-    }
+    }*/
 
     /**
      * Pass the addonid to the form.
      *
      * @param $Sender
      */
-    public function PostController_Render_Before($Sender) {
+    public function postController_render_before($Sender) {
         $AddonID = GetIncomingValue('AddonID');
         if ($AddonID > 0 && is_object($Sender->Form)) {
-            $Sender->Form->AddHidden('AddonID', $AddonID);
+            $Sender->Form->addHidden('AddonID', $AddonID);
         }
     }
 
@@ -123,7 +123,7 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param $Sender
      */
-    public function DiscussionModel_BeforeSaveDiscussion_Handler($Sender) {
+    public function discussionModel_beforeSaveDiscussion_handler($Sender) {
         $AddonID = GetIncomingValue('AddonID');
         if (is_numeric($AddonID) && $AddonID > 0) {
             $FormPostValues = val('FormPostValues', $Sender->EventArguments);
@@ -138,7 +138,7 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param $Sender
      * @param $Args
      */
-    public function DiscussionModel_BeforeNotification_Handler($Sender, $Args) {
+    public function discussionModel_beforeNotification_handler($Sender, $Args) {
         $Discussion = $Args['Discussion'];
         $Activity = $Args['Activity'];
 
@@ -147,9 +147,9 @@ class AddonsHooks implements Gdn_IPlugin {
         }
 
         $AddonModel = new AddonModel();
-        $Addon = $AddonModel->GetID($Discussion['AddonID'], DATASET_TYPE_ARRAY);
+        $Addon = $AddonModel->getID($Discussion['AddonID'], DATASET_TYPE_ARRAY);
 
-        if (val('InsertUserID', $Addon) == Gdn::Session()->UserID) {
+        if (val('InsertUserID', $Addon) == Gdn::session()->UserID) {
             return;
         }
 
@@ -157,17 +157,17 @@ class AddonsHooks implements Gdn_IPlugin {
         $Activity['NotifyUserID'] = $Addon['InsertUserID'];
         $Activity['HeadlineFormat'] = '{ActivityUserID,user} asked a <a href="{Url,html}">question</a> about the <a href="{Data.AddonUrl,exurl}">{Data.AddonName,html}</a> addon.';
         $Activity['Data']['AddonName'] = $Addon['Name'];
-        $Activity['Data']['AddonUrl'] = '/addon/'.urlencode(AddonModel::Slug($Addon, false));
+        $Activity['Data']['AddonUrl'] = '/addon/'.urlencode(AddonModel::slug($Addon, false));
 
-        $ActivityModel->Queue($Activity, 'AddonComment');
+        $ActivityModel->queue($Activity, 'AddonComment');
     }
 
     /**
      * @param $Sender
      */
-    public function ProfileController_AfterPreferencesDefined_Handler($Sender) {
-        $Sender->Preferences['Notifications']['Popup.AddonComment'] = T('Notify me when people comment on my addons.');
-        $Sender->Preferences['Notifications']['Email.AddonComment'] = T('Notify me when people comment on my addons.');
+    public function profileController_afterPreferencesDefined_handler($Sender) {
+        $Sender->Preferences['Notifications']['Popup.AddonComment'] = t('Notify me when people comment on my addons.');
+        $Sender->Preferences['Notifications']['Email.AddonComment'] = t('Notify me when people comment on my addons.');
     }
 
     /**
@@ -178,12 +178,12 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param object $Sender ProfileController.
      */
-    public function ProfileController_AddProfileTabs_Handler($Sender) {
+    public function profileController_addProfileTabs_handler($Sender) {
         if (is_object($Sender->User) && $Sender->User->UserID > 0) {
-            $Sender->AddProfileTab(T('Addons'), 'profile/addons/'.$Sender->User->UserID.'/'.urlencode($Sender->User->Name));
+            $Sender->addProfileTab(t('Addons'), 'profile/addons/'.$Sender->User->UserID.'/'.urlencode($Sender->User->Name));
             // Add the discussion tab's CSS and Javascript
-            $Sender->AddCssFile('profile.css', 'addons');
-            $Sender->AddJsFile('addons.js');
+            $Sender->addCssFile('profile.css', 'addons');
+            $Sender->addJsFile('addons.js');
         }
     }
     /**
@@ -194,26 +194,26 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param object $Sender ProfileController.
      */
-    public function ProfileController_Addons_Create($Sender) {
+    public function profileController_addons_create($Sender) {
         $UserReference = val(0, $Sender->RequestArgs, '');
         $Username = val(1, $Sender->RequestArgs, '');
-        // $Offset = ArrayValue(2, $Sender->RequestArgs, 0);
+
         // Tell the ProfileController what tab to load
-        $Sender->GetUserInfo($UserReference, $Username);
-        $Sender->SetTabView('Addons', 'Profile', 'Addon', 'Addons');
+        $Sender->getUserInfo($UserReference, $Username);
+        $Sender->setTabView('Addons', 'Profile', 'Addon', 'Addons');
 
         $Offset = 0;
         $Limit = 100;
         $AddonModel = new AddonModel();
-        $ResultSet = $AddonModel->GetWhere(array('UserID' => $Sender->User->UserID), 'DateUpdated', 'desc', $Limit, $Offset);
-        $Sender->SetData('Addons', $ResultSet);
-        $NumResults = $AddonModel->GetCount(array('InsertUserID' => $Sender->User->UserID));
+        $ResultSet = $AddonModel->getWhere(array('UserID' => $Sender->User->UserID), 'DateUpdated', 'desc', $Limit, $Offset);
+        $Sender->setData('Addons', $ResultSet);
+        $NumResults = $AddonModel->getCount(array('InsertUserID' => $Sender->User->UserID));
 
         // Set the HandlerType back to normal on the profilecontroller so that it fetches it's own views
         $Sender->HandlerType = HANDLER_TYPE_NORMAL;
 
         // Render the ProfileController
-        $Sender->Render();
+        $Sender->render();
     }
 
     /**
@@ -240,22 +240,22 @@ if (!function_exists('RenderDiscussionAddonWarning')) {
      * @param $AttachID
      * @return string
      */
-    function RenderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
+    function renderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
         $DeleteOption = '';
-        if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
-            $DeleteOption = Anchor(
+        if (Gdn::session()->checkPermission('Addons.Addon.Manage')) {
+            $DeleteOption = anchor(
                 'x',
                 'addon/detachfromdiscussion/' . $AttachID,
                 array('class' => 'Dismiss')
             );
         }
-        $String = Wrap(
+        $String = wrap(
             $DeleteOption .
             sprintf(
-                T('This discussion is related to the %s addon.'),
-                Anchor(
+                t('This discussion is related to the %s addon.'),
+                anchor(
                     $AddonName,
-                    'addon/' . $AddonID . '/' . Gdn_Format::Url($AddonName)
+                    'addon/' . $AddonID . '/' . Gdn_Format::url($AddonName)
                 )
             ),
             'div',
