@@ -12,10 +12,17 @@
  * Class UserLanguageModel
  */
 class UserLanguageModel extends Gdn_Model {
+
+    /**
+     * UserLanguageModel constructor.
+     */
     public function __construct() {
         parent::__construct('UserLanguage');
     }
 
+    /**
+     *
+     */
     public function UserLanguageQuery() {
         $this->SQL
             ->Select('ul.*,l.Name,l.Code')
@@ -27,6 +34,15 @@ class UserLanguageModel extends Gdn_Model {
             ->Where('ul.UserLanguageID <>', '1');
     }
 
+    /**
+     *
+     *
+     * @param bool|false $Where
+     * @param bool|false $Limit
+     * @param bool|false $Offset
+     * @return Gdn_DataSet
+     * @throws Exception
+     */
     public function Get($Where = false, $Limit = false, $Offset = false) {
         $this->UserLanguageQuery();
 
@@ -45,6 +61,12 @@ class UserLanguageModel extends Gdn_Model {
         return $this->SQL->Get();
     }
 
+    /**
+     *
+     *
+     * @param string $Wheres
+     * @return mixed
+     */
     public function GetCount($Wheres = '') {
         if (!is_array($Wheres)) {
             $Wheres = array();
@@ -59,6 +81,13 @@ class UserLanguageModel extends Gdn_Model {
             ->CountUserLanguages;
     }
 
+    /**
+     *
+     *
+     * @param mixed $UserLanguageID
+     * @param string $Wheres
+     * @return array|bool|stdClass
+     */
     public function GetID($UserLanguageID, $Wheres = '') {
         $this->UserLanguageQuery();
         if (is_array($Wheres)) {
@@ -71,6 +100,12 @@ class UserLanguageModel extends Gdn_Model {
             ->FirstRow();
     }
 
+    /**
+     *
+     *
+     * @param array $FormPostValues
+     * @return bool|int|string
+     */
     public function Save($FormPostValues) {
         $Session = Gdn::Session();
         $FormPostValues['UserID'] = $Session->UserID;
@@ -122,6 +157,14 @@ class UserLanguageModel extends Gdn_Model {
         return count($this->ValidationResults()) > 0 ? false : $UserLanguageID;
     }
 
+    /**
+     *
+     *
+     * @param int $UserLanguageID
+     * @param string $Property
+     * @param bool $Value
+     * @throws Exception
+     */
     public function SetProperty($UserLanguageID, $Property, $Value) {
         $Operator = false;
         if (strlen($Value) > 1) {

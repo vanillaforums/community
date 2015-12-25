@@ -13,8 +13,12 @@
  */
 class TranslationsController extends AddonsController {
 
+    /** @var array  */
     public $Uses = array('Form');
 
+    /**
+     *
+     */
     public function Initialize() {
         parent::Initialize();
         $this->AddJsFile('jquery.js');
@@ -25,12 +29,15 @@ class TranslationsController extends AddonsController {
         $this->AddJsFile('global.js');
     }
 
+    /**
+     *
+     */
     public function NotFound() {
         $this->Render();
     }
 
     /**
-     * Home Page
+     * Homepage.
      */
     public function Index($LanguageID = '') {
         if ($LanguageID != '') {
@@ -49,6 +56,9 @@ class TranslationsController extends AddonsController {
         $this->Render();
     }
 
+    /**
+     *
+     */
     public function Mine() {
         $Session = Gdn::Session();
         $UserLanguageModel = new UserLanguageModel();
@@ -80,7 +90,9 @@ class TranslationsController extends AddonsController {
         $this->Render();
     }
 
-    // Edit a set of translations
+    /**
+     * Edit a set of translations.
+     */
     public function View($UserLanguageID = '') {
         $Session = Gdn::Session();
         $this->Permission('Addons.Translations.Add');
@@ -120,7 +132,11 @@ class TranslationsController extends AddonsController {
         $this->Render();
     }
 
-    // Only admins can delete entire sets of translations
+    /**
+     * Only admins can delete entire sets of translations.
+     *
+     * @param string $UserLanguageID
+     */
     public function Delete($UserLanguageID = '') {
         $this->Permission('Addons.Translations.Manage');
 
@@ -132,7 +148,9 @@ class TranslationsController extends AddonsController {
         $TranslationModel->Delete(array('UserLanguageID' => $UserLanguage->UserLanguageID));
     }
 
-    // Import language definitions from a csv file
+    /**
+     * Import language definitions from a CSV file.
+     */
     public function ImportLanguages() {
         $this->Permission('Addons.Languages.Manage'); // Only root admins can run this method
         $LanguageModel = new Gdn_Model('Language');

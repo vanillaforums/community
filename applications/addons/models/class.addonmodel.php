@@ -15,6 +15,7 @@ require_once PATH_APPLICATIONS.'/dashboard/models/class.updatemodel.php';
  */
 class AddonModel extends Gdn_Model {
 
+    /** @var array  */
     public static $Types = array(
         'plugin' => ADDON_TYPE_PLUGIN,
         'theme' => ADDON_TYPE_THEME,
@@ -23,6 +24,7 @@ class AddonModel extends Gdn_Model {
         'core' => ADDON_TYPE_CORE
     );
 
+    /** @var array  */
     public static $TypesPlural = array(
         'plugins' => ADDON_TYPE_PLUGIN,
         'themes' => ADDON_TYPE_THEME,
@@ -31,6 +33,7 @@ class AddonModel extends Gdn_Model {
         'core' => ADDON_TYPE_CORE
     );
 
+    /** @var array  */
     protected $_AddonCache = array();
 
     /**
@@ -40,6 +43,12 @@ class AddonModel extends Gdn_Model {
         parent::__construct('Addon');
     }
 
+    /**
+     *
+     *
+     * @param bool|false $VersionSlug
+     * @throws Exception
+     */
     public function AddonQuery($VersionSlug = false) {
         $this->SQL
             ->Select('a.*')
@@ -67,11 +76,27 @@ class AddonModel extends Gdn_Model {
         }
     }
 
+    /**
+     *
+     *
+     * @param $Data
+     * @param string $Field
+     * @param array $Columns
+     * @throws
+     * @throws Exception
+     */
     public static function JoinAddons(&$Data, $Field = 'AddonID', $Columns = array('Name')) {
         $Columns = array_merge(array('table' => 'Addon', 'column' => 'Addon'), $Columns);
         Gdn_DataSet::Join($Data, $Columns, array('unique' => true));
     }
 
+    /**
+     *
+     *
+     * @param $Addon
+     * @param bool|true $IncludeVersion
+     * @return string
+     */
     public static function Slug($Addon, $IncludeVersion = true) {
         if (GetValue('AddonKey', $Addon) && (GetValue('Version', $Addon) || !$IncludeVersion)) {
             $Key = GetValue('AddonKey', $Addon);
@@ -95,10 +120,24 @@ class AddonModel extends Gdn_Model {
         }
     }
 
+    /**
+     *
+     *
+     * @param $VersionID
+     */
     public function DeleteVersion($VersionID) {
         $this->SQL->Put('AddonVersion', array('Deleted' => 1), array('AddonVersionID' => $VersionID));
     }
 
+    /**
+     *
+     *
+     * @param string $Offset
+     * @param string $Limit
+     * @param string $Wheres
+     * @return Gdn_DataSet
+     * @throws Exception
+     */
     public function Get($Offset = '0', $Limit = '', $Wheres = '') {
         if ($Limit == '') {
             $Limit = Gdn::Config('Vanilla.Discussions.PerPage', 50);
@@ -117,8 +156,16 @@ class AddonModel extends Gdn_Model {
             ->Get();
     }
 
-    /*
+    /**
+     *
+     *
+     * @param bool|false $Where
+     * @param string $OrderFields
+     * @param string $OrderDirection
+     * @param bool|false $Limit
+     * @param bool|false $Offset
      * @return Gdn_DataSet
+     * @throws Exception
      */
     public function GetWhere($Where = false, $OrderFields = '', $OrderDirection = 'asc', $Limit = false, $Offset = false) {
         $this->AddonQuery();
@@ -144,6 +191,12 @@ class AddonModel extends Gdn_Model {
         return $Result;
     }
 
+    /**
+     *
+     *
+     * @param string $Wheres
+     * @return mixed
+     */
     public function GetCount($Wheres = '') {
         if (!is_array($Wheres)) {
             $Wheres = array();
@@ -216,6 +269,12 @@ class AddonModel extends Gdn_Model {
         return $Result;
     }
 
+    /**
+     *
+     *
+     * @param $IDs
+     * @return Gdn_DataSet
+     */
     public function GetIDs($IDs) {
         $AddonTypeIDs = array();
         $AddonIDs = array();
@@ -320,10 +379,23 @@ class AddonModel extends Gdn_Model {
         return $Addon;
     }
 
+    /**
+     *
+     *
+     * @param $A
+     * @param $B
+     * @return mixed
+     */
     public function VersionCompare($A, $B) {
         return -version_compare(GetValue('Version', $A), GetValue('Version', $B));
     }
 
+    /**
+     *
+     *
+     * @param $VersionID
+     * @return array|bool|stdClass
+     */
     public function GetVersion($VersionID) {
         $Result = $this->SQL
             ->Select('a.*')
@@ -335,6 +407,12 @@ class AddonModel extends Gdn_Model {
         return $Result;
     }
 
+    /**
+     *
+     *
+     * @param $Data
+     * @param bool|true $Unset
+     */
     public function SetCalculatedFields(&$Data, $Unset = true) {
         if (!$Data) {
             return;
@@ -401,6 +479,13 @@ class AddonModel extends Gdn_Model {
         return !preg_match('`(?:^|[0-9\s-])[ab]`i', $VersionString);
     }
 
+    /**
+     *
+     *
+     * @param array $Stub
+     * @param bool|false $V1
+     * @return bool|Gdn_DataSet|mixed|object|string
+     */
     public function Save($Stub, $V1 = false) {
         Trace('AddonModel->Save()');
 
@@ -567,6 +652,13 @@ class AddonModel extends Gdn_Model {
         return $AddonID;
     }
 
+    /**
+     *
+     *
+     * @param $FormPostValues
+     * @param string $FileName
+     * @return bool|int|string
+     */
     public function SaveBak($FormPostValues, $FileName = '') {
         $Session = Gdn::Session();
 
@@ -653,6 +745,15 @@ class AddonModel extends Gdn_Model {
         return count($this->ValidationResults()) > 0 ? false : $AddonID;
     }
 
+    /**
+     *
+     *
+     * @param int $AddonID
+     * @param string $Property
+     * @param bool|false $ForceValue
+     * @return bool|string
+     * @throws Exception
+     */
     public function SetProperty($AddonID, $Property, $ForceValue = false) {
         if ($ForceValue !== false) {
             $Value = $ForceValue;
@@ -669,6 +770,13 @@ class AddonModel extends Gdn_Model {
         return $Value;
     }
 
+    /**
+     *
+     *
+     * @param array $Post
+     * @param bool $Insert
+     * @return bool
+     */
     public function Validate($Post, $Insert) {
         $this->Validation->AddRule('AddonKey', 'function:ValidateAddonKey');
 
@@ -723,10 +831,20 @@ class AddonModel extends Gdn_Model {
         return count($this->Validation->Results()) == 0;
     }
 
+    /**
+     *
+     *
+     * @param string|unknown_type $AddonID
+     */
     public function Delete($AddonID) {
         $this->SetProperty($AddonID, 'Visible', '0');
     }
 
+    /**
+     *
+     *
+     * @param $AddonID
+     */
     public function UpdateCurrentVersion($AddonID) {
         $Addon = $this->GetID($AddonID, true);
 
@@ -745,6 +863,12 @@ class AddonModel extends Gdn_Model {
     }
 }
 
+/**
+ *
+ *
+ * @param $Value
+ * @return bool
+ */
 function ValidateAddonKey($Value) {
     if (is_numeric($Value)) {
         return false;

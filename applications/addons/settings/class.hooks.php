@@ -13,6 +13,12 @@
  */
 class AddonsHooks implements Gdn_IPlugin {
 
+    /** @var string  */
+    private $_EnabledApplication = 'Vanilla';
+
+    /** @var bool  */
+    private $_Translations = false;
+
     /**
      * Hook for discussion prefixes in /discussions.
      */
@@ -38,7 +44,11 @@ class AddonsHooks implements Gdn_IPlugin {
         }
     }
 
-    // Write information about addons to the discussion if it is related to an addon
+    /**
+     * Write information about addons to the discussion if it is related to an addon.
+     *
+     * @param $Sender
+     */
     public function DiscussionController_BeforeCommentBody_Handler($Sender) {
         $Discussion = GetValue('Object', $Sender->EventArguments);
         $AddonID = GetValue('AddonID', $Discussion);
@@ -52,12 +62,18 @@ class AddonsHooks implements Gdn_IPlugin {
 
     /**
      *
+     *
      * @param DiscussionsController $Sender
      */
     public function DiscussionModel_AfterAddColumns_Handler($Sender, $Args) {
         AddonModel::JoinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
     }
 
+    /**
+     *
+     *
+     * @param $Sender
+     */
     public function Base_DiscussionOptions_Handler($Sender) {
          $Discussion = $Sender->EventArguments['Discussion'];
          $LabelString = T('Edit Addon Attachment...');
@@ -71,6 +87,12 @@ class AddonsHooks implements Gdn_IPlugin {
               'Class' => 'AttachAddonDiscussion Popup');
     }
 
+    /**
+     *
+     *
+     * @param $Sender
+     * @param $Args
+     */
     public function DiscussionsController_BeforeDiscussionContent_Handler($Sender, $Args) {
         static $AddonModel = null;
         if (!$AddonModel) {
@@ -90,7 +112,11 @@ class AddonsHooks implements Gdn_IPlugin {
         }
     }
 
-    // Pass the addonid to the form
+    /**
+     * Pass the addonid to the form.
+     *
+     * @param $Sender
+     */
     public function PostController_Render_Before($Sender) {
         $AddonID = GetIncomingValue('AddonID');
         if ($AddonID > 0 && is_object($Sender->Form)) {
@@ -98,7 +124,11 @@ class AddonsHooks implements Gdn_IPlugin {
         }
     }
 
-    // Make sure to use the AddonID when saving discussions if present in the url
+    /**
+     * Make sure to use the AddonID when saving discussions if present in the url.
+     *
+     * @param $Sender
+     */
     public function DiscussionModel_BeforeSaveDiscussion_Handler($Sender) {
         $AddonID = GetIncomingValue('AddonID');
         if (is_numeric($AddonID) && $AddonID > 0) {
@@ -108,6 +138,12 @@ class AddonsHooks implements Gdn_IPlugin {
         }
     }
 
+    /**
+     *
+     *
+     * @param $Sender
+     * @param $Args
+     */
     public function DiscussionModel_BeforeNotification_Handler($Sender, $Args) {
         $Discussion = $Args['Discussion'];
         $Activity = $Args['Activity'];
@@ -132,7 +168,11 @@ class AddonsHooks implements Gdn_IPlugin {
         $ActivityModel->Queue($Activity, 'AddonComment');
     }
 
-    // Make sure that all translations are in the GDN_Translation table for the "source" language
+    /**
+     * Make sure that all translations are in the GDN_Translation table for the "source" language.
+     *
+     * @param $Sender
+     */
     public function Gdn_Locale_BeforeTranslate_Handler($Sender) {
         $Code = ArrayValue('Code', $Sender->EventArguments, '');
         if ($Code != '' && !in_array($Code, $this->GetTranslations())) {
@@ -151,15 +191,29 @@ class AddonsHooks implements Gdn_IPlugin {
         }
     }
 
-    private $_EnabledApplication = 'Vanilla';
+    /**
+     *
+     *
+     * @param $Sender
+     */
     public function Gdn_Dispatcher_AfterEnabledApplication_Handler($Sender) {
         $this->_EnabledApplication = ArrayValue('EnabledApplication', $Sender->EventArguments, 'Vanilla'); // Defaults to "Vanilla"
     }
+
+    /**
+     *
+     *
+     * @return mixed
+     */
     private function _EnabledApplication() {
         return $this->_EnabledApplication;
     }
 
-    private $_Translations = false;
+    /**
+     *
+     *
+     * @return array
+     */
     private function GetTranslations() {
         if (!is_array($this->_Translations)) {
             $TranslationModel = new Gdn_Model('Translation');
@@ -172,6 +226,9 @@ class AddonsHooks implements Gdn_IPlugin {
         return $this->_Translations;
     }
 
+    /**
+     * @param $Sender
+     */
     public function ProfileController_AfterPreferencesDefined_Handler($Sender) {
         $Sender->Preferences['Notifications']['Popup.AddonComment'] = T('Notify me when people comment on my addons.');
         $Sender->Preferences['Notifications']['Email.AddonComment'] = T('Notify me when people comment on my addons.');
@@ -227,6 +284,9 @@ class AddonsHooks implements Gdn_IPlugin {
         $Sender->Render();
     }
 
+    /**
+     *
+     */
     public function Setup() {
         $Database = Gdn::Database();
         $Config = Gdn::Factory(Gdn::AliasConfig);
@@ -243,6 +303,14 @@ class AddonsHooks implements Gdn_IPlugin {
 }
 
 if (!function_exists('RenderDiscussionAddonWarning')) {
+    /**
+     *
+     *
+     * @param $AddonID
+     * @param $AddonName
+     * @param $AttachID
+     * @return string
+     */
     function RenderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
         $DeleteOption = '';
         if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {

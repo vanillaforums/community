@@ -13,8 +13,15 @@
  */
 class GetController extends AddonsController {
 
+    /** @var array  */
     public $Uses = array('Form', 'Database', 'AddonModel');
 
+    /**
+     *
+     *
+     * @param string $ID
+     * @param string $ServeFile
+     */
     public function Index($ID = '', $ServeFile = '0') {
         $this->AddJsFile('jquery.js');
 

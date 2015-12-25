@@ -12,10 +12,25 @@
  * Class LanguageModel
  */
 class LanguageModel extends Gdn_Model {
+
+    /**
+     *
+     *
+     * LanguageModel constructor.
+     */
     public function __construct() {
         parent::__construct('Language');
     }
 
+    /**
+     *
+     *
+     * @param bool|false $Where
+     * @param bool|false $Limit
+     * @param bool|false $Offset
+     * @return Gdn_DataSet
+     * @throws Exception
+     */
     public function Get($Where = false, $Limit = false, $Offset = false) {
         $this->SQL
             ->Select('l.*')

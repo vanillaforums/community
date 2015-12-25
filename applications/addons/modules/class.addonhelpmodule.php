@@ -13,6 +13,11 @@
  */
 class AddonHelpModule extends Gdn_Module {
 
+    /**
+     *
+     *
+     * @return string
+     */
     public function AssetTarget() {
         return 'Panel';
     }

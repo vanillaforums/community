@@ -13,10 +13,18 @@
  */
 class AddonsController extends Gdn_Controller {
 
+    /**
+     *
+     *
+     * AddonsController constructor.
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /**
+     *
+     */
     public function Initialize() {
         parent::Initialize();
         if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
