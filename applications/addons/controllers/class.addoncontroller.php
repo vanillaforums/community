@@ -48,7 +48,7 @@ class AddonController extends AddonsController {
      */
     public function Index($ID = '') {
         if ($ID != '') {
-            $Addon = $this->AddonModel->GetSlug($ID, TRUE);
+            $Addon = $this->AddonModel->GetSlug($ID, true);
             if (!is_array($Addon)) {
                 throw NotFoundException('Addon');
             } else {
@@ -57,7 +57,7 @@ class AddonController extends AddonsController {
 
                 $Description = GetValue('Description', $Addon);
                 if ($Description) {
-                    $this->Head->AddTag('meta', array('name' => 'description', 'content' => Gdn_Format::PlainText($Description, FALSE)));
+                    $this->Head->AddTag('meta', array('name' => 'description', 'content' => Gdn_Format::PlainText($Description, false)));
                 }
 
 //                if ($MaxVersion) {
@@ -77,7 +77,7 @@ class AddonController extends AddonsController {
                 $this->Title($this->Data('Name').' '.$this->Data('Version').' by '.$this->Data('InsertName'));
 
                 // Set the canonical url.
-                $this->CanonicalUrl(Url('/addon/'.AddonModel::Slug($Addon, FALSE), TRUE));
+                $this->CanonicalUrl(Url('/addon/'.AddonModel::Slug($Addon, false), true));
             }
         } else {
             $this->View = 'browse';
@@ -107,7 +107,7 @@ class AddonController extends AddonsController {
 
         if ($this->Form->IsPostBack()) {
             $Upload = new Gdn_Upload();
-            $Upload->AllowFileExtension(NULL);
+            $Upload->AllowFileExtension(null);
             $Upload->AllowFileExtension('zip');
             try {
                 // Validate the upload
@@ -120,7 +120,7 @@ class AddonController extends AddonsController {
                 $TargetPath = PATH_UPLOADS.'/'.$TargetFile;
 
                 if (!file_exists(dirname($TargetPath))) {
-                    mkdir(dirname($TargetPath), 0777, TRUE);
+                    mkdir(dirname($TargetPath), 0777, true);
                 }
 
                 // Save the file to a temporary location for parsing...
@@ -128,14 +128,14 @@ class AddonController extends AddonsController {
                     throw new Exception("We couldn't save the file you uploaded. Please try again later.", 400);
                 }
 
-                $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, TRUE);
+                $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, true);
 //                decho($AnalyzedAddon);
 //
 //                decho();
 //                die();
 
                 // Set the filename for the CDN...
-                $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, TRUE).'.zip';
+                $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, true).'.zip';
 
                 // Save the uploaded file
                 $Parsed = $Upload->SaveAs(
@@ -148,7 +148,7 @@ class AddonController extends AddonsController {
                 Trace($AnalyzedAddon, 'Analyzed Addon');
 
                 // If the long description is blank, load up the readme if it exists
-                if($AnalyzedAddon['Description2'] == '') {
+                if ($AnalyzedAddon['Description2'] == '') {
                     $AnalyzedAddon['Description2'] = $this->ParseReadme($TargetPath);
                 }
 
@@ -164,22 +164,23 @@ class AddonController extends AddonsController {
             // If there were no errors, save the addon
             if ($this->Form->ErrorCount() == 0) {
                 // Set some additional values to save.
-                $this->Form->SetFormValue('Vanilla2', TRUE);
+                $this->Form->SetFormValue('Vanilla2', true);
 
                 // Save the addon
                 $AddonID = $this->Form->Save();
-                if ($AddonID !== FALSE) {
+                if ($AddonID !== false) {
                     $Addon = $this->AddonModel->GetID($AddonID);
                     $this->SetData('Addon', $Addon);
 
                     if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
                         // Redirect to the new addon.
-                        Redirect("addon/".AddonModel::Slug($Addon, FALSE));
+                        Redirect("addon/".AddonModel::Slug($Addon, false));
                     }
                 }
             } else {
-                if (isset($TargetFile) && file_exists($TargetFile))
+                if (isset($TargetFile) && file_exists($TargetFile)) {
                     unlink($TargetFile);
+                }
             }
         }
 
@@ -198,7 +199,7 @@ class AddonController extends AddonsController {
 
         if ($this->Form->AuthenticatedPostBack()) {
             $Upload = new Gdn_Upload();
-            $Upload->AllowFileExtension(NULL);
+            $Upload->AllowFileExtension(null);
             $Upload->AllowFileExtension('zip');
             try {
                 // Validate the upload
@@ -222,26 +223,27 @@ class AddonController extends AddonsController {
             if ($this->Form->ErrorCount() == 0) {
                 // Save the addon
                 $this->Form->SetFormValue('File', "addons/$FileBaseName");
-                $this->Form->SetFormValue('Vanilla2', FALSE);
-                $AddonID = $this->Form->Save(TRUE);
-                if ($AddonID !== FALSE) {
+                $this->Form->SetFormValue('Vanilla2', false);
+                $AddonID = $this->Form->Save(true);
+                if ($AddonID !== false) {
                     // Redirect to the new addon
                     $Name = $this->Form->GetFormValue('Name', '');
                     Redirect('addon/'.$AddonID.'/'.Gdn_Format::Url($Name));
                 } else {
                     // Delete an erroneous file.
-                    if (file_exists($TargetFile))
+                    if (file_exists($TargetFile)) {
                         unlink($TargetFile);
+                    }
                 }
             }
         }
         $this->Render();
     }
 
-    public function Check($AddonID, $SaveVersionID = FALSE) {
+    public function Check($AddonID, $SaveVersionID = false) {
         $this->Permission('Addons.Addon.Manage');
 
-        if ($SaveVersionID !== FALSE) {
+        if ($SaveVersionID !== false) {
             // Get the version data.
             $Version = $this->AddonModel->SQL->GetWhere('AddonVersion', array('AddonVersionID' => $SaveVersionID))->FirstRow(DATASET_TYPE_ARRAY);
 
@@ -249,12 +251,13 @@ class AddonController extends AddonsController {
             $this->Form->SetValidationResults($this->AddonModel->ValidationResults());
         }
 
-        $Addon = $this->AddonModel->GetID($AddonID, TRUE);
+        $Addon = $this->AddonModel->GetID($AddonID, true);
         $AddonTypes = Gdn::SQL()->Get('AddonType')->ResultArray();
         $AddonTypes = Gdn_DataSet::Index($AddonTypes, 'AddonTypeID');
 
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
         // Get the data for the most recent version of the addon.
         $Path = PATH_UPLOADS.'/'.$Addon['File'];
@@ -314,21 +317,23 @@ class AddonController extends AddonsController {
 
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
-        if ($Addon['InsertUserID'] != $Session->UserID)
+        if ($Addon['InsertUserID'] != $Session->UserID) {
             $this->Permission('Addons.Addon.Manage');
+        }
 
         $this->Form->SetModel($this->AddonModel);
         $this->Form->AddHidden('AddonID', $AddonID);
         $AddonTypeModel = new Gdn_Model('AddonType');
         $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1'));
 
-        if ($this->Form->AuthenticatedPostBack() === FALSE) {
+        if ($this->Form->AuthenticatedPostBack() === false) {
             $this->Form->SetData($Addon);
         } else {
-            if ($this->Form->Save() !== FALSE) {
+            if ($this->Form->Save() !== false) {
                 $Addon = $this->AddonModel->GetID($AddonID);
                 $this->StatusMessage = T("Your changes have been saved successfully.");
                 $this->RedirectUrl = Url('/addon/'.AddonModel::Slug($Addon));
@@ -343,21 +348,23 @@ class AddonController extends AddonsController {
 
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             Redirect('dashboard/home/filenotfound');
+        }
 
-        if ($Addon['InsertUserID'] != $Session->UserID)
+        if ($Addon['InsertUserID'] != $Session->UserID) {
             $this->Permission('Addons.Addon.Manage');
+        }
 
         $this->Form->SetModel($this->AddonModel);
         $this->Form->AddHidden('AddonID', $AddonID);
         $AddonTypeModel = new Gdn_Model('AddonType');
         $this->TypeData = $AddonTypeModel->GetWhere(array('Visible' => '1'));
 
-        if ($this->Form->AuthenticatedPostBack() === FALSE) {
+        if ($this->Form->AuthenticatedPostBack() === false) {
             $this->Form->SetData($Addon);
         } else {
-            if ($this->Form->Save(TRUE) !== FALSE) {
+            if ($this->Form->Save(true) !== false) {
                 $Addon = $this->AddonModel->GetID($AddonID);
                 $this->StatusMessage = T("Your changes have been saved successfully.");
                 $this->RedirectUrl = Url('/addon/'.AddonModel::Slug($Addon));
@@ -371,14 +378,16 @@ class AddonController extends AddonsController {
         $this->_NewVersion($AddonID);
     }
 
-    protected function _NewVersion($AddonID = '', $V1 = FALSE) {
+    protected function _NewVersion($AddonID = '', $V1 = false) {
         $Session = Gdn::Session();
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
-        if ($Addon['InsertUserID'] != $Session->UserID)
+        if ($Addon['InsertUserID'] != $Session->UserID) {
             $this->Permission('Garden.Settings.Manage');
+        }
 
         $this->AddModule('AddonHelpModule');
 
@@ -387,7 +396,7 @@ class AddonController extends AddonsController {
 
         if ($this->Form->IsPostBack()) {
             $Upload = new Gdn_Upload();
-            $Upload->AllowFileExtension(NULL);
+            $Upload->AllowFileExtension(null);
             $Upload->AllowFileExtension('zip');
             try {
                 // Validate the upload
@@ -400,7 +409,7 @@ class AddonController extends AddonsController {
                 $TargetPath = PATH_UPLOADS.'/'.$TargetFile;
 
                 if (!file_exists(dirname($TargetPath))) {
-                    mkdir(dirname($TargetPath), 0777, TRUE);
+                    mkdir(dirname($TargetPath), 0777, true);
                 }
 
                 // Save the file to a temporary location for parsing...
@@ -408,14 +417,14 @@ class AddonController extends AddonsController {
                     throw new Exception("We couldn't save the file you uploaded. Please try again later.", 400);
                 }
 
-                $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, TRUE);
+                $AnalyzedAddon = UpdateModel::AnalyzeAddon($TargetPath, true);
 //                decho($AnalyzedAddon);
 //
 //                decho();
 //                die();
 
                 // Set the filename for the CDN...
-                $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, TRUE).'.zip';
+                $Upload->EventArguments['OriginalFilename'] = AddonModel::Slug($AnalyzedAddon, true).'.zip';
 
                 // Save the uploaded file
                 $Parsed = $Upload->SaveAs(
@@ -438,7 +447,7 @@ class AddonController extends AddonsController {
                 // Delete the erroneous file.
                 try {
                     $Upload->Delete($AnalyzedAddon['File']);
-                } catch(Exception $Ex2) {
+                } catch (Exception $Ex2) {
                 }
             }
 
@@ -451,12 +460,14 @@ class AddonController extends AddonsController {
                 $NewVersionID = $this->Form->Save($V1);
                 if ($NewVersionID) {
                     $this->SetData('Addon', $AnalyzedAddon);
-                    $this->SetData('Url', Url('/addon/'.AddonModel::Slug($Addon, TRUE), TRUE));
-                    if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
+                    $this->SetData('Url', Url('/addon/'.AddonModel::Slug($Addon, true), true));
+                    if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
                         $this->RedirectUrl = $this->Data('Url');
+                    }
                 } else {
-                    if (file_exists($Path))
+                    if (file_exists($Path)) {
                         unlink($Path);
+                    }
                 }
             }
         }
@@ -464,7 +475,7 @@ class AddonController extends AddonsController {
     }
 
     public function NewVersionV1($AddonID = '') {
-        $this->_NewVersion($AddonID, TRUE);
+        $this->_NewVersion($AddonID, true);
     }
 
     public function NotFound() {
@@ -497,83 +508,83 @@ class AddonController extends AddonsController {
         }
 
         Redirect('/addon/'.AddonModel::Slug($Addon));
-  }
+    }
 
-  public function AttachToDiscussion($DiscussionID = NULL) {
+    public function AttachToDiscussion($DiscussionID = null) {
           $this->Permission('Addons.Addon.Manage');
           $DiscussionModel = new DiscussionModel();
           $Discussion = $DiscussionModel->GetID($DiscussionID);
-          if ($Discussion) {
-                $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-                $this->Form->SetData($Addon);
-                $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-          } else {
-                throw NotFoundException('Discussion');
-          }
+        if ($Discussion) {
+              $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+              $this->Form->SetData($Addon);
+              $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+        } else {
+            throw NotFoundException('Discussion');
+        }
 
-          if ($this->Form->AuthenticatedPostBack()) {
-                // Look up for an existing addon
-                $FormValues = $this->Form->FormValues();
-                $Addon = false;
-                if (val('Name', $FormValues, FALSE)) {
-                     $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
-                }
+        if ($this->Form->AuthenticatedPostBack()) {
+            // Look up for an existing addon
+            $FormValues = $this->Form->FormValues();
+            $Addon = false;
+            if (val('Name', $FormValues, false)) {
+                 $Addon = $this->AddonModel->GetWhere(array('a.Name' => $FormValues['Name']))->FirstRow(DATASET_TYPE_ARRAY);
+            }
 
-                if ($Addon == FALSE && val('AddonID', $FormValues, FALSE)) {
-                     $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
-                }
+            if ($Addon == false && val('AddonID', $FormValues, false)) {
+                 $Addon = $this->AddonModel->GetID($FormValues['AddonID']);
+            }
 
-                if ($Addon == FALSE) {
-                     $this->Form->AddError(T('Unable to find addon via Name or ID'));
-                }
+            if ($Addon == false) {
+                 $this->Form->AddError(T('Unable to find addon via Name or ID'));
+            }
 
-                if ($this->Form->ErrorCount() == 0) {
-                     $DiscussionModel->SetField($DiscussionID, 'AddonID', $Addon['AddonID']);
-                     if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-                          Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
-                     } else {
-                          $this->InformMessage(T('Successfully updated Attached Addon!'));
-                          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-                          $this->JsonTarget('.ItemDiscussion .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
-                          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
-                     }
-                }
-          }
-
-          $this->Render('attach');
-     }
-
-     public function DetachFromDiscussion($DiscussionID = NULL) {
-          $this->Permission('Addons.Addon.Manage');
-          $DiscussionModel = new DiscussionModel();
-          $Discussion = $DiscussionModel->GetID($DiscussionID);
-          if ($Discussion) {
-                $Addon = $this->AddonModel->GetID($Discussion->AddonID);
-                $this->Form->SetData($Addon);
-                $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
-          } else {
-                throw NotFoundException('Discussion');
-          }
-
-          if ($this->Form->AuthenticatedPostBack()) {
-
-                if (!$this->Form->GetFormValue('DetachConfirm', FALSE)) {
-                     $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
+            if ($this->Form->ErrorCount() == 0) {
+                 $DiscussionModel->SetField($DiscussionID, 'AddonID', $Addon['AddonID']);
+                if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+                     Redirect($RedirectUrl ? : 'addon/' . $Addon['AddonID']);
                 } else {
-                     $DiscussionModel->SetField($DiscussionID, 'AddonID', NULL);
-                     if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
-                          Redirect($RedirectUrl);
-                     } else {
-                          $this->InformMessage(T('Successfully detached addon'));
-                          $this->JsonTarget('.Warning.AddonAttachment', NULL, 'Remove');
-                          $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach Addon...'), 'Text');
-                     }
+                     $this->InformMessage(T('Successfully updated Attached Addon!'));
+                     $this->JsonTarget('.Warning.AddonAttachment', null, 'Remove');
+                     $this->JsonTarget('.ItemDiscussion .Message', RenderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
+                     $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Edit Addon Attachment...'), 'Text');
                 }
-          }
-          $this->Render('detach');
-     }
+            }
+        }
 
-  protected static function NotFoundString($Code, $Item) {
+            $this->Render('attach');
+    }
+
+    public function DetachFromDiscussion($DiscussionID = null) {
+         $this->Permission('Addons.Addon.Manage');
+         $DiscussionModel = new DiscussionModel();
+         $Discussion = $DiscussionModel->GetID($DiscussionID);
+        if ($Discussion) {
+              $Addon = $this->AddonModel->GetID($Discussion->AddonID);
+              $this->Form->SetData($Addon);
+              $RedirectUrl = 'discussion/' . $Discussion->DiscussionID;
+        } else {
+            throw NotFoundException('Discussion');
+        }
+
+        if ($this->Form->AuthenticatedPostBack()) {
+
+            if (!$this->Form->GetFormValue('DetachConfirm', false)) {
+                 $this->Form->AddError(T('You must confirm the detachment'), 'DetachConfirm');
+            } else {
+                $DiscussionModel->SetField($DiscussionID, 'AddonID', null);
+                if ($this->DeliveryType() === DELIVERY_TYPE_ALL) {
+                     Redirect($RedirectUrl);
+                } else {
+                    $this->InformMessage(T('Successfully detached addon'));
+                    $this->JsonTarget('.Warning.AddonAttachment', null, 'Remove');
+                    $this->JsonTarget('a.AttachAddonDiscussion.Popup', T('Attach Addon...'), 'Text');
+                }
+            }
+        }
+            $this->Render('detach');
+    }
+
+    protected static function NotFoundString($Code, $Item) {
         return sprintf(T('%1$s "%2$s" not found.'), T($Code), $Item);
     }
 
@@ -581,21 +592,24 @@ class AddonController extends AddonsController {
         $this->Permission('Garden.Settings.Manage');
         $Addon = $this->AddonModel->GetSlug($AddonID);
 
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
         if ($this->Form->IsPostBack()) {
             $this->Form->ValidateRule('User', 'ValidateRequired');
 
             if ($this->Form->ErrorCount() == 0) {
                 $NewUser = $this->Form->GetFormValue('User');
-                if (is_numeric($NewUser))
+                if (is_numeric($NewUser)) {
                     $User = Gdn::UserModel()->GetID($NewUser, DATASET_TYPE_ARRAY);
-                else
+                } else {
                     $User = Gdn::UserModel()->GetByUsername($NewUser);
+                }
 
-                if (!$User)
+                if (!$User) {
                     $this->Form->AddError('@'.self::NotFoundString('User', $NewUser));
+                }
             }
 
             if ($this->Form->ErrorCount() == 0) {
@@ -621,18 +635,22 @@ class AddonController extends AddonsController {
         }
 
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             Redirect('dashboard/home/filenotfound');
+        }
 
-        if ($Session->UserID != $Addon['InsertUserID'])
+        if ($Session->UserID != $Addon['InsertUserID']) {
             $this->Permission('Addons.Addon.Manage');
+        }
 
         $Session = Gdn::Session();
-        if (is_numeric($AddonID))
+        if (is_numeric($AddonID)) {
             $this->AddonModel->Delete($AddonID);
+        }
 
-        if ($this->_DeliveryType === DELIVERY_TYPE_ALL)
+        if ($this->_DeliveryType === DELIVERY_TYPE_ALL) {
             Redirect(GetIncomingValue('Target', Gdn_Url::WebRoot()));
+        }
 
         $this->View = 'index';
         $this->Render();
@@ -642,12 +660,13 @@ class AddonController extends AddonsController {
      * Add a comment to an addon
      */
     public function AddComment($AddonID = '') {
-        $Render = TRUE;
+        $Render = true;
         $this->Form->SetModel($this->AddonCommentModel);
         $AddonID = $this->Form->GetFormValue('AddonID', $AddonID);
 
-        if (is_numeric($AddonID) && $AddonID > 0)
+        if (is_numeric($AddonID) && $AddonID > 0) {
             $this->Form->AddHidden('AddonID', $AddonID);
+        }
 
         if ($this->Form->AuthenticatedPostBack()) {
             $NewCommentID = $this->Form->Save();
@@ -655,15 +674,17 @@ class AddonController extends AddonsController {
             if ($NewCommentID > 0) {
                 // Update the Comment count
                 $this->AddonModel->SetProperty($AddonID, 'CountComments', $this->AddonCommentModel->GetCount(array('AddonID' => $AddonID)));
-                if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
+                if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
                     Redirect('addon/'.$AddonID.'/#Comment_'.$NewCommentID);
+                }
 
                 $this->SetJson('CommentID', $NewCommentID);
                 // If this was not a full-page delivery type, return the partial response
                 // Load all new messages that the user hasn't seen yet (including theirs)
                 $LastCommentID = $this->Form->GetFormValue('LastCommentID');
-                if (!is_numeric($LastCommentID))
+                if (!is_numeric($LastCommentID)) {
                     $LastCommentID = $NewCommentID - 1;
+                }
 
                 $Session = Gdn::Session();
                 $this->Addon = $this->AddonModel->GetID($AddonID);
@@ -674,18 +695,19 @@ class AddonController extends AddonsController {
                 if ($this->DeliveryType() != DELIVERY_TYPE_ALL) {
                     $this->StatusMessage = $this->Form->Errors();
                 } else {
-                    $Render = FALSE;
+                    $Render = false;
                     $this->Index($AddonID);
                 }
             }
         }
 
-        if ($Render)
+        if ($Render) {
             $this->Render();
+        }
     }
 
     public function Browse($FilterToType = '', $Sort = '', $VanillaVersion = '', $Page = '') {
-        $Checked = GetIncomingValue('checked', FALSE);
+        $Checked = GetIncomingValue('checked', false);
 
         // Implement user prefs
         $Session = Gdn::Session();
@@ -693,12 +715,15 @@ class AddonController extends AddonsController {
             if ($FilterToType != '') {
                 $Session->SetPreference('Addons.FilterType', $FilterToType);
             }
-            if ($VanillaVersion != '')
+            if ($VanillaVersion != '') {
                 $Session->SetPreference('Addons.FilterVanilla', $VanillaVersion);
-            if ($Sort != '')
+            }
+            if ($Sort != '') {
                 $Session->SetPreference('Addons.Sort', $Sort);
-            if ($Checked !== FALSE)
+            }
+            if ($Checked !== false) {
                 $Session->SetPreference('Addons.FilterChecked', $Checked);
+            }
 
             $FilterToType = $Session->GetPreference('Addons.FilterType', 'all');
             $VanillaVersion = $Session->GetPreference('Addons.FilterVanilla', '2');
@@ -706,14 +731,17 @@ class AddonController extends AddonsController {
             $Checked = $Session->GetPreference('Addons.FilterChecked');
         }
 
-        if (!array_key_exists($FilterToType, AddonModel::$TypesPlural))
+        if (!array_key_exists($FilterToType, AddonModel::$TypesPlural)) {
             $FilterToType = 'all';
+        }
 
-        if ($Sort != 'popular')
+        if ($Sort != 'popular') {
             $Sort = 'recent';
+        }
 
-        if (!in_array($VanillaVersion, array('1', '2')))
+        if (!in_array($VanillaVersion, array('1', '2'))) {
             $VanillaVersion = '2';
+        }
 
         $this->Version = $VanillaVersion;
 
@@ -728,24 +756,25 @@ class AddonController extends AddonsController {
 
         $this->Filter = $FilterToType;
 
-        if ($this->Filter == 'themes')
+        if ($this->Filter == 'themes') {
             $Title = 'Browse Themes';
-        elseif ($this->Filter == 'plugins')
+        } elseif ($this->Filter == 'plugins') {
             $Title = 'Browse Plugins';
-        elseif ($this->Filter == 'applications')
+        } elseif ($this->Filter == 'applications') {
             $Title = 'Browse Applications';
-        else
+        } else {
             $Title = 'Browse Addons';
+        }
         $this->SetData('Title', $Title);
 
         $Search = GetIncomingValue('Keywords', '');
         $this->_BuildBrowseWheres($Search);
 
         $SortField = $Sort == 'recent' ? 'DateUpdated' : 'CountDownloads';
-        $ResultSet = $this->AddonModel->GetWhere(FALSE, $SortField, 'desc', $Limit, $Offset);
+        $ResultSet = $this->AddonModel->GetWhere(false, $SortField, 'desc', $Limit, $Offset);
         $this->SetData('Addons', $ResultSet);
         $this->_BuildBrowseWheres($Search);
-        $NumResults = $this->AddonModel->GetCount(FALSE);
+        $NumResults = $this->AddonModel->GetCount(false);
         $this->SetData('TotalAddons', $NumResults);
 
         // Build a pager
@@ -762,8 +791,9 @@ class AddonController extends AddonsController {
         );
         $this->SetData('_Pager', $Pager);
 
-        if ($this->_DeliveryType != DELIVERY_TYPE_ALL)
+        if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
             $this->SetJson('MoreRow', $Pager->ToString('more'));
+        }
 
         $this->AddModule('AddonHelpModule');
 
@@ -780,10 +810,11 @@ class AddonController extends AddonsController {
                 ->EndWhereGroup();
         }
 
-        if ($this->Version != 0)
+        if ($this->Version != 0) {
             $this->AddonModel
                 ->SQL
                 ->Where('a.Vanilla2', $this->Version == '1' ? '0' : '1');
+        }
 
         $Ch = array('unchecked' => 0, 'checked' => 1);
         if (isset($Ch[$this->FilterChecked])) {
@@ -793,38 +824,43 @@ class AddonController extends AddonsController {
         if ($Types = $this->Request->Get('Types')) {
             $Types = explode(',', $Types);
             foreach ($Types as $Index => $Type) {
-                if (isset(AddonModel::$Types[trim($Type)]))
+                if (isset(AddonModel::$Types[trim($Type)])) {
                     $Types[$Index] = AddonModel::$Types[trim($Type)];
-                else
+                } else {
                     unset($Types[$Index]);
+                }
             }
             $this->AddonModel->SQL->WhereIn('a.AddonTypeID', $Types);
         }
 
         $AddonTypeID = GetValue($this->Filter, AddonModel::$TypesPlural);
-        if ($AddonTypeID)
+        if ($AddonTypeID) {
             $this->AddonModel
                 ->SQL
                 ->Where('a.AddonTypeID', $AddonTypeID);
+        }
     }
 
     public function AddPicture($AddonID = '') {
         $Session = Gdn::Session();
-        if (!$Session->IsValid())
+        if (!$Session->IsValid()) {
             $this->Form->AddError('You must be authenticated in order to use this form.');
+        }
 
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
-        if ($Session->UserID != $Addon['InsertUserID'])
+        if ($Session->UserID != $Addon['InsertUserID']) {
             $this->Permission('Addons.Addon.Manage');
+        }
 
         $this->AddModule('AddonHelpModule', 'Panel');
         $AddonPictureModel = new Gdn_Model('AddonPicture');
         $this->Form->SetModel($AddonPictureModel);
         $this->Form->AddHidden('AddonID', $AddonID);
-        if ($this->Form->AuthenticatedPostBack() === TRUE) {
+        if ($this->Form->AuthenticatedPostBack() === true) {
             $UploadImage = new Gdn_UploadImage();
             try {
                 // Validate the upload
@@ -861,8 +897,9 @@ class AddonController extends AddonsController {
             }
 
             // If there were no problems, redirect back to the addon
-            if ($this->Form->ErrorCount() == 0)
+            if ($this->Form->ErrorCount() == 0) {
                 $this->RedirectUrl = Url('/addon/'.AddonModel::Slug($Addon));
+            }
         }
         $this->Render();
     }
@@ -874,18 +911,18 @@ class AddonController extends AddonsController {
         $Addon = $AddonModel->GetID($Picture->AddonID);
         $Session = Gdn::Session();
 
-        if($Session->UserID != $Addon['InsertUserID'] && !$Session->CheckPermission('Addons.Addon.Manage')) {
-          throw PermissionException();
+        if ($Session->UserID != $Addon['InsertUserID'] && !$Session->CheckPermission('Addons.Addon.Manage')) {
+            throw PermissionException();
         }
 
         if ($this->Form->AuthenticatedPostBack() && $this->Form->GetFormValue('Yes')) {
-          if ($Picture) {
-              $Upload = new Gdn_Upload();
-              $Upload->Delete(ChangeBasename($Picture->File, 'ao%s'));
-              $Upload->Delete(ChangeBasename($Picture->File, 'at%s'));
-              $AddonPictureModel->Delete(array('AddonPictureID' => $AddonPictureID));
-          }
-          $this->RedirectUrl = Url('/addon/'.$Picture->AddonID);
+            if ($Picture) {
+                $Upload = new Gdn_Upload();
+                $Upload->Delete(ChangeBasename($Picture->File, 'ao%s'));
+                $Upload->Delete(ChangeBasename($Picture->File, 'at%s'));
+                $AddonPictureModel->Delete(array('AddonPictureID' => $AddonPictureID));
+            }
+            $this->RedirectUrl = Url('/addon/'.$Picture->AddonID);
         }
         $this->Render('deleteversion');
     }
@@ -902,15 +939,18 @@ class AddonController extends AddonsController {
 
     public function Icon($AddonID = '') {
         $Session = Gdn::Session();
-        if (!$Session->IsValid())
+        if (!$Session->IsValid()) {
             $this->Form->AddError('You must be authenticated in order to use this form.');
+        }
 
         $Addon = $this->AddonModel->GetID($AddonID);
-        if (!$Addon)
+        if (!$Addon) {
             throw NotFoundException('Addon');
+        }
 
-        if ($Session->UserID != $Addon['InsertUserID'])
+        if ($Session->UserID != $Addon['InsertUserID']) {
             $this->Permission('Addons.Addon.Manage');
+        }
 
         $this->AddModule('AddonHelpModule', 'Panel');
         $this->Form->SetModel($this->AddonModel);
@@ -931,7 +971,8 @@ class AddonController extends AddonsController {
                     $TargetImage,
                     256,
                     256,
-                    FALSE, FALSE
+                    false,
+                    false
                 );
                 $TargetImage = $Parsed['SaveName'];
             } catch (Exception $ex) {
@@ -948,8 +989,9 @@ class AddonController extends AddonsController {
             }
 
             // If there were no problems, redirect back to the addon
-            if ($this->Form->ErrorCount() == 0)
+            if ($this->Form->ErrorCount() == 0) {
                 $this->RedirectUrl = Url('/addon/'.AddonModel::Slug($Addon));
+            }
         }
         $this->Render();
     }
@@ -971,7 +1013,7 @@ class AddonController extends AddonsController {
         $GetInfo->setAccessible(true);
         $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
         
-        if($Entries === false) {
+        if ($Entries === false) {
             return '';
         }
 
@@ -985,5 +1027,4 @@ class AddonController extends AddonsController {
 
         return $Description;
     }
-
 }

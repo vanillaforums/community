@@ -33,19 +33,22 @@ class UpdateController extends AddonsController {
             ->Get()
             ->FirstRow();
         $UpdateCheckSourceID = $Data ? $Data->SourceID : 0;
-        if ($UpdateCheckSourceID <= 0)
-            $UpdateCheckSourceID = $SQL->Insert('UpdateCheckSource',
+        if ($UpdateCheckSourceID <= 0) {
+            $UpdateCheckSourceID = $SQL->Insert(
+                'UpdateCheckSource',
                 array(
                     'Location' => $Source,
                     'DateInserted' => Gdn_Format::ToDateTime(),
                     'RemoteIp' => @$_SERVER['REMOTE_ADDR']
                 )
             );
+        }
 
         // Assuming the source was saved successfully
         if ($UpdateCheckSourceID > 0) {
             // Record all of the count information
-            $UpdateCheckID = $SQL->Insert('UpdateCheck',
+            $UpdateCheckID = $SQL->Insert(
+                'UpdateCheck',
                 array(
                     'SourceID' => $UpdateCheckSourceID,
                     'CountUsers' => intval($CountUsers),

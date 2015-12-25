@@ -16,7 +16,7 @@ class TranslationModel extends Gdn_Model {
         parent::__construct('Translation');
     }
 
-    public function Get($Where = FALSE, $Limit = FALSE, $Offset = FALSE) {
+    public function Get($Where = false, $Limit = false, $Offset = false) {
         $this->SQL
             ->Select('s.TranslationID', '', 'SourceTranslationID')
             ->Select('s.Value', '', 'SourceValue')
@@ -24,12 +24,14 @@ class TranslationModel extends Gdn_Model {
             ->From('Translation s')
             ->Join('Translation t', 't.SourceTranslationID = s.TranslationID', 'left');
 
-        if ($Where !== FALSE)
+        if ($Where !== false) {
             $this->SQL->Where($Where);
+        }
 
-        if ($Limit !== FALSE) {
-            if ($Offset == FALSE || $Offset < 0)
+        if ($Limit !== false) {
+            if ($Offset == false || $Offset < 0) {
                 $Offset = 0;
+            }
 
             $this->SQL->Limit($Limit, $Offset);
         }
