@@ -17,8 +17,9 @@ class AddonsHooks implements Gdn_IPlugin {
      * Hook for discussion prefixes in /discussions.
      */
     public function Base_BeforeDiscussionMeta_Handler($Sender, $Args) {
-        if (Gdn::Controller()->ControllerName == 'addoncontroller')
+        if (Gdn::Controller()->ControllerName == 'addoncontroller') {
             return;
+        }
         $this->AddonDiscussionPrefix($Args['Discussion']);
     }
 
@@ -30,7 +31,7 @@ class AddonsHooks implements Gdn_IPlugin {
     public function AddonDiscussionPrefix($Discussion) {
         $Addon = GetValue('Addon', $Discussion);
         if ($Addon) {
-            $Slug = AddonModel::Slug($Addon, FALSE);
+            $Slug = AddonModel::Slug($Addon, false);
             $Url = "/addon/$Slug";
             $AddonName = GetValue('Name', $Addon);
             echo ' '.Wrap(Anchor(Gdn_Format::Html($AddonName), $Url), 'span', array('class' => 'Tag Tag-Addon')).' ';
@@ -60,9 +61,9 @@ class AddonsHooks implements Gdn_IPlugin {
     public function Base_DiscussionOptions_Handler($Sender) {
          $Discussion = $Sender->EventArguments['Discussion'];
          $LabelString = T('Edit Addon Attachment...');
-         if(is_null($Discussion->AddonID)) {
-              $LabelString = T('Attach Addon...');
-         }
+        if (is_null($Discussion->AddonID)) {
+             $LabelString = T('Attach Addon...');
+        }
 
          $Sender->EventArguments['DiscussionOptions'][] = array(
               'Label' => $LabelString,
@@ -71,13 +72,15 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     public function DiscussionsController_BeforeDiscussionContent_Handler($Sender, $Args) {
-        static $AddonModel = NULL;
-        if (!$AddonModel) $AddonModel = new AddonModel();
+        static $AddonModel = null;
+        if (!$AddonModel) {
+            $AddonModel = new AddonModel();
+        }
 
         $Discussion = $Args['Discussion'];
         $Addon = GetValue('Addon', $Discussion);
         if ($Addon) {
-            $Slug = AddonModel::Slug($Addon, FALSE);
+            $Slug = AddonModel::Slug($Addon, false);
             $Url = "/addon/$Slug";
 //            if ($Addon['Icon']) {
 //                echo Anchor(Img(Gdn_Upload::Url($Addon['Icon'])), $Url, array('class' => 'Addon-Icon Author'));
@@ -90,8 +93,9 @@ class AddonsHooks implements Gdn_IPlugin {
     // Pass the addonid to the form
     public function PostController_Render_Before($Sender) {
         $AddonID = GetIncomingValue('AddonID');
-        if ($AddonID > 0 && is_object($Sender->Form))
+        if ($AddonID > 0 && is_object($Sender->Form)) {
             $Sender->Form->AddHidden('AddonID', $AddonID);
+        }
     }
 
     // Make sure to use the AddonID when saving discussions if present in the url
@@ -108,20 +112,22 @@ class AddonsHooks implements Gdn_IPlugin {
         $Discussion = $Args['Discussion'];
         $Activity = $Args['Activity'];
 
-        if (!GetValue('AddonID', $Discussion))
+        if (!GetValue('AddonID', $Discussion)) {
             return;
+        }
 
         $AddonModel = new AddonModel();
         $Addon = $AddonModel->GetID($Discussion['AddonID'], DATASET_TYPE_ARRAY);
 
-        if (GetValue('InsertUserID', $Addon) == Gdn::Session()->UserID)
+        if (GetValue('InsertUserID', $Addon) == Gdn::Session()->UserID) {
             return;
+        }
 
         $ActivityModel = $Args['ActivityModel'];
         $Activity['NotifyUserID'] = $Addon['InsertUserID'];
         $Activity['HeadlineFormat'] = '{ActivityUserID,user} asked a <a href="{Url,html}">question</a> about the <a href="{Data.AddonUrl,exurl}">{Data.AddonName,html}</a> addon.';
         $Activity['Data']['AddonName'] = $Addon['Name'];
-        $Activity['Data']['AddonUrl'] = '/addon/'.urlencode(AddonModel::Slug($Addon, FALSE));
+        $Activity['Data']['AddonUrl'] = '/addon/'.urlencode(AddonModel::Slug($Addon, false));
 
         $ActivityModel->Queue($Activity, 'AddonComment');
     }
@@ -153,7 +159,7 @@ class AddonsHooks implements Gdn_IPlugin {
         return $this->_EnabledApplication;
     }
 
-    private $_Translations = FALSE;
+    private $_Translations = false;
     private function GetTranslations() {
         if (!is_array($this->_Translations)) {
             $TranslationModel = new Gdn_Model('Translation');
@@ -224,8 +230,8 @@ class AddonsHooks implements Gdn_IPlugin {
     public function Setup() {
         $Database = Gdn::Database();
         $Config = Gdn::Factory(Gdn::AliasConfig);
-        $Drop = C('Addons.Version') === FALSE ? TRUE : FALSE;
-        $Explicit = TRUE;
+        $Drop = C('Addons.Version') === false ? true : false;
+        $Explicit = true;
         $Validation = new Gdn_Validation(); // This is going to be needed by structure.php to validate permission names
         include(PATH_APPLICATIONS . DS . 'addons' . DS . 'settings' . DS . 'structure.php');
 
@@ -237,22 +243,27 @@ class AddonsHooks implements Gdn_IPlugin {
 }
 
 if (!function_exists('RenderDiscussionAddonWarning')) {
-function RenderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
-  $DeleteOption = '';
-  if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
-    $DeleteOption = Anchor(
-                    'x',
-                    'addon/detachfromdiscussion/' . $AttachID,
-                    array('class' => 'Dismiss'));
-  }
-  $String = Wrap(
-          $DeleteOption .
-          sprintf(
-                  T('This discussion is related to the %s addon.'), Anchor(
-                          $AddonName, 'addon/' . $AddonID . '/' . Gdn_Format::Url($AddonName)
-                  )
-          ), 'div', array('class' => 'Warning AddonAttachment DismissMessage')
-  );
-  return $String;
-}
+    function RenderDiscussionAddonWarning($AddonID, $AddonName, $AttachID) {
+        $DeleteOption = '';
+        if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
+            $DeleteOption = Anchor(
+                'x',
+                'addon/detachfromdiscussion/' . $AttachID,
+                array('class' => 'Dismiss')
+            );
+        }
+        $String = Wrap(
+            $DeleteOption .
+            sprintf(
+                T('This discussion is related to the %s addon.'),
+                Anchor(
+                    $AddonName,
+                    'addon/' . $AddonID . '/' . Gdn_Format::Url($AddonName)
+                )
+            ),
+            'div',
+            array('class' => 'Warning AddonAttachment DismissMessage')
+        );
+        return $String;
+    }
 }

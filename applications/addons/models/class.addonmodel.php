@@ -40,7 +40,7 @@ class AddonModel extends Gdn_Model {
         parent::__construct('Addon');
     }
 
-    public function AddonQuery($VersionSlug = FALSE) {
+    public function AddonQuery($VersionSlug = false) {
         $this->SQL
             ->Select('a.*')
             ->Select('t.Label', '', 'Type')
@@ -69,10 +69,10 @@ class AddonModel extends Gdn_Model {
 
     public static function JoinAddons(&$Data, $Field = 'AddonID', $Columns = array('Name')) {
         $Columns = array_merge(array('table' => 'Addon', 'column' => 'Addon'), $Columns);
-        Gdn_DataSet::Join($Data, $Columns, array('unique' => TRUE));
+        Gdn_DataSet::Join($Data, $Columns, array('unique' => true));
     }
 
-    public static function Slug($Addon, $IncludeVersion = TRUE) {
+    public static function Slug($Addon, $IncludeVersion = true) {
         if (GetValue('AddonKey', $Addon) && (GetValue('Version', $Addon) || !$IncludeVersion)) {
             $Key = GetValue('AddonKey', $Addon);
             $Type = GetValue('Type', $Addon);
@@ -82,12 +82,13 @@ class AddonModel extends Gdn_Model {
 
             //$Slug = strtolower(GetValue('AddonKey', $Data).'-'.GetValue('Type', $Data).'-'.GetValue('Version', $Data));
             $Slug = strtolower($Key).'-'.strtolower($Type);
-            if ($IncludeVersion === TRUE)
+            if ($IncludeVersion === true) {
                 $Slug .= '-'.GetValue('Version', $Addon, '');
-            elseif (is_string($IncludeVersion))
+            } elseif (is_string($IncludeVersion)) {
                 $Slug .= '-'.$IncludeVersion;
-            elseif (is_array($IncludeVersion))
+            } elseif (is_array($IncludeVersion)) {
                 $Slug .= '-'.$IncludeVersion['Version'];
+            }
             return urlencode($Slug);
         } else {
             return GetValue('AddonID', $Addon).'-'.Gdn_Format::Url(GetValue('Name', $Addon));
@@ -99,15 +100,17 @@ class AddonModel extends Gdn_Model {
     }
 
     public function Get($Offset = '0', $Limit = '', $Wheres = '') {
-        if ($Limit == '')
+        if ($Limit == '') {
             $Limit = Gdn::Config('Vanilla.Discussions.PerPage', 50);
+        }
 
         $Offset = !is_numeric($Offset) || $Offset < 0 ? 0 : $Offset;
 
         $this->AddonQuery();
 
-        if (is_array($Wheres))
+        if (is_array($Wheres)) {
             $this->SQL->Where($Wheres);
+        }
 
         return $this->SQL
             ->Limit($Limit, $Offset)
@@ -117,18 +120,21 @@ class AddonModel extends Gdn_Model {
     /*
      * @return Gdn_DataSet
      */
-    public function GetWhere($Where = FALSE, $OrderFields = '', $OrderDirection = 'asc', $Limit = FALSE, $Offset = FALSE) {
+    public function GetWhere($Where = false, $OrderFields = '', $OrderDirection = 'asc', $Limit = false, $Offset = false) {
         $this->AddonQuery();
 
-        if ($Where !== FALSE)
+        if ($Where !== false) {
             $this->SQL->Where($Where);
+        }
 
-        if ($OrderFields != '')
+        if ($OrderFields != '') {
             $this->SQL->OrderBy($OrderFields, $OrderDirection);
+        }
 
-        if ($Limit !== FALSE) {
-            if ($Offset == FALSE || $Offset < 0)
+        if ($Limit !== false) {
+            if ($Offset == false || $Offset < 0) {
                 $Offset = 0;
+            }
 
             $this->SQL->Limit($Limit, $Offset);
         }
@@ -139,8 +145,9 @@ class AddonModel extends Gdn_Model {
     }
 
     public function GetCount($Wheres = '') {
-        if (!is_array($Wheres))
+        if (!is_array($Wheres)) {
             $Wheres = array();
+        }
 
         $Wheres['a.Visible'] = '1';
         return $this->SQL
@@ -162,7 +169,7 @@ class AddonModel extends Gdn_Model {
      * @param bool $GetVersions Whether or not to get an array of all of the addon's versions.
      * @return object The addon.
      */
-    public function GetID($AddonID, $GetVersions = FALSE) {
+    public function GetID($AddonID, $GetVersions = false) {
         // Look for the addon in the cache.
         foreach ($this->_AddonCache as $CachedAddon) {
             if (is_array($AddonID) && $CachedAddon['Key'] == $AddonID[0] && $CachedAddon['Type'] == $AddonID[1]) {
@@ -177,16 +184,18 @@ class AddonModel extends Gdn_Model {
         if (isset($Addon)) {
             $Result = $Addon;
         } else {
-            $this->AddonQuery(GetValue(2, $AddonID, FALSE));
+            $this->AddonQuery(GetValue(2, $AddonID, false));
 
-            if (is_array($AddonID))
+            if (is_array($AddonID)) {
                 $this->SQL->Where(array('a.AddonKey' => $AddonID[0], 'a.AddonTypeID' => $AddonID[1]));
-            else
+            } else {
                 $this->SQL->Where('a.AddonID', $AddonID);
+            }
 
             $Result = $this->SQL->Get()->FirstRow(DATASET_TYPE_ARRAY);
-            if (!$Result)
-                return FALSE;
+            if (!$Result) {
+                return false;
+            }
 
 
             $this->SetCalculatedFields($Result);
@@ -258,7 +267,7 @@ class AddonModel extends Gdn_Model {
      * @param bool $GetVersions Whether or not to add an array of versions to the result.
      * @return array
      */
-    public function GetSlug($Slug, $GetVersions = FALSE) {
+    public function GetSlug($Slug, $GetVersions = false) {
         if (is_numeric($Slug)) {
             $Addon = $this->GetID($Slug, $GetVersions);
         } else {
@@ -277,29 +286,31 @@ class AddonModel extends Gdn_Model {
             }
         }
 
-        if (!$Addon)
-            return FALSE;
+        if (!$Addon) {
+            return false;
+        }
 
         if ($GetVersions) {
             // Find the latest stable version.
                 $MaxVersion = GetValueR('Versions.0', $Addon);
-                foreach ($Addon['Versions'] as $Version) {
-                    if (AddonModel::IsReleaseVersion($Version['Version'])) {
-                        $MaxVersion = $Version;
-                        break;
-                    }
+            foreach ($Addon['Versions'] as $Version) {
+                if (AddonModel::IsReleaseVersion($Version['Version'])) {
+                    $MaxVersion = $Version;
+                    break;
                 }
+            }
 
                 // Find the version we are looking at.
-                foreach ($Addon['Versions'] as $Version) {
-                    $Slug2 = AddonModel::Slug($Addon, $Version);
-                    if ($Slug2 == $Slug) {
-                        $ViewingVersion = $Version;
-                        break;
-                    }
+            foreach ($Addon['Versions'] as $Version) {
+                $Slug2 = AddonModel::Slug($Addon, $Version);
+                if ($Slug2 == $Slug) {
+                    $ViewingVersion = $Version;
+                    break;
                 }
-                if (!isset($ViewingVersion))
-                    $ViewingVersion = $MaxVersion;
+            }
+            if (!isset($ViewingVersion)) {
+                $ViewingVersion = $MaxVersion;
+            }
 
                 $Addon['CurrentAddonVersionID'] = $MaxVersion['AddonVersionID'];
                 $Addon = array_merge($Addon, $ViewingVersion);
@@ -324,9 +335,10 @@ class AddonModel extends Gdn_Model {
         return $Result;
     }
 
-    public function SetCalculatedFields(&$Data, $Unset = TRUE) {
-        if (!$Data)
+    public function SetCalculatedFields(&$Data, $Unset = true) {
+        if (!$Data) {
             return;
+        }
 
         if (is_a($Data, 'Gdn_DataSet')) {
             $this->SetCalculatedFields($Data->Result());
@@ -334,10 +346,10 @@ class AddonModel extends Gdn_Model {
             $File = GetValue('File', $Data);
             SetValue('Url', $Data, Gdn_Upload::Url($File));
 
-            $Icon = GetValue('Icon', $Data, NULL);
-            if ($Icon !== NULL) {
+            $Icon = GetValue('Icon', $Data, null);
+            if ($Icon !== null) {
                 // Fix the icon path.
-                if ($Icon && strpos($Icon, '/') == FALSE) {
+                if ($Icon && strpos($Icon, '/') == false) {
                     $Icon = 'ai'.$Icon;
                     SetValue('Icon', $Data, $Icon);
                 }
@@ -359,8 +371,9 @@ class AddonModel extends Gdn_Model {
                 $Requirements = GetValue('Requirements', $Data);
                 try {
                     $Requirements = unserialize($Requirements);
-                    if (is_array($Requirements))
+                    if (is_array($Requirements)) {
                         SetValue('Requirements', $Data, $Requirements);
+                    }
                 } catch (Exception $Ex) {
                 }
             }
@@ -388,7 +401,7 @@ class AddonModel extends Gdn_Model {
         return !preg_match('`(?:^|[0-9\s-])[ab]`i', $VersionString);
     }
 
-    public function Save($Stub, $V1 = FALSE) {
+    public function Save($Stub, $V1 = false) {
         Trace('AddonModel->Save()');
 
         $Session = Gdn::Session();
@@ -406,7 +419,7 @@ class AddonModel extends Gdn_Model {
             if (!$Session->CheckPermission('Addons.Addon.Manage') && isset($Stub['Filename'])) {
                 // Only admins can modify plugin attributes without the file.
                 $this->Validation->AddValidationResult('Filename', 'ValidateRequired');
-                return FALSE;
+                return false;
             }
         }
 
@@ -414,14 +427,14 @@ class AddonModel extends Gdn_Model {
         if (!isset($Addon)) {
             if (isset($Path) && !$V1) {
                 try {
-                    $Addon = UpdateModel::AnalyzeAddon($Path, FALSE);
+                    $Addon = UpdateModel::AnalyzeAddon($Path, false);
                 } catch (Exception $Ex) {
-                    $Addon = FALSE;
+                    $Addon = false;
                     $this->Validation->AddValidationResult('File', '@'.$Ex->getMessage());
                 }
                 if (!is_array($Addon)) {
                     $this->Validation->AddValidationResult('File', 'Could not analyze the addon file.');
-                    return FALSE;
+                    return false;
                 }
                 $Addon = array_merge($Stub, $Addon);
             } else {
@@ -434,42 +447,46 @@ class AddonModel extends Gdn_Model {
         }
 
         // Get an existing addon.
-        if (isset($Addon['AddonID']))
-            $CurrentAddon = $this->GetID($Addon['AddonID'], TRUE);
-        elseif (isset($Addon['AddonKey']) && isset($Addon['AddonTypeID']))
-            $CurrentAddon = $this->GetID(array($Addon['AddonKey'], $Addon['AddonTypeID']), TRUE);
-        else
-            $CurrentAddon = FALSE;
+        if (isset($Addon['AddonID'])) {
+            $CurrentAddon = $this->GetID($Addon['AddonID'], true);
+        } elseif (isset($Addon['AddonKey']) && isset($Addon['AddonTypeID'])) {
+            $CurrentAddon = $this->GetID(array($Addon['AddonKey'], $Addon['AddonTypeID']), true);
+        } else {
+            $CurrentAddon = false;
+        }
 
         Trace($CurrentAddon, 'CurentAddon');
 
         $Insert = !$CurrentAddon;
-        if ($Insert)
-            $this->AddInsertFields ($Addon);
+        if ($Insert) {
+            $this->AddInsertFields($Addon);
+        }
 
         $this->AddUpdateFields($Addon); // always add update fields
 
         if (!$this->Validate($Addon, $Insert)) {
             Trace('Addon did not validate');
-            return FALSE;
+            return false;
         }
 
         // Search for the current version.
-        $MaxVersion = FALSE;
-        $CurrentVersion = FALSE;
+        $MaxVersion = false;
+        $CurrentVersion = false;
         if ($CurrentAddon && isset($Addon['Version'])) {
             // Search for a current version.
             foreach ($CurrentAddon['Versions'] as $Index => $Version) {
                 if (isset($Addon['AddonVersionID'])) {
-                    if ($Addon['AddonVersionID'] == $Version['AddonVersionID'])
+                    if ($Addon['AddonVersionID'] == $Version['AddonVersionID']) {
                         $CurrentVersion = $Version;
+                    }
                 } elseif (version_compare($Addon['Version'], $Version['Version']) == 0) {
                     $CurrentVersion = $Version;
                 }
 
                 // Only check for a current version if the version has been checked.
-                if (!$Version['Checked'])
+                if (!$Version['Checked']) {
                     continue;
+                }
 
                 if (!$MaxVersion || version_compare($MaxVersion['Version'], $Version['Version'], '<')) {
                     $MaxVersion = $Version;
@@ -490,7 +507,7 @@ class AddonModel extends Gdn_Model {
                  'NotifyUserID' => ActivityModel::NOTIFY_PUBLIC,
                  'HeadlineFormat' => '{ActivityUserID,user} added the <a href="{Url,html}">{Data.Name}</a> addon.',
                  'Story' => Gdn_Format::Html($Fields['Description']),
-                 'Route' => '/addon/'.rawurlencode(self::Slug($Fields, FALSE)),
+                 'Route' => '/addon/'.rawurlencode(self::Slug($Fields, false)),
                  'Data' => array('Name' => $Fields['Name'])
             );
             $ActivityModel->Save($Activity);
@@ -533,14 +550,16 @@ class AddonModel extends Gdn_Model {
             $this->Validation->AddValidationResult($VersionModel->ValidationResults());
 
             if (!$AddonVersionID) {
-                return FALSE;
+                return false;
             }
 
             // Update the current version in the addon.
             if (!$MaxVersion || version_compare($CurrentAddon['Version'], $Addon['Version'], '<')) {
-                $this->SQL->Put($this->Name,
+                $this->SQL->Put(
+                    $this->Name,
                     array('CurrentAddonVersionID' => $AddonVersionID),
-                    array('AddonID' => $AddonID));
+                    array('AddonID' => $AddonID)
+                );
             }
         }
         $this->_AddonCache = array();
@@ -554,30 +573,34 @@ class AddonModel extends Gdn_Model {
         // Define the primary key in this model's table.
         $this->DefineSchema();
 
-        if (array_key_exists('AddonKey', $FormPostValues))
+        if (array_key_exists('AddonKey', $FormPostValues)) {
             $this->Validation->ApplyRule('AddonKey', 'Required');
+        }
 
         // Add & apply any extra validation rules:
-        if (array_key_exists('Description', $FormPostValues))
+        if (array_key_exists('Description', $FormPostValues)) {
             $this->Validation->ApplyRule('Description', 'Required');
+        }
 
-        if (array_key_exists('Version', $FormPostValues))
+        if (array_key_exists('Version', $FormPostValues)) {
             $this->Validation->ApplyRule('Version', 'Required');
+        }
 /*
         if (array_key_exists('TestedWith', $FormPostValues))
             $this->Validation->ApplyRule('TestedWith', 'Required');
 */
         // Get the ID from the form so we know if we are inserting or updating.
         $AddonID = ArrayValue('AddonID', $FormPostValues, '');
-        $Insert = $AddonID == '' ? TRUE : FALSE;
+        $Insert = $AddonID == '' ? true : false;
 
         if ($Insert) {
-            if(!array_key_exists('Vanilla2', $FormPostValues))
+            if (!array_key_exists('Vanilla2', $FormPostValues)) {
                 $FormPostValues['Vanilla2'] = '0';
+            }
 
             unset($FormPostValues['AddonID']);
             $this->AddInsertFields($FormPostValues);
-        } else if (!array_key_exists('Vanilla2', $FormPostValues)) {
+        } elseif (!array_key_exists('Vanilla2', $FormPostValues)) {
             $Tmp = $this->GetID($AddonID);
             $FormPostValues['Vanilla2'] = $Tmp->Vanilla2 ? '1' : '0';
         }
@@ -587,7 +610,7 @@ class AddonModel extends Gdn_Model {
             $Fields = $this->Validation->SchemaValidationFields(); // All fields on the form that relate to the schema
             $AddonID = intval(ArrayValue('AddonID', $Fields, 0));
             $Fields = RemoveKeyFromArray($Fields, 'AddonID'); // Remove the primary key from the fields for saving
-            $Addon = FALSE;
+            $Addon = false;
             $Activity = 'EditAddon';
             if ($AddonID > 0) {
                 $this->SQL->Put($this->Name, $Fields, array($this->PrimaryKey => $AddonID));
@@ -623,14 +646,15 @@ class AddonModel extends Gdn_Model {
                 );
             }
         }
-        if (!is_numeric($AddonID))
-            $AddonID = FALSE;
+        if (!is_numeric($AddonID)) {
+            $AddonID = false;
+        }
 
-        return count($this->ValidationResults()) > 0 ? FALSE : $AddonID;
+        return count($this->ValidationResults()) > 0 ? false : $AddonID;
     }
 
-    public function SetProperty($AddonID, $Property, $ForceValue = FALSE) {
-        if ($ForceValue !== FALSE) {
+    public function SetProperty($AddonID, $Property, $ForceValue = false) {
+        if ($ForceValue !== false) {
             $Value = $ForceValue;
         } else {
             $Value = '1';
@@ -653,8 +677,9 @@ class AddonModel extends Gdn_Model {
             $this->Validation->ApplyRule('AddonKey', 'AddonKey');
         }
 
-        if ($Insert || isset($Post['Description']))
+        if ($Insert || isset($Post['Description'])) {
             $this->Validation->ApplyRule('Description', 'Required');
+        }
 
         if ($Insert || isset($Post['Version'])) {
             $this->Validation->ApplyRule('Version', 'Required');
@@ -665,20 +690,22 @@ class AddonModel extends Gdn_Model {
 
         // Validate against an existing addon.
         if ($AddonID = GetValue('AddonID', $Post)) {
-            $CurrentAddon = $this->GetID($AddonID, TRUE);
+            $CurrentAddon = $this->GetID($AddonID, true);
             if ($CurrentAddon) {
-                if (GetValue('AddonKey', $CurrentAddon) && isset($Post['AddonKey']) && GetValue('AddonKey', $Post) != GetValue('AddonKey', $CurrentAddon))
+                if (GetValue('AddonKey', $CurrentAddon) && isset($Post['AddonKey']) && GetValue('AddonKey', $Post) != GetValue('AddonKey', $CurrentAddon)) {
                     $this->Validation->AddValidationResult('AddonKey', '@'.sprintf(T('The addon\'s key cannot be changed. The uploaded file has a key of <b>%s</b>, but it must be <b>%s</b>.'), GetValue('AddonKey', $Post), GetValue('AddonKey', $CurrentAddon)));
-                else {
+                } else {
                     // Make sure this version doesn't match.
                     foreach ($CurrentAddon['Versions'] as $Version) {
-                        if ($Version['Deleted'])
+                        if ($Version['Deleted']) {
                             continue;
+                        }
 
                         if (version_compare(GetValue('Version', $Version), GetValue('Version', $Post)) == 0) {
                             // This version matches a previous version.
-                            if (GetValue('Checked', $Version) && GetValue('MD5', $Version) != GetValue('MD5', $Post))
+                            if (GetValue('Checked', $Version) && GetValue('MD5', $Version) != GetValue('MD5', $Post)) {
                                 $this->Validation->AddValidationResult('Version', '@'.sprintf(T('Version %s of this addon already exists.'), GetValue('Version', $Version)));
+                            }
                         }
                     }
                 }
@@ -701,12 +728,13 @@ class AddonModel extends Gdn_Model {
     }
 
     public function UpdateCurrentVersion($AddonID) {
-        $Addon = $this->GetID($AddonID, TRUE);
+        $Addon = $this->GetID($AddonID, true);
 
-        $MaxVersion = FALSE;
+        $MaxVersion = false;
         foreach ($Addon['Versions'] as $Version) {
-            if (!$Version['Checked'] || $Version['Deleted'])
+            if (!$Version['Checked'] || $Version['Deleted']) {
                 continue;
+            }
             if (!$MaxVersion || version_compare($Version['Version'], $MaxVersion['Version'], '>')) {
                 $MaxVersion = $Version;
             }
@@ -718,9 +746,10 @@ class AddonModel extends Gdn_Model {
 }
 
 function ValidateAddonKey($Value) {
-    if (is_numeric($Value))
-        return FALSE;
-    elseif (preg_match('`[-,;:/]`', $Value) || strpos($Value, '\\') !== FALSE)
-        return FALSE;
-    return TRUE;
+    if (is_numeric($Value)) {
+        return false;
+    } elseif (preg_match('`[-,;:/]`', $Value) || strpos($Value, '\\') !== false) {
+        return false;
+    }
+    return true;
 }

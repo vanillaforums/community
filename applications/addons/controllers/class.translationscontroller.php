@@ -33,12 +33,13 @@ class TranslationsController extends AddonsController {
      * Home Page
      */
     public function Index($LanguageID = '') {
-        if ($LanguageID != '')  {
+        if ($LanguageID != '') {
             $this->View = 'Language';
             $LanguageModel = new Gdn_Model('Language');
             $this->Language = $LanguageModel->GetWhere(array('LanguageID' => $LanguageID));
-            if (!is_object($this->Language))
+            if (!is_object($this->Language)) {
                 $this->View = 'NotFound';
+            }
         } else {
             $UserLanguageModel = new UserLanguageModel();
             $this->LanguageData = $UserLanguageModel->Get();
@@ -72,8 +73,9 @@ class TranslationsController extends AddonsController {
             // Save the addon
             $UserLanguageID = $this->Form->Save();
             // Redirect to the new translation
-            if ($UserLanguageID !== FALSE)
+            if ($UserLanguageID !== false) {
                 $this->RedirectUrl = Url('translations/edit/'.$UserLanguageID);
+            }
         }
         $this->Render();
     }
@@ -85,8 +87,9 @@ class TranslationsController extends AddonsController {
 
         $UserLanguageModel = new UserLanguageModel();
         $this->UserLanguage = $UserLanguageModel->GetID($UserLanguageID);
-        if (!$this->UserLanguage)
+        if (!$this->UserLanguage) {
             Redirect('dashboard/home/filenotfound');
+        }
 
         $TranslationModel = new TranslationModel();
         $this->CountTranslations = $TranslationModel->GetCount();
@@ -98,16 +101,17 @@ class TranslationsController extends AddonsController {
                 'UserID' => $Session->UserID,
                 'LanguageID' => $this->UserLanguage->LanguageID
             )
-        )->NumRows() == 0)
+        )->NumRows() == 0) {
             $this->Permission('Addons.Translations.Manage');
+        }
 
         $this->Form->SetModel($UserLanguageModel);
         $this->Form->AddHidden('UserLanguageID', $this->UserLanguage->UserLanguageID);
 
-        if ($this->Form->AuthenticatedPostBack() === FALSE) {
+        if ($this->Form->AuthenticatedPostBack() === false) {
             $this->Form->SetData($this->UserLanguage);
         } else {
-            if ($this->Form->Save() !== FALSE) {
+            if ($this->Form->Save() !== false) {
                 $this->StatusMessage = T("Your changes have been saved successfully.");
                 $this->RedirectUrl = Url('/translation/'.$UserLanguageID.'/');
             }

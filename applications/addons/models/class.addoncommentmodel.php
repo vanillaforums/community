@@ -85,12 +85,13 @@ class AddonCommentModel extends Gdn_Model {
         }
 
         $AddonCommentID = ArrayValue('AddonCommentID', $FormPostValues);
-        $AddonCommentID = is_numeric($AddonCommentID) && $AddonCommentID > 0 ? $AddonCommentID : FALSE;
-        $Insert = $AddonCommentID === FALSE;
-        if ($Insert)
+        $AddonCommentID = is_numeric($AddonCommentID) && $AddonCommentID > 0 ? $AddonCommentID : false;
+        $Insert = $AddonCommentID === false;
+        if ($Insert) {
             $this->AddInsertFields($FormPostValues);
-        else
+        } else {
             $this->AddUpdateFields($FormPostValues);
+        }
 
         // Validate the form posted values
         if ($this->Validate($FormPostValues, $Insert)) {
@@ -98,7 +99,7 @@ class AddonCommentModel extends Gdn_Model {
             $Fields = $this->Validation->SchemaValidationFields();
             $Fields = RemoveKeyFromArray($Fields, $this->PrimaryKey);
             $AddonID = ArrayValue('AddonID', $Fields);
-            if ($Insert === FALSE) {
+            if ($Insert === false) {
                 $this->SQL->Put($this->Name, $Fields, array('AddonCommentID' => $AddonCommentID));
             } else {
                 // Make sure that the comments get formatted in the method defined by Garden
@@ -122,8 +123,9 @@ class AddonCommentModel extends Gdn_Model {
                 }
             }
             // Record user-comment activity
-            if ($AddonID !== FALSE)
+            if ($AddonID !== false) {
                 $this->RecordActivity($AddonID, $Session->UserID, $AddonCommentID);
+            }
         }
         return $AddonCommentID;
     }
@@ -132,7 +134,7 @@ class AddonCommentModel extends Gdn_Model {
         // Get the author of the discussion
         $AddonModel = new AddonModel();
         $Addon = $AddonModel->GetID($AddonID);
-        if ($Addon->InsertUserID != $ActivityUserID)
+        if ($Addon->InsertUserID != $ActivityUserID) {
             AddActivity(
                 $ActivityUserID,
                 'AddonComment',
@@ -140,10 +142,11 @@ class AddonCommentModel extends Gdn_Model {
                 $Addon->InsertUserID,
                 'addon/'.$AddonID.'/'.Gdn_Format::Url($Addon->Name).'/#Comment_'.$AddonCommentID
             );
+        }
     }
 
     public function Delete($AddonCommentID) {
         $this->SQL->Delete('AddonComment', array('AddonCommentID' => $AddonCommentID));
-        return TRUE;
+        return true;
     }
 }

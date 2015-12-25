@@ -19,8 +19,9 @@ class GetController extends AddonsController {
         $this->AddJsFile('jquery.js');
 
         // Define the item being downloaded
-        if (strtolower($ID) == 'vanilla')
+        if (strtolower($ID) == 'vanilla') {
             $ID = 'vanilla-core';
+        }
 
         $UrlFilename = Gdn::Request()->Filename();
         $PathInfo = pathinfo($UrlFilename);
@@ -32,7 +33,7 @@ class GetController extends AddonsController {
         }
 
         // Find the requested addon
-        $this->Addon = $this->AddonModel->GetSlug($ID, TRUE);
+        $this->Addon = $this->AddonModel->GetSlug($ID, true);
         $this->SetData('Addon', $this->Addon);
 
         if (!is_array($this->Addon) || !GetValue('File', $this->Addon)) {
@@ -42,8 +43,9 @@ class GetController extends AddonsController {
                 'File' => '');
         } else {
             $AddonID = $this->Addon['AddonID'];
-            if ($ServeFile != '1')
+            if ($ServeFile != '1') {
                 $this->AddJsFile('get.js');
+            }
 
             if ($ServeFile == '1') {
                 // Record this download
@@ -54,10 +56,11 @@ class GetController extends AddonsController {
                 ));
                 $this->AddonModel->SetProperty($AddonID, 'CountDownloads', $this->Addon['CountDownloads'] + 1);
 
-                if (GetValue('Slug', $this->Addon))
+                if (GetValue('Slug', $this->Addon)) {
                     $Filename = $this->Addon['Slug'];
-                else
+                } else {
                     $Filename = "{$this->Addon['Name']}-{$this->Addon['Version']}";
+                }
 
                 $Filename = Gdn_Format::Url($Filename).'.zip';
 
