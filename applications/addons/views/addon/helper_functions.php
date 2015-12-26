@@ -22,11 +22,8 @@ function writeAddon($Addon, $Alt) {
             echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
             ?>
             <div class="Meta">
-                <span class="<?php echo $Addon->Vanilla2 == '1' ? 'Vanilla2' : 'Vanilla1'; ?>"><?php
-                    echo $Addon->Vanilla2 == '1' ? 'Vanilla 2' : 'Vanilla 1'; ?></span>
-                <span class="Type">
-                    Type
-                    <span><?php echo $Addon->Type; ?></span>
+                <span class="TypeTag">
+                    <?php echo $Addon->Type; ?>
                 </span>
                 <span class="Version">
                     Version
