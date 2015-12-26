@@ -64,7 +64,6 @@ class AddonController extends AddonsController {
                     $this->Head->addTag('meta', array('name' => 'description', 'content' => Gdn_Format::plainText($Description, false)));
                 }
 
-                $this->addCssFile('popup.css');
                 $this->addCssFile('fancyzoom.css');
                 $this->addJsFile('fancyzoom.js');
                 $this->addJsFile('addon.js');
