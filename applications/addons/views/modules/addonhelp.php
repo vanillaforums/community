@@ -4,7 +4,7 @@
     <h4>Make Your Own Addons!</h4>
     <ul>
     <?php
-        echo '<li>'.anchor('Quick-Start Guide', '/page/AddonQuickStart').'</li>';
+        echo '<li>'.anchor('Quick-Start Guide', 'http://docs.vanillaforums.com/developers/plugins/quickstart/').'</li>';
         if (Gdn::session()->isValid()) {
             echo '<li>'.anchor('Upload a New Addon', '/addon/add').'</li>';
         } else {
