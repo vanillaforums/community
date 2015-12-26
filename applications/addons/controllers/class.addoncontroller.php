@@ -23,7 +23,7 @@ class AddonController extends AddonsController {
     public $Sort = 'recent';
 
     /** @var string  */
-    public $Version = '0'; // The version of Vanilla to filter to (0 is no filter)
+    public $Version = '2'; // The version of Vanilla to filter to (0 is no filter)
 
     /** @var Gdn_Form */
     public $Form;
@@ -640,8 +640,13 @@ class AddonController extends AddonsController {
      * @param string $Page
      * @throws Exception
      */
-    public function browse($FilterToType = '', $Sort = '', $VanillaVersion = '', $Page = '') {
+    public function browse($FilterToType = '', $Sort = '', $Page = '') {
         $Checked = GetIncomingValue('checked', false);
+
+        // Create a virtual type called 'apps' as a stand-in for both plugins & applications.
+        if ($FilterToType == 'apps') {
+            $FilterToType = 'plugins,applications';
+        }
 
         // Implement user prefs
         $Session = Gdn::session();
@@ -649,9 +654,9 @@ class AddonController extends AddonsController {
             if ($FilterToType != '') {
                 $Session->setPreference('Addons.FilterType', $FilterToType);
             }
-            if ($VanillaVersion != '') {
-                $Session->setPreference('Addons.FilterVanilla', $VanillaVersion);
-            }
+            //if ($VanillaVersion != '') {
+                $Session->setPreference('Addons.FilterVanilla', '2');
+            //}
             if ($Sort != '') {
                 $Session->setPreference('Addons.Sort', $Sort);
             }
@@ -665,7 +670,7 @@ class AddonController extends AddonsController {
             $Checked = $Session->getPreference('Addons.FilterChecked');
         }
 
-        if (!array_key_exists($FilterToType, AddonModel::$TypesPlural)) {
+        if (!array_key_exists($FilterToType, AddonModel::$TypesPlural) && $FilterToType != 'plugins,applications') {
             $FilterToType = 'all';
         }
 
@@ -692,10 +697,8 @@ class AddonController extends AddonsController {
 
         if ($this->Filter == 'themes') {
             $Title = 'Browse Themes';
-        } elseif ($this->Filter == 'plugins') {
-            $Title = 'Browse Plugins';
-        } elseif ($this->Filter == 'applications') {
-            $Title = 'Browse Applications';
+        } elseif ($this->Filter == 'plugins,applications') {
+            $Title = 'Browse Plugins &amp; Applications';
         } else {
             $Title = 'Browse Addons';
         }
@@ -721,7 +724,7 @@ class AddonController extends AddonsController {
             $Offset,
             $Limit,
             $NumResults,
-            'addon/browse/'.$FilterToType.'/'.$Sort.'/'.$this->Version.'/%1$s/?Keywords='.urlencode($Search)
+            'addon/browse/'.$FilterToType.'/'.$Sort.'/%1$s/?Keywords='.urlencode($Search)
         );
         $this->setData('_Pager', $Pager);
 
@@ -760,24 +763,27 @@ class AddonController extends AddonsController {
             $this->AddonModel->SQL->where('a.Checked', $Ch[$this->FilterChecked]);
         }
 
-        if ($Types = $this->Request->get('Types')) {
-            $Types = explode(',', $Types);
-            foreach ($Types as $Index => $Type) {
-                if (isset(AddonModel::$Types[trim($Type)])) {
-                    $Types[$Index] = AddonModel::$Types[trim($Type)];
-                } else {
-                    unset($Types[$Index]);
-                }
-            }
-            $this->AddonModel->SQL->whereIn('a.AddonTypeID', $Types);
+        // 'Type' could be via URL param or in folder structure.
+        $Types = ($this->Request->get('Types')) ?: $this->Filter;
+
+        // If 'all', stop filtering.
+        if ($Types == 'all') {
+            return;
         }
 
-        $AddonTypeID = val($this->Filter, AddonModel::$TypesPlural);
-        if ($AddonTypeID) {
-            $this->AddonModel
-                ->SQL
-                ->where('a.AddonTypeID', $AddonTypeID);
+        $Types = explode(',', $Types);
+
+        // Check types against our singular & plural version arrays.
+        $AddonTypeIDs = array();
+        print_r($Types);
+        foreach ($Types as $Type) {
+            $TypeID = val($Type, AddonModel::$TypesPlural, val($Type, AddonModel::$Types));
+            if ($TypeID) {
+                $AddonTypeIDs[] = $TypeID;
+            }
         }
+
+        $this->AddonModel->SQL->whereIn('a.AddonTypeID', $AddonTypeIDs);
     }
 
     /**
