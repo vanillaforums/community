@@ -162,7 +162,6 @@ div.Warning strong {
 .AddonOptions {
    font-size: 12px;
    font-weight: bold;
-   text-align: center;
    background: #fffcf1;
    padding: 3px 0;
    border: none;
@@ -172,7 +171,7 @@ div.Warning strong {
    -webkit-border-bottom-right-radius: 2px;
 }
 .AddonOptions a {
-   margin: 0 6px;
+   margin: 0 12px;
 }
 
 /* Side Menu */
@@ -468,7 +467,8 @@ ul.DataList div.Meta span {
 }
 span.Approved,
 span.Vanilla1,
-span.Vanilla2 {
+span.Vanilla2,
+span.TypeTag {
    line-height: 1;
    color: #fff;
    font-weight: bold;
@@ -479,7 +479,8 @@ span.Vanilla2 {
    color: #fff;
    background: #999;
 }
-span.Vanilla2 {
+span.Vanilla2,
+span.TypeTag {
    color: #fff;
    background: #2A529A;
 }

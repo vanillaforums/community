@@ -31,15 +31,12 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         echo '<div class="AddonOptions">';
         echo anchor('Edit Details', "/addon/edit{$Ver}/$AddonID", 'Popup');
         echo '|'.anchor('Upload New Version', "/addon/newversion{$Ver2}/$AddonID");
-        echo '|'.anchor('Upload Screen', '/addon/addpicture/'.$AddonID);
+        echo '|'.anchor('Upload Screenshot', '/addon/addpicture/'.$AddonID);
         echo '|'.anchor('Upload Icon', '/addon/icon/'.$AddonID);
-        if ($Session->checkPermission('Addons.Addon.Manage'))
-            echo '|'.anchor('Check', '/addon/check/'.$AddonID);
-        if ($Session->checkPermission('Addons.Addon.Manage'))
-            echo '|'.anchor($this->data('DateReviewed') == '' ? 'Approve Version' : 'Unapprove Version', '/addon/approve?TransientKey='.urlencode(Gdn::session()->transientKey()).'&addonversionid='.$AddonVersionID, 'ApproveAddon');
-        if ($Session->checkPermission('Addons.Addon.Manage'))
-            echo '|'.anchor('Delete Addon', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon');
 
+        if ($Session->checkPermission('Addons.Addon.Manage')) {
+            echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon Alert');
+        }
         $this->FireEvent('AddonOptions');
 
         echo '</div>';
@@ -81,10 +78,6 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             <div class="Box RequirementBox">
                 <h3><?php echo t('Requirements'); ?></h3>
                 <div>
-                <dl>
-                    <dt>Vanilla</dt>
-                    <dd><span class="Vanilla<?php echo $VanillaVersion; ?>">Vanilla <?php echo $VanillaVersion; ?></span></dd>
-                </dl>
                 <?php
                 if (!$this->data('Checked')) {
                     $OtherRequirements = Gdn_Format::display($this->data('Requirements'));
