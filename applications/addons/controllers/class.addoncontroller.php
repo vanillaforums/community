@@ -681,7 +681,7 @@ class AddonController extends AddonsController {
 
         $this->Sort = $Sort;
 
-        $this->FilterChecked = true;
+        $this->FilterChecked = 'checked';
 
         $this->addJsFile('jquery.gardenmorepager.js');
         $this->addJsFile('browse.js');
