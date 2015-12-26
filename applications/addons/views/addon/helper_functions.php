@@ -22,9 +22,7 @@ function writeAddon($Addon, $Alt) {
             echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
             ?>
             <div class="Meta">
-                <span class="TypeTag">
-                    <?php echo $Addon->Type; ?>
-                </span>
+                <span class="TypeTag"><?php echo $Addon->Type; ?></span>
                 <span class="Version">
                     Version
                     <span><?php echo $Addon->Version; ?></span>
