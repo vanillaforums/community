@@ -670,7 +670,8 @@ class AddonController extends AddonsController {
             $Checked = $Session->getPreference('Addons.FilterChecked');
         }
 
-        if (!array_key_exists($FilterToType, AddonModel::$TypesPlural) && $FilterToType != 'plugins,applications') {
+        $allowedFilters = AddonModel::$TypesPlural + ['plugins,applications' => true];
+        if (!array_key_exists($FilterToType, $allowedFilters)) {
             $FilterToType = 'all';
         }
 
