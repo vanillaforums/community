@@ -641,8 +641,6 @@ class AddonController extends AddonsController {
      * @throws Exception
      */
     public function browse($FilterToType = '', $Sort = '', $Page = '') {
-        $Checked = GetIncomingValue('checked', false);
-
         // Create a virtual type called 'apps' as a stand-in for both plugins & applications.
         if ($FilterToType == 'apps') {
             $FilterToType = 'plugins,applications';
@@ -660,14 +658,10 @@ class AddonController extends AddonsController {
             if ($Sort != '') {
                 $Session->setPreference('Addons.Sort', $Sort);
             }
-            if ($Checked !== false) {
-                $Session->setPreference('Addons.FilterChecked', $Checked);
-            }
 
             $FilterToType = $Session->getPreference('Addons.FilterType', 'all');
             $VanillaVersion = $Session->getPreference('Addons.FilterVanilla', '2');
             $Sort = $Session->getPreference('Addons.Sort', 'recent');
-            $Checked = $Session->getPreference('Addons.FilterChecked');
         }
 
         $allowedFilters = AddonModel::$TypesPlural + ['plugins,applications' => true];
@@ -687,7 +681,7 @@ class AddonController extends AddonsController {
 
         $this->Sort = $Sort;
 
-        $this->FilterChecked = $Checked;
+        $this->FilterChecked = true;
 
         $this->addJsFile('jquery.gardenmorepager.js');
         $this->addJsFile('browse.js');

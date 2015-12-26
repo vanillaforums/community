@@ -52,9 +52,9 @@ div.Approved strong, div.Warning strong { font-weight: bold; display: block; }
 
 #Content img.Border { padding: 6px; border: 1px solid #ddd; }
 
-.AddonOptions { font-size: 12px; font-weight: bold; text-align: center; background: #fffcf1; padding: 3px 0; border: none; -moz-border-radius-bottomleft: 2px; -moz-border-radius-bottomright: 2px; -webkit-border-bottom-left-radius: 2px; -webkit-border-bottom-right-radius: 2px; }
+.AddonOptions { font-size: 12px; font-weight: bold; background: #fffcf1; padding: 3px 0; border: none; -moz-border-radius-bottomleft: 2px; -moz-border-radius-bottomright: 2px; -webkit-border-bottom-left-radius: 2px; -webkit-border-bottom-right-radius: 2px; }
 
-.AddonOptions a { margin: 0 6px; }
+.AddonOptions a { margin: 0 12px; }
 
 /* Side Menu */
 #Content #SideMenu, #Content #SideMenu li { margin: 0px; padding: 0px; list-style: none; }
