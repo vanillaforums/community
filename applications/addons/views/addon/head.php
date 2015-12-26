@@ -7,7 +7,7 @@ if (!property_exists($this, 'HideSearch')) {
     $Filter = ($this->Filter == 'plugins,applications') ? 'apps' : $this->Filter;
     $Url = '/addon/browse/'.$Filter.'/';
     $Query = GetIncomingValue('Keywords', '');
-    echo $this->Form->open(array('action' => Url($Url.$this->Sort.'/'.$this->Version)));
+    echo $this->Form->open(array('action' => url($Url.$this->Sort)));
     echo $this->Form->errors();
     echo $this->Form->textBox('Keywords', array('value' => $Query));
     echo $this->Form->button('Browse Addons');
