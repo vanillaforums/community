@@ -775,7 +775,6 @@ class AddonController extends AddonsController {
 
         // Check types against our singular & plural version arrays.
         $AddonTypeIDs = array();
-        print_r($Types);
         foreach ($Types as $Type) {
             $TypeID = val($Type, AddonModel::$TypesPlural, val($Type, AddonModel::$Types));
             if ($TypeID) {
