@@ -1,17 +1,23 @@
 <?php if (!defined('APPLICATION')) exit();
 
-function _CheckTable($Data) {
+/**
+ *
+ *
+ * @param $Data
+ */
+function _checkTable($Data) {
     echo "<table class='Data' width='100%' style='table-layout: fixed;'>\n";
     echo "<thead><tr><td width='30%'>Field</td><td width='35%'>Current</td><td width='35%'>File</td></tr></thead>";
-    $Alt = TRUE;
-    $First = TRUE;
+    $Alt = true;
+    $First = true;
 
     foreach ($Data as $Key => $Value) {
-        if (StringBeginsWith($Key, 'File_'))
+        if (StringBeginsWith($Key, 'File_')) {
             continue;
+        }
 
-        $Value = Gdn_Format::Html($Value);
-        $FileValue = Gdn_Format::Html(val('File_'.$Key, $Data));
+        $Value = Gdn_Format::html($Value);
+        $FileValue = Gdn_Format::html(val('File_'.$Key, $Data));
 
         if ($Key == 'MD5') {
             $Value = substr($Value, 0, 10);
@@ -19,8 +25,9 @@ function _CheckTable($Data) {
         }
 
         $Class = '';
-        if ($Alt)
+        if ($Alt) {
             $Class = ' class="Alt"';
+        }
 
         echo "<tr{$Class}><th>$Key</th><td>$Value</td>";
 
@@ -35,29 +42,29 @@ function _CheckTable($Data) {
         echo "\n";
 
         $Alt = !$Alt;
-        $First = FALSE;
+        $First = false;
     }
 
     echo '</table>';
 }
 
-echo $this->Form->Open();
-echo $this->Form->Errors();
+echo $this->Form->open();
+echo $this->Form->errors();
 
-echo Anchor('Back to Addon', '/addon/'.$this->Data('Addon.AddonID'));
+echo anchor('Back to Addon', '/addon/'.$this->data('Addon.AddonID'));
 
 echo '<h2>Addon</h2>';
-_CheckTable($this->Data('Addon'));
+_checkTable($this->data('Addon'));
 
-$AddonID = $this->Data('Addon.AddonID');
-foreach ($this->Data('Versions', array()) as $Version) {
-    echo '<h2>', T('Version'), ' ', val('Version', $Version), '</h2>';
-    _CheckTable($Version);
+$AddonID = $this->data('Addon.AddonID');
+foreach ($this->data('Versions', array()) as $Version) {
+    echo '<h2>', t('Version'), ' ', val('Version', $Version), '</h2>';
+    _checkTable($Version);
     echo '<p style="text-align: right;">',
-        Anchor(T('Delete'), "/addon/deleteversion/{$Version['AddonVersionID']}", 'Button Popup'),
+        anchor(t('Delete'), "/addon/deleteversion/{$Version['AddonVersionID']}", 'Button Popup'),
         ' ',
-        Anchor(T('Save'), "/addon/check/{$AddonID}?SaveVersionID={$Version['AddonVersionID']}", 'Button'),
+        anchor(t('Save'), "/addon/check/{$AddonID}?SaveVersionID={$Version['AddonVersionID']}", 'Button'),
         '</p>';
 }
 
-echo $this->Form->Close();
+echo $this->Form->close();

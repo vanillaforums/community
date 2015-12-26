@@ -1,8 +1,9 @@
 <?php if (!defined('APPLICATION')) exit();
-if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
-    echo $this->FetchView('head');
 
-$Session = Gdn::Session();
+if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
+    echo $this->fetchView('head');
+}
+
 ?>
 <div id="AddonPage">
     <div id="Content" class="container_16">

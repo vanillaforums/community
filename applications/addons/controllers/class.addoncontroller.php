@@ -14,7 +14,7 @@
 class AddonController extends AddonsController {
 
     /** @var array  */
-    public $Uses = array('Form', 'AddonModel', 'AddonCommentModel');
+    public $Uses = array('Form', 'AddonModel');
 
     /** @var string  */
     public $Filter = 'all';
@@ -629,59 +629,6 @@ class AddonController extends AddonsController {
 
         $this->View = 'index';
         $this->render();
-    }
-
-    /**
-     * Add a comment to an addon.
-     *
-     * @param string $AddonID
-     * @throws Exception
-     * @throws Gdn_UserException
-     */
-    public function addComment($AddonID = '') {
-        $Render = true;
-        $this->Form->setModel($this->AddonCommentModel);
-        $AddonID = $this->Form->getFormValue('AddonID', $AddonID);
-
-        if (is_numeric($AddonID) && $AddonID > 0) {
-            $this->Form->addHidden('AddonID', $AddonID);
-        }
-
-        if ($this->Form->authenticatedPostBack()) {
-            $NewCommentID = $this->Form->save();
-            // Comment not saving for some reason - no errors reported
-            if ($NewCommentID > 0) {
-                // Update the Comment count
-                $this->AddonModel->setProperty($AddonID, 'CountComments', $this->AddonCommentModel->getCount(array('AddonID' => $AddonID)));
-                if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
-                    safeRedirect('addon/'.$AddonID.'/#Comment_'.$NewCommentID);
-                }
-
-                $this->setJson('CommentID', $NewCommentID);
-                // If this was not a full-page delivery type, return the partial response
-                // Load all new messages that the user hasn't seen yet (including theirs)
-                $LastCommentID = $this->Form->getFormValue('LastCommentID');
-                if (!is_numeric($LastCommentID)) {
-                    $LastCommentID = $NewCommentID - 1;
-                }
-
-                $this->Addon = $this->AddonModel->getID($AddonID);
-                $this->CommentData = $this->AddonCommentModel->getNew($AddonID, $LastCommentID);
-                $this->View = 'comments';
-            } else {
-                // Handle ajax based errors...
-                if ($this->deliveryType() != DELIVERY_TYPE_ALL) {
-                    $this->StatusMessage = $this->Form->errors();
-                } else {
-                    $Render = false;
-                    $this->index($AddonID);
-                }
-            }
-        }
-
-        if ($Render) {
-            $this->render();
-        }
     }
 
     /**

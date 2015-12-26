@@ -19,30 +19,30 @@ class UpdateController extends AddonsController {
     /**
      *
      */
-    public function Index() {
+    public function index() {
         $Source = GetIncomingValue('source', '');
         $CountUsers = GetIncomingValue('users', '');
         $CountConversations = GetIncomingValue('conversations', '');
         $CountConversationMessages = GetIncomingValue('messages', '');
         $CountDiscussions = GetIncomingValue('discussions', '');
         $CountComments = GetIncomingValue('comments', '');
-        $UpdateChecks = json_decode($this->_GetJsonString('updateChecks'), true);
+
+        $UpdateChecks = json_decode(GetIncomingValue('updateChecks'), true);
         $UpdateCheckID = 0;
 
         // Get the UpdateCheckSourceID
-        $SQL = $this->Database->SQL();
-        $Data = $SQL->Select('SourceID')
-            ->From('UpdateCheckSource')
-            ->Where(array('Location' => $Source))
-            ->Get()
-            ->FirstRow();
+        $SQL = $this->Database->sql();
+        $Data = $SQL->select('SourceID')
+            ->from('UpdateCheckSource')
+            ->where(array('Location' => $Source))
+            ->get()->firstRow();
         $UpdateCheckSourceID = $Data ? $Data->SourceID : 0;
         if ($UpdateCheckSourceID <= 0) {
-            $UpdateCheckSourceID = $SQL->Insert(
+            $UpdateCheckSourceID = $SQL->insert(
                 'UpdateCheckSource',
                 array(
                     'Location' => $Source,
-                    'DateInserted' => Gdn_Format::ToDateTime(),
+                    'DateInserted' => Gdn_Format::toDateTime(),
                     'RemoteIp' => @$_SERVER['REMOTE_ADDR']
                 )
             );
@@ -51,7 +51,7 @@ class UpdateController extends AddonsController {
         // Assuming the source was saved successfully
         if ($UpdateCheckSourceID > 0) {
             // Record all of the count information
-            $UpdateCheckID = $SQL->Insert(
+            $UpdateCheckID = $SQL->insert(
                 'UpdateCheck',
                 array(
                     'SourceID' => $UpdateCheckSourceID,
@@ -60,8 +60,8 @@ class UpdateController extends AddonsController {
                     'CountComments' => intval($CountComments),
                     'CountConversations' => intval($CountConversations),
                     'CountConversationMessages' => intval($CountConversationMessages),
-                    'DateInserted' => Gdn_Format::ToDateTime(),
-                    'RemoteIp' => @$_SERVER['REMOTE_ADDR']
+                    'DateInserted' => Gdn_Format::toDateTime(),
+                    'RemoteIp' => Gdn::request()->ipAddress()
                 )
             );
         }
@@ -74,9 +74,9 @@ class UpdateController extends AddonsController {
         if (is_array($UpdateChecks)) {
             foreach ($UpdateChecks as $Addon) {
                 if (is_array($Addon)) {
-                    $Name = ArrayValue('Name', $Addon, '');
-                    $Type = ArrayValue('Type', $Addon, '');
-                    $Version = ArrayValue('Type', $Addon, '');
+                    $Name = val('Name', $Addon, '');
+                    $Type = val('Type', $Addon, '');
+                    $Version = val('Type', $Addon, '');
                 } else {
                     $Name = $Addon->Name;
                     $Type = $Addon->Type;
@@ -86,14 +86,13 @@ class UpdateController extends AddonsController {
                 if ($Name != '' && $Type != '' && $Version != '') {
                     // Look for a matching AddonID & get it's current Version
                     $Data = $SQL
-                        ->Select('a.AddonID, v.Version')
-                        ->From('Addon a')
-                        ->Join('AddonVersion v', 'a.CurrentAddonVersionID = v.AddonVersionID')
-                        ->Join('AddonType t', 'a.AddonTypeID = t.AddonTypeID')
-                        ->Where('a.Name', $Name)
-                        ->Where('t.Label', $Type)
-                        ->Get()
-                        ->FirstRow();
+                        ->select('a.AddonID, v.Version')
+                        ->from('Addon a')
+                        ->join('AddonVersion v', 'a.CurrentAddonVersionID = v.AddonVersionID')
+                        ->join('AddonType t', 'a.AddonTypeID = t.AddonTypeID')
+                        ->where('a.Name', $Name)
+                        ->where('t.Label', $Type)
+                        ->get()->firstRow();
 
                     $OurVersion = $Version;
                     if ($Data) {
@@ -113,7 +112,7 @@ class UpdateController extends AddonsController {
 
                 if ($UpdateCheckID > 0) {
                     // Insert the addon into the UpdateAddon table
-                    $UpdateAddonID = $SQL->Insert('UpdateAddon', array(
+                    $UpdateAddonID = $SQL->insert('UpdateAddon', array(
                         'AddonID' => $OurAddonID,
                         'Name' => $Name,
                         'Type' => $Type,
@@ -122,7 +121,7 @@ class UpdateController extends AddonsController {
 
                     // Insert the relation of this addon to this updatecheck
                     if ($UpdateAddonID > 0) {
-                        $SQL->Insert('UpdateCheckAddon', array(
+                        $SQL->insert('UpdateCheckAddon', array(
                             'UpdateCheckID' => $UpdateCheckID,
                             'UpdateAddonID' => $UpdateAddonID
                         ));
@@ -132,8 +131,8 @@ class UpdateController extends AddonsController {
         }
 
         // Make sure the database connection is closed before exiting.
-        $Database = Gdn::Database();
-        $Database->CloseConnection();
+        $Database = Gdn::database();
+        $Database->closeConnection();
 
         // Send messages back to the requesting application
         exit(json_encode(array(
@@ -143,45 +142,20 @@ class UpdateController extends AddonsController {
     }
 
     /**
-     *
+     * Find the requested plugin and redirect to it.
      *
      * @param string $PluginName
      */
-    public function Find($PluginName = '') {
-        // Find the requested plugin and redirect to it...
-        $Data = $this->Database->SQL()
-            ->Select('AddonID, Name')
-            ->From('Addon')
-            ->Where('Name', $PluginName)
-            ->Get()
-            ->FirstRow();
+    public function find($PluginName = '') {
+        $Data = $this->Database->sql()
+            ->select('AddonID, Name')
+            ->from('Addon')
+            ->where('Name', $PluginName)
+            ->get()->firstRow();
         if ($Data) {
-            Redirect('/addon/'.$Data->AddonID.'/'.Gdn_Format::Url($Data->Name));
+            safeRedirect('/addon/'.$Data->AddonID.'/'.Gdn_Format::url($Data->Name));
         } else {
-            Redirect('/addon/notfound/');
+            safeRedirect('/addon/notfound/');
         }
-    }
-
-    /**
-     *
-     *
-     * @param $FieldName
-     * @param string $Default
-     * @return array|mixed|string
-     */
-    private function _GetJsonString($FieldName, $Default = '') {
-        $Value = ArrayValue($FieldName, $_POST, '');
-        $Value = $Value == '' ? ArrayValue($FieldName, $_GET, '') : $Value;
-        if (get_magic_quotes_gpc()) {
-            if (is_array($Value)) {
-                $Count = count($Value);
-                for ($i = 0; $i < $Count; ++$i) {
-                    $Value[$i] = stripslashes($Value[$i]);
-                }
-            } else {
-                $Value = stripslashes($Value);
-            }
-        }
-        return $Value;
     }
 }

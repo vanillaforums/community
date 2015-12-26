@@ -1,16 +1,14 @@
 <?php if (!defined('APPLICATION')) exit();
 
-echo $this->Form->Open();
+echo $this->Form->open();
 
-echo '<p>', T('Are you sure you want to delete this?'), '</p>';
+echo '<p>', t('Are you sure you want to delete this?'), '</p>';
 
 
 echo '<p style="text-align: center">',
-    $this->Form->Button('Yes'),
+    $this->Form->button('Yes'),
     ' ',
-    $this->Form->Button('No'),
+    $this->Form->button('No'),
     '</p>';
 
-echo $this->Form->Close();
-
-?>
+echo $this->Form->close();
