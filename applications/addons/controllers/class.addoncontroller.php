@@ -683,7 +683,7 @@ class AddonController extends AddonsController {
 
         $this->FilterChecked = $Checked;
 
-        $this->addJsFile('/js/library/jquery.gardenmorepager.js');
+        $this->addJsFile('jquery.gardenmorepager.js');
         $this->addJsFile('browse.js');
 
         list($Offset, $Limit) = offsetLimit($Page, c('Garden.Search.PerPage', 20));
