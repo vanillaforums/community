@@ -4,12 +4,11 @@
     <h4>Make Your Own Addons!</h4>
     <ul>
     <?php
-        $Session = Gdn::Session();
-        echo '<li>'.Anchor('Quick-Start Guide', '/page/AddonQuickStart').'</li>';
-        if ($Session->IsValid()) {
-            echo '<li>'.Anchor('Upload a New Addon', '/addon/add').'</li>';
+        echo '<li>'.anchor('Quick-Start Guide', '/page/AddonQuickStart').'</li>';
+        if (Gdn::session()->isValid()) {
+            echo '<li>'.anchor('Upload a New Addon', '/addon/add').'</li>';
         } else {
-            echo '<li>'.Anchor('Sign In', Gdn::Authenticator()->SignInUrl('/addons'), SignInPopup() ? 'SignInPopup' : '').'</li>';
+            echo '<li>'.anchor('Sign In', Gdn::authenticator()->signInUrl('/addons'), signInPopup() ? 'SignInPopup' : '').'</li>';
         }
     ?>
     </ul>
@@ -27,5 +26,5 @@
 
 <div class="Box DownloadPanelBox">
     <h4>Don't have Vanilla yet?</h4>
-    <?php echo Anchor('Get Vanilla Now', '/download', 'Button BigButton'); ?>
+    <?php echo anchor('Get Vanilla Now', '/download', 'Button BigButton'); ?>
 </div>

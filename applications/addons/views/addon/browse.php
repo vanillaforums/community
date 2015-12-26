@@ -1,26 +1,26 @@
 <?php if (!defined('APPLICATION')) exit();
-$Session = Gdn::Session();
-include($this->FetchViewLocation('helper_functions'));
 
-if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
-    echo $this->FetchView('head');
+include($this->fetchViewLocation('helper_functions'));
+
+if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
+    echo $this->fetchView('head');
 ?>
-    <h1><?php echo $this->Data('Title'); ?></h1>
+    <h1><?php echo $this->data('Title'); ?></h1>
     <ul class="DataList Addons">
         <?php
-        if ($this->Data('Addons')->NumRows() == 0)
+        if ($this->data('Addons')->numRows() == 0)
             echo '<li class="Empty">There were no addons matching your search criteria.</li>';
 }
 $Alt = '';
-foreach ($this->Data('Addons')->Result() as $Addon) {
+foreach ($this->data('Addons')->result() as $Addon) {
     $Alt = $Alt == ' Alt' ? '' : ' Alt';
-    WriteAddon($Addon, $Alt);
+    writeAddon($Addon, $Alt);
 }
-if ($this->DeliveryType() == DELIVERY_TYPE_ALL && $this->Data('_Pager')) {
+if ($this->deliveryType() == DELIVERY_TYPE_ALL && $this->data('_Pager')) {
 ?>
     </ul>
     <?php
-    echo $this->Data('_Pager')->ToString('more');
+    echo $this->data('_Pager')->toString('more');
 } else {
 ?></ul><?php
 }

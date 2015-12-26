@@ -1,29 +1,35 @@
 <?php if (!defined('APPLICATION')) exit();
 
-function WriteAddon($Addon, $Alt) {
-    $Url = '/addon/'.AddonModel::Slug($Addon, FALSE);
+/**
+ *
+ *
+ * @param $Addon
+ * @param $Alt
+ */
+function writeAddon($Addon, $Alt) {
+    $Url = '/addon/'.AddonModel::slug($Addon, FALSE);
     ?>
     <li class="Item AddonRow<?php echo $Alt; ?>">
         <?php
         if ($Addon->Icon != '') {
-            echo '<a class="Icon" href="'.Url($Url).'"><div class="IconWrap"><img src="'.Gdn_Upload::Url($Addon->Icon).'" /></div></a>';
+            echo '<a class="Icon" href="'.url($Url).'"><div class="IconWrap"><img src="'.Gdn_Upload::url($Addon->Icon).'" /></div></a>';
         }
         ?>
         <div class="ItemContent">
             <?php
-            echo Anchor($Addon->Name, $Url, 'Title');
+            echo anchor($Addon->Name, $Url, 'Title');
 
-            echo '<div class="Description">', Anchor(SliceString(Gdn_Format::Text($Addon->Description), 300), $Url), '</div>';
+            echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
             ?>
             <div class="Meta">
                 <span class="<?php echo $Addon->Vanilla2 == '1' ? 'Vanilla2' : 'Vanilla1'; ?>"><?php
                     echo $Addon->Vanilla2 == '1' ? 'Vanilla 2' : 'Vanilla 1'; ?></span>
                 <?php
-                if (Gdn::Session()->CheckPermission('Addons.Addon.Manage')) {
+                if (Gdn::session()->checkPermission('Addons.Addon.Manage')) {
                     if ($Addon->Checked) {
                         echo '<span class="Approved">Checked</span>';
                     } elseif ($Addon->Vanilla2) {
-                        echo Anchor('<span class="Closed">Check</span>', Url('/addon/check/'.$Addon->AddonID));
+                        echo anchor('<span class="Closed">Check</span>', url('/addon/check/'.$Addon->AddonID));
                     }
                 }
                 if ($Addon->DateReviewed != '')
@@ -47,7 +53,7 @@ function WriteAddon($Addon, $Alt) {
                 </span>
                 <span class="Updated">
                     Updated
-                    <span><?php echo Gdn_Format::Date($Addon->DateUpdated); ?></span>
+                    <span><?php echo Gdn_Format::date($Addon->DateUpdated); ?></span>
                 </span>
             </div>
         </div>
