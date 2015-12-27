@@ -436,6 +436,9 @@ class AddonModel extends Gdn_Model {
                 } else {
                     setValue('IconUrl', $Data, Gdn_Upload::url($Icon));
                 }
+            } else {
+                // Set a default icon.
+                setValue('Icon', $Data, url('/applications/dashboard/design/images/eyes.png', true));
             }
 
             if (val('AddonKey', $Data) && val('Checked', $Data)) {
