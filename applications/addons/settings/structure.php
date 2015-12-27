@@ -150,21 +150,6 @@ if (isset($$PermissionTableExists) && $PermissionTableExists) {
 $ActivityModel = new ActivityModel();
 $ActivityModel->defineType('Addon');
 
-/*
-    Apr 26th, 2010
-    Changed all "enum" fields representing "bool" (0 or 1) to be tinyint.
-    For some reason mysql makes 0's "2" during this change. Change them back to "0".
-*/
-if (!$Construct->CaptureOnly) {
-    $SQL->query("update GDN_AddonType set Visible = '0' where Visible = '2'");
-
-    $SQL->query("update GDN_Addon set Visible = '0' where Visible = '2'");
-    $SQL->query("update GDN_Addon set Vanilla2 = '0' where Vanilla2 = '2'");
-
-    $SQL->query("update GDN_UserLanguage set Owner = '0' where Owner = '2'");
-}
-
-
 // Add AddonID column to discussion table for allowing discussions on addons.
 $Construct->table('Discussion')
     ->column('AddonID', 'int', null)
