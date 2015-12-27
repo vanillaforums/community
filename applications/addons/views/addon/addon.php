@@ -60,7 +60,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         echo '&#160;';
                         ?></dd>
 
-                    <dt>Released</dt>
+                    <dt>Updated</dt>
                     <dd itemprop="datePublished"><?php echo Gdn_Format::Date($this->data('DateUploaded'), 'html'); ?></dd>
 
                     <dt>Downloads</dt>
@@ -75,31 +75,26 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     ?>
                 </dl>
             </div>
+            <?php if (is_array($this->data('Requirements')) && count($this->data('Requirements'))) : ?>
             <div class="Box RequirementBox">
                 <h3><?php echo t('Requirements'); ?></h3>
                 <div>
                 <?php
-                if (is_array($this->data('Requirements'))) {
-                    $Reqs = '';
-                    foreach ($this->data('Requirements') as $ReqType => $ReqItems) {
-                        if (!is_array($ReqItems) || count($ReqItems) == 0) {
-                            continue;
-                        }
-                        $Reqs .= '<dt>'.t($ReqType).'</dt>';
-                        $Reqs .= '<dd>'.htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)).'</dd>';
+                $Reqs = '';
+                foreach ($this->data('Requirements') as $ReqType => $ReqItems) {
+                    if (!is_array($ReqItems) || count($ReqItems) == 0) {
+                        continue;
                     }
-                    if ($Reqs) {
-                        echo "<dl>$Reqs</dl>";
-                    }
-                } else {
-                    $OtherRequirements = Gdn_Format::html($this->data('Requirements'));
-                    if ($OtherRequirements) {
-                        echo $OtherRequirements;
-                    }
+                    $Reqs .= '<dt>'.t($ReqType).'</dt>';
+                    $Reqs .= '<dd>'.htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)).'</dd>';
+                }
+                if ($Reqs) {
+                    echo "<dl>$Reqs</dl>";
                 }
                 ?>
                 </div>
             </div>
+            <?php endif; ?>
             <?php
             $Versions = (array)$this->data('Versions');
             if (count($Versions) > 0):
