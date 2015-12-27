@@ -50,83 +50,66 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 <dl>
                     <dt>Author</dt>
                     <dd><?php echo Useranchor($this->Data, NULL, array('Px' => 'Insert', 'Rel' => 'author')); ?></dd>
-                    <dt>Version</dt>
-                    <dd><?php
-                        echo $this->data('Version');
 
+                    <dt>Version</dt>
+                    <dd><?php echo $this->data('Version');
                         $CurrentVersion = $this->data('CurrentVersion');
                         if ($CurrentVersion && $CurrentVersion != $this->data('Version')) {
                             echo ' ', anchor('('.t('Current').')', '/addon/'.AddonModel::slug($this->Data, FALSE));
                         }
                         echo '&#160;';
+                        ?></dd>
 
-                    ?></dd>
-                    <dt>Released</dt>
+                    <dt>Updated</dt>
                     <dd itemprop="datePublished"><?php echo Gdn_Format::Date($this->data('DateUploaded'), 'html'); ?></dd>
+
                     <dt>Downloads</dt>
                     <dd><meta itemprop="interactionCount" content=”UserDownloads:<?php echo $this->data('CountDownloads'); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
+
                     <?php
-                    if ($this->data('FileSize'))
+                    if ($this->data('FileSize')) {
                         echo '<dt>File Size</dt><dd>'.'<meta itemprop="fileSize" content="'.$this->data('FileSize').'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')).'</dd>';
-                    if (Gdn::session()->checkPermission('Addons.Addon.Manage')) {
-                        echo '<dt>Checked</dt><dd>'.($this->data('Checked') ? 'Yes' : 'No').'</dd>';
                     }
+
                     $this->fireEvent('AddonProperties');
                     ?>
                 </dl>
             </div>
+            <?php if (is_array($this->data('Requirements')) && count($this->data('Requirements'))) : ?>
             <div class="Box RequirementBox">
                 <h3><?php echo t('Requirements'); ?></h3>
                 <div>
                 <?php
-                if (!$this->data('Checked')) {
-                    $OtherRequirements = Gdn_Format::display($this->data('Requirements'));
-                    if ($OtherRequirements) {
-                        ?>
-                        <p>Other Requirements:</p>
-                        <?php
-                        echo $OtherRequirements;
+                $Reqs = '';
+                foreach ($this->data('Requirements') as $ReqType => $ReqItems) {
+                    if (!is_array($ReqItems) || count($ReqItems) == 0) {
+                        continue;
                     }
-                } else {
-                    if (is_array($this->data('Requirements'))) {
-                        $Reqs = '';
-                        foreach ($this->data('Requirements') as $ReqType => $ReqItems) {
-                            if (!is_array($ReqItems) || count($ReqItems) == 0)
-                                continue;
-                            $Reqs .= '<dt>'.t($ReqType).'</dt>';
-                            $Reqs .= '<dd>'.htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)).'</dd>';
-                        }
-                        if ($Reqs)
-                            echo "<dl>$Reqs</dl>";
-                    } else {
-                        $OtherRequirements = Gdn_Format::html($this->data('Requirements'));
-                        if ($OtherRequirements) {
-                            echo $OtherRequirements;
-                        }
-                    }
+                    $Reqs .= '<dt>'.t($ReqType).'</dt>';
+                    $Reqs .= '<dd>'.htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)).'</dd>';
+                }
+                if ($Reqs) {
+                    echo "<dl>$Reqs</dl>";
                 }
                 ?>
                 </div>
             </div>
+            <?php endif; ?>
             <?php
             $Versions = (array)$this->data('Versions');
             if (count($Versions) > 0):
             ?>
             <div class="Box AddonBox VersionsBox">
-                <h3><?php echo t('Latest Versions'); ?></h3>
+                <h3><?php echo t('Version History'); ?></h3>
                 <table class="VersionsTable">
-                    <tr>
-                        <th><?php echo t('Version'); ?></th>
-                        <th class="DateColumn"><?php echo t('Released'); ?></th>
-                    </tr>
                 <?php
                 $i = 1;
                 foreach ($Versions as $Version) {
-                    if ($i > 5)
+                    if ($i > 5) {
                         break;
+                    }
                     $i++;
-
-                    $Url = Url('/addon/'.AddonModel::slug($this->Data, FALSE).'-'.$Version['Version']);
+                    $Url = url('/addon/'.AddonModel::slug($this->Data, FALSE).'-'.$Version['Version']);
 
                     echo '<tr>'.
                         '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
@@ -140,11 +123,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
             <?php
             if ($Session->isValid()) {
-                echo anchor('Ask a Question', 'post/discussion?AddonID='.$AddonID, 'BigButton');
-            } else {
-                echo anchor('Sign In', '/entry/?Target='.urlencode($this->SelfUrl), 'BigButton'.(signInPopup() ? ' SignInPopup' : ''));
+                echo anchor('Ask a Question', 'post/discussion?AddonID='.$AddonID, 'Button BigButton');
             }
-
             ?>
         </div>
     <?php
@@ -166,12 +146,10 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     }
 
     echo '<div itemprop="description">';
-
     echo Gdn_Format::html($this->data('Description'));
     if ($this->data('Description2') && $Ver != 'v1') {
         echo '<br /><br />', Gdn_Format::html($this->data('Description2'));
     }
-
     echo '</div>';
 
     ?>
