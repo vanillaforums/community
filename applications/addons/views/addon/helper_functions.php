@@ -29,7 +29,7 @@ function writeAddon($Addon, $Alt) {
                 </span>
                 <span class="Author">
                     Author
-                    <span><?php echo $Addon->InsertName; ?></span>
+                    <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : $Addon->InsertName; ?></span>
                 </span>
                 <span class="Downloads">
                     Downloads

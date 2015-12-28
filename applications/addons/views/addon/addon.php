@@ -27,41 +27,48 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     $AddonVersionID = $this->data('AddonVersionID');
     $Ver = ($this->data('Checked') ? '' : 'v1');
     $Ver2 = ($this->data('Checked') || $this->data('Vanilla2') ? '' : 'v1');
+    $Author = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
+    $OfficialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
+
     if ($Session->UserID == $this->data('InsertUserID') || $Session->checkPermission('Addons.Addon.Manage')) {
         echo '<div class="AddonOptions">';
         echo anchor('Edit Details', "/addon/edit{$Ver}/$AddonID", 'Popup');
         echo '|'.anchor('Upload New Version', "/addon/newversion{$Ver2}/$AddonID");
         echo '|'.anchor('Upload Screenshot', '/addon/addpicture/'.$AddonID);
         echo '|'.anchor('Upload Icon', '/addon/icon/'.$AddonID);
+        echo '|'.anchor('Mark as '.$OfficialInverse, '/addon/official/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
 
         if ($Session->checkPermission('Addons.Addon.Manage')) {
             echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon Alert');
         }
-        $this->FireEvent('AddonOptions');
+        $this->fireEvent('AddonOptions');
 
         echo '</div>';
     }
 
     ?>
+    <?php if ($this->data('Official')) : ?>
+    <div class="Approved"><strong>Official!</strong> This product is maintained by the Vanilla Forums staff and core team.</div>
+    <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
             <div class="Box DownloadBox">
                 <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $AddonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
                 <dl>
                     <dt>Author</dt>
-                    <dd><?php echo Useranchor($this->Data, NULL, array('Px' => 'Insert', 'Rel' => 'author')); ?></dd>
+                    <dd><?php echo $Author; ?></dd>
 
                     <dt>Version</dt>
                     <dd><?php echo $this->data('Version');
                         $CurrentVersion = $this->data('CurrentVersion');
                         if ($CurrentVersion && $CurrentVersion != $this->data('Version')) {
-                            echo ' ', anchor('('.t('Current').')', '/addon/'.AddonModel::slug($this->Data, FALSE));
+                            echo ' ', anchor('('.t('Current').')', '/addon/'.AddonModel::slug($this->Data, false));
                         }
                         echo '&#160;';
                         ?></dd>
 
                     <dt>Updated</dt>
-                    <dd itemprop="datePublished"><?php echo Gdn_Format::Date($this->data('DateUploaded'), 'html'); ?></dd>
+                    <dd itemprop="datePublished"><?php echo Gdn_Format::date($this->data('DateUploaded'), 'html'); ?></dd>
 
                     <dt>Downloads</dt>
                     <dd><meta itemprop="interactionCount" content=”UserDownloads:<?php echo $this->data('CountDownloads'); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
