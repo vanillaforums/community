@@ -48,7 +48,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
     ?>
     <?php if ($this->data('Official')) : ?>
-    <div class="Approved"><strong>Official!</strong> This addon is maintained by the Vanilla Forums staff and core team.</div>
+    <div class="Approved"><strong>Official!</strong> This product is maintained by the Vanilla Forums staff and core team.</div>
     <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
