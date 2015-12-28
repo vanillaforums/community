@@ -75,7 +75,7 @@ class AddonController extends AddonsController {
                 $this->DiscussionData = $DiscussionModel->get(0, 50, array('AddonID' => $AddonID));
 
                 $this->View = 'addon';
-                $this->title($this->data('Name').' '.$this->data('Version').' by '.$this->data('InsertName'));
+                $this->title($this->data('Name').' '.$this->data('Version'));
 
                 // Set the canonical url.
                 $this->canonicalUrl(url('/addon/'.AddonModel::slug($Addon, false), true));
