@@ -49,6 +49,7 @@ $Construct->primaryKey('AddonID')
     ->column('DateInserted', 'datetime')
     ->column('DateUpdated', 'datetime', true)
     ->column('Checked', 'tinyint(1)', '0')
+    ->column('Official', 'tinyint(1)', '0')
     ->set($Explicit, $Drop);
 
 if (!$Description2Exists) {

@@ -67,8 +67,10 @@ class AddonController extends AddonsController {
                 $this->addCssFile('fancyzoom.css');
                 $this->addJsFile('fancyzoom.js');
                 $this->addJsFile('addon.js');
+
                 $PictureModel = new Gdn_Model('AddonPicture');
                 $this->PictureData = $PictureModel->getWhere(array('AddonID' => $AddonID));
+
                 $DiscussionModel = new DiscussionModel();
                 $this->DiscussionData = $DiscussionModel->get(0, 50, array('AddonID' => $AddonID));
 
@@ -418,36 +420,28 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Toggle the 'Official' value on an addon.
      *
      * @param string $AddonID
      * @param string $AddonVersionID
      * @throws Gdn_UserException
      */
-    public function approve($AddonID = '', $AddonVersionID = '') {
+    public function official($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
-        $Session = Gdn::session();
 
         $transientKey = Gdn::request()->get('TransientKey', false);
-        if (!$Session->isValid() || !$Session->validateTransientKey($transientKey)) {
+        if (!Gdn::session()->isValid() || !Gdn::session()->validateTransientKey($transientKey)) {
             throw new Gdn_UserException('The CSRF token is invalid.', 403);
         }
 
-        if ($AddonVersionID) {
-            $AddonID = $this->AddonModel->SQL->getWhere('AddonVersion', array('AddonVersionID' => $AddonVersionID))->value('AddonID');
-            $Addon = $this->Addon = $this->AddonModel->getID($AddonID);
-        } else {
-            $Addon = $this->Addon = $this->AddonModel->getID($AddonID);
-            $AddonVersionID = $Addon['AddonVersionID'];
-        }
-        $VersionModel = new Gdn_Model('AddonVersion');
-        $AddonVersion = $VersionModel->getID($AddonVersionID, DATASET_TYPE_ARRAY);
+        $Addon = $this->Addon = $this->AddonModel->getID($AddonID);
 
-        if (!$AddonVersion['DateReviewed']) {
-            $VersionModel->save(array('AddonVersionID' => $AddonVersionID, 'DateReviewed' => Gdn_Format::toDateTime()));
-        } else {
-            $VersionModel->update(array('DateReviewed' => null), array('AddonVersionID' => $AddonVersionID));
+        if (!is_array($Addon)) {
+            throw notFoundException('Addon');
         }
+
+        $NewValue = (val('Official', $Addon, '0')) ? '0' : '1';
+        $this->AddonModel->update(array('Official' => $NewValue), array('AddonID' => val('AddonID', $Addon)));
 
         safeRedirect('/addon/'.AddonModel::slug($Addon));
     }
