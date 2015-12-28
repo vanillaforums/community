@@ -419,7 +419,7 @@ class AddonModel extends Gdn_Model {
 
         if (is_a($Data, 'Gdn_DataSet')) {
             $this->setCalculatedFields($Data->result());
-        } elseif (is_object($Data) || !isset($Data[0])) {
+        } elseif (is_object($Data) || isset($Data['Icon'])) {
             $File = val('File', $Data);
             setValue('Url', $Data, Gdn_Upload::url($File));
 
