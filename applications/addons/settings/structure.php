@@ -131,22 +131,6 @@ $PermissionModel->define(array(
     'Addons.Comments.Manage'
     ));
 
-if (isset($$PermissionTableExists) && $PermissionTableExists) {
-    // Set the intial member permissions.
-    $PermissionModel->save(array(
-        'RoleID' => 8,
-        'Addons.Addon.Add' => 1
-        ));
-
-    // Set the initial administrator permissions.
-    $PermissionModel->save(array(
-        'RoleID' => 16,
-        'Addons.Addon.Add' => 1,
-        'Addons.Addon.Manage' => 1,
-        'Addons.Comments.Manage' => 1
-        ));
-}
-
 $ActivityModel = new ActivityModel();
 $ActivityModel->defineType('Addon');
 
