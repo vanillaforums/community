@@ -69,16 +69,18 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param $Sender
      */
     public function base_discussionOptions_handler($Sender) {
-        $Discussion = $Sender->EventArguments['Discussion'];
-        $LabelString = t('Edit Addon Attachment...');
-        if (is_null($Discussion->AddonID)) {
-             $LabelString = t('Attach Addon...');
+        if (Gdn::session()->checkPermission('Addons.Addon.Manage')) {
+            $Discussion = $Sender->EventArguments['Discussion'];
+            $LabelString = t('Edit Addon Attachment...');
+            if (is_null($Discussion->AddonID)) {
+                 $LabelString = t('Attach Addon...');
+            }
+    
+            $Sender->EventArguments['DiscussionOptions'][] = array(
+                'Label' => $LabelString,
+                'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
+                'Class' => 'AttachAddonDiscussion Popup');
         }
-
-        $Sender->EventArguments['DiscussionOptions'][] = array(
-            'Label' => $LabelString,
-            'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
-            'Class' => 'AttachAddonDiscussion Popup');
     }
 
     /**
