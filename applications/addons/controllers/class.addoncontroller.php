@@ -32,23 +32,23 @@ class AddonController extends AddonsController {
     public $AddonModel;
 
     /**
-     *
+     * Do this before anything else.
      */
     public function initialize() {
         parent::initialize();
-        if ($this->Head) {
-            $this->addJsFile('jquery.js');
-            $this->addJsFile('jquery.form.js');
-            $this->addJsFile('jquery.popup.js');
-            $this->addJsFile('jquery.gardenhandleajaxform.js');
-            $this->addJsFile('jquery.autosize.min.js');
-            $this->addJsFile('global.js');
-        }
-        $this->CountCommentsPerPage = 30;
+        $this->addJsFile('jquery.js');
+        $this->addJsFile('jquery.form.js');
+        $this->addJsFile('jquery.popup.js');
+        $this->addJsFile('jquery.gardenhandleajaxform.js');
+        $this->addJsFile('jquery.autosize.min.js');
+        $this->addJsFile('global.js');
     }
 
     /**
      * Homepage & single addon view.
+     *
+     * @param string $ID
+     * @throws Exception
      */
     public function index($ID = '') {
         if ($ID != '') {
@@ -94,7 +94,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Add a new addon.
      */
     public function add() {
         $this->permission('Addons.Addon.Add');
@@ -102,7 +102,7 @@ class AddonController extends AddonsController {
 
         $this->Form->setModel($this->AddonModel);
 
-        if ($this->Form->isPostBack()) {
+        if ($this->Form->isAuthenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -166,7 +166,7 @@ class AddonController extends AddonsController {
 
                     if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         // Redirect to the new addon.
-                        redirect("addon/".AddonModel::slug($Addon, false));
+                        safeRedirect("addon/".AddonModel::slug($Addon, false));
                     }
                 }
             } else {
@@ -180,7 +180,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Do code checks on an uploaded addon.
      *
      * @param $AddonID
      * @param bool|false $SaveVersionID
@@ -249,7 +249,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Delete a version of an addon.
      *
      * @param $VersionID
      * @throws Gdn_UserException
@@ -271,7 +271,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Edit an existing addon.
      *
      * @param string $AddonID
      * @throws Exception
@@ -309,23 +309,12 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Upload new version of an existing addon.
      *
      * @param string $AddonID
      * @throws Exception
      */
     public function newVersion($AddonID = '') {
-        $this->_newVersion($AddonID);
-    }
-
-    /**
-     *
-     *
-     * @param string $AddonID
-     * @param bool|false $V1
-     * @throws Exception
-     */
-    protected function _newVersion($AddonID = '') {
         $Session = Gdn::session();
         $Addon = $this->AddonModel->getID($AddonID);
         if (!$Addon) {
@@ -341,7 +330,7 @@ class AddonController extends AddonsController {
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
 
-        if ($this->Form->isPostBack()) {
+        if ($this->Form->isAuthenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -423,8 +412,7 @@ class AddonController extends AddonsController {
      * Toggle the 'Official' value on an addon.
      *
      * @param string $AddonID
-     * @param string $AddonVersionID
-     * @throws Gdn_UserException
+     * @throws Exception
      */
     public function official($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
@@ -447,7 +435,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Attach an addon to a discussion.
      *
      * @param null $DiscussionID
      * @throws Exception
@@ -498,7 +486,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Remove an addon from a discussion.
      *
      * @param null $DiscussionID
      * @throws Exception
@@ -535,7 +523,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Error message.
      *
      * @param $Code
      * @param $Item
@@ -546,7 +534,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Change the owner of an addon.
      *
      * @param $AddonID
      * @throws Exception
@@ -559,7 +547,7 @@ class AddonController extends AddonsController {
             throw notFoundException('Addon');
         }
 
-        if ($this->Form->isPostBack()) {
+        if ($this->Form->isAuthenticatedPostBack()) {
             $this->Form->validateRule('User', 'ValidateRequired');
 
             if ($this->Form->errorCount() == 0) {
@@ -586,19 +574,19 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Delete an addon.
      *
      * @param string $AddonID
      * @throws Gdn_UserException
      */
     public function delete($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
-        $Session = Gdn::session();
-        if (!$Session->isValid()) {
+
+        if (!Gdn::session()->isValid()) {
             $this->Form->addError('You must be authenticated in order to use this form.');
         } else {
             $transientKey = Gdn::request()->get('TransientKey', false);
-            if (!$Session->validateTransientKey($transientKey)) {
+            if (!Gdn::session()->validateTransientKey($transientKey)) {
                 throw new Gdn_UserException('The CSRF token is invalid.', 403);
             }
         }
@@ -608,7 +596,7 @@ class AddonController extends AddonsController {
             safeRedirect('dashboard/home/filenotfound');
         }
 
-        if ($Session->UserID != $Addon['InsertUserID']) {
+        if (Gdn::session()->UserID != $Addon['InsertUserID']) {
             $this->permission('Addons.Addon.Manage');
         }
 
@@ -726,7 +714,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Some icky model shit that infiltrated our controller.
      *
      * @param string $Search
      */
@@ -774,7 +762,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Add screenshots to an addon.
      *
      * @param string $AddonID
      * @throws Exception
@@ -844,7 +832,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Delete a screenshot from an addon.
      *
      * @param string $AddonPictureID
      * @throws Exception
@@ -874,7 +862,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Get a specified list of addons.
      *
      * @param $IDs
      */
@@ -889,7 +877,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Set the icon for an addon.
      *
      * @param string $AddonID
      * @throws Exception
@@ -945,7 +933,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Parse an addon's README file.
      *
      * @param $Path
      * @return string

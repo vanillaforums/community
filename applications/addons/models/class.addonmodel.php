@@ -8,6 +8,7 @@
  * @since 2.0
  */
 
+/** ugghhh oh god why has this been wrought upon us. kill it with fire. */
 require_once PATH_APPLICATIONS.'/dashboard/models/class.updatemodel.php';
 
 /**
@@ -37,14 +38,14 @@ class AddonModel extends Gdn_Model {
     protected $_AddonCache = array();
 
     /**
-     *
+     * Let's sync with the Gdn_Addon table.
      */
     public function __construct() {
         parent::__construct('Addon');
     }
 
     /**
-     *
+     * Generic addon retrieval query setup.
      *
      * @param bool|false $VersionSlug
      * @throws Exception
@@ -121,7 +122,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Delete an addon version.
      *
      * @param $VersionID
      */
@@ -130,7 +131,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Fire the SQL get.
      *
      * @param string $Offset
      * @param string $Limit
@@ -157,7 +158,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Set SQL conditions.
      *
      * @param bool|false $Where
      * @param string $OrderFields
@@ -192,7 +193,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Get the number of addons matching the criteria.
      *
      * @param string $Wheres
      * @return mixed
@@ -270,7 +271,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Get a list of addons.
      *
      * @param $IDs
      * @return Gdn_DataSet
@@ -380,7 +381,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Figure out which version is newer.
      *
      * @param $A
      * @param $B
@@ -391,7 +392,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Get a specified addon version.
      *
      * @param $VersionID
      * @return array|bool|stdClass
@@ -407,10 +408,9 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Finish setting up data for the retrieved addon(s).
      *
      * @param $Data
-     * @param bool|true $Unset
      */
     public function setCalculatedFields(&$Data) {
         if (!$Data) {
@@ -477,13 +477,12 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Save the addon data.
      *
      * @param array $Stub
-     * @param bool|false $V1
      * @return bool|Gdn_DataSet|mixed|object|string
      */
-    public function save($Stub, $V1 = false) {
+    public function save($Stub) {
         trace('AddonModel->Save()');
 
         $Session = Gdn::session();
@@ -507,7 +506,7 @@ class AddonModel extends Gdn_Model {
 
         // Analyze and fix the file.
         if (!isset($Addon)) {
-            if (isset($Path) && !$V1) {
+            if (isset($Path)) {
                 try {
                     $Addon = UpdateModel::analyzeAddon($Path, false);
                 } catch (Exception $Ex) {
@@ -739,11 +738,11 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Set a single property of an addon.
      *
      * @param int $AddonID
      * @param string $Property
-     * @param bool|false $ForceValue
+     * @param bool $ForceValue
      * @return bool|string
      * @throws Exception
      */
@@ -765,7 +764,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Do validation on addon data.
      *
      * @param array $Post
      * @param bool $Insert
@@ -826,7 +825,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * "Delete" an addon (make it invisible).
      *
      * @param string|unknown_type $AddonID
      */
@@ -835,7 +834,7 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
+     * Update the latest version of the addon.
      *
      * @param $AddonID
      */
@@ -858,7 +857,7 @@ class AddonModel extends Gdn_Model {
 }
 
 /**
- *
+ * Do we have a valid addon key?
  *
  * @param $Value
  * @return bool
