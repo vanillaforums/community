@@ -70,6 +70,11 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     <dt>Updated</dt>
                     <dd itemprop="datePublished"><?php echo Gdn_Format::date($this->data('DateUploaded'), 'html'); ?></dd>
 
+                    <?php if ($this->data('License')) : ?>
+                    <dt>License</dt>
+                    <dd><?php echo htmlspecialchars($this->data('License')); ?></dd>
+                    <?php endif; ?>
+
                     <dt>Downloads</dt>
                     <dd><meta itemprop="interactionCount" content=”UserDownloads:<?php echo $this->data('CountDownloads'); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
 
