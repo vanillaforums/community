@@ -15,6 +15,9 @@ class AddonsHooks implements Gdn_IPlugin {
 
     /**
      * Hook for discussion prefixes in /discussions.
+     *
+     * @param Gdn_Controller $Sender
+     * @param array $Args
      */
     public function base_beforeDiscussionMeta_handler($Sender, $Args) {
         if (Gdn::controller()->ControllerName == 'addoncontroller') {
@@ -27,6 +30,8 @@ class AddonsHooks implements Gdn_IPlugin {
      * Add prefix to the passed controller's discussion names when they are re: an addon.
      *
      * Ex: [AddonName] Discussion original name
+     *
+     * @param array $Discussion
      */
     public function addonDiscussionPrefix($Discussion) {
         $Addon = val('Addon', $Discussion);
@@ -41,7 +46,7 @@ class AddonsHooks implements Gdn_IPlugin {
     /**
      * Write information about addons to the discussion if it is related to an addon.
      *
-     * @param $Sender
+     * @param DiscussionController $Sender
      */
     public function discussionController_beforeCommentBody_handler($Sender) {
         $Discussion = val('Object', $Sender->EventArguments);
@@ -55,18 +60,19 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
-     *
+     * Get addon data when viewing a discussion.
      *
      * @param DiscussionsController $Sender
+     * @param array $Args
      */
     public function discussionModel_afterAddColumns_handler($Sender, $Args) {
         AddonModel::joinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
     }
 
     /**
+     * Give moderators attach/detach options per discussion.
      *
-     *
-     * @param $Sender
+     * @param Gdn_Controller $Sender
      */
     public function base_discussionOptions_handler($Sender) {
         if (Gdn::session()->checkPermission('Addons.Addon.Manage')) {
@@ -84,34 +90,9 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
-     *
-     *
-     * @param $Sender
-     * @param $Args
-     */
-    /*public function discussionsController_beforeDiscussionContent_handler($Sender, $Args) {
-        static $AddonModel = null;
-        if (!$AddonModel) {
-            $AddonModel = new AddonModel();
-        }
-
-        $Discussion = $Args['Discussion'];
-        $Addon = val('Addon', $Discussion);
-        if ($Addon) {
-            $Slug = AddonModel::slug($Addon, false);
-            $Url = "/addon/$Slug";
-//            if ($Addon['Icon']) {
-//                echo Anchor(Img(Gdn_Upload::Url($Addon['Icon'])), $Url, array('class' => 'Addon-Icon Author'));
-//            } else {
-//                echo Wrap(Anchor('Addon', $Url), 'span', array('class' => 'Tag Tag-Addon'));
-//            }
-        }
-    }*/
-
-    /**
      * Pass the addonid to the form.
      *
-     * @param $Sender
+     * @param PostController $Sender
      */
     public function postController_render_before($Sender) {
         $AddonID = GetIncomingValue('AddonID');
@@ -123,7 +104,7 @@ class AddonsHooks implements Gdn_IPlugin {
     /**
      * Make sure to use the AddonID when saving discussions if present in the url.
      *
-     * @param $Sender
+     * @param DiscussionModel $Sender
      */
     public function discussionModel_beforeSaveDiscussion_handler($Sender) {
         $AddonID = GetIncomingValue('AddonID');
@@ -135,10 +116,10 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
+     * Provide notification when someone talks about your addon.
      *
-     *
-     * @param $Sender
-     * @param $Args
+     * @param DiscussionModel $Sender
+     * @param array $Args
      */
     public function discussionModel_beforeNotification_handler($Sender, $Args) {
         $Discussion = $Args['Discussion'];
@@ -165,7 +146,9 @@ class AddonsHooks implements Gdn_IPlugin {
     }
 
     /**
-     * @param $Sender
+     * Add notifications to the user preferences page.
+     *
+     * @param ProfileController $Sender
      */
     public function profileController_afterPreferencesDefined_handler($Sender) {
         $Sender->Preferences['Notifications']['Popup.AddonComment'] = t('Notify me when people comment on my addons.');
@@ -178,7 +161,7 @@ class AddonsHooks implements Gdn_IPlugin {
      * @since 2.0.0
      * @package Vanilla
      *
-     * @param object $Sender ProfileController.
+     * @param ProfileController $Sender
      */
     public function profileController_addProfileTabs_handler($Sender) {
         if (is_object($Sender->User) && $Sender->User->UserID > 0) {
@@ -194,7 +177,7 @@ class AddonsHooks implements Gdn_IPlugin {
      * @since 2.0.0
      * @package Vanilla
      *
-     * @param object $Sender ProfileController.
+     * @param ProfileController $Sender
      */
     public function profileController_addons_create($Sender) {
         $UserReference = val(0, $Sender->RequestArgs, '');
@@ -235,7 +218,7 @@ class AddonsHooks implements Gdn_IPlugin {
 
 if (!function_exists('RenderDiscussionAddonWarning')) {
     /**
-     *
+     * Show a message when the discussion is related to an addon.
      *
      * @param $AddonID
      * @param $AddonName

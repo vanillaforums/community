@@ -7,5 +7,5 @@ $ApplicationInfo['Addons'] = array(
     'Author' => "Vanilla Community",
     'AuthorEmail' => 'support@vanillaforums.com',
     'AuthorUrl' => 'http://vanillaforums.org',
-    'License' => 'GPLv2'
+    'License' => 'GNU GPLv2'
 );

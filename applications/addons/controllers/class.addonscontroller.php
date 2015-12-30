@@ -14,16 +14,7 @@
 class AddonsController extends Gdn_Controller {
 
     /**
-     *
-     *
-     * AddonsController constructor.
-     */
-    public function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     *
+     * Do this before anything else.
      */
     public function initialize() {
         parent::initialize();
@@ -33,8 +24,6 @@ class AddonsController extends Gdn_Controller {
 
         $this->addCssFile('style.css');
         $this->addCssFile('addons.css');
-
-        $this->CountCommentsPerPage = c('Vanilla.Comments.PerPage', 30);
     }
 
     /**
