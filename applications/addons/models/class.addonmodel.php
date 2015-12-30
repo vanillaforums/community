@@ -689,10 +689,6 @@ class AddonModel extends Gdn_Model {
             $this->Validation->applyRule('AddonKey', 'AddonKey');
         }
 
-        if ($Insert || isset($Post['Description'])) {
-            $this->Validation->applyRule('Description', 'Required');
-        }
-
         if ($Insert || isset($Post['Version'])) {
             $this->Validation->applyRule('Version', 'Required');
             $this->Validation->applyRule('Version', 'Version');
