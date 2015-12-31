@@ -376,7 +376,9 @@ class AddonController extends AddonsController {
 
                 // Delete the erroneous file.
                 try {
-                    $Upload->delete($AnalyzedAddon['File']);
+                    if (isset($AnalyzedAddon) && isset($AnalyzedAddon['File'])) {
+                        $Upload->delete($AnalyzedAddon['File']);
+                    }
                 } catch (Exception $Ex2) {
                 }
             }

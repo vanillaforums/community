@@ -457,7 +457,7 @@ class AddonModel extends Gdn_Model {
                 } catch (Exception $Ex) {
                 }
             }
-        } else {
+        } elseif (is_array($Data)) {
             foreach ($Data as &$Row) {
                 $this->setCalculatedFields($Row);
             }
