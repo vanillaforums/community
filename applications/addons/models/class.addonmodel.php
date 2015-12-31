@@ -160,11 +160,11 @@ class AddonModel extends Gdn_Model {
     /**
      * Set SQL conditions.
      *
-     * @param bool|false $Where
+     * @param bool $Where
      * @param string $OrderFields
      * @param string $OrderDirection
-     * @param bool|false $Limit
-     * @param bool|false $Offset
+     * @param bool $Limit
+     * @param bool $Offset
      * @return Gdn_DataSet
      * @throws Exception
      */
@@ -352,7 +352,7 @@ class AddonModel extends Gdn_Model {
 
         if ($GetVersions) {
             // Find the latest stable version.
-                $MaxVersion = GetValueR('Versions.0', $Addon);
+            $MaxVersion = valr('Versions.0', $Addon);
             foreach ($Addon['Versions'] as $Version) {
                 if (AddonModel::isReleaseVersion($Version['Version'])) {
                     $MaxVersion = $Version;
@@ -360,7 +360,7 @@ class AddonModel extends Gdn_Model {
                 }
             }
 
-                // Find the version we are looking at.
+            // Find the version we are looking at.
             foreach ($Addon['Versions'] as $Version) {
                 $Slug2 = AddonModel::slug($Addon, $Version);
                 if ($Slug2 == $Slug) {
@@ -468,12 +468,14 @@ class AddonModel extends Gdn_Model {
      * Test whether a versions string is a release version or not.
      *
      * This is not an exhaustive regex since people can pass whatever they want for a version string.
+     * It assumes we are using PHP-standardized version number schemes.
      *
-     * @param string $VersionString The version string to test.
+     * @see http://php.net/manual/en/function.version-compare.php
+     * @param string $VersionString PHP-standardized version string to test.
      * @return bool Returns true if the version string is a release version or false otherwise.
      */
     public static function isReleaseVersion($VersionString) {
-        return !preg_match('`(?:^|[0-9\s-])[ab]`i', $VersionString);
+        return !preg_match('`(dev|a|b|rc)`i', $VersionString);
     }
 
     /**
