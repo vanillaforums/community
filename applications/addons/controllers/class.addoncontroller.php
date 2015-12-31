@@ -144,6 +144,9 @@ class AddonController extends AddonsController {
                     $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
                 }
 
+                // Get an icon if one exists.
+
+
                 $this->Form->formValues($AnalyzedAddon);
             } catch (Exception $ex) {
                 $this->Form->addError($ex);
@@ -900,18 +903,13 @@ class AddonController extends AddonsController {
         $this->addModule('AddonHelpModule', 'Panel');
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
-        if ($this->Form->isPostBack()) {
+
+        if ($this->Form->isAuthenticatedPostBack()) {
             $UploadImage = new Gdn_UploadImage();
             try {
                 // Validate the upload
-                $TmpImage = $UploadImage->validateUpload('Icon');
-
-                // Generate the target image name
-                $TargetImage = $UploadImage->generateTargetName('addons/icons', '');
-
-                // Save the uploaded icon
-                $Parsed = $UploadImage->saveImageAs($TmpImage, $TargetImage, 256, 256, false, false);
-                $TargetImage = $Parsed['SaveName'];
+                $imageLocation = $UploadImage->validateUpload('Icon');
+                $TargetImage = $this->saveIcon($imageLocation);
             } catch (Exception $ex) {
                 $this->Form->addError($ex);
             }
@@ -930,6 +928,24 @@ class AddonController extends AddonsController {
             }
         }
         $this->render();
+    }
+
+    /**
+     * Save an icon image file.
+     *
+     * @param string $imageLocation
+     * @return mixed
+     * @throws Exception
+     */
+    protected function saveIcon($imageLocation) {
+        $uploadImage = new Gdn_UploadImage();
+
+        // Generate the target image name
+        $targetLocation = $uploadImage->generateTargetName('addons/icons', '');
+
+        // Save the uploaded icon
+        $parsed = $uploadImage->saveImageAs($imageLocation, $targetLocation, 256, 256, false, false);
+        return $parsed['SaveName'];
     }
 
     /**
