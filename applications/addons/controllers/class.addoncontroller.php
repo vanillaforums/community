@@ -102,7 +102,7 @@ class AddonController extends AddonsController {
 
         $this->Form->setModel($this->AddonModel);
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -333,7 +333,7 @@ class AddonController extends AddonsController {
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -550,7 +550,7 @@ class AddonController extends AddonsController {
             throw notFoundException('Addon');
         }
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $this->Form->validateRule('User', 'ValidateRequired');
 
             if ($this->Form->errorCount() == 0) {
@@ -904,7 +904,7 @@ class AddonController extends AddonsController {
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $UploadImage = new Gdn_UploadImage();
             try {
                 // Validate the upload
