@@ -145,7 +145,7 @@ class AddonController extends AddonsController {
                 }
 
                 // Get an icon if one exists.
-
+                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
 
                 $this->Form->formValues($AnalyzedAddon);
             } catch (Exception $ex) {
@@ -946,6 +946,37 @@ class AddonController extends AddonsController {
         // Save the uploaded icon
         $parsed = $uploadImage->saveImageAs($imageLocation, $targetLocation, 256, 256, false, false);
         return $parsed['SaveName'];
+    }
+
+    /**
+     * Given an uploaded addon path, extract & save an included icon.png.
+     *
+     * @param $path Path to the uploaded addon files.
+     * @return null|string The value to save for the addon's icon field.
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
+    protected function extractIcon($path) {
+        $icon = null;
+
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        // Get the list of potential files to analyze.
+        if (is_dir($path)) {
+            $entries = UpdateModel::_getInfoFiles($path, ['icon.png']);
+        } else {
+            $entries = UpdateModel::_getInfoZip($path, ['icon.png'], false);
+        }
+
+        // Success should be exactly 1 file matching.
+        if (count($entries) == 1) {
+            $fileData = array_shift($entries);
+            $icon = $this->saveIcon($fileData['Path']);
+        }
+
+        return $icon;
     }
 
     /**
