@@ -8,9 +8,6 @@
  * @since 2.0
  */
 
-/** ugghhh oh god why has this been wrought upon us. kill it with fire. */
-require_once PATH_APPLICATIONS.'/dashboard/models/class.updatemodel.php';
-
 /**
  * Class AddonModel
  */
