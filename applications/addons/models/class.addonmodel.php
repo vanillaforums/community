@@ -8,9 +8,6 @@
  * @since 2.0
  */
 
-/** ugghhh oh god why has this been wrought upon us. kill it with fire. */
-require_once PATH_APPLICATIONS.'/dashboard/models/class.updatemodel.php';
-
 /**
  * Class AddonModel
  */
@@ -160,11 +157,11 @@ class AddonModel extends Gdn_Model {
     /**
      * Set SQL conditions.
      *
-     * @param bool|false $Where
+     * @param bool $Where
      * @param string $OrderFields
      * @param string $OrderDirection
-     * @param bool|false $Limit
-     * @param bool|false $Offset
+     * @param bool $Limit
+     * @param bool $Offset
      * @return Gdn_DataSet
      * @throws Exception
      */
@@ -352,7 +349,7 @@ class AddonModel extends Gdn_Model {
 
         if ($GetVersions) {
             // Find the latest stable version.
-                $MaxVersion = GetValueR('Versions.0', $Addon);
+            $MaxVersion = valr('Versions.0', $Addon);
             foreach ($Addon['Versions'] as $Version) {
                 if (AddonModel::isReleaseVersion($Version['Version'])) {
                     $MaxVersion = $Version;
@@ -360,7 +357,7 @@ class AddonModel extends Gdn_Model {
                 }
             }
 
-                // Find the version we are looking at.
+            // Find the version we are looking at.
             foreach ($Addon['Versions'] as $Version) {
                 $Slug2 = AddonModel::slug($Addon, $Version);
                 if ($Slug2 == $Slug) {
@@ -457,7 +454,7 @@ class AddonModel extends Gdn_Model {
                 } catch (Exception $Ex) {
                 }
             }
-        } else {
+        } elseif (is_array($Data)) {
             foreach ($Data as &$Row) {
                 $this->setCalculatedFields($Row);
             }
@@ -468,12 +465,14 @@ class AddonModel extends Gdn_Model {
      * Test whether a versions string is a release version or not.
      *
      * This is not an exhaustive regex since people can pass whatever they want for a version string.
+     * It assumes we are using PHP-standardized version number schemes.
      *
-     * @param string $VersionString The version string to test.
+     * @see http://php.net/manual/en/function.version-compare.php
+     * @param string $VersionString PHP-standardized version string to test.
      * @return bool Returns true if the version string is a release version or false otherwise.
      */
     public static function isReleaseVersion($VersionString) {
-        return !preg_match('`(?:^|[0-9\s-])[ab]`i', $VersionString);
+        return !preg_match('`(dev|a|b|rc)`i', $VersionString);
     }
 
     /**
@@ -649,95 +648,6 @@ class AddonModel extends Gdn_Model {
     }
 
     /**
-     *
-     *
-     * @param $FormPostValues
-     * @param string $FileName
-     * @return bool|int|string
-     */
-    public function saveBak($FormPostValues, $FileName = '') {
-        $Session = Gdn::session();
-
-        // Define the primary key in this model's table.
-        $this->defineSchema();
-
-        if (array_key_exists('AddonKey', $FormPostValues)) {
-            $this->Validation->applyRule('AddonKey', 'Required');
-        }
-
-        // Add & apply any extra validation rules:
-        if (array_key_exists('Description', $FormPostValues)) {
-            $this->Validation->applyRule('Description', 'Required');
-        }
-
-        if (array_key_exists('Version', $FormPostValues)) {
-            $this->Validation->applyRule('Version', 'Required');
-        }
-
-        // Get the ID from the form so we know if we are inserting or updating.
-        $AddonID = val('AddonID', $FormPostValues, '');
-        $Insert = $AddonID == '' ? true : false;
-
-        if ($Insert) {
-            if (!array_key_exists('Vanilla2', $FormPostValues)) {
-                $FormPostValues['Vanilla2'] = '0';
-            }
-
-            unset($FormPostValues['AddonID']);
-            $this->addInsertFields($FormPostValues);
-        } elseif (!array_key_exists('Vanilla2', $FormPostValues)) {
-            $Tmp = $this->getID($AddonID);
-            $FormPostValues['Vanilla2'] = $Tmp->Vanilla2 ? '1' : '0';
-        }
-        $this->addUpdateFields($FormPostValues);
-        // Validate the form posted values
-        if ($this->validate($FormPostValues, $Insert)) {
-            $Fields = $this->Validation->schemaValidationFields(); // All fields on the form that relate to the schema
-            $AddonID = intval(val('AddonID', $Fields, 0));
-            unset($Fields['AddonID']); // Remove the primary key from the fields for saving
-            $Activity = 'EditAddon';
-            if ($AddonID > 0) {
-                $this->SQL->put($this->Name, $Fields, array($this->PrimaryKey => $AddonID));
-            } else {
-                $AddonID = $this->SQL->insert($this->Name, $Fields);
-                $Activity = 'AddAddon';
-            }
-            // Save the version
-            if ($AddonID > 0 && $FileName != '') {
-                // Save the addon file & version
-                $AddonVersionModel = new Gdn_Model('AddonVersion');
-                $AddonVersionID = $AddonVersionModel->save(array(
-                    'AddonID' => $AddonID,
-                    'File' => $FileName,
-                    'Version' => val('Version', $FormPostValues, ''),
-                    'TestedWith' => val('TestedWith', $FormPostValues, 'Empty'),
-                    'DateInserted' => Gdn_Format::toDateTime()
-                ));
-                // Mark the new addon file & version as the current version
-                $this->SQL->put($this->Name, array('CurrentAddonVersionID' => $AddonVersionID), array($this->PrimaryKey => $AddonID));
-            }
-
-            if ($AddonID > 0) {
-                $Addon = $this->getID($AddonID);
-
-                // Record Activity
-                AddActivity(
-                    $Session->UserID,
-                    $Activity,
-                    '',
-                    '',
-                    '/addon/'.$AddonID.'/'.Gdn_Format::url($Addon['Name'])
-                );
-            }
-        }
-        if (!is_numeric($AddonID)) {
-            $AddonID = false;
-        }
-
-        return count($this->validationResults()) > 0 ? false : $AddonID;
-    }
-
-    /**
      * Set a single property of an addon.
      *
      * @param int $AddonID
@@ -776,10 +686,6 @@ class AddonModel extends Gdn_Model {
         if (val('Checked', $Post) && ($Insert || isset($Post['AddonKey']))) {
             $this->Validation->applyRule('AddonKey', 'Required');
             $this->Validation->applyRule('AddonKey', 'AddonKey');
-        }
-
-        if ($Insert || isset($Post['Description'])) {
-            $this->Validation->applyRule('Description', 'Required');
         }
 
         if ($Insert || isset($Post['Version'])) {

@@ -75,7 +75,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
                     <?php
                     if ($this->data('FileSize')) {
-                        echo '<dt>File Size</dt><dd>'.'<meta itemprop="fileSize" content="'.$this->data('FileSize').'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')).'</dd>';
+                        echo wrap(t('File Size'), 'dt');
+                        echo wrap('<meta itemprop="fileSize" content="'.$this->data('FileSize').'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')), 'dd');
+                    }
+
+                    if ($this->data('License')) {
+                        echo wrap(t('License'), 'dt');
+                        echo wrap(htmlspecialchars($this->data('License')), 'dd');
                     }
 
                     $this->fireEvent('AddonProperties');

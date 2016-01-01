@@ -50,6 +50,7 @@ $Construct->primaryKey('AddonID')
     ->column('DateUpdated', 'datetime', true)
     ->column('Checked', 'tinyint(1)', '0')
     ->column('Official', 'tinyint(1)', '0')
+    ->column('License', 'varchar(100)')
     ->set($Explicit, $Drop);
 
 if (!$Description2Exists) {

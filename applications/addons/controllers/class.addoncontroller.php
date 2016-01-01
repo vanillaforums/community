@@ -102,7 +102,7 @@ class AddonController extends AddonsController {
 
         $this->Form->setModel($this->AddonModel);
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -143,6 +143,9 @@ class AddonController extends AddonsController {
                 if ($AnalyzedAddon['Description2'] == '') {
                     $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
                 }
+
+                // Get an icon if one exists.
+                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
 
                 $this->Form->formValues($AnalyzedAddon);
             } catch (Exception $ex) {
@@ -287,7 +290,7 @@ class AddonController extends AddonsController {
         }
 
         if ($Addon['InsertUserID'] != $Session->UserID) {
-            $this->Permission('Addons.Addon.Manage');
+            $this->permission('Addons.Addon.Manage');
         }
 
         $this->Form->setModel($this->AddonModel);
@@ -330,7 +333,7 @@ class AddonController extends AddonsController {
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $Upload = new Gdn_Upload();
             $Upload->allowFileExtension(null);
             $Upload->allowFileExtension('zip');
@@ -354,18 +357,19 @@ class AddonController extends AddonsController {
 
                 $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
 
-                // Set the filename for the CDN...
+                // Set the filename for the CDN.
                 $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
 
-                // Save the uploaded file
-                $Parsed = $Upload->saveAs(
-                    $TargetPath,
-                    $TargetFile
-                );
+                // Save the uploaded file.
+                $Parsed = $Upload->saveAs($TargetPath, $TargetFile);
+
                 $AnalyzedAddon['AddonID'] = $AddonID;
                 $AnalyzedAddon['File'] = $Parsed['SaveName'];
                 unset($AnalyzedAddon['Path']);
                 trace($AnalyzedAddon, 'Analyzed Addon');
+
+                // Get a new icon if one exists.
+                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
 
                 $this->Form->formValues($AnalyzedAddon);
             } catch (Exception $ex) {
@@ -373,7 +377,9 @@ class AddonController extends AddonsController {
 
                 // Delete the erroneous file.
                 try {
-                    $Upload->delete($AnalyzedAddon['File']);
+                    if (isset($AnalyzedAddon) && isset($AnalyzedAddon['File'])) {
+                        $Upload->delete($AnalyzedAddon['File']);
+                    }
                 } catch (Exception $Ex2) {
                 }
             }
@@ -387,6 +393,7 @@ class AddonController extends AddonsController {
                 $NewVersionID = $this->Form->save(false);
                 if ($NewVersionID) {
                     $this->setData('Addon', $AnalyzedAddon);
+                    $Addon = $this->AddonModel->getID($AddonID);
                     $this->setData('Url', url('/addon/'.AddonModel::slug($Addon, true), true));
                     if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         $this->RedirectUrl = $this->data('Url');
@@ -547,7 +554,7 @@ class AddonController extends AddonsController {
             throw notFoundException('Addon');
         }
 
-        if ($this->Form->isAuthenticatedPostBack()) {
+        if ($this->Form->authenticatedPostBack()) {
             $this->Form->validateRule('User', 'ValidateRequired');
 
             if ($this->Form->errorCount() == 0) {
@@ -900,18 +907,13 @@ class AddonController extends AddonsController {
         $this->addModule('AddonHelpModule', 'Panel');
         $this->Form->setModel($this->AddonModel);
         $this->Form->addHidden('AddonID', $AddonID);
-        if ($this->Form->isPostBack()) {
+
+        if ($this->Form->authenticatedPostBack()) {
             $UploadImage = new Gdn_UploadImage();
             try {
                 // Validate the upload
-                $TmpImage = $UploadImage->validateUpload('Icon');
-
-                // Generate the target image name
-                $TargetImage = $UploadImage->generateTargetName('addons/icons', '');
-
-                // Save the uploaded icon
-                $Parsed = $UploadImage->saveImageAs($TmpImage, $TargetImage, 256, 256, false, false);
-                $TargetImage = $Parsed['SaveName'];
+                $imageLocation = $UploadImage->validateUpload('Icon');
+                $TargetImage = $this->saveIcon($imageLocation);
             } catch (Exception $ex) {
                 $this->Form->addError($ex);
             }
@@ -933,6 +935,49 @@ class AddonController extends AddonsController {
     }
 
     /**
+     * Save an icon image file.
+     *
+     * @param string $imageLocation
+     * @return mixed
+     * @throws Exception
+     */
+    protected function saveIcon($imageLocation) {
+        $uploadImage = new Gdn_UploadImage();
+
+        // Generate the target image name
+        $targetLocation = $uploadImage->generateTargetName('addons/icons', '');
+
+        // Save the uploaded icon
+        $parsed = $uploadImage->saveImageAs($imageLocation, $targetLocation, 256, 256, false, false);
+        return $parsed['SaveName'];
+    }
+
+    /**
+     * Given an uploaded addon path, extract & save an included icon.png.
+     *
+     * @param $path Path to the uploaded addon files.
+     * @return null|string The value to save for the addon's icon field.
+     * @throws Exception
+     * @throws Gdn_UserException
+     */
+    protected function extractIcon($path) {
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        $icon = null;
+        $entries = UpdateModel::findFiles($path, ['icon.png']);
+
+        // Success should be exactly 1 file matching.
+        if (count($entries) == 1) {
+            $fileData = array_shift($entries);
+            $icon = $this->saveIcon($fileData['Path']);
+        }
+
+        return $icon;
+    }
+
+    /**
      * Parse an addon's README file.
      *
      * @param $Path
@@ -949,12 +994,7 @@ class AddonController extends AddonsController {
         );
 
         // Get the list of potential files to analyze.
-        // TODO: get rid of this invoke call once UpdateModel is more modular
-        $UpdateModel = new UpdateModel();
-        $GetInfo = new ReflectionMethod('UpdateModel', '_GetInfoZip');
-        $GetInfo->setAccessible(true);
-        $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
-        
+        $Entries = UpdateModel::findFiles($Path, $ReadmePaths);
         if ($Entries === false) {
             return '';
         }
