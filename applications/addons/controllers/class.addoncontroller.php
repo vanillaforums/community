@@ -290,7 +290,7 @@ class AddonController extends AddonsController {
         }
 
         if ($Addon['InsertUserID'] != $Session->UserID) {
-            $this->Permission('Addons.Addon.Manage');
+            $this->permission('Addons.Addon.Manage');
         }
 
         $this->Form->setModel($this->AddonModel);
@@ -357,18 +357,19 @@ class AddonController extends AddonsController {
 
                 $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
 
-                // Set the filename for the CDN...
+                // Set the filename for the CDN.
                 $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
 
-                // Save the uploaded file
-                $Parsed = $Upload->saveAs(
-                    $TargetPath,
-                    $TargetFile
-                );
+                // Save the uploaded file.
+                $Parsed = $Upload->saveAs($TargetPath, $TargetFile);
+
                 $AnalyzedAddon['AddonID'] = $AddonID;
                 $AnalyzedAddon['File'] = $Parsed['SaveName'];
                 unset($AnalyzedAddon['Path']);
                 trace($AnalyzedAddon, 'Analyzed Addon');
+
+                // Get a new icon if one exists.
+                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
 
                 $this->Form->formValues($AnalyzedAddon);
             } catch (Exception $ex) {
@@ -969,7 +970,7 @@ class AddonController extends AddonsController {
         if (is_dir($path)) {
             $entries = UpdateModel::_getInfoFiles($path, ['icon.png']);
         } else {
-            $entries = UpdateModel::_getInfoZip($path, ['icon.png'], false);
+            $entries = UpdateModel::_getInfoZip($path, ['icon.png']);
         }
 
         // Success should be exactly 1 file matching.
