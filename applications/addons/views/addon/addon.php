@@ -70,17 +70,17 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     <dt>Updated</dt>
                     <dd itemprop="datePublished"><?php echo Gdn_Format::date($this->data('DateUploaded'), 'html'); ?></dd>
 
-                    <?php if ($this->data('License')) : ?>
-                    <dt>License</dt>
-                    <dd><?php echo htmlspecialchars($this->data('License')); ?></dd>
-                    <?php endif; ?>
-
                     <dt>Downloads</dt>
                     <dd><meta itemprop="interactionCount" content=”UserDownloads:<?php echo $this->data('CountDownloads'); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
 
                     <?php
                     if ($this->data('FileSize')) {
                         echo '<dt>File Size</dt><dd>'.'<meta itemprop="fileSize" content="'.$this->data('FileSize').'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')).'</dd>';
+                    }
+
+                    if ($this->data('License')) {
+                        echo wrap(t('License'), 'dt');
+                        echo wrap(htmlspecialchars($this->data('License')), 'dd');
                     }
 
                     $this->fireEvent('AddonProperties');
