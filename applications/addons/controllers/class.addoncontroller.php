@@ -393,6 +393,7 @@ class AddonController extends AddonsController {
                 $NewVersionID = $this->Form->save(false);
                 if ($NewVersionID) {
                     $this->setData('Addon', $AnalyzedAddon);
+                    $Addon = $this->AddonModel->getID($AddonID);
                     $this->setData('Url', url('/addon/'.AddonModel::slug($Addon, true), true));
                     if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         $this->RedirectUrl = $this->data('Url');
