@@ -993,12 +993,7 @@ class AddonController extends AddonsController {
         );
 
         // Get the list of potential files to analyze.
-        // TODO: get rid of this invoke call once UpdateModel is more modular
-        $UpdateModel = new UpdateModel();
-        $GetInfo = new ReflectionMethod('UpdateModel', '_GetInfoZip');
-        $GetInfo->setAccessible(true);
-        $Entries = $GetInfo->invoke($UpdateModel, $Path, $ReadmePaths, false, true);
-        
+        $Entries = UpdateModel::findFiles($Path, $ReadmePaths);
         if ($Entries === false) {
             return '';
         }
