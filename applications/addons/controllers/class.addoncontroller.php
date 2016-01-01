@@ -960,18 +960,12 @@ class AddonController extends AddonsController {
      * @throws Gdn_UserException
      */
     protected function extractIcon($path) {
-        $icon = null;
-
         if (!file_exists($path)) {
             return false;
         }
 
-        // Get the list of potential files to analyze.
-        if (is_dir($path)) {
-            $entries = UpdateModel::_getInfoFiles($path, ['icon.png']);
-        } else {
-            $entries = UpdateModel::_getInfoZip($path, ['icon.png']);
-        }
+        $icon = null;
+        $entries = UpdateModel::findFiles($path, ['icon.png']);
 
         // Success should be exactly 1 file matching.
         if (count($entries) == 1) {
