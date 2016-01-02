@@ -108,10 +108,10 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 </div>
             </div>
             <?php endif; ?>
+
             <?php
-            $Versions = (array)$this->data('Versions');
-            if (count($Versions) > 0):
-            ?>
+            $Versions = (array)$this->data('Releases');
+            if (count($Versions) > 0) : ?>
             <div class="Box AddonBox VersionsBox">
                 <h3><?php echo t('Version History'); ?></h3>
                 <table class="VersionsTable">
@@ -122,7 +122,32 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         break;
                     }
                     $i++;
-                    $Url = url('/addon/'.AddonModel::slug($this->Data, FALSE).'-'.$Version['Version']);
+                    $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
+
+                    echo '<tr>'.
+                        '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
+                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).'</td>'.
+                    '</tr>';
+                }
+                ?>
+                </table>
+            </div>
+            <?php endif; ?>
+
+            <?php
+            $Versions = (array)$this->data('Prereleases');
+            if (count($Versions) > 0) : ?>
+            <div class="Box AddonBox VersionsBox">
+                <h3><?php echo t('Prerelease (unstable)'); ?></h3>
+                <table class="VersionsTable">
+                <?php
+                $i = 1;
+                foreach ($Versions as $Version) {
+                    if ($i > 3) {
+                        break;
+                    }
+                    $i++;
+                    $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
 
                     echo '<tr>'.
                         '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
