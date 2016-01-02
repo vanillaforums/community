@@ -48,10 +48,10 @@ class AddonsHooks implements Gdn_IPlugin {
      *
      * @param DiscussionController $Sender
      */
-    public function discussionController_beforeCommentBody_handler($Sender) {
-        $Discussion = val('Object', $Sender->EventArguments);
+    public function discussionController_afterDiscussionTitle_handler($Sender) {
+        $Discussion = $Sender->data('Discussion');
         $AddonID = val('AddonID', $Discussion);
-        if (val('Type', $Sender->EventArguments) == 'Discussion' && is_numeric($AddonID) && $AddonID > 0) {
+        if (is_numeric($AddonID) && $AddonID > 0) {
             $Data = Gdn::database()->sql()->select('Name')->from('Addon')->where('AddonID', $AddonID)->get()->firstRow();
             if ($Data) {
                 echo renderDiscussionAddonWarning($AddonID, $Data->Name, val('DiscussionID', $Discussion));
