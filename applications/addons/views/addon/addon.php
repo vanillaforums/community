@@ -99,7 +99,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         continue;
                     }
                     $Reqs .= '<dt>'.t($ReqType).'</dt>';
-                    $Reqs .= '<dd>'.htmlspecialchars(ImplodeAssoc(' ', ', ', $ReqItems)).'</dd>';
+                    $Reqs .= '<dd>'.htmlspecialchars(implodeAssoc(' ', ', ', $ReqItems)).'</dd>';
                 }
                 if ($Reqs) {
                     echo "<dl>$Reqs</dl>";
@@ -158,10 +158,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     }
                     $i++;
                     $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
-
+                    $deleteOption = '';
+                    if (checkPermission('Addons.Addon.Manage')) {
+                        $deleteOption = ' '.anchor('x', '/addon/deleteversion/'.$Version['AddonVersionID'], 'Popup Alert DeleteVersion');
+                    }
                     echo '<tr>'.
                         '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
-                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).'</td>'.
+                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).$deleteOption.'</td>'.
                     '</tr>';
                 }
                 ?>
