@@ -13,6 +13,9 @@
  */
 class AddonsController extends Gdn_Controller {
 
+    /** @var int Because of our peculiar discussions list hijacking, this property is required. */
+    public $CountCommentsPerPage = 30;
+
     /**
      * Do this before anything else.
      */
@@ -24,6 +27,8 @@ class AddonsController extends Gdn_Controller {
 
         $this->addCssFile('style.css');
         $this->addCssFile('addons.css');
+
+        $this->CountCommentsPerPage = c('Vanilla.Comments.PerPage', 30);
     }
 
     /**
