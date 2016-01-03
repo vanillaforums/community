@@ -30,7 +30,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     $Author = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
     $OfficialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
 
-    if ($Session->UserID == $this->data('InsertUserID') || $Session->checkPermission('Addons.Addon.Manage')) {
+    if ($Session->UserID == $this->data('InsertUserID') || checkPermission('Addons.Addon.Manage')) {
         echo '<div class="AddonOptions">';
         echo anchor('Edit Details', "/addon/edit{$Ver}/$AddonID", 'Popup');
         echo '|'.anchor('Upload New Version', "/addon/newversion{$Ver2}/$AddonID");
@@ -38,7 +38,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         echo '|'.anchor('Upload Icon', '/addon/icon/'.$AddonID);
         echo '|'.anchor('Mark as '.$OfficialInverse, '/addon/official/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
 
-        if ($Session->checkPermission('Addons.Addon.Manage')) {
+        if (checkPermission('Addons.Addon.Manage')) {
             echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon Alert');
         }
         $this->fireEvent('AddonOptions');
@@ -123,10 +123,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     }
                     $i++;
                     $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
-
+                    $deleteOption = '';
+                    if (checkPermission('Addons.Addon.Manage')) {
+                        $deleteOption = ' '.anchor('x', '/addon/deleteversion/'.$Version['AddonVersionID'], 'Popup Alert DeleteVersion');
+                    }
                     echo '<tr>'.
                         '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
-                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).'</td>'.
+                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).$deleteOption.'</td>'.
                     '</tr>';
                 }
                 ?>
@@ -201,7 +204,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 echo '<span class="AddonPicture">';
                 echo '<a rel="popable[gallery]" href="#Pic_'.$Picture->AddonPictureID.'"><img src="'.Gdn_Upload::url(ChangeBasename($Picture->File, 'at%s')).'" itemprop="screenshot" /></a>';
 
-                if ($Session->UserID == $this->data('InsertUserID') || $Session->checkPermission('Addons.Addon.Manage')) {
+                if ($Session->UserID == $this->data('InsertUserID') || checkPermission('Addons.Addon.Manage')) {
                     echo '<a class="Popup DeletePicture" href="'.Url('/addon/deletepicture/'.$Picture->AddonPictureID).'">x</a>';
                 }
 
