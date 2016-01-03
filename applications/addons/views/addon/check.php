@@ -7,12 +7,11 @@
  */
 function _checkTable($Data) {
     echo "<table class='Data' width='100%' style='table-layout: fixed;'>\n";
-    echo "<thead><tr><td width='30%'>Field</td><td width='35%'>Current</td><td width='35%'>File</td></tr></thead>";
-    $Alt = true;
+    echo "<thead><tr><td width='20%'>Field</td><td width='45%'>Current</td><td width='35%'>File</td></tr></thead>";
     $First = true;
 
     foreach ($Data as $Key => $Value) {
-        if (StringBeginsWith($Key, 'File_')) {
+        if (stringBeginsWith($Key, 'File_') || is_array($Value) || $Key == 'Name') {
             continue;
         }
 
@@ -24,12 +23,11 @@ function _checkTable($Data) {
             $FileValue = substr($FileValue, 0, 10);
         }
 
-        $Class = '';
-        if ($Alt) {
-            $Class = ' class="Alt"';
+        if ($Key == 'FileSize') {
+            $Value = Gdn_Upload::FormatFileSize($Value);
         }
 
-        echo "<tr{$Class}><th>$Key</th><td>$Value</td>";
+        echo "<tr><td>$Key</td><td>$Value</td>";
 
         if ($Error = val('File_Error', $Data)) {
             if ($First) {
@@ -38,10 +36,8 @@ function _checkTable($Data) {
         } else {
             echo "<td>$FileValue</td></tr>";
         }
-
         echo "\n";
 
-        $Alt = !$Alt;
         $First = false;
     }
 
@@ -51,19 +47,21 @@ function _checkTable($Data) {
 echo $this->Form->open();
 echo $this->Form->errors();
 
-echo anchor('Back to Addon', '/addon/'.$this->data('Addon.AddonID'));
-
-echo '<h2>Addon</h2>';
+echo anchor('&larr; Back to addon', '/addon/'.$this->data('Addon.AddonID'));
+echo '<br /><br />';
+echo '<h1>'.$this->data('Addon.Name').'</h1>';
 _checkTable($this->data('Addon'));
 
 $AddonID = $this->data('Addon.AddonID');
+echo '<br />';
+
 foreach ($this->data('Versions', array()) as $Version) {
     echo '<h2>', t('Version'), ' ', val('Version', $Version), '</h2>';
     _checkTable($Version);
     echo '<p style="text-align: right;">',
         anchor(t('Delete'), "/addon/deleteversion/{$Version['AddonVersionID']}", 'Button Popup'),
         ' ',
-        anchor(t('Save'), "/addon/check/{$AddonID}?SaveVersionID={$Version['AddonVersionID']}", 'Button'),
+        //anchor(t('Save'), "/addon/check/{$AddonID}?SaveVersionID={$Version['AddonVersionID']}", 'Button'),
         '</p>';
 }
 
