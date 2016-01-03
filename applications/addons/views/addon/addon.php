@@ -196,7 +196,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     echo '<div itemprop="description">';
     echo Gdn_Format::html($this->data('Description'));
     if ($this->data('Description2') && $Ver != 'v1') {
-        echo '<br /><br />', Gdn_Format::html($this->data('Description2'));
+        echo '<br /><br />', Gdn_Format::markdown($this->data('Description2'));
     }
     echo '</div>';
 
