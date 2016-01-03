@@ -133,6 +133,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     '</tr>';
                 }
                 ?>
+
+                <?php if (checkPermission('Addons.Addon.Manage')) : ?>
+                <tfoot>
+                    <tr><th colspan="2"><?php echo anchor('View details', '/addon/check/'.$this->data('AddonID')); ?></th></tr>
+                </tfoot>
+                <?php endif; ?>
+
                 </table>
             </div>
             <?php endif; ?>
