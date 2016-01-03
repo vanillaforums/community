@@ -109,31 +109,32 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             </div>
             <?php endif; ?>
 
-            <?php
-            $Versions = (array)$this->data('Releases');
-            if (count($Versions) > 0) : ?>
             <div class="Box AddonBox VersionsBox">
                 <h3><?php echo t('Version History'); ?></h3>
                 <table class="VersionsTable">
                 <?php
-                $i = 1;
-                foreach ($Versions as $Version) {
-                    if ($i > 5) {
-                        break;
+                $Versions = (array)$this->data('Releases');
+                if (count($Versions) > 0) {
+                    $i = 1;
+                    foreach ($Versions as $Version) {
+                        if ($i > 5) {
+                            break;
+                        }
+                        $i++;
+                        $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
+                        $deleteOption = '';
+                        if (checkPermission('Addons.Addon.Manage')) {
+                            $deleteOption = ' '.anchor('x', '/addon/deleteversion/'.$Version['AddonVersionID'], 'Popup Alert DeleteVersion');
+                        }
+                        echo '<tr>'.
+                            '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
+                            '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).$deleteOption.'</td>'.
+                        '</tr>';
                     }
-                    $i++;
-                    $Url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$Version['Version']);
-                    $deleteOption = '';
-                    if (checkPermission('Addons.Addon.Manage')) {
-                        $deleteOption = ' '.anchor('x', '/addon/deleteversion/'.$Version['AddonVersionID'], 'Popup Alert DeleteVersion');
-                    }
-                    echo '<tr>'.
-                        '<td>'.anchor(htmlspecialchars($Version['Version']), $Url).'</td>'.
-                        '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($Version['DateInserted'])), $Url).$deleteOption.'</td>'.
-                    '</tr>';
+                } else {
+                    echo '<tr><th colspan="2">No stable versions found!</th></tr>';
                 }
                 ?>
-
                 <?php if (checkPermission('Addons.Addon.Manage')) : ?>
                 <tfoot>
                     <tr><th colspan="2"><?php echo anchor('View details', '/addon/check/'.$this->data('AddonID')); ?></th></tr>
@@ -142,7 +143,6 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
                 </table>
             </div>
-            <?php endif; ?>
 
             <?php
             $Versions = (array)$this->data('Prereleases');

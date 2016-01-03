@@ -347,6 +347,9 @@ class AddonModel extends Gdn_Model {
             return false;
         }
 
+        $addon['Releases'] = [];
+        $addon['Prereleases'] = [];
+
         if ($getVersions) {
             $maxVersion = valr('Versions.0', $addon);
             $foundMax = false;
