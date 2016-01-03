@@ -2,8 +2,8 @@
 
 echo $this->Form->open();
 
-echo '<h2>Delete Version</h2>';
-echo '<p>', t('Delete this version of the addon?'), '</p>';
+echo '<h2>Delete Addon</h2>';
+echo '<p>', t('Delete this addon completely?'), '</p>';
 
 echo '<p style="text-align: center">',
     $this->Form->button('Yes'),

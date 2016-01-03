@@ -39,7 +39,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         echo '|'.anchor('Mark as '.$OfficialInverse, '/addon/official/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
 
         if (checkPermission('Addons.Addon.Manage')) {
-            echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'DeleteAddon Alert');
+            echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'Popup DeleteAddon Alert');
         }
         $this->fireEvent('AddonOptions');
 

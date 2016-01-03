@@ -589,33 +589,15 @@ class AddonController extends AddonsController {
     public function delete($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
 
-        if (!Gdn::session()->isValid()) {
-            $this->Form->addError('You must be authenticated in order to use this form.');
-        } else {
-            $transientKey = Gdn::request()->get('TransientKey', false);
-            if (!Gdn::session()->validateTransientKey($transientKey)) {
-                throw new Gdn_UserException('The CSRF token is invalid.', 403);
+        if ($this->Form->authenticatedPostBack() && $this->Form->getFormValue('Yes') && is_numeric($AddonID)) {
+            $Addon = $this->AddonModel->getID($AddonID);
+            if (!$Addon) {
+                throw notFoundException();
             }
-        }
-
-        $Addon = $this->AddonModel->getID($AddonID);
-        if (!$Addon) {
-            safeRedirect('dashboard/home/filenotfound');
-        }
-
-        if (Gdn::session()->UserID != $Addon['InsertUserID']) {
-            $this->permission('Addons.Addon.Manage');
-        }
-
-        if (is_numeric($AddonID)) {
             $this->AddonModel->delete($AddonID);
+            $this->RedirectUrl = url('/addons');
         }
 
-        if ($this->_DeliveryType === DELIVERY_TYPE_ALL) {
-            safeRedirect(GetIncomingValue('Target', Gdn_Url::webRoot()));
-        }
-
-        $this->View = 'index';
         $this->render();
     }
 
