@@ -351,9 +351,6 @@ class AddonController extends AddonsController {
             unset($AnalyzedAddon['Path']);
             trace($AnalyzedAddon, 'Analyzed Addon');
 
-            // Get a new icon if one exists.
-            $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
-
             $this->Form->formValues($AnalyzedAddon);
         } catch (Exception $ex) {
             $this->Form->addError($ex);
