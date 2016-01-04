@@ -909,10 +909,6 @@ class AddonController extends AddonsController {
      * @throws Gdn_UserException
      */
     protected function extractIcon($path) {
-        if (!file_exists($path)) {
-            return false;
-        }
-
         $icon = null;
         $entries = UpdateModel::findFiles($path, ['icon.png']);
 

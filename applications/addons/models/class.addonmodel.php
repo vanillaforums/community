@@ -545,7 +545,7 @@ class AddonModel extends Gdn_Model {
             $CurrentAddon = false;
         }
 
-        trace($CurrentAddon, 'CurentAddon');
+        trace($CurrentAddon, 'CurrentAddon');
 
         $Insert = !$CurrentAddon;
         if ($Insert) {
