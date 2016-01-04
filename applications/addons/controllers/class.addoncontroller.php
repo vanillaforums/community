@@ -103,65 +103,18 @@ class AddonController extends AddonsController {
         $this->Form->setModel($this->AddonModel);
 
         if ($this->Form->authenticatedPostBack()) {
-            $Upload = new Gdn_Upload();
-            $Upload->allowFileExtension(null);
-            $Upload->allowFileExtension('zip');
-            try {
-                // Validate the upload
-                $TmpFile = $Upload->validateUpload('File');
-                $Extension = pathinfo($Upload->getUploadedFileName(), PATHINFO_EXTENSION);
-
-                // Generate the target name
-                $TargetFile = $Upload->generateTargetName('addons', $Extension);
-                $TargetPath = PATH_UPLOADS.'/'.$TargetFile;
-
-                if (!file_exists(dirname($TargetPath))) {
-                    mkdir(dirname($TargetPath), 0777, true);
-                }
-
-                // Save the file to a temporary location for parsing...
-                if (!move_uploaded_file($TmpFile, $TargetPath)) {
-                    throw new Exception("We couldn't save the file you uploaded. Please try again later.", 400);
-                }
-
-                $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
-
-                // Set the filename for the CDN...
-                $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
-
-                // Save the uploaded file
-                $Parsed = $Upload->saveAs(
-                    $TargetPath,
-                    $TargetFile
-                );
-                $AnalyzedAddon['File'] = $Parsed['SaveName'];
-                unset($AnalyzedAddon['Path']);
-                $AnalyzedAddon['Description2'] = $this->Form->getFormValue('Description2');
-                trace($AnalyzedAddon, 'Analyzed Addon');
-
-                // If the long description is blank, load up the readme if it exists
-                if ($AnalyzedAddon['Description2'] == '') {
-                    $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
-                }
-
-                // Get an icon if one exists.
-                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
-
-                $this->Form->formValues($AnalyzedAddon);
-            } catch (Exception $ex) {
-                $this->Form->addError($ex);
-            }
+            $this->handleAddonUpload();
 
             if (isset($TargetPath) && file_exists($TargetPath)) {
                 unlink($TargetPath);
             }
 
-            // If there were no errors, save the addon
+            // If there were no errors, save the addon.
             if ($this->Form->errorCount() == 0) {
                 // Set some additional values to save.
                 $this->Form->setFormValue('Vanilla2', true);
 
-                // Save the addon
+                // Save the addon.
                 $AddonID = $this->Form->save();
                 if ($AddonID !== false) {
                     $Addon = $this->AddonModel->getID($AddonID);
@@ -171,10 +124,6 @@ class AddonController extends AddonsController {
                         // Redirect to the new addon.
                         safeRedirect("addon/".AddonModel::slug($Addon, false));
                     }
-                }
-            } else {
-                if (isset($TargetFile) && file_exists($TargetFile)) {
-                    unlink($TargetFile);
                 }
             }
         }
@@ -334,61 +283,10 @@ class AddonController extends AddonsController {
         $this->Form->addHidden('AddonID', $AddonID);
 
         if ($this->Form->authenticatedPostBack()) {
-            $Upload = new Gdn_Upload();
-            $Upload->allowFileExtension(null);
-            $Upload->allowFileExtension('zip');
-            try {
-                // Validate the upload
-                $TmpFile = $Upload->validateUpload('File');
-                $Extension = pathinfo($Upload->getUploadedFileName(), PATHINFO_EXTENSION);
+            $AnalyzedAddon = $this->handleAddonUpload();
+            $AnalyzedAddon['AddonID'] = $AddonID;
 
-                // Generate the target name
-                $TargetFile = $Upload->generateTargetName('addons', $Extension);
-                $TargetPath = PATH_UPLOADS.'/'.$TargetFile;
-
-                if (!file_exists(dirname($TargetPath))) {
-                    mkdir(dirname($TargetPath), 0777, true);
-                }
-
-                // Save the file to a temporary location for parsing...
-                if (!move_uploaded_file($TmpFile, $TargetPath)) {
-                    throw new Exception("We couldn't save the file you uploaded. Please try again later.", 400);
-                }
-
-                $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
-
-                // Set the filename for the CDN.
-                $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
-
-                // Save the uploaded file.
-                $Parsed = $Upload->saveAs($TargetPath, $TargetFile);
-
-                $AnalyzedAddon['AddonID'] = $AddonID;
-                $AnalyzedAddon['File'] = $Parsed['SaveName'];
-                unset($AnalyzedAddon['Path']);
-                trace($AnalyzedAddon, 'Analyzed Addon');
-
-                // Get a new icon if one exists.
-                $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
-
-                $this->Form->formValues($AnalyzedAddon);
-            } catch (Exception $ex) {
-                $this->Form->addError($ex);
-
-                // Delete the erroneous file.
-                try {
-                    if (isset($AnalyzedAddon) && isset($AnalyzedAddon['File'])) {
-                        $Upload->delete($AnalyzedAddon['File']);
-                    }
-                } catch (Exception $Ex2) {
-                }
-            }
-
-            if (isset($TargetPath) && file_exists($TargetPath)) {
-                unlink($TargetPath);
-            }
-
-            // If there were no errors, save the addonversion
+            // If there were no errors, save the addon version.
             if ($this->Form->errorCount() == 0) {
                 $NewVersionID = $this->Form->save(false);
                 if ($NewVersionID) {
@@ -398,14 +296,82 @@ class AddonController extends AddonsController {
                     if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         $this->RedirectUrl = $this->data('Url');
                     }
-                } else {
-                    if (file_exists($TargetPath)) {
-                        unlink($TargetPath);
-                    }
                 }
             }
         }
         $this->render();
+    }
+
+    /**
+     * Handle form upload of an addon zip archive.
+     *
+     * @param int $AddonID
+     * @return array
+     */
+    protected function handleAddonUpload() {
+        $Upload = new Gdn_Upload();
+        $Upload->allowFileExtension(null);
+        $Upload->allowFileExtension('zip');
+
+        try {
+            // Validate the upload.
+            $TmpFile = $Upload->validateUpload('File');
+            $Extension = pathinfo($Upload->getUploadedFileName(), PATHINFO_EXTENSION);
+
+            // Generate the target name.
+            $TargetFile = $Upload->generateTargetName('addons', $Extension);
+            $TargetPath = PATH_UPLOADS.'/'.$TargetFile;
+
+            if (!file_exists(dirname($TargetPath))) {
+                mkdir(dirname($TargetPath), 0777, true);
+            }
+
+            // Save the file to a temporary location for parsing.
+            if (!move_uploaded_file($TmpFile, $TargetPath)) {
+                throw new Exception("We couldn't save the file you uploaded. Please try again later.", 400);
+            }
+
+            $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
+
+            // If the long description is blank, load up the readme if it exists
+            if ($AnalyzedAddon['Description2'] == '') {
+                $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
+            }
+
+            // Get an icon if one exists.
+            $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
+
+            // Set the filename for the CDN.
+            $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
+
+            // Save the uploaded file. After this, we no longer have a local copy to analyze.
+            $Parsed = $Upload->saveAs($TargetPath, $TargetFile);
+
+            $AnalyzedAddon['File'] = $Parsed['SaveName'];
+            unset($AnalyzedAddon['Path']);
+            trace($AnalyzedAddon, 'Analyzed Addon');
+
+            // Get a new icon if one exists.
+            $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
+
+            $this->Form->formValues($AnalyzedAddon);
+        } catch (Exception $ex) {
+            $this->Form->addError($ex);
+
+            // Delete the erroneous file.
+            try {
+                if (isset($AnalyzedAddon) && isset($AnalyzedAddon['File'])) {
+                    $Upload->delete($AnalyzedAddon['File']);
+                }
+            } catch (Exception $Ex2) {
+            }
+        }
+
+        if (isset($TargetPath) && file_exists($TargetPath)) {
+            unlink($TargetPath);
+        }
+
+        return $AnalyzedAddon;
     }
 
     /**
