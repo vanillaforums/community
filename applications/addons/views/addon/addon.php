@@ -28,17 +28,17 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     $Ver = ($this->data('Checked') ? '' : 'v1');
     $Ver2 = ($this->data('Checked') || $this->data('Vanilla2') ? '' : 'v1');
     $Author = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
-    $OfficialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
-
-    if ($Session->UserID == $this->data('InsertUserID') || checkPermission('Addons.Addon.Manage')) {
+    $Manager = checkPermission('Addons.Addon.Manage');
+    if ($Session->UserID == $this->data('InsertUserID') || $Manager) {
         echo '<div class="AddonOptions">';
         echo anchor('Edit Details', "/addon/edit{$Ver}/$AddonID", 'Popup');
         echo '|'.anchor('Upload New Version', "/addon/newversion{$Ver2}/$AddonID");
         echo '|'.anchor('Upload Screenshot', '/addon/addpicture/'.$AddonID);
         echo '|'.anchor('Upload Icon', '/addon/icon/'.$AddonID);
-        echo '|'.anchor('Mark as '.$OfficialInverse, '/addon/official/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
-
-        if (checkPermission('Addons.Addon.Manage')) {
+        
+        if ($Manager) {
+            $OfficialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
+            echo '|'.anchor('Mark as '.$OfficialInverse, '/addon/official/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
             echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$AddonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'Popup DeleteAddon Alert');
         }
         $this->fireEvent('AddonOptions');
