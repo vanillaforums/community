@@ -274,7 +274,7 @@ class AddonController extends AddonsController {
         }
 
         if ($Addon['InsertUserID'] != $Session->UserID) {
-            $this->permission('Garden.Settings.Manage');
+            $this->permission('Addons.Addon.Manage');
         }
 
         $this->addModule('AddonHelpModule');
