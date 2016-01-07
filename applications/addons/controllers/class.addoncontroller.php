@@ -285,6 +285,7 @@ class AddonController extends AddonsController {
         if ($this->Form->authenticatedPostBack()) {
             $AnalyzedAddon = $this->handleAddonUpload();
             $AnalyzedAddon['AddonID'] = $AddonID;
+            $this->Form->setFormValue('AddonID', $AddonID);
 
             // If there were no errors, save the addon version.
             if ($this->Form->errorCount() == 0) {
