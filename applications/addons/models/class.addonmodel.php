@@ -551,6 +551,9 @@ class AddonModel extends Gdn_Model {
         if ($Insert) {
             $this->addInsertFields($Addon);
         }
+        else {
+            $Addon['AddonID'] = val('AddonID', $CurrentAddon, null);
+        }
 
         $this->addUpdateFields($Addon); // always add update fields
 
