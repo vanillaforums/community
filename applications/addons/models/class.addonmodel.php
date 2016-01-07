@@ -223,10 +223,10 @@ class AddonModel extends Gdn_Model {
     public function getID($AddonID, $GetVersions = false) {
         // Look for the addon in the cache.
         foreach ($this->_AddonCache as $CachedAddon) {
-            if (is_array($AddonID) && $CachedAddon['Key'] == $AddonID[0] && $CachedAddon['Type'] == $AddonID[1]) {
+            if (is_array($AddonID) && val('Key', $CachedAddon) == $AddonID[0] && val('Type', $CachedAddon) == $AddonID[1]) {
                 $Addon = $CachedAddon;
                 break;
-            } elseif (is_numeric($AddonID) && $CachedAddon['AddonID'] == $AddonID) {
+            } elseif (is_numeric($AddonID) && val('AddonID', $CachedAddon) == $AddonID) {
                 $Addon = $CachedAddon;
                 break;
             }
@@ -728,6 +728,8 @@ class AddonModel extends Gdn_Model {
                 }
             }
         }
+
+        trace($Post, 'PostValidate');
 
         // Make sure there isn't another addon with the same key as this one.
         if (validateRequired(val('AddonKey', $Post))) {

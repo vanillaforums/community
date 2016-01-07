@@ -335,7 +335,7 @@ class AddonController extends AddonsController {
             $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
 
             // If the long description is blank, load up the readme if it exists
-            if ($AnalyzedAddon['Description2'] == '') {
+            if (val('Description2', $AnalyzedAddon, '') == '') {
                 $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
             }
 
@@ -934,6 +934,7 @@ class AddonController extends AddonsController {
             '/readme.txt',
             '/README.txt',
         );
+        $Description = '';
 
         // Get the list of potential files to analyze.
         $Entries = UpdateModel::findFiles($Path, $ReadmePaths);
