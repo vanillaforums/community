@@ -4,7 +4,7 @@
  *
  * @copyright 2009-2015 Vanilla Forums Inc.
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU GPL v2
- * @package Addons
+ * @package VFOrg
  * @since 2.0
  */
 
@@ -13,30 +13,38 @@
  */
 class ContributorsController extends VFOrgController {
 
-    public $Uses = array('Form', 'Database');
+    /** @var array  */
+    public $Uses = array('Form');
 
-    public function Initialize() {
-        parent::Initialize();
-    }
-
-    public function Index() {
-        $Session = Gdn::Session();
-        if (!$Session->IsValid()) {
+    /**
+     * Show the contributor agreement form & workflow for signing.
+     */
+    public function index() {
+        if (!Gdn::session()->isValid()) {
             $this->View = 'signin';
         } else {
-            if ($this->Form->AuthenticatedPostBack() && $this->Form->GetFormValue('Agree', '') == '1') {
-                $this->Database->Structure()->Table('User')
-                    ->Column('DateContributorAgreement', 'datetime', TRUE)
-                    ->Set(FALSE, FALSE);
-                $this->Database->SQL()->Update('User')->Set('DateContributorAgreement', Gdn_Format::ToDateTime(), TRUE, FALSE)->Where('UserID', $Session->UserID)->Put();
+            if ($this->Form->authenticatedPostBack() && $this->Form->getFormValue('Agree', '') == '1') {
+                Gdn::sql()->update('User')
+                    ->set('DateContributorAgreement', Gdn_Format::toDateTime(), true, false)
+                    ->where('UserID', Gdn::session()->UserID)
+                    ->put();
                 $this->View = 'done';
             }
         }
-        $this->Render();
+        $this->render();
     }
 
-    public function Signed() {
-        $this->UserData = $this->Database->SQL()->Select()->From('User')->Where('DateContributorAgreement <>', '')->OrderBy('DateContributorAgreement', 'asc')->Get();
-        $this->Render();
+    /**
+     * Get list of signed contributors.
+     */
+    public function signed() {
+        $this->UserData = Gdn::sql()
+            ->select()
+            ->from('User')
+            ->where('DateContributorAgreement <>', '')
+            ->orderBy('DateContributorAgreement', 'asc')
+            ->get();
+
+        $this->render();
     }
 }

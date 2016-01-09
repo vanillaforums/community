@@ -11,4 +11,5 @@ Gdn::structure()
 Gdn::structure()
     ->table('User')
     ->column('Newsletter', 'tinyint(1)', '0')
+    ->column('DateContributorAgreement', 'datetime', true)
     ->set();

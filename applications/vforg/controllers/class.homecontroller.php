@@ -14,82 +14,52 @@
 class HomeController extends VFOrgController {
 
      /**
-      *
+      * Before all other method calls.
       */
-    public function Initialize() {
-        parent::Initialize();
-
+    public function initialize() {
+        parent::initialize();
         try {
             $AddonModel = new AddonModel();
-            $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
-
-            $this->SetData('CountDownloads', $Addon ? $Addon['CountDownloads'] : 350000);
-            $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
-            $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
-
-            $CountDownloads = $this->Data('CountDownloads', 0);
-            if ($CountDownloads < 500000)
-                $CountDownloads = 500000;
-            $CountDownloads = number_format($CountDownloads);
+            $Addon = $AddonModel->getSlug('vanilla-core', true);
+            $this->setData('CountDownloads', val('CountDownloads', $Addon));
+            $this->setData('Version', val('Version', $Addon));
+            $this->setData('DateUploaded', val('DateInserted', $Addon));
         } catch (Exception $ex) {
         }
-        $this->Title('The most powerful custom community solution in the world');
-        $this->SetData('Description', "Vanilla is forum software that powers discussions on $CountDownloads sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.");
-        $this->Head->AddTag('meta', array('name' => 'description', 'content' => $this->Data('Description')));
+        $this->title('The most powerful custom community solution in the world');
+        $this->setData('Description', "Vanilla is forum software that powers discussions on hundreds of thousands of sites. Built for flexibility and integration, Vanilla is the best, most powerful community solution in the world.");
+        $this->Head->addTag('meta', array('name' => 'description', 'content' => $this->Data('Description')));
     }
 
+    /**
+     * Homepage of VanillaForums.org.
+     */
+    public function index() {
+        $this->clearJsFiles();
+        $this->addJsFile('jquery.js');
+        $this->addJsFile('easySlider1.7.js');
+        saveToConfig('Garden.Embed.Allow', false, false); // Prevent JS errors
 
-    public function Index() {
-        $this->ClearJsFiles();
-        $this->AddJsFile('jquery.js');
-        $this->AddJsFile('easySlider1.7.js');
-        $Options = array('Save' => FALSE);
-        SaveToConfig('Garden.Embed.Allow', FALSE, $Options); // Prevent JS errors
-        try {
-            $AddonModel = new AddonModel();
-            $Addon = $AddonModel->GetSlug('vanilla-core', TRUE);
-            $this->SetData('CountDownloads', $Addon ? $Addon['CountDownloads'] : 350000);
-            $this->SetData('Version', $Addon ? $Addon['Version'] : '2.0');
-            $this->SetData('DateUploaded', $Addon ? $Addon['DateInserted'] : '2010-07-21 00:00:00');
-        } catch (Exception $ex) {
-            // Do nothing
-        }
-
-        $this->ClearCssFiles();
-        //$this->AddCssFile('splash.css');
-        $this->AddCssFile('vforg-home.css');
+        $this->clearCssFiles();
+        $this->addCssFile('vforg-home.css');
         $this->MasterView = 'empty';
-        $this->Render();
-        die();
+        $this->render();
     }
 
-    public function Hosting() {
-        Redirect('http://vanillaforums.com', 301);
-    }
-
-    public function Features() {
-        Redirect('http://vanillaforums.com/features', 301);
-    }
-
-    public function Get() {
-        $this->Render();
-    }
-
-    public function Download() {
-        Redirect('download');
-    }
-
-    public function Services($Service = '') {
-        Redirect('http://vanillaforums.com', 301);
-    }
-
-
-    public function GetFeed($Type = 'news', $Length = 5, $FeedFormat = 'normal') {
+    /**
+     * Woe unto those who wander here; abandon all logic and hope.
+     *
+     * @param string $Type
+     * @param int $Length
+     * @param string $FeedFormat
+     */
+    public function getFeed($Type = 'news', $Length = 5, $FeedFormat = 'normal') {
         $this->MaxLength = is_numeric($Length) && $Length <= 50 ? $Length : 5;
         $this->FeedFormat = $FeedFormat;
         switch ($Type) {
             case 'releases':
             case 'help':
+                // Once you realize we're consuming our own local RSS you can never unsee it.
                 $Url = 'http://vanillaforums.org/categories/blog/feed.rss';
                 break;
             case 'news':
@@ -100,21 +70,30 @@ class HomeController extends VFOrgController {
 
         $RawFeed = file_get_contents($Url);
         $this->Feed = new SimpleXmlElement($RawFeed);
-        $this->Render();
+        $this->render();
     }
 
-    public function ProxyFeed($Url) {
+    /**
+     * Proxy an RSS feed for Dashboard use across our kingdom.
+     *
+     * @param $Url
+     * @return mixed|string
+     * @throws Exception
+     */
+    public function proxyFeed($Url) {
         $Key = 'Feed|'.$Url;
-        $Feed = Gdn::Cache()->Get($Key);
+        $Feed = Gdn::cache()->get($Key);
         if (!$Feed) {
             $Feed = ProxyRequest($Url, 5);
-            Gdn::Cache()->Store($Key, $Feed, array(Gdn_Cache::FEATURE_EXPIRY => 5 * 60));
+            Gdn::cache()->store($Key, $Feed, array(Gdn_Cache::FEATURE_EXPIRY => 5 * 60));
         }
         return $Feed;
     }
 
-    public function Splash() {
-        $this->Render();
+    /**
+     * Splish splash I was takin' a... modal ad for cloud?
+     */
+    public function splash() {
+        $this->render();
     }
-
 }

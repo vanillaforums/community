@@ -18,7 +18,7 @@ class DownloadHelpModule extends Gdn_Module {
      *
      * @return string
      */
-    public function AssetTarget() {
+    public function assetTarget() {
         return 'Panel';
     }
 }
