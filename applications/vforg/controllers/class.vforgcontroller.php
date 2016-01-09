@@ -2,25 +2,24 @@
 /**
  *
  *
- * @copyright 2009-2015 Vanilla Forums Inc.
+ * @copyright 2009-2016 Vanilla Forums Inc.
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU GPL v2
- * @package Addons
- * @since 2.0
+ * @package VFOrg
  */
 
+/**
+ * Class VFOrgController
+ */
 class VFOrgController extends Gdn_Controller {
 
-    public function __construct() {
-        parent::__construct();
-    }
-
-    public function Initialize() {
-        if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
+    /**
+     * Before every controller method call.
+     */
+    public function initialize() {
+        if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             $this->Head = new HeadModule($this);
         }
-
-        $this->AddCssFile('style.css');
-        // $this->AddCssFile('vforg.css');
-        parent::Initialize();
+        $this->addCssFile('style.css');
+        parent::initialize();
     }
 }

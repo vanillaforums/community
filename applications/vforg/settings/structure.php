@@ -1,12 +1,15 @@
 <?php if (!defined('APPLICATION')) exit();
 
-$Database->Structure()->Table('Newsletter')
-    ->PrimaryKey('NewsletterID')
-    ->Column('Email', 'varchar(200)', NULL)
-    ->Column('Subscribe', 'tinyint(1)', '0')
-    ->Column('DateInserted', 'datetime')
-    ->Set(0, 0);
+Gdn::structure()
+    ->table('Newsletter')
+    ->primaryKey('NewsletterID')
+    ->column('Email', 'varchar(200)', null)
+    ->column('Subscribe', 'tinyint(1)', '0')
+    ->column('DateInserted', 'datetime')
+    ->set();
 
-$Database->Structure()->Table('User')
-    ->Column('Newsletter', 'tinyint(1)', '0')
-    ->Set(0, 0);
+Gdn::structure()
+    ->table('User')
+    ->column('Newsletter', 'tinyint(1)', '0')
+    ->column('DateContributorAgreement', 'datetime', true)
+    ->set();

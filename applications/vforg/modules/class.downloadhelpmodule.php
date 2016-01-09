@@ -2,10 +2,9 @@
 /**
  *
  *
- * @copyright 2009-2015 Vanilla Forums Inc.
+ * @copyright 2009-2016 Vanilla Forums Inc.
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU GPL v2
- * @package Addons
- * @since 2.0
+ * @package VFOrg
  */
 
 /**
@@ -13,8 +12,12 @@
  */
 class DownloadHelpModule extends Gdn_Module {
 
-    public function AssetTarget() {
+    /**
+     * Add download help to the page.
+     *
+     * @return string
+     */
+    public function assetTarget() {
         return 'Panel';
     }
-
 }

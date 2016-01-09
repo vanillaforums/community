@@ -2,8 +2,8 @@
 
 $ApplicationInfo['VFOrg'] = array(
     'Name' => 'VanillaForums.org',
-    'Description' => "The VanillaForums.org website.",
-    'Version' => '1.4.2',
+    'Description' => "Open source community website customizations.",
+    'Version' => '1.5',
     'Author' => "Vanilla Community",
     'AuthorEmail' => 'support@vanillaforums.com',
     'AuthorUrl' => 'http://vanillaforums.org',
