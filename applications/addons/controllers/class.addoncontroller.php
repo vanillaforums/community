@@ -336,7 +336,10 @@ class AddonController extends AddonsController {
 
             // If the long description is blank, load up the readme if it exists
             if (val('Description2', $AnalyzedAddon, '') == '') {
-                $AnalyzedAddon['Description2'] = $this->parseReadme($TargetPath);
+                $Readme = $this->parseReadme($TargetPath);
+                if ($Readme) {
+                    $AnalyzedAddon['Description2'] = $Readme;
+                }
             }
 
             // Get an icon if one exists.
