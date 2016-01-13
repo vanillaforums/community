@@ -343,7 +343,10 @@ class AddonController extends AddonsController {
             }
 
             // Get an icon if one exists.
-            $AnalyzedAddon['Icon'] = $this->extractIcon($TargetPath);
+            $Icon = $this->extractIcon($TargetPath);
+            if ($Icon) {
+                $AnalyzedAddon['Icon'] = $Icon;
+            }
 
             // Set the filename for the CDN.
             $Upload->EventArguments['OriginalFilename'] = AddonModel::slug($AnalyzedAddon, true).'.zip';
