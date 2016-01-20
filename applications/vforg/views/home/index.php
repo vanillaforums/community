@@ -20,7 +20,7 @@ function Alt($Alt) {
             echo Anchor(T("Pricing"), 'https://vanillaforums.com/plans', array('title' => T("Pricing for Vanilla")));
             echo Anchor(T("Addons"), 'addons', array('title' => T("Themes, plugins and applications for Vanilla")));
             echo Anchor(T("Community"), 'discussions', array('title' => T("Vanilla Forums Developer Community")));
-            echo Anchor(T("Documentation"), '//docs.vanillaforums.com', array('title' => T("Developer documentation for Vanilla")));
+            echo Anchor(T("Documentation"), 'http://docs.vanillaforums.com', array('title' => T("Developer documentation for Vanilla")));
             echo Anchor(T("Blog"), 'http://vanillaforums.com/blog', array('title' => T("Latest news from the Vanilla Team")));
         echo '</div>';
 
