@@ -84,6 +84,12 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         echo wrap(htmlspecialchars($this->data('License')), 'dd');
                     }
 
+                    if ($this->data('GitHub')) {
+                        echo wrap(t('GitHub'), 'dt');
+                        $github = stringBeginsWith($this->data('GitHub'), 'https://github.com/', false, true);
+                        echo wrap(anchor(htmlspecialchars($github), 'https://github.com/'.$github), 'dd');
+                    }
+
                     $this->fireEvent('AddonProperties');
                     ?>
                 </dl>
