@@ -178,6 +178,26 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             </div>
             <?php endif; ?>
 
+            <div class="Box AddonBox ConfidenceBox">
+                <h3><?php echo t('Community Confidence'); ?></h3>
+                <?php
+                $confidenceRating = $this->data('ConfidenceRating', 0.5);
+                $statement = '';
+                if($confidenceRating < 0.2) {
+                    $statement = t('The community has no confidence in this addon working on this version of Vanilla');
+                }
+                else if($confidenceRating > 0.8) {
+                    $statement = t('The community has high confidence this addon works on this version of Vanilla');
+                }
+                else {
+                    $statement = t('The community has no confidence this addon works or is broken');
+                }
+                echo wrap($statement,'p');
+                
+                echo img('thumbsup.png');
+                echo img('thumbsdown.png');
+                ?>
+            </div>
             <?php
             if ($Session->isValid()) {
                 echo anchor('Ask a Question', 'post/discussion?AddonID='.$AddonID, 'Button BigButton');
