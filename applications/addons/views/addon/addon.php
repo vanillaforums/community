@@ -53,7 +53,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     <div class="Legal">
         <div class="DownloadPanel">
             <?php 
-            if($this->data('Type') != 'Core') : ?>
+            $AddonType = ucfirst($this->data('Type'));
+            if($AddonType && $AddonType != 'Core') : ?>
             <div class="Box AddonBox ConfidenceBox">
                 <?php
                 $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
@@ -63,7 +64,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
                 
                 if(!$confidence) {
-                    echo Wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('No users have reported this as working or broken.'), 'p');
+                    echo Wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
                 }
                 else {
                     $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
@@ -233,7 +234,6 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         </div>
     <?php
 
-    $AddonType = ucfirst($this->data('Type'));
     if ($AddonType && $AddonType != 'Core') {
         $TypeHelp = t('AddonHelpFor'.$AddonType, '');
         if ($TypeHelp)
