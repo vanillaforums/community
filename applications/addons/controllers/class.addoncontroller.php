@@ -817,7 +817,7 @@ class AddonController extends AddonsController {
             }
             $this->RedirectUrl = url('/addon/'.$Picture->AddonID);
         }
-        $this->render('deleteversion');
+        $this->render('deletepicture');
     }
 
     /**
