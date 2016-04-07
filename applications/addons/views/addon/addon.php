@@ -57,7 +57,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             if($AddonType && $AddonType != 'Core') : ?>
             <div class="Box AddonBox ConfidenceBox">
                 <?php
-                $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
+                $addonVersionID = $this->Data('AddonVersionID');
                 $confidence = $this->ConfidenceModel->getID($addonVersionID, DATASET_TYPE_OBJECT);
                 $coreVersion = $this->ConfidenceModel->getCoreVersion();
                 

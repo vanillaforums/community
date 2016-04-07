@@ -102,12 +102,11 @@ class AddonController extends AddonsController {
         }
         
         $this->Form->SetModel($this->ConfidenceModel);
-         
-        $this->Form->AddHidden('AddonVersionID', $addon['CurrentAddonVersionID']);
+        $this->Form->AddHidden('AddonVersionID', $addon['AddonVersionID']);
         $this->Form->AddHidden('UserID', $session->UserID);
         $this->Form->AddHidden('CoreVersionID', $this->ConfidenceModel->getCoreVersion()->AddonVersionID);            
         
-        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['CurrentAddonVersionID']);
+        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['AddonVersionID']);
         if($existingConfidenceRecord) {
             $this->Form->AddHidden('ConfidenceID', $existingConfidenceRecord->ConfidenceID);
             $this->Form->SetData($existingConfidenceRecord);
