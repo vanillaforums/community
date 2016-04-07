@@ -14,7 +14,7 @@
 class AddonController extends AddonsController {
 
     /** @var array  */
-    public $Uses = array('Form', 'AddonModel');
+    public $Uses = array('Form', 'AddonModel', 'ConfidenceModel');
 
     /** @var string  */
     public $Filter = 'all';
@@ -79,6 +79,7 @@ class AddonController extends AddonsController {
 
                 // Set the canonical url.
                 $this->canonicalUrl(url('/addon/'.AddonModel::slug($Addon, false), true));
+                $this->handleConfidenceVote($Addon);
             }
         } else {
             $this->View = 'browse';
@@ -93,6 +94,70 @@ class AddonController extends AddonsController {
         $this->render();
     }
 
+    private function handleConfidenceVote($addon) {
+        $session = Gdn::Session();
+        if(!$session->IsValid()) {
+            return;
+        }
+        
+        $this->addCssFile('confidence.css');
+        $this->Form->SetModel($this->ConfidenceModel);
+         
+        $this->Form->AddHidden('AddonVersionID', $addon['CurrentAddonVersionID']);
+        $this->Form->AddHidden('UserID', $session->UserID);
+        $this->Form->AddHidden('CoreVersionID', $this->ConfidenceModel->getCoreVersion()->AddonVersionID);            
+        
+        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['CurrentAddonVersionID']);
+        if($existingConfidenceRecord) {
+            $this->Form->AddHidden('ConfidenceID', $existingConfidenceRecord->ConfidenceID);
+            $this->Form->SetData($existingConfidenceRecord);
+        }
+        
+        if ($this->Form->IsPostBack()) {
+            $this->Form->Save();
+        }
+    }
+    
+    public function works($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 1);
+    }
+    
+    public function broken($addonVersionID, $coreVersionID = false) {
+        $this->updateVote($addonVersionID, $coreVersionID, 0);
+    }
+    
+    private function updateVote($addonVersionID, $coreVersionID, $weight) {
+        $session = Gdn::Session();
+        if(!$session->isValid()) {
+            throw permissionException('@You need to be logged in to vote.');
+        }
+                
+        $addon = $this->AddonModel->getVersion($addonVersionID);
+        if(!$addon) {
+            throw notFoundException('Addon');
+        }
+        
+        $currentVote = $this->ConfidenceModel->getConfidenceVote($session->UserID, $addon['AddonVersionID'], $coreVersionID);
+        if($currentVote === false) {
+            $this->ConfidenceModel->insert([
+                'AddonVersionID' => $addon['AddonVersionID'],
+                'UserID' => $session->UserID,
+                'Weight' => $weight]);
+        }
+        else {
+            if($currentVote->Weight != $weight) {
+                $this->ConfidenceModel->update(['Weight' => $weight], [
+                    'ConfidenceID' => $currentVote->ConfidenceID,
+                    'AddonVersionID' => $currentVote->AddonVersionID,
+                    'CoreVersionID' => $currentVote->CoreVersionID,
+                    'UserID' => $currentVote->UserID
+                ]);
+            }
+        }
+        
+        $this->renderData(['success' => true, 'weight' => $weight]);
+    }
+    
     /**
      * Add a new addon.
      */
