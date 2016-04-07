@@ -56,6 +56,7 @@ class AddonController extends AddonsController {
             if (!is_array($Addon)) {
                 throw notFoundException('Addon');
             } else {
+                $this->addCssFile('confidence.css');
                 $AddonID = $Addon['AddonID'];
                 $this->setData($Addon);
 
@@ -100,7 +101,6 @@ class AddonController extends AddonsController {
             return;
         }
         
-        $this->addCssFile('confidence.css');
         $this->Form->SetModel($this->ConfidenceModel);
          
         $this->Form->AddHidden('AddonVersionID', $addon['CurrentAddonVersionID']);
@@ -155,7 +155,21 @@ class AddonController extends AddonsController {
             }
         }
         
-        $this->renderData(['success' => true, 'weight' => $weight]);
+        if($weight > 0) {
+            $this->jsonTarget('.WorksButton', 'Active', 'AddClass');
+            $this->jsonTarget('.WorksButton', 'Disabled', 'RemoveClass');
+            $this->jsonTarget('.BrokenButton', 'Disabled', 'AddClass');
+            $this->jsonTarget('.BrokenButton', 'Active', 'RemoveClass');
+        }
+        else {
+            $this->jsonTarget('.WorksButton', 'Active', 'RemoveClass');
+            $this->jsonTarget('.WorksButton', 'Disabled', 'AddClass');
+            $this->jsonTarget('.BrokenButton', 'Disabled', 'RemoveClass');
+            $this->jsonTarget('.BrokenButton', 'Active', 'AddClass');
+        }
+        $this->setJson('success', true);
+        $this->setJson('weight', $weight);
+        $this->render('blank', 'utility', 'dashboard');
     }
     
     /**

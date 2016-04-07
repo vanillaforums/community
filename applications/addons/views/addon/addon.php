@@ -52,6 +52,52 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
+            
+            <div class="Box AddonBox ConfidenceBox">
+                <?php
+                $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
+                $confidence = $this->ConfidenceModel->getID($addonVersionID, DATASET_TYPE_OBJECT);
+                $coreVersion = $this->ConfidenceModel->getCoreVersion();
+                
+                echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
+                
+                if(!$confidence) {
+                    echo Wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('No users have reported this as working or broken.'), 'p');
+                }
+                else {
+                    $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
+                    $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
+                    if ($percentWorking >= 60) {
+                        echo Wrap(sprite('Heart', 'BigSprite', 'Working') . T('The community says this works.'), 'p', ['title' => $title]);
+                    }
+                    else if ($percentWorking <= 40) {
+                        echo Wrap(sprite('Crossbones', 'BigSprite', 'Broken') . T('The community says this is broken.'), 'p', ['title' => $title]);
+                    }
+                    else {
+                        echo Wrap(sprite('Warning', 'BigSprite', 'Unsure') . T('The community is split.'), 'p', ['title' => $title]);
+                    }
+                }
+                
+                if(Gdn::Session()->isValid()) {
+                    $data = $this->Form->formData();
+                    
+                    $worksClass = 'WorksButton Button Hijack';
+                    $brokenClass = 'BrokenButton Button Hijack';
+                    
+                    if($data) {
+                        $worksClass .= (($data['Weight'] > 0) ? ' Active' : ' Disabled');
+                        $brokenClass .= (($data['Weight'] <= 0) ? ' Active' : ' Disabled');
+                    }
+                    
+                    echo '<div>';
+                    echo wrap(t('What do you think?'), 'h4');
+                    echo anchor(sprite('Check', 'Sprite', 'It works!') . 'It works!', 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
+                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!') . 'It\'s broken!', 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
+                    echo '</div>';
+                }
+                ?>
+            </div>
+            
             <div class="Box DownloadBox">
                 <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $AddonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
                 <dl>
@@ -176,47 +222,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 ?>
                 </table>
             </div>
-            <?php endif; ?>
-
-            <div class="Box AddonBox ConfidenceBox">
-                <h3><?php echo t('Community Confidence'); ?></h3>
-                <?php
-                $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
-                $confidence = $this->ConfidenceModel->getID($addonVersionID, DATASET_TYPE_OBJECT);
-                $coreVersion = $this->ConfidenceModel->getCoreVersion();
-                
-                if(!$confidence) {
-                    echo Wrap(sprintf(T('Vanilla %s: Unknown'), $coreVersion->Version), 'p');
-                }
-                else {
-                    $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
-                    $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
-                    if ($percentWorking >= 0.5) {
-                        echo Wrap(sprintf(T('Vanilla %s: Working'), $coreVersion->Version), 'p', ['title' => $title]);
-                    }
-                    else {
-                        echo Wrap(sprintf(T('Vanilla %s: Broken'), $coreVersion->Version), 'p', ['title' => $title]);
-                    }
-                }
-                
-                if(Gdn::Session()->isValid()) {
-                    $data = $this->Form->formData();
-                    
-                    $worksClass = 'Button Hijack';
-                    $brokenClass = 'Button Hijack';
-                    
-                    if($data) {
-                        $worksClass .= (($data['Weight'] > 0) ? ' Active' : ' Disabled');
-                        $brokenClass .= (($data['Weight'] <= 0) ? ' Active' : ' Disabled');
-                    }
-                    
-                    echo wrap(sprintf(t('Do you think this addon works with Vanilla %s?'), $coreVersion->Version), 'p');
-                    echo anchor(sprite('Check', 'Sprite', 'It works!'), 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
-                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!'), 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
-                }
-                ?>
-            </div>
-            <?php
+            <?php endif;
+            
             if ($Session->isValid()) {
                 echo anchor('Ask a Question', 'post/discussion?AddonID='.$AddonID, 'Button BigButton');
             }

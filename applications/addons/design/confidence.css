@@ -3,27 +3,48 @@
 .ConfidenceBox .Sprite {
     display: block;
     background: url('images/sprite-icons.png');
+    background-clip: content-box;
     width: 18px;
     height: 18px;
     float: left;
 }
 
-.ConfidenceBox .Sprite.Check {
-    background-position: 0 -112px;
-}
-.ConfidenceBox .Sprite.Cross {
-    background-position: -18px -112px;
+.ConfidenceBox .BigSprite {
+    display: block;
+    background: url('images/sprite-icons.png');
+    background-clip: content-box;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    background-position: 8 -28px;
+    background-repeat: no-repeat;
+    float: left;
 }
 
-.ConfidenceBox .sr-only {
-    position: inherit;
-    width: auto;
-    height: auto;
-    margin: auto;
-    padding: auto;
-    overflow: auto;
-    clip: auto;
-    border: initial;
+.ConfidenceBox .Sprite.Check {
+    background-position: 0 0;
+}
+.ConfidenceBox .Sprite.Cross {
+    background-position: 0 -18px;
+}
+
+.ConfidenceBox .BigSprite.Warning {
+    background-position: 8px -28px;
+    border: none;
+    margin: 0;
+}
+.ConfidenceBox .BigSprite.Bandaid {
+    background-position: 8px -60px;
+}
+.ConfidenceBox .BigSprite.Heart {
+    background-position: 8px -92px;
+}
+.ConfidenceBox .BigSprite.Crossbones {
+    background-position: 8px -124px;
+}
+
+.ConfidenceBox p {
+    line-height: 50px;
 }
 
 .ConfidenceBox .Button {
