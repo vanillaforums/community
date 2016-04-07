@@ -52,7 +52,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
-            
+            <?php 
+            if($this->data('Type') != 'Core') : ?>
             <div class="Box AddonBox ConfidenceBox">
                 <?php
                 $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
@@ -97,6 +98,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 }
                 ?>
             </div>
+            <?php endif; ?>
             
             <div class="Box DownloadBox">
                 <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $AddonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
