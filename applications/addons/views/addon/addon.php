@@ -181,21 +181,39 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             <div class="Box AddonBox ConfidenceBox">
                 <h3><?php echo t('Community Confidence'); ?></h3>
                 <?php
-                $confidenceRating = $this->data('ConfidenceRating', 0.5);
-                $statement = '';
-                if($confidenceRating < 0.2) {
-                    $statement = t('The community has no confidence in this addon working on this version of Vanilla');
-                }
-                else if($confidenceRating > 0.8) {
-                    $statement = t('The community has high confidence this addon works on this version of Vanilla');
+                $addonVersionID = $this->Data('Versions')[0]['AddonVersionID'];
+                $confidence = $this->ConfidenceModel->getID($addonVersionID, DATASET_TYPE_OBJECT);
+                $coreVersion = $this->ConfidenceModel->getCoreVersion();
+                
+                if(!$confidence) {
+                    echo Wrap(sprintf(T('Vanilla %s: Unknown'), $coreVersion->Version), 'p');
                 }
                 else {
-                    $statement = t('The community has no confidence this addon works or is broken');
+                    $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
+                    $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
+                    if ($percentWorking >= 0.5) {
+                        echo Wrap(sprintf(T('Vanilla %s: Working'), $coreVersion->Version), 'p', ['title' => $title]);
+                    }
+                    else {
+                        echo Wrap(sprintf(T('Vanilla %s: Broken'), $coreVersion->Version), 'p', ['title' => $title]);
+                    }
                 }
-                echo wrap($statement,'p');
                 
-                echo img('thumbsup.png');
-                echo img('thumbsdown.png');
+                if(Gdn::Session()->isValid()) {
+                    $data = $this->Form->formData();
+                    
+                    $worksClass = 'Button Hijack';
+                    $brokenClass = 'Button Hijack';
+                    
+                    if($data) {
+                        $worksClass .= (($data['Weight'] > 0) ? ' Active' : ' Disabled');
+                        $brokenClass .= (($data['Weight'] <= 0) ? ' Active' : ' Disabled');
+                    }
+                    
+                    echo wrap(sprintf(t('Do you think this addon works with Vanilla %s?'), $coreVersion->Version), 'p');
+                    echo anchor(sprite('Check', 'Sprite', 'It works!'), 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
+                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!'), 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
+                }
                 ?>
             </div>
             <?php
