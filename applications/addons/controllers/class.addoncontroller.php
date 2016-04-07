@@ -276,7 +276,7 @@ class AddonController extends AddonsController {
         if ($Addon['InsertUserID'] != $Session->UserID) {
             $this->permission('Addons.Addon.Manage');
         }
-
+        
         $this->addModule('AddonHelpModule');
 
         $this->Form->setModel($this->AddonModel);
@@ -284,6 +284,9 @@ class AddonController extends AddonsController {
 
         if ($this->Form->authenticatedPostBack()) {
             $AnalyzedAddon = $this->handleAddonUpload();
+            if($Addon['Description2'] != $AnalyzedAddon['Description2'] && $Addon['Description2'] != '') {
+                $this->Form->setFormValue('Description2', $Addon['Description2']);
+            }
             $AnalyzedAddon['AddonID'] = $AddonID;
             $this->Form->setFormValue('AddonID', $AddonID);
 
@@ -335,11 +338,15 @@ class AddonController extends AddonsController {
             $AnalyzedAddon = UpdateModel::analyzeAddon($TargetPath, true);
 
             // If the long description is blank, load up the readme if it exists
-            if (val('Description2', $AnalyzedAddon, '') == '') {
+            $formDescription = $this->Form->getFormValue('Description2', '');
+            if ($formDescription == '') {
                 $Readme = $this->parseReadme($TargetPath);
                 if ($Readme) {
                     $AnalyzedAddon['Description2'] = $Readme;
                 }
+            }
+            else {
+                $AnalyzedAddon['Description2'] = $formDescription;
             }
 
             // Get an icon if one exists.
