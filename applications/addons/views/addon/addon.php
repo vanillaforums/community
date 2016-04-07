@@ -81,14 +81,14 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 }
                 
                 if(Gdn::Session()->isValid()) {
-                    $data = $this->Form->formData();
+                    $data = $this->data('UserConfidenceRecord', false);
                     
                     $worksClass = 'WorksButton Button Hijack';
                     $brokenClass = 'BrokenButton Button Hijack';
                     
                     if($data) {
-                        $worksClass .= (($data['Weight'] > 0) ? ' Active' : ' Disabled');
-                        $brokenClass .= (($data['Weight'] <= 0) ? ' Active' : ' Disabled');
+                        $worksClass .= (($data->Weight > 0) ? ' Active' : ' Disabled');
+                        $brokenClass .= (($data->Weight <= 0) ? ' Active' : ' Disabled');
                     }
                     
                     echo '<div>';

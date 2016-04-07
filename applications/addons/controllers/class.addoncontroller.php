@@ -80,7 +80,7 @@ class AddonController extends AddonsController {
 
                 // Set the canonical url.
                 $this->canonicalUrl(url('/addon/'.AddonModel::slug($Addon, false), true));
-                $this->handleConfidenceVote($Addon);
+                $this->loadConfidenceRecord($Addon);
             }
         } else {
             $this->View = 'browse';
@@ -95,25 +95,15 @@ class AddonController extends AddonsController {
         $this->render();
     }
 
-    private function handleConfidenceVote($addon) {
+    private function loadConfidenceRecord($addon) {
         $session = Gdn::Session();
         if(!$session->IsValid()) {
             return;
         }
         
-        $this->Form->SetModel($this->ConfidenceModel);
-        $this->Form->AddHidden('AddonVersionID', $addon['AddonVersionID']);
-        $this->Form->AddHidden('UserID', $session->UserID);
-        $this->Form->AddHidden('CoreVersionID', $this->ConfidenceModel->getCoreVersion()->AddonVersionID);            
-        
         $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['AddonVersionID']);
         if($existingConfidenceRecord) {
-            $this->Form->AddHidden('ConfidenceID', $existingConfidenceRecord->ConfidenceID);
-            $this->Form->SetData($existingConfidenceRecord);
-        }
-        
-        if ($this->Form->IsPostBack()) {
-            $this->Form->Save();
+            $this->setData('UserConfidenceRecord', $existingConfidenceRecord);
         }
     }
     
