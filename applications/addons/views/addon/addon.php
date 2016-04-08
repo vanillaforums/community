@@ -54,7 +54,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         <div class="DownloadPanel">
             <?php 
             $AddonType = ucfirst($this->data('Type'));
-            if($AddonType && $AddonType != 'Core') : ?>
+            if ($AddonType && $AddonType != 'Core') : ?>
             <div class="Box AddonBox ConfidenceBox">
                 <?php
                 $addonVersionID = $this->Data('AddonVersionID');
