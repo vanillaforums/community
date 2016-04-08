@@ -63,7 +63,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 
                 echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
                 
-                if(!$confidence) {
+                if (!$confidence) {
                     echo Wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
                 }
                 else {
@@ -80,13 +80,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     }
                 }
                 
-                if(Gdn::Session()->isValid()) {
+                if (Gdn::Session()->isValid()) {
                     $data = $this->data('UserConfidenceRecord', false);
                     
                     $worksClass = 'WorksButton Button Hijack';
                     $brokenClass = 'BrokenButton Button Hijack';
                     
-                    if($data) {
+                    if ($data) {
                         $worksClass .= (($data->Weight > 0) ? ' Active' : ' Disabled');
                         $brokenClass .= (($data->Weight <= 0) ? ' Active' : ' Disabled');
                     }

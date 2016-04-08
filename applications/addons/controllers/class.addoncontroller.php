@@ -104,14 +104,14 @@ class AddonController extends AddonsController {
      */
     private function loadConfidenceRecord($addon) {
         $session = Gdn::Session();
-        if(!$session->IsValid()) {
+        if (!$session->IsValid()) {
             return;
         }
         
         $versionID = val('AddonVersionID', $addon);
         
         $existingConfidenceRecord = $this->ConfidenceModel->getConfidenceVote($session->UserID, $versionID);
-        if($existingConfidenceRecord) {
+        if ($existingConfidenceRecord) {
             $this->setData('UserConfidenceRecord', $existingConfidenceRecord);
         }
     }
@@ -150,24 +150,24 @@ class AddonController extends AddonsController {
      */
     private function updateVote($addonVersionID, $coreVersionID, $weight) {
         $session = Gdn::Session();
-        if(!$session->isValid()) {
+        if (!$session->isValid()) {
             throw permissionException('@You need to be logged in to vote.');
         }
                 
         $addon = $this->AddonModel->getVersion($addonVersionID);
-        if(!$addon) {
+        if (!$addon) {
             throw notFoundException('Addon');
         }
         
         $currentVote = $this->ConfidenceModel->getConfidenceVote($session->UserID, $addon['AddonVersionID'], $coreVersionID);
-        if($currentVote === false) {
+        if ($currentVote === false) {
             $this->ConfidenceModel->insert([
                 'AddonVersionID' => $addon['AddonVersionID'],
                 'UserID' => $session->UserID,
                 'Weight' => $weight]);
         }
         else {
-            if($currentVote->Weight != $weight) {
+            if ($currentVote->Weight != $weight) {
                 $this->ConfidenceModel->update(['Weight' => $weight], [
                     'ConfidenceID' => $currentVote->ConfidenceID,
                     'AddonVersionID' => $currentVote->AddonVersionID,
@@ -180,7 +180,7 @@ class AddonController extends AddonsController {
         /*
          * Update the UI via js targets
          */
-        if($weight > 0) {
+        if ($weight > 0) {
             $this->jsonTarget('.WorksButton', 'Active', 'AddClass');
             $this->jsonTarget('.WorksButton', 'Disabled', 'RemoveClass');
             $this->jsonTarget('.BrokenButton', 'Disabled', 'AddClass');

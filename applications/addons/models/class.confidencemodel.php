@@ -32,7 +32,7 @@ class ConfidenceModel extends Gdn_Model {
      * @return bool|stdClass False when empty, object otherwise
      */
     public function getCoreVersion() {
-        if(is_null($this->coreVersion)) {
+        if (is_null($this->coreVersion)) {
             $this->coreVersion = $this->SQL->Select('a.Name, av.AddonVersionID, av.Version')
                 ->From('Addon a')
                 ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
@@ -67,7 +67,7 @@ class ConfidenceModel extends Gdn_Model {
                 ->Get()
                 ->FirstRow();
         
-        if(!$result) {
+        if (!$result) {
             $result = $this->getCoreVersion();
         }
         
@@ -125,7 +125,7 @@ class ConfidenceModel extends Gdn_Model {
      * @return bool
      */
     public function insert($fields) {
-        if(!array_key_exists('CoreVersionID', $fields)) {
+        if (!array_key_exists('CoreVersionID', $fields)) {
             $fields['CoreVersionID'] = $this->getCoreVersion()->AddonVersionID;
         }
         return parent::insert($fields);
