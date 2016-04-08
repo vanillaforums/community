@@ -110,7 +110,7 @@ class AddonController extends AddonsController {
         
         $versionID = val('AddonVersionID', $addon);
         
-        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $versionID);
+        $existingConfidenceRecord = $this->ConfidenceModel->getConfidenceVote($session->UserID, $versionID);
         if($existingConfidenceRecord) {
             $this->setData('UserConfidenceRecord', $existingConfidenceRecord);
         }
