@@ -95,26 +95,59 @@ class AddonController extends AddonsController {
         $this->render();
     }
 
+    /**
+     * Loads the current confidence record for the current addon version against
+     * the latest core version and adds it to the controller data set.
+     * 
+     * @param mixed $addon The addon from which to load the confidence record
+     * @return void
+     */
     private function loadConfidenceRecord($addon) {
         $session = Gdn::Session();
         if(!$session->IsValid()) {
             return;
         }
         
-        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $addon['AddonVersionID']);
+        $versionID = val('AddonVersionID', $addon);
+        
+        $existingConfidenceRecord = $this->ConfidenceModel->getCurrentConfidence($session->UserID, $versionID);
         if($existingConfidenceRecord) {
             $this->setData('UserConfidenceRecord', $existingConfidenceRecord);
         }
     }
     
+    /**
+     * Mark the current user as saying the addon works with a specific version
+     * of Vanilla
+     * 
+     * @param int $addonVersionID
+     * @param int $coreVersionID default to the latest verion of Vanilla
+     */
     public function works($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 1);
     }
     
+    /**
+     * Mark the current user as saying the addon is broken with a specific
+     * version of Vanilla
+     * 
+     * @param int $addonVersionID
+     * @param int $coreVersionID default to the latest verion of Vanilla
+     */
     public function broken($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 0);
     }
     
+    /**
+     * This is the workhorse of the confidence voting logic
+     * 
+     * Update a users vote on an addon against a specific version of Vanilla.
+     * 
+     * @param int $addonVersionID
+     * @param int $coreVersionID
+     * @param int $weight
+     * @throws NotFoundException, PermissionException
+     */
     private function updateVote($addonVersionID, $coreVersionID, $weight) {
         $session = Gdn::Session();
         if(!$session->isValid()) {
@@ -144,6 +177,9 @@ class AddonController extends AddonsController {
             }
         }
         
+        /*
+         * Update the UI via js targets
+         */
         if($weight > 0) {
             $this->jsonTarget('.WorksButton', 'Active', 'AddClass');
             $this->jsonTarget('.WorksButton', 'Disabled', 'RemoveClass');
@@ -156,6 +192,7 @@ class AddonController extends AddonsController {
             $this->jsonTarget('.BrokenButton', 'Disabled', 'RemoveClass');
             $this->jsonTarget('.BrokenButton', 'Active', 'AddClass');
         }
+        
         $this->setJson('success', true);
         $this->setJson('weight', $weight);
         $this->render('blank', 'utility', 'dashboard');
