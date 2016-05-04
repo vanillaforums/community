@@ -42,9 +42,9 @@ class VFOrgHooks implements Gdn_IPlugin {
      * Runs on enable.
      */
     public function setup() {
+        touchConfig('VForg.GitHub.BotOAuthToken');
+        touchConfig('VForg.GitHub.PullRequestSecret');
         $this->structure();
-
-
     }
 
     /**
