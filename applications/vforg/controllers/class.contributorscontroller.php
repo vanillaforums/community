@@ -103,11 +103,10 @@ class ContributorsController extends VFOrgController {
         $repoName = valr('repository.name', $data);
 
         if($issue && $repoOwner && $repoName) {
-            require_once(PATH_APPLICATIONS . '/githubhooks/library/client/GitHubClient.php');
-            $client = new GitHubClient();
-            $client->setAuthType(GitHubClient::GITHUB_AUTH_TYPE_OAUTH);
-            $client->setOauthToken(c('VForg.GitHub.BotOAuthToken'));
-            $client->issues->comments->createComment($repoOwner, $repoName, $issue, $body);
+            $client = new Garden\Http\HttpClient('https://api.github.com');
+            $client->setDefaultHeader('Content-Type', 'application/json');
+            $client->setDefaultHeader('Authorization', 'token' . c('VForg.GitHub.BotOAuthToken'));
+            $client->post("/repos/$repoOwner/$repoName/issues/$issue/comments", ['body' => $body]);
         }
     }
 }
