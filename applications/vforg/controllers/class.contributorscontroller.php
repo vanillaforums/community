@@ -69,6 +69,13 @@ class ContributorsController extends VFOrgController {
         }
     }
     
+    /**
+     * Verify an untamperered payload by calculating the signature and comparing
+     * against the received header.
+     * 
+     * @param string $payload received by a GitHub webhook
+     * @return bool
+     */
     private function verifySignature($payload) {
         $secret = c('VForg.GitHub.PullRequestSecret');
         $expected = Gdn::request()->getValue('HTTP_X_HUB_SIGNATURE');
@@ -76,6 +83,11 @@ class ContributorsController extends VFOrgController {
         return compareHashDigest($expected, $calculated);
     }
     
+    /**
+     * Called when a pull_request webhook is received with the 'opened' action
+     * 
+     * @param object $data
+     */
     private function pullRequestOpened($data) {
         $gitHubName = valr('pull_request.user.login', $data);
 
@@ -89,6 +101,13 @@ class ContributorsController extends VFOrgController {
         $this->renderData(['hookReceived' => true, 'claSigned' => $signed]);
     }
   
+    /**
+     * Post a comment on the issue with the CLA status of the PR owner
+     *  
+     * @param object $data
+     * @param bool $alreadySigned
+     * @param string $name
+     */
     private function commentOnSignedStatus($data, $alreadySigned, $name) {
         $body = '';
         if($alreadySigned) {
