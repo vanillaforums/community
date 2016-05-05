@@ -105,7 +105,7 @@ class ContributorsController extends VFOrgController {
         if($issue && $repoOwner && $repoName) {
             $client = new Garden\Http\HttpClient('https://api.github.com');
             $client->setDefaultHeader('Content-Type', 'application/json');
-            $client->setDefaultHeader('Authorization', 'token' . c('VForg.GitHub.BotOAuthToken'));
+            $client->setDefaultHeader('Authorization', 'token ' . c('VForg.GitHub.BotOAuthToken'));
             $client->post("/repos/$repoOwner/$repoName/issues/$issue/comments", ['body' => $body]);
         }
     }
