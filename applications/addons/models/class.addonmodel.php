@@ -326,20 +326,20 @@ class AddonModel extends Gdn_Model {
      */
     public function getSlug($slug, $getVersions = false) {
         if (is_numeric($slug)) {
-            $addon = $this->getID($slug, $getVersions);
+            $addon = $this->getID($slug, false, ['GetVersion' => $getVersions]);
         } else {
             // This is a string identifier for the addon.
             $parts = explode('-', $slug, 3);
             $key = val(0, $parts);
 
             if (is_numeric($key)) {
-                $addon = $this->getID($key, $getVersions);
+                $addon = $this->getID($key, false, ['GetVersion' => $getVersions]);
             } else {
                 $type = strtolower(val(1, $parts));
                 $typeID = val($type, self::$Types, 0);
                 $version = val(2, $parts);
 
-                $addon = $this->getID(array($key, $typeID, $version), $getVersions);
+                $addon = $this->getID(array($key, $typeID, $version), false, ['GetVersion' => $getVersions]);
             }
         }
 
@@ -354,24 +354,26 @@ class AddonModel extends Gdn_Model {
             $maxVersion = valr('Versions.0', $addon);
             $foundMax = false;
             $viewingVersion = false;
-            foreach ($addon['Versions'] as $version) {
-                // Find the version we are looking at.
-                $versionSlug = AddonModel::slug($addon, $version);
-                if ($versionSlug == $slug && $viewingVersion === false) {
-                    $viewingVersion = $version;
-                }
-
-                // Separate releases & prereleases.
-                if (AddonModel::isReleaseVersion($version['Version'])) {
-                    $addon['Releases'][] = $version;
-                    // Find the latest stable version.
-                    if (!$foundMax) {
-                       $maxVersion = $version;
-                       $foundMax = true;
+            if (count(val('Versions', $addon))) {
+                foreach ($addon['Versions'] as $version) {
+                    // Find the version we are looking at.
+                    $versionSlug = AddonModel::slug($addon, $version);
+                    if ($versionSlug == $slug && $viewingVersion === false) {
+                        $viewingVersion = $version;
                     }
-                } elseif ($foundMax === false) {
-                    // Only list prereleases new than the current stable.
-                    $addon['Prereleases'][] = $version;
+
+                    // Separate releases & prereleases.
+                    if (AddonModel::isReleaseVersion($version['Version'])) {
+                        $addon['Releases'][] = $version;
+                        // Find the latest stable version.
+                        if (!$foundMax) {
+                           $maxVersion = $version;
+                           $foundMax = true;
+                        }
+                    } elseif ($foundMax === false) {
+                        // Only list prereleases new than the current stable.
+                        $addon['Prereleases'][] = $version;
+                    }
                 }
             }
 
