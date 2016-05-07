@@ -326,20 +326,20 @@ class AddonModel extends Gdn_Model {
      */
     public function getSlug($slug, $getVersions = false) {
         if (is_numeric($slug)) {
-            $addon = $this->getID($slug, false, ['GetVersion' => $getVersions]);
+            $addon = $this->getID($slug, false, ['GetVersions' => $getVersions]);
         } else {
             // This is a string identifier for the addon.
             $parts = explode('-', $slug, 3);
             $key = val(0, $parts);
 
             if (is_numeric($key)) {
-                $addon = $this->getID($key, false, ['GetVersion' => $getVersions]);
+                $addon = $this->getID($key, false, ['GetVersions' => $getVersions]);
             } else {
                 $type = strtolower(val(1, $parts));
                 $typeID = val($type, self::$Types, 0);
                 $version = val(2, $parts);
 
-                $addon = $this->getID(array($key, $typeID, $version), false, ['GetVersion' => $getVersions]);
+                $addon = $this->getID(array($key, $typeID, $version), false, ['GetVersions' => $getVersions]);
             }
         }
 
@@ -354,7 +354,7 @@ class AddonModel extends Gdn_Model {
             $maxVersion = valr('Versions.0', $addon);
             $foundMax = false;
             $viewingVersion = false;
-            if (count(val('Versions', $addon))) {
+            if (is_array(val('Versions', $addon))) {
                 foreach ($addon['Versions'] as $version) {
                     // Find the version we are looking at.
                     $versionSlug = AddonModel::slug($addon, $version);
@@ -382,7 +382,7 @@ class AddonModel extends Gdn_Model {
             }
 
             $addon['CurrentAddonVersionID'] = $maxVersion['AddonVersionID'];
-            $addon = array_merge($addon, $viewingVersion);
+            $addon = array_merge($addon, (array)$viewingVersion);
             $addon['Slug'] = AddonModel::slug($addon, $viewingVersion);
         }
 
