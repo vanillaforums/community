@@ -220,7 +220,7 @@ class AddonModel extends Gdn_Model {
      * @param bool $GetVersions Whether or not to get an array of all of the addon's versions.
      * @return object The addon.
      */
-    public function getID($AddonID, $GetVersions = false) {
+    public function getID($AddonID, $DatasetType = false, $Options = []) {
         // Look for the addon in the cache.
         foreach ($this->_AddonCache as $CachedAddon) {
             if (is_array($AddonID) && val('Key', $CachedAddon) == $AddonID[0] && val('Type', $CachedAddon) == $AddonID[1]) {
@@ -253,7 +253,7 @@ class AddonModel extends Gdn_Model {
             $this->_AddonCache[] = $Result;
         }
 
-        if ($GetVersions && !isset($Result['Versions'])) {
+        if (val('GetVersions', $Options) && !isset($Result['Versions'])) {
             $Versions = $this->SQL->getWhere('AddonVersion', array('AddonID' => val('AddonID', $Result), 'Deleted' => 0))->resultArray();
             usort($Versions, array($this, 'VersionCompare'));
 
@@ -489,9 +489,10 @@ class AddonModel extends Gdn_Model {
      * Save the addon data.
      *
      * @param array $Stub
+     * @param bool|array $Settings Not used; for signature compatibility.
      * @return bool|Gdn_DataSet|mixed|object|string
      */
-    public function save($Stub) {
+    public function save($Stub, $Settings = false) {
         trace('AddonModel->Save()');
 
         $Session = Gdn::session();
@@ -538,9 +539,9 @@ class AddonModel extends Gdn_Model {
 
         // Get an existing addon.
         if (isset($Addon['AddonID'])) {
-            $CurrentAddon = $this->getID($Addon['AddonID'], true);
+            $CurrentAddon = $this->getID($Addon['AddonID'], false, ['GetVersions' => true]);
         } elseif (isset($Addon['AddonKey']) && isset($Addon['AddonTypeID'])) {
-            $CurrentAddon = $this->getID(array($Addon['AddonKey'], $Addon['AddonTypeID']), true);
+            $CurrentAddon = $this->getID(array($Addon['AddonKey'], $Addon['AddonTypeID']), false, ['GetVersions' => true]);
         } else {
             $CurrentAddon = false;
         }
@@ -606,7 +607,7 @@ class AddonModel extends Gdn_Model {
 
             // Only save the addon if it is the current version.
             if (!$MaxVersion || version_compare($Addon['Version'], $MaxVersion['Version'], '>=')) {
-                Trace('Uploaded version is the most recent version.');
+                trace('Uploaded version is the most recent version.');
                 $this->SQL->put($this->Name, $Fields, array('AddonID' => $AddonID));
             } else {
                 $this->SQL->reset();
@@ -690,7 +691,7 @@ class AddonModel extends Gdn_Model {
      * @param bool $Insert
      * @return bool
      */
-    public function validate($Post, $Insert) {
+    public function validate($Post, $Insert = false) {
         $this->Validation->addRule('AddonKey', 'function:ValidateAddonKey');
 
         if (val('Checked', $Post) && ($Insert || isset($Post['AddonKey']))) {
@@ -707,7 +708,7 @@ class AddonModel extends Gdn_Model {
 
         // Validate against an existing addon.
         if ($AddonID = val('AddonID', $Post)) {
-            $CurrentAddon = $this->getID($AddonID, true);
+            $CurrentAddon = $this->getID($AddonID, false, ['GetVersions' => true]);
             if ($CurrentAddon) {
                 if (val('AddonKey', $CurrentAddon) && isset($Post['AddonKey']) && val('AddonKey', $Post) != val('AddonKey', $CurrentAddon)) {
                     $this->Validation->addValidationResult('AddonKey', '@'.sprintf(t('The addon\'s key cannot be changed. The uploaded file has a key of <b>%s</b>, but it must be <b>%s</b>.'), val('AddonKey', $Post), val('AddonKey', $CurrentAddon)));
@@ -747,7 +748,7 @@ class AddonModel extends Gdn_Model {
      *
      * @param string|unknown_type $AddonID
      */
-    public function delete($AddonID) {
+    public function hide($AddonID) {
         $this->setProperty($AddonID, 'Visible', '0');
     }
 
@@ -757,7 +758,7 @@ class AddonModel extends Gdn_Model {
      * @param $AddonID
      */
     public function updateCurrentVersion($AddonID) {
-        $Addon = $this->getID($AddonID, true);
+        $Addon = $this->getID($AddonID, false, ['GetVersions' => true]);
 
         $MaxVersion = false;
         foreach ($Addon['Versions'] as $Version) {
