@@ -52,6 +52,8 @@ $Construct->primaryKey('AddonID')
     ->column('Official', 'tinyint(1)', '0')
     ->column('License', 'varchar(100)')
     ->column('GitHub', 'varchar(100)', null)
+    ->column('EnName', 'varchar(100)', null) // Locale-only
+    ->column('PercentComplete', 'tinyint', null) // Locale-only
     ->set($Explicit, $Drop);
 
 if (!$Description2Exists) {

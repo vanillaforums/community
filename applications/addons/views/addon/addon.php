@@ -55,6 +55,20 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             <div class="Box DownloadBox">
                 <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $AddonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
                 <dl>
+                    <?php
+                    // Special Locale-only info.
+                    if ($this->data('Type') == 'Locale') {
+                        if ($this->data('EnName')) {
+                            echo wrap(t('Name (EN)'), 'dt');
+                            echo wrap(htmlspecialchars($this->data('EnName')), 'dd');
+                        }
+                        if ($this->data('PercentComplete')) {
+                            echo wrap(t('Completeness'), 'dt');
+                            echo wrap(htmlspecialchars($this->data('PercentComplete').'%'), 'dd');
+                        }
+                    }
+                    ?>
+
                     <dt>Author</dt>
                     <dd><?php echo $Author; ?></dd>
 
