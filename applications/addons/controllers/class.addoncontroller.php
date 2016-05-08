@@ -150,7 +150,7 @@ class AddonController extends AddonsController {
             $this->Form->setValidationResults($this->AddonModel->validationResults());
         }
 
-        $Addon = $this->AddonModel->getID($AddonID, true);
+        $Addon = $this->AddonModel->getID($AddonID, false, ['GetVersions' => true]);
         $AddonTypes = Gdn::sql()->get('AddonType')->resultArray();
         $AddonTypes = Gdn_DataSet::index($AddonTypes, 'AddonTypeID');
 
@@ -316,6 +316,7 @@ class AddonController extends AddonsController {
         $Upload = new Gdn_Upload();
         $Upload->allowFileExtension(null);
         $Upload->allowFileExtension('zip');
+        $AnalyzedAddon = [];
 
         try {
             // Validate the upload.
@@ -571,7 +572,7 @@ class AddonController extends AddonsController {
             if (!$Addon) {
                 throw notFoundException();
             }
-            $this->AddonModel->delete($AddonID);
+            $this->AddonModel->hide($AddonID);
             $this->RedirectUrl = url('/addons');
         }
 

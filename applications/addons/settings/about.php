@@ -3,7 +3,7 @@
 $ApplicationInfo['Addons'] = [
     'Name' => 'Addons Directory',
     'Description' => "The addon management tool for VanillaForums.org.",
-    'Version' => '1.5',
+    'Version' => '1.5.1',
     'RequiredApplications' => ['Vanilla' => '2.2'],
     'Author' => "Vanilla Community",
     'AuthorEmail' => 'support@vanillaforums.com',
