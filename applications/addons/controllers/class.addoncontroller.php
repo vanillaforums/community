@@ -351,8 +351,9 @@ class AddonController extends AddonsController {
             }
 
             // Get an icon if one exists.
-            $Icon = $this->extractIcon($TargetPath);
+            $Icon = $this->extractIcon($TargetPath, val('Icon', $AnalyzedAddon, ''));
             if ($Icon) {
+                // Overwrite info array value with the path to the saved file.
                 $AnalyzedAddon['Icon'] = $Icon;
             }
 
@@ -905,7 +906,8 @@ class AddonController extends AddonsController {
         $uploadImage = new Gdn_UploadImage();
 
         // Generate the target image name
-        $targetLocation = $uploadImage->generateTargetName('addons/icons', '');
+        $extension = val('extension', pathinfo($imageLocation), '');
+        $targetLocation = $uploadImage->generateTargetName('addons/icons', $extension);
 
         // Save the uploaded icon
         $parsed = $uploadImage->saveImageAs($imageLocation, $targetLocation, 256, 256, false, false);
@@ -920,9 +922,10 @@ class AddonController extends AddonsController {
      * @throws Exception
      * @throws Gdn_UserException
      */
-    protected function extractIcon($path) {
+    protected function extractIcon($path, $name = '') {
         $icon = null;
-        $entries = UpdateModel::findFiles($path, ['icon.png']);
+        $name = ($name !== '') ? [$name] : ['icon.png'];
+        $entries = UpdateModel::findFiles($path, $name);
 
         // Success should be exactly 1 file matching.
         if (count($entries) == 1) {
