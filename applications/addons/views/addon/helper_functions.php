@@ -17,16 +17,26 @@ function writeAddon($Addon, $Alt) {
         ?>
         <div class="ItemContent">
             <?php
-            echo anchor($Addon->Name, $Url, 'Title');
+            $name = ($Addon->Type === 'Locale' && $Addon->EnName != '') ? $Addon->Name.' / '.$Addon->EnName : $Addon->Name;
+            echo anchor(htmlspecialchars($name), $Url, 'Title');
 
             echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
             ?>
             <div class="Meta">
                 <span class="TypeTag"><?php echo $Addon->Type; ?></span>
+                <?php if ($Addon->Type === 'Locale') : ?>
+                    <?php if (!is_null($Addon->PercentComplete)) : ?>
+                <span class="Completeness">
+                    Completeness
+                    <span><?php echo (int)$Addon->PercentComplete.'%'; ?></span>
+                </span>
+                    <?php endif; ?>
+                <?php else : ?>
                 <span class="Version">
                     Version
-                    <span><?php echo $Addon->Version; ?></span>
+                    <span><?php echo htmlspecialchars($Addon->Version); ?></span>
                 </span>
+                <?php endif; ?>
                 <span class="Author">
                     Author
                     <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : $Addon->InsertName; ?></span>

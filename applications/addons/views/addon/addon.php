@@ -59,7 +59,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     // Special Locale-only info.
                     if ($this->data('Type') == 'Locale') {
                         if ($this->data('EnName')) {
-                            echo wrap(t('Name (EN)'), 'dt');
+                            echo wrap(t('Name (en)'), 'dt');
                             echo wrap(htmlspecialchars($this->data('EnName')), 'dd');
                         }
                         if ($this->data('PercentComplete')) {
