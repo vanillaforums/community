@@ -17,14 +17,19 @@ function writeAddon($Addon, $Alt) {
         ?>
         <div class="ItemContent">
             <?php
-            $name = ($Addon->Type === 'Locale' && $Addon->EnName != '') ? $Addon->Name.' / '.$Addon->EnName : $Addon->Name;
-            echo anchor(htmlspecialchars($name), $Url, 'Title');
+            echo anchor(htmlspecialchars($Addon->Name), $Url, 'Title');
 
             echo '<div class="Description">', anchor(htmlspecialchars(sliceString(Gdn_Format::text($Addon->Description), 300)), $Url), '</div>';
             ?>
             <div class="Meta">
                 <span class="TypeTag"><?php echo $Addon->Type; ?></span>
                 <?php if ($Addon->Type === 'Locale') : ?>
+                    <?php if (!is_null($Addon->EnName)) : ?>
+                <span class="EnName">
+                    Name (en)
+                    <span><?php echo htmlspecialchars($Addon->EnName); ?></span>
+                </span>
+                    <?php endif; ?>
                     <?php if (!is_null($Addon->PercentComplete)) : ?>
                 <span class="Completeness">
                     Completeness
