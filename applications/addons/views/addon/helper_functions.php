@@ -20,7 +20,7 @@ function writeAddon($Addon, $Alt) {
             $name = ($Addon->Type === 'Locale' && $Addon->EnName != '') ? $Addon->Name.' / '.$Addon->EnName : $Addon->Name;
             echo anchor(htmlspecialchars($name), $Url, 'Title');
 
-            echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
+            echo '<div class="Description">', anchor(htmlspecialchars(sliceString(Gdn_Format::text($Addon->Description), 300)), $Url), '</div>';
             ?>
             <div class="Meta">
                 <span class="TypeTag"><?php echo $Addon->Type; ?></span>
@@ -39,7 +39,7 @@ function writeAddon($Addon, $Alt) {
                 <?php endif; ?>
                 <span class="Author">
                     Author
-                    <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : $Addon->InsertName; ?></span>
+                    <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : htmlspecialchars($Addon->InsertName); ?></span>
                 </span>
                 <span class="Downloads">
                     Downloads
