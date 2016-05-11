@@ -17,19 +17,34 @@ function writeAddon($Addon, $Alt) {
         ?>
         <div class="ItemContent">
             <?php
-            echo anchor($Addon->Name, $Url, 'Title');
+            echo anchor(htmlspecialchars($Addon->Name), $Url, 'Title');
 
-            echo '<div class="Description">', anchor(sliceString(Gdn_Format::text($Addon->Description), 300), $Url), '</div>';
+            echo '<div class="Description">', anchor(htmlspecialchars(sliceString(Gdn_Format::text($Addon->Description), 300)), $Url), '</div>';
             ?>
             <div class="Meta">
                 <span class="TypeTag"><?php echo $Addon->Type; ?></span>
+                <?php if ($Addon->Type === 'Locale') : ?>
+                    <?php if (!is_null($Addon->EnName)) : ?>
+                <span class="EnName">
+                    Name (en)
+                    <span><?php echo htmlspecialchars($Addon->EnName); ?></span>
+                </span>
+                    <?php endif; ?>
+                    <?php if (!is_null($Addon->PercentComplete)) : ?>
+                <span class="PercentComplete">
+                    Translated
+                    <span><?php echo (int)$Addon->PercentComplete.'%'; ?></span>
+                </span>
+                    <?php endif; ?>
+                <?php else : ?>
                 <span class="Version">
                     Version
-                    <span><?php echo $Addon->Version; ?></span>
+                    <span><?php echo htmlspecialchars($Addon->Version); ?></span>
                 </span>
+                <?php endif; ?>
                 <span class="Author">
                     Author
-                    <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : $Addon->InsertName; ?></span>
+                    <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : htmlspecialchars($Addon->InsertName); ?></span>
                 </span>
                 <span class="Downloads">
                     Downloads
@@ -37,7 +52,7 @@ function writeAddon($Addon, $Alt) {
                 </span>
                 <span class="Updated">
                     Updated
-                    <span><?php echo Gdn_Format::date($Addon->DateUpdated); ?></span>
+                    <span><?php echo Gdn_Format::date($Addon->DateUpdated, 'html'); ?></span>
                 </span>
             </div>
         </div>
