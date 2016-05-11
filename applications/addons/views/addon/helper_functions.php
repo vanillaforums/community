@@ -31,8 +31,8 @@ function writeAddon($Addon, $Alt) {
                 </span>
                     <?php endif; ?>
                     <?php if (!is_null($Addon->PercentComplete)) : ?>
-                <span class="Completeness">
-                    Completeness
+                <span class="PercentComplete">
+                    Translated
                     <span><?php echo (int)$Addon->PercentComplete.'%'; ?></span>
                 </span>
                     <?php endif; ?>
@@ -52,7 +52,7 @@ function writeAddon($Addon, $Alt) {
                 </span>
                 <span class="Updated">
                     Updated
-                    <span><?php echo Gdn_Format::date($Addon->DateUpdated); ?></span>
+                    <span><?php echo Gdn_Format::date($Addon->DateUpdated, 'html'); ?></span>
                 </span>
             </div>
         </div>

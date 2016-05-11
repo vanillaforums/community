@@ -63,7 +63,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                             echo wrap(htmlspecialchars($this->data('EnName')), 'dd');
                         }
                         if ($this->data('PercentComplete')) {
-                            echo wrap(t('Completeness'), 'dt');
+                            echo wrap(t('Translated'), 'dt');
                             echo wrap(htmlspecialchars($this->data('PercentComplete').'%'), 'dd');
                         }
                     }
