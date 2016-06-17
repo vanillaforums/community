@@ -1,71 +1,88 @@
 <?php
+/**
+ *
+ *
+ * @copyright 2009-2016 Vanilla Forums Inc.
+ * @license http://www.opensource.org/licenses/gpl-2.0.php GNU GPL v2
+ * @package Addons
+ * @since 2.2
+ */
+
+/**
+ * Handles votes for addons working with a specific version of Vanilla.
+ */
 class ConfidenceModel extends Gdn_Model {
 
     private $coreVersion = null;
     
-    public function __construct($Name = '') {
+    /**
+     * Use the Confidence table.
+     */
+    public function __construct() {
         parent::__construct('Confidence');
     }
     
     /**
-     * Get a list of addon versions of Vanilla
+     * Get a list of addon versions of Vanilla.
      * 
-     * @param int $Limit
+     * @param int $limit Number of core versions to return.
      * @return array
      */
-    public function getCoreVersions($Limit = 5) {
-        return $this->SQL->Select('a.AddonID, a.Name, av.AddonVersionID, av.Version')
-                ->From('Addon a')
-                ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
-                ->Where('a.AddonKey', 'vanilla')
-                ->Where('av.Deleted', 0)
-                ->Join('AddonVersion av', 'a.AddonID = av.AddonID')
-                ->OrderBy('av.DateInserted', 'desc')
-                ->Limit($Limit)
-                ->Get()
-                ->Result();
+    public function getCoreVersions($limit = 5) {
+        return $this->SQL->select('a.AddonID, a.Name, av.AddonVersionID, av.Version')
+                ->from('Addon a')
+                ->where('a.AddonTypeID', ADDON_TYPE_CORE)
+                ->where('a.AddonKey', 'vanilla')
+                ->where('av.Deleted', 0)
+                ->join('AddonVersion av', 'a.AddonID = av.AddonID')
+                ->orderBy('av.DateInserted', 'desc')
+                ->limit($limit)
+                ->get()
+                ->result();
     }
 
     /**
-     * Get the latest addon version of Vanilla
+     * Get the latest addon version of Vanilla.
      * 
      * @return bool|stdClass False when empty, object otherwise
      */
     public function getCoreVersion() {
         if (is_null($this->coreVersion)) {
-            $this->coreVersion = $this->SQL->Select('a.Name, av.AddonVersionID, av.Version')
-                ->From('Addon a')
-                ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
-                ->Where('a.AddonKey', 'vanilla')
-                ->Where('av.Deleted', 0)
-                ->Join('AddonVersion av', 'a.AddonID = av.AddonID')
-                ->OrderBy('av.DateInserted', 'desc')
-                ->Limit(1)
-                ->Get()
-                ->FirstRow();
+            $this->coreVersion = $this->SQL->select('a.Name, av.AddonVersionID, av.Version')
+                ->from('Addon a')
+                ->where('a.AddonTypeID', ADDON_TYPE_CORE)
+                ->where('a.AddonKey', 'vanilla')
+                ->where('av.Deleted', 0)
+                ->join('AddonVersion av', 'a.AddonID = av.AddonID')
+                ->orderBy('av.DateInserted', 'desc')
+                ->limit(1)
+                ->get()
+                ->firstRow();
         }
         
         return $this->coreVersion;
     }
     
     /**
-     * Validates an ID and returns the addon version associated with the core
-     * version. Defaults to the latest core version if the ID is invalid
+     * Validate a core version id.
      * 
-     * @param int $ID
+     * Validates an ID and returns the addon version associated with the core
+     * version. Defaults to the latest core version if the ID is invalid.
+     * 
+     * @param int $id The core version to check.
      * @return stdClass
      */
-    public function checkCoreVersion($ID) {
-        $result = $this->SQL->Select('a.Name, av.AddonVersionID, av.Version')
-                ->From('Addon a')
-                ->Where('a.AddonTypeID', ADDON_TYPE_CORE)
-                ->Where('a.AddonKey', 'vanilla')
-                ->Where('av.AddonVersionID', $ID)
-                ->Join('AddonVersion av', 'a.AddonID = av.AddonID')
-                ->OrderBy('av.DateInserted', 'desc')
-                ->Limit(1)
-                ->Get()
-                ->FirstRow();
+    public function checkCoreVersion($id) {
+        $result = $this->SQL->select('a.Name, av.AddonVersionID, av.Version')
+                ->from('Addon a')
+                ->where('a.AddonTypeID', ADDON_TYPE_CORE)
+                ->where('a.AddonKey', 'vanilla')
+                ->where('av.AddonVersionID', $id)
+                ->join('AddonVersion av', 'a.AddonID = av.AddonID')
+                ->orderBy('av.DateInserted', 'desc')
+                ->limit(1)
+                ->get()
+                ->firstRow();
         
         if (!$result) {
             $result = $this->getCoreVersion();
@@ -75,53 +92,57 @@ class ConfidenceModel extends Gdn_Model {
     }
     
     /**
-     * Loads the confidence summary of the specified addon version against the 
-     * specified core version.
+     * Loads the confidence summary of an addon version against a core version.
      * 
-     * @param int $AddonVersionID
-     * @param string $DataType DATASET_TYPE_ARRAY or DATASET_TYPE_OBJECT
-     * @return array|stdClass matching $DataType
+     * @param int $addonVersionID The addon id in question.
+     * @param int $coreVersionID Defaults to latest core version if not specified.
+     * @param string $dataType DATASET_TYPE_ARRAY or DATASET_TYPE_OBJECT.
+     * @return array|stdClass matching $dataType
      */
-    public function getID($AddonVersionID, $coreVersionID = false, $DataType = DATASET_TYPE_ARRAY) {
+    public function getID($addonVersionID, $coreVersionID = false, $dataType = DATASET_TYPE_ARRAY) {
         $coreVersion = $this->checkCoreVersion($coreVersionID);
-        $Confidence = $this->SQL
-                ->Select('c.AddonVersionID, c.CoreVersionID, av.Version as CoreVersion, COUNT(c.ConfidenceID) as TotalVotes, SUM(c.Weight) as TotalWeight, AVG(c.Weight) as AverageWeight')
-                ->From('Confidence c')
-                ->Where('c.AddonVersionID', $AddonVersionID)
-                ->Where('c.CoreVersionID', $coreVersion->AddonVersionID)
-                ->Join('AddonVersion av', 'c.CoreVersionID = av.AddonVersionID')
-                ->GroupBy('c.AddonVersionID')
-                ->Get()
-                ->FirstRow($DataType);
+        $confidence = $this->SQL
+                ->select('c.AddonVersionID, c.CoreVersionID')
+                ->select('COUNT(c.ConfidenceID) as TotalVotes, SUM(c.Weight) as TotalWeight, AVG(c.Weight) as AverageWeight')
+                ->select('av.Version as CoreVersion')
+                ->from('Confidence c')
+                ->where('c.AddonVersionID', $addonVersionID)
+                ->where('c.CoreVersionID', $coreVersion->AddonVersionID)
+                ->join('AddonVersion av', 'c.CoreVersionID = av.AddonVersionID')
+                ->groupBy('c.AddonVersionID')
+                ->get()
+                ->firstRow($dataType);
         
-        return $Confidence;
+        return $confidence;
     }
     
     /**
-     * Get the vote of a specific user's confidence for and addon working on the
-     * specified version of Vanilla
+     * Get a users vote for an addon.
      * 
-     * @param int $userID
-     * @param int $addonID
-     * @param int|bool $coreID If false, use the latest core version
+     * Get the vote of a specific user's confidence for and addon working on the
+     * specified version of Vanilla.
+     * 
+     * @param int $userID The user in question.
+     * @param int $addonID The addon in question.
+     * @param int|bool $coreID If false, use the latest core version.
      * @return array
      */
     public function getConfidenceVote($userID, $addonID, $coreID = false) {
         $coreVersion = $this->checkCoreVersion($coreID);
         return $this->SQL
-                ->Select('c.*')
-                ->From('Confidence c')
-                ->Where('c.AddonVersionID', $addonID)
-                ->Where('c.CoreVersionID', $coreVersion->AddonVersionID)
-                ->Where('c.UserID', $userID)
-                ->Get()
-                ->FirstRow();
+                ->select('c.*')
+                ->from('Confidence c')
+                ->where('c.AddonVersionID', $addonID)
+                ->where('c.CoreVersionID', $coreVersion->AddonVersionID)
+                ->where('c.UserID', $userID)
+                ->get()
+                ->firstRow();
     }
     
     /**
-     * Automatically add the current core version if not specified in the fields
+     * Automatically add the current core version if not specified in the fields.
      * 
-     * @param array $fields
+     * @param array $fields The data you want to insert into the model.
      * @return bool
      */
     public function insert($fields) {
@@ -130,5 +151,4 @@ class ConfidenceModel extends Gdn_Model {
         }
         return parent::insert($fields);
     }
-
 }

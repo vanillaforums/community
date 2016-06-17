@@ -9,7 +9,7 @@
  */
 
 /**
- *
+ * Display and manage addons.
  */
 class AddonController extends AddonsController {
 
@@ -47,8 +47,8 @@ class AddonController extends AddonsController {
     /**
      * Homepage & single addon view.
      *
-     * @param string $ID
-     * @throws Exception
+     * @param string $ID The addon to view.
+     * @throws Exception Addon not found.
      */
     public function index($ID = '') {
         if ($ID != '') {
@@ -96,10 +96,12 @@ class AddonController extends AddonsController {
     }
 
     /**
+     * Get the confidence record.
+     * 
      * Loads the current confidence record for the current addon version against
      * the latest core version and adds it to the controller data set.
      * 
-     * @param mixed $addon The addon from which to load the confidence record
+     * @param mixed $addon The addon from which to load the confidence record.
      * @return void
      */
     private function loadConfidenceRecord($addon) {
@@ -117,36 +119,42 @@ class AddonController extends AddonsController {
     }
     
     /**
+     * The current user thinks this addon works with this Vanilla version.
+     * 
      * Mark the current user as saying the addon works with a specific version
      * of Vanilla
      * 
-     * @param int $addonVersionID
-     * @param int $coreVersionID default to the latest verion of Vanilla
+     * @param int $addonVersionID Addon version to say works.
+     * @param int $coreVersionID Default to the latest verion of Vanilla.
      */
     public function works($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 1);
     }
     
     /**
+     * The current user thinks this addon is broken with this Vanilla version.
+     * 
      * Mark the current user as saying the addon is broken with a specific
      * version of Vanilla
      * 
-     * @param int $addonVersionID
-     * @param int $coreVersionID default to the latest verion of Vanilla
+     * @param int $addonVersionID Addon version to say is broken.
+     * @param int $coreVersionID Default to the latest verion of Vanilla.
      */
     public function broken($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 0);
     }
     
     /**
-     * This is the workhorse of the confidence voting logic
+     * This is the workhorse of the confidence voting logic.
      * 
      * Update a users vote on an addon against a specific version of Vanilla.
      * 
-     * @param int $addonVersionID
-     * @param int $coreVersionID
-     * @param int $weight
-     * @throws NotFoundException, PermissionException
+     * @param int $addonVersionID Addon version to vote for.
+     * @param int $coreVersionID Core version to vote for.
+     * @param int $weight Weight to give to the vote.
+     * @throws NotFoundException Addon not found.
+     * @throws PermissionException Must be signed in.
+     * @throws Gdn_UserException Must POST this endpoint.
      */
     private function updateVote($addonVersionID, $coreVersionID, $weight) {
         $session = Gdn::Session();
@@ -169,8 +177,7 @@ class AddonController extends AddonsController {
                 'AddonVersionID' => $addon['AddonVersionID'],
                 'UserID' => $session->UserID,
                 'Weight' => $weight]);
-        }
-        else if ($currentVote->Weight != $weight) {
+        } elseif ($currentVote->Weight != $weight) {
             $this->ConfidenceModel->update(['Weight' => $weight], [
                 'ConfidenceID' => $currentVote->ConfidenceID,
                 'AddonVersionID' => $currentVote->AddonVersionID,
@@ -187,8 +194,7 @@ class AddonController extends AddonsController {
             $this->jsonTarget('.WorksButton', 'Disabled', 'RemoveClass');
             $this->jsonTarget('.BrokenButton', 'Disabled', 'AddClass');
             $this->jsonTarget('.BrokenButton', 'Active', 'RemoveClass');
-        }
-        else {
+        } else {
             $this->jsonTarget('.WorksButton', 'Active', 'RemoveClass');
             $this->jsonTarget('.WorksButton', 'Disabled', 'AddClass');
             $this->jsonTarget('.BrokenButton', 'Disabled', 'RemoveClass');
@@ -241,17 +247,19 @@ class AddonController extends AddonsController {
     /**
      * Do code checks on an uploaded addon.
      *
-     * @param $AddonID
-     * @param bool|false $SaveVersionID
-     * @throws Exception
+     * @param int $AddonID Addon to check.
+     * @param bool|false $SaveVersionID Whether to save the version id.
+     * @throws Exception Addon not found.
      */
     public function check($AddonID, $SaveVersionID = false) {
         $this->permission('Addons.Addon.Manage');
 
         if ($SaveVersionID !== false) {
             // Get the version data.
-            $Version = $this->AddonModel->SQL->getWhere('AddonVersion',
-                array('AddonVersionID' => $SaveVersionID))->firstRow(DATASET_TYPE_ARRAY);
+            $Version = $this->AddonModel->SQL->getWhere(
+                'AddonVersion',
+                array('AddonVersionID' => $SaveVersionID)
+            )->firstRow(DATASET_TYPE_ARRAY);
 
             $this->AddonModel->save($Version);
             $this->Form->setValidationResults($this->AddonModel->validationResults());
@@ -268,14 +276,27 @@ class AddonController extends AddonsController {
         // Get the data for the most recent version of the addon.
         $Path = PATH_UPLOADS.'/'.$Addon['File'];
 
-        $AddonData = arrayTranslate((array)$Addon,
-            array('AddonID', 'AddonKey', 'Name', 'Type', 'Description', 'Requirements', 'Checked'));
+        $AddonData = arrayTranslate(
+            (array)$Addon,
+            array('AddonID', 'AddonKey', 'Name', 'Type', 'Description', 'Requirements', 'Checked')
+        );
 
         try {
             $FileAddonData = UpdateModel::analyzeAddon($Path);
             if ($FileAddonData) {
-                $AddonData = array_merge($AddonData, arrayTranslate($FileAddonData,
-                    array('AddonKey' => 'File_AddonKey', 'Name' => 'File_Name', 'File_Type', 'Description' => 'File_Description', 'Requirements' => 'File_Requirements', 'Checked' => 'File_Checked')));
+                $AddonData = array_merge(
+                    $AddonData,
+                    arrayTranslate(
+                        $FileAddonData,
+                        array(
+                            'AddonKey' => 'File_AddonKey',
+                            'Name' => 'File_Name',
+                            'File_Type',
+                            'Description' => 'File_Description',
+                            'Requirements' => 'File_Requirements',
+                            'Checked' => 'File_Checked')
+                    )
+                );
                 $AddonData['File_Type'] = valr($FileAddonData['AddonTypeID'].'.Label', $AddonTypes, 'Unknown');
             }
         } catch (Exception $Ex) {
@@ -290,12 +311,23 @@ class AddonController extends AddonsController {
             $Path = PATH_UPLOADS."/{$Version['File']}";
 
             try {
-                $VersionData = arrayTranslate((array)$Version,
-                    array('AddonVersionID', 'Version', 'AddonKey', 'Name', 'MD5', 'FileSize', 'Checked'));
+                $VersionData = arrayTranslate(
+                    (array)$Version,
+                    array('AddonVersionID', 'Version', 'AddonKey', 'Name', 'MD5', 'FileSize', 'Checked')
+                );
 
                 $FileVersionData = UpdateModel::analyzeAddon($Path);
-                $FileVersionData = arrayTranslate($FileVersionData,
-                    array('Version' => 'File_Version', 'AddonKey' => 'File_AddonKey', 'Name' => 'File_Name', 'MD5' => 'File_MD5', 'FileSize' => 'File_FileSize', 'Checked' => 'File_Checked'));
+                $FileVersionData = arrayTranslate(
+                    $FileVersionData,
+                    array(
+                        'Version' => 'File_Version',
+                        'AddonKey' => 'File_AddonKey',
+                        'Name' => 'File_Name',
+                        'MD5' => 'File_MD5',
+                        'FileSize' => 'File_FileSize',
+                        'Checked' => 'File_Checked'
+                    )
+                );
             } catch (Exception $Ex) {
                 $FileVersionData = array('File_Error' => $Ex->getMessage());
             }
@@ -310,8 +342,7 @@ class AddonController extends AddonsController {
     /**
      * Delete a version of an addon.
      *
-     * @param $VersionID
-     * @throws Gdn_UserException
+     * @param int $VersionID ID of addon version to remove.
      */
     public function deleteVersion($VersionID) {
         $this->permission('Addons.Addon.Manage');
@@ -332,9 +363,8 @@ class AddonController extends AddonsController {
     /**
      * Edit an existing addon.
      *
-     * @param string $AddonID
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @param int $AddonID Addon ID to edit.
+     * @throws Gdn_UserException Addon not found.
      */
     public function edit($AddonID = '') {
         $this->permission('Addons.Addon.Add');
@@ -370,8 +400,8 @@ class AddonController extends AddonsController {
     /**
      * Upload new version of an existing addon.
      *
-     * @param string $AddonID
-     * @throws Exception
+     * @param int $AddonID Addon ID specified.
+     * @throws Exception Addon not Found.
      */
     public function newVersion($AddonID = '') {
         $Session = Gdn::session();
@@ -413,7 +443,6 @@ class AddonController extends AddonsController {
     /**
      * Handle form upload of an addon zip archive.
      *
-     * @param int $AddonID
      * @return array
      */
     protected function handleAddonUpload() {
@@ -486,7 +515,7 @@ class AddonController extends AddonsController {
     }
 
     /**
-     *
+     * Convenience function to render the page.
      */
     public function notFound() {
         $this->render();
@@ -495,8 +524,8 @@ class AddonController extends AddonsController {
     /**
      * Toggle the 'Official' value on an addon.
      *
-     * @param string $AddonID
-     * @throws Exception
+     * @param int $AddonID Addon in question.
+     * @throws Exception Addon not found.
      */
     public function official($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
@@ -521,9 +550,8 @@ class AddonController extends AddonsController {
     /**
      * Attach an addon to a discussion.
      *
-     * @param null $DiscussionID
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @param null $DiscussionID Discussion for addon attachment.
+     * @throws Gdn_UserException Discussion not found.
      */
     public function attachToDiscussion($DiscussionID = null) {
           $this->permission('Addons.Addon.Manage');
@@ -560,7 +588,11 @@ class AddonController extends AddonsController {
                 } else {
                      $this->informMessage(t('Successfully updated Attached Addon!'));
                      $this->jsonTarget('.Warning.AddonAttachment', null, 'Remove');
-                     $this->jsonTarget('.ItemDiscussion .Message', renderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID), 'Prepend');
+                     $this->jsonTarget(
+                         '.ItemDiscussion .Message',
+                         renderDiscussionAddonWarning($Addon['AddonID'], $Addon['Name'], $Discussion->DiscussionID),
+                         'Prepend'
+                     );
                      $this->jsonTarget('a.AttachAddonDiscussion.Popup', t('Edit Addon Attachment...'), 'Text');
                 }
             }
@@ -572,9 +604,8 @@ class AddonController extends AddonsController {
     /**
      * Remove an addon from a discussion.
      *
-     * @param null $DiscussionID
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @param int $DiscussionID Discussion to remove addon attachment.
+     * @throws Gdn_UserException Discussion not found.
      */
     public function detachFromDiscussion($DiscussionID = null) {
          $this->permission('Addons.Addon.Manage');
@@ -609,8 +640,8 @@ class AddonController extends AddonsController {
     /**
      * Error message.
      *
-     * @param $Code
-     * @param $Item
+     * @param string $Code Translation code.
+     * @param mixed $Item Specific item that errored.
      * @return string
      */
     protected static function notFoundString($Code, $Item) {
@@ -620,8 +651,8 @@ class AddonController extends AddonsController {
     /**
      * Change the owner of an addon.
      *
-     * @param $AddonID
-     * @throws Exception
+     * @param int $AddonID Addon to manage.
+     * @throws Exception Addon not found.
      */
     public function changeOwner($AddonID) {
         $this->permission('Garden.Settings.Manage');
@@ -660,8 +691,8 @@ class AddonController extends AddonsController {
     /**
      * Delete an addon.
      *
-     * @param string $AddonID
-     * @throws Gdn_UserException
+     * @param string $AddonID Addon to delete.
+     * @throws Gdn_UserException Not found.
      */
     public function delete($AddonID = '') {
         $this->permission('Addons.Addon.Manage');
@@ -681,11 +712,9 @@ class AddonController extends AddonsController {
     /**
      * Filter the list of addons.
      *
-     * @param string $FilterToType
-     * @param string $Sort
-     * @param string $VanillaVersion
-     * @param string $Page
-     * @throws Exception
+     * @param string $FilterToType AddonModel::$TypesPlural and 'plugins,applications'.
+     * @param string $Sort Order addons by popularity or recency.
+     * @param string $Page Which page to display.
      */
     public function browse($FilterToType = '', $Sort = '', $Page = '') {
         // Create a virtual type called 'apps' as a stand-in for both plugins & applications.
@@ -747,12 +776,12 @@ class AddonController extends AddonsController {
         $this->setData('Title', $Title);
 
         $Search = GetIncomingValue('Keywords', '');
-        $this->_buildBrowseWheres($Search);
+        $this->buildBrowseWheres($Search);
 
         $SortField = $Sort == 'recent' ? 'DateUpdated' : 'CountDownloads';
         $ResultSet = $this->AddonModel->getWhere(false, $SortField, 'desc', $Limit, $Offset);
         $this->setData('Addons', $ResultSet);
-        $this->_buildBrowseWheres($Search);
+        $this->buildBrowseWheres($Search);
         $NumResults = $this->AddonModel->getCount(false);
         $this->setData('TotalAddons', $NumResults);
 
@@ -782,9 +811,9 @@ class AddonController extends AddonsController {
     /**
      * Some icky model shit that infiltrated our controller.
      *
-     * @param string $Search
+     * @param string $Search Query string for description and name.
      */
-    private function _buildBrowseWheres($Search = '') {
+    private function buildBrowseWheres($Search = '') {
         if ($Search != '') {
             $this->AddonModel
                 ->SQL
@@ -830,9 +859,9 @@ class AddonController extends AddonsController {
     /**
      * Add screenshots to an addon.
      *
-     * @param string $AddonID
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @param string $AddonID Addon in question.
+     * @throws Exception No permission manage addon's pictures.
+     * @throws Gdn_UserException Addon not found.
      */
     public function addPicture($AddonID = '') {
         $Session = Gdn::session();
@@ -900,9 +929,8 @@ class AddonController extends AddonsController {
     /**
      * Delete a screenshot from an addon.
      *
-     * @param string $AddonPictureID
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @param string $AddonPictureID Picture id to remove.
+     * @throws Gdn_UserException No permission to delete this picture.
      */
     public function deletePicture($AddonPictureID = '') {
         $AddonPictureModel = new Gdn_Model('AddonPicture');
@@ -930,7 +958,7 @@ class AddonController extends AddonsController {
     /**
      * Get a specified list of addons.
      *
-     * @param $IDs
+     * @param string $IDs List of ids of addons to retrieve.
      */
     public function getList($IDs) {
         $IDs = explode(',', $IDs);
@@ -945,8 +973,8 @@ class AddonController extends AddonsController {
     /**
      * Set the icon for an addon.
      *
-     * @param string $AddonID
-     * @throws Exception
+     * @param int $AddonID Specified addon id.
+     * @throws Exception Addon not found.
      */
     public function icon($AddonID = '') {
         $Session = Gdn::session();
@@ -996,9 +1024,9 @@ class AddonController extends AddonsController {
     /**
      * Save an icon image file.
      *
-     * @param string $imageLocation
+     * @param string $imageLocation Where to save the icon to file.
      * @return mixed
-     * @throws Exception
+     * @throws Exception Unable to save icon or GD is not installed.
      */
     protected function saveIcon($imageLocation) {
         $uploadImage = new Gdn_UploadImage();
@@ -1014,10 +1042,10 @@ class AddonController extends AddonsController {
     /**
      * Given an uploaded addon path, extract & save an included icon.png.
      *
-     * @param $path Path to the uploaded addon files.
+     * @param string $path Path to the uploaded addon files.
      * @return null|string The value to save for the addon's icon field.
-     * @throws Exception
-     * @throws Gdn_UserException
+     * @throws Exception Unable to save the icon.
+     * @throws Gdn_UserException Invalid zip file path.
      */
     protected function extractIcon($path) {
         $icon = null;
@@ -1035,7 +1063,7 @@ class AddonController extends AddonsController {
     /**
      * Parse an addon's README file.
      *
-     * @param $Path
+     * @param string $Path The base path to search from.
      * @return string
      */
     protected function parseReadme($Path) {
