@@ -154,6 +154,10 @@ class AddonController extends AddonsController {
             throw permissionException('@You must be signed in.');
         }
                 
+        if (!$this->Form->authenticatedPostBack(true)) {
+            throw new Gdn_UserException(t('You must POST to this page.'));
+        }
+        
         $addon = $this->AddonModel->getVersion($addonVersionID);
         if (!$addon) {
             throw notFoundException('Addon');
