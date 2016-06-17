@@ -151,7 +151,7 @@ class AddonController extends AddonsController {
     private function updateVote($addonVersionID, $coreVersionID, $weight) {
         $session = Gdn::Session();
         if (!$session->isValid()) {
-            throw permissionException('@You need to be logged in to vote.');
+            throw permissionException('@You must be signed in.');
         }
                 
         $addon = $this->AddonModel->getVersion($addonVersionID);
@@ -166,15 +166,13 @@ class AddonController extends AddonsController {
                 'UserID' => $session->UserID,
                 'Weight' => $weight]);
         }
-        else {
-            if ($currentVote->Weight != $weight) {
-                $this->ConfidenceModel->update(['Weight' => $weight], [
-                    'ConfidenceID' => $currentVote->ConfidenceID,
-                    'AddonVersionID' => $currentVote->AddonVersionID,
-                    'CoreVersionID' => $currentVote->CoreVersionID,
-                    'UserID' => $currentVote->UserID
-                ]);
-            }
+        else if ($currentVote->Weight != $weight) {
+            $this->ConfidenceModel->update(['Weight' => $weight], [
+                'ConfidenceID' => $currentVote->ConfidenceID,
+                'AddonVersionID' => $currentVote->AddonVersionID,
+                'CoreVersionID' => $currentVote->CoreVersionID,
+                'UserID' => $currentVote->UserID
+            ]);
         }
         
         /*
