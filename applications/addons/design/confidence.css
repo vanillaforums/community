@@ -1,0 +1,56 @@
+/* Community Confidence */
+
+.ConfidenceBox .Sprite {
+    display: block;
+    background: url('images/sprite-icons.png');
+    background-clip: content-box;
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+.ConfidenceBox .BigSprite {
+    display: block;
+    background: url('images/sprite-icons.png');
+    background-clip: content-box;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    background-position: 8 -28px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.ConfidenceBox .Sprite.Check {
+    background-position: 0 0;
+}
+.ConfidenceBox .Sprite.Cross {
+    background-position: 0 -18px;
+}
+
+.ConfidenceBox .BigSprite.Warning {
+    background-position: 8px -28px;
+    border: none;
+    margin: 0;
+}
+.ConfidenceBox .BigSprite.Bandaid {
+    background-position: 8px -60px;
+}
+.ConfidenceBox .BigSprite.Heart {
+    background-position: 8px -92px;
+}
+.ConfidenceBox .BigSprite.Crossbones {
+    background-position: 8px -124px;
+}
+
+.ConfidenceBox p {
+    line-height: 50px;
+}
+
+.ConfidenceBox .Button {
+    text-align: center;
+    width: 40%;
+    margin-left: 2.5%;
+    margin-right: 2.0%;
+    line-height: 18px;
+}

@@ -84,6 +84,14 @@ $Construct->table('AddonPicture')
     ->column('DateInserted', 'datetime')
     ->set($Explicit, $Drop);
 
+$Construct->table('Confidence')
+   ->primaryKey('ConfidenceID')
+   ->column('AddonVersionID', 'int', false, 'key')
+   ->column('CoreVersionID', 'int', false, 'key')
+   ->column('UserID', 'int', false, 'key')
+   ->column('Weight', 'int', null)
+   ->set($Explicit, $Drop);
+
 $Construct->table('Download')
     ->primaryKey('DownloadID')
     ->column('AddonID', 'int', false, 'key')
