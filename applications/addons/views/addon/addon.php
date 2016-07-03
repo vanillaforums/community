@@ -50,55 +50,6 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
-            <?php 
-            $addonType = ucfirst($this->data('Type'));
-            if ($addonType && $addonType != 'Core') : ?>
-            <div class="Box AddonBox ConfidenceBox">
-                <?php
-                $addonVersionID = $this->Data('AddonVersionID');
-                $confidence = $this->ConfidenceModel->getID($addonVersionID, false, DATASET_TYPE_OBJECT);
-                $coreVersion = $this->ConfidenceModel->getCoreVersion();
-                
-                echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
-                
-                if (!$confidence) {
-                    echo wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
-                }
-                else {
-                    $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
-                    $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
-                    if ($percentWorking >= 60) {
-                        echo wrap(sprite('Heart', 'BigSprite', 'Working') . T('The community says this works.'), 'p', ['title' => $title]);
-                    }
-                    else if ($percentWorking <= 40) {
-                        echo wrap(sprite('Crossbones', 'BigSprite', 'Broken') . T('The community says this is broken.'), 'p', ['title' => $title]);
-                    }
-                    else {
-                        echo wrap(sprite('Warning', 'BigSprite', 'Unsure') . T('The community is split.'), 'p', ['title' => $title]);
-                    }
-                }
-                
-                if ($session->isValid()) {
-                    $data = $this->data('UserConfidenceRecord', false);
-                    
-                    $worksClass = 'WorksButton Button Hijack';
-                    $brokenClass = 'BrokenButton Button Hijack';
-                    
-                    if ($data) {
-                        $worksClass .= (($data->Weight > 0) ? ' Active' : ' Disabled');
-                        $brokenClass .= (($data->Weight <= 0) ? ' Active' : ' Disabled');
-                    }
-                    
-                    echo '<div>';
-                    echo wrap(t('What do you think?'), 'h4');
-                    echo anchor(sprite('Check', 'Sprite', 'It works!') . 'It works!', 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
-                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!') . 'It\'s broken!', 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
-                    echo '</div>';
-                }
-                ?>
-            </div>
-            <?php endif; ?>
-            
             <div class="Box DownloadBox">
                 <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $addonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
                 <dl>
@@ -141,6 +92,56 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     ?>
                 </dl>
             </div>
+
+            <?php
+            $addonType = strtolower($this->data('Type'));
+            if ($addonType && !in_array($addonType, ['core', 'locale'])) : ?>
+            <div class="Box AddonBox ConfidenceBox">
+                <?php
+                $addonVersionID = $this->Data('AddonVersionID');
+                $confidence = $this->ConfidenceModel->getID($addonVersionID, false, DATASET_TYPE_OBJECT);
+                $coreVersion = $this->ConfidenceModel->getCoreVersion();
+
+                echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
+
+                if (!$confidence) {
+                    echo wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
+                }
+                else {
+                    $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
+                    $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
+                    if ($percentWorking >= 60) {
+                        echo wrap(sprite('Heart', 'BigSprite', 'Working') . T('The community says this works.'), 'p', ['title' => $title]);
+                    }
+                    else if ($percentWorking <= 40) {
+                        echo wrap(sprite('Crossbones', 'BigSprite', 'Broken') . T('The community says this is broken.'), 'p', ['title' => $title]);
+                    }
+                    else {
+                        echo wrap(sprite('Warning', 'BigSprite', 'Unsure') . T('The community is split.'), 'p', ['title' => $title]);
+                    }
+                }
+
+                if ($session->isValid()) {
+                    $data = $this->data('UserConfidenceRecord', false);
+
+                    $worksClass = 'WorksButton Button Hijack';
+                    $brokenClass = 'BrokenButton Button Hijack';
+
+                    if ($data) {
+                        $worksClass .= (($data->Weight > 0) ? ' Active' : ' Disabled');
+                        $brokenClass .= (($data->Weight <= 0) ? ' Active' : ' Disabled');
+                    }
+
+                    echo '<div>';
+                    echo wrap(t('What do you think?'), 'h4');
+                    echo anchor(sprite('Check', 'Sprite', 'It works!') . 'It works!', 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
+                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!') . 'It\'s broken!', 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
+                    echo '</div>';
+                }
+                ?>
+            </div>
+            <?php endif; ?>
+
             <?php if (is_array($this->data('Requirements')) && count($this->data('Requirements'))) : ?>
             <div class="Box RequirementBox">
                 <h3><?php echo t('Requirements'); ?></h3>
