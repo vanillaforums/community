@@ -57,14 +57,14 @@ class VFOrgHooks extends Gdn_Plugin {
         $sender->Head->addTag('meta', array('name' => 'description', 'content' => $sender->data('Description')));
 
         $sender->clearJsFiles();
-        $sender->addJsFile('jquery.js');
-        $sender->addJsFile('easySlider1.7.js');
+        $sender->addJsFile('jquery.js', 'vforg');
+        $sender->addJsFile('easySlider1.7.js', 'vforg');
         saveToConfig('Garden.Embed.Allow', false, false); // Prevent JS errors
 
         $sender->clearCssFiles();
-        $sender->addCssFile('vforg-home.css');
+        $sender->addCssFile('vforg-home.css', 'vforg');
         $sender->MasterView = 'empty';
-        $sender->render('index');
+        $sender->render('index', 'home', 'vforg');
     }
 
     /**
@@ -119,7 +119,7 @@ class VFOrgHooks extends Gdn_Plugin {
      * @param Gdn_Controller $sender
      */
     public function homeController_splash_create($sender) {
-        $sender->render();
+        $sender->render('', false, 'vforg');
     }
 
     /**
