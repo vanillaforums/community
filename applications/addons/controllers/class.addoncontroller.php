@@ -978,6 +978,23 @@ class AddonController extends AddonsController {
 
         $this->render('browse');
     }
+    public function version($IDstring='')
+    {
+        $IDs=explode(",",$IDstring);
+        $json=new stdClass();
+        $json->plugins=new stdClass();
+        foreach($IDs as $pluginName)
+        {
+            $Addon = $this->AddonModel->getID([$pluginName,1]);
+            if (is_array($Addon)) {
+                $json->plugins->$pluginName=$Addon['Version'];                
+            }
+            else{
+                $json->plugins->$pluginName=false;     
+            }
+        }
+        echo json_encode($json);
+    }
 
     /**
      * Set the icon for an addon.
