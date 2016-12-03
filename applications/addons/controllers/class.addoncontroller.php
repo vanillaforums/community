@@ -274,7 +274,8 @@ class AddonController extends AddonsController {
         }
 
         // Get the data for the most recent version of the addon.
-        $Path = PATH_UPLOADS.'/'.$Addon['File'];
+        $upload = new Gdn_Upload(); // Also used per version below.
+        $Path = $upload->copyLocal($Addon['File']);
 
         $AddonData = arrayTranslate(
             (array)$Addon,
@@ -299,6 +300,7 @@ class AddonController extends AddonsController {
                 );
                 $AddonData['File_Type'] = valr($FileAddonData['AddonTypeID'].'.Label', $AddonTypes, 'Unknown');
             }
+            $upload->delete($Addon['File']);
         } catch (Exception $Ex) {
             $AddonData['File_Error'] = $Ex->getMessage();
         }
@@ -308,7 +310,7 @@ class AddonController extends AddonsController {
         $Versions = array();
         foreach ($Addon['Versions'] as $Version) {
             $Version = $Version;
-            $Path = PATH_UPLOADS."/{$Version['File']}";
+            $Path = $upload->copyLocal($Version['File']);
 
             try {
                 $VersionData = arrayTranslate(
@@ -328,6 +330,7 @@ class AddonController extends AddonsController {
                         'Checked' => 'File_Checked'
                     )
                 );
+                $upload->delete($Version['File']);
             } catch (Exception $Ex) {
                 $FileVersionData = array('File_Error' => $Ex->getMessage());
             }
