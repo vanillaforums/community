@@ -300,7 +300,7 @@ class AddonController extends AddonsController {
                 );
                 $AddonData['File_Type'] = valr($FileAddonData['AddonTypeID'].'.Label', $AddonTypes, 'Unknown');
             }
-            $upload->delete($Addon['File']);
+            $upload->delete($Path);
         } catch (Exception $Ex) {
             $AddonData['File_Error'] = $Ex->getMessage();
         }
@@ -330,7 +330,7 @@ class AddonController extends AddonsController {
                         'Checked' => 'File_Checked'
                     )
                 );
-                $upload->delete($Version['File']);
+                $upload->delete($Path);
             } catch (Exception $Ex) {
                 $FileVersionData = array('File_Error' => $Ex->getMessage());
             }
