@@ -126,6 +126,8 @@ class VFOrgHooks extends Gdn_Plugin {
      * Runs on enable.
      */
     public function setup() {
+        touchConfig('VForg.GitHub.BotOAuthToken');
+        touchConfig('VForg.GitHub.PullRequestSecret');
         $this->structure();
     }
 
