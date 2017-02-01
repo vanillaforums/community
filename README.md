@@ -1,7 +1,7 @@
 Vanilla Forums Community
 ========================
 
-The code that powers the vanillaforums.org community site.
+The code that powers the open.vanillaforums.com community site.
 
 ## Repo Tour
 
@@ -9,7 +9,7 @@ The code that powers the vanillaforums.org community site.
 * `applications/vforg` is some customizations specific to the open source site.
 * `themes/vforg` is our current, original theme.
 * `themes/communal` is an unfinished next-gen theme.
-* `plugins/vorgo` is our implementation of [Bot](https://vanillaforums.org/addon/bot-plugin).
+* `plugins/vorgo` is our implementation of [Bot](https://open.vanillaforums.com/addon/bot-plugin).
 
 ## License
 
