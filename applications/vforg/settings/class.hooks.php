@@ -96,24 +96,6 @@ class VFOrgHooks extends Gdn_Plugin {
     }
 
     /**
-     * Proxy an RSS feed for Dashboard use across our kingdom.
-     *
-     * @param Gdn_Controller $sender
-     * @param $Url
-     * @return mixed|string
-     * @throws Exception
-     */
-    public function homeController_proxyFeed_create($sender, $Url) {
-        $Key = 'Feed|'.$Url;
-        $Feed = Gdn::cache()->get($Key);
-        if (!$Feed) {
-            $Feed = ProxyRequest($Url, 5);
-            Gdn::cache()->store($Key, $Feed, array(Gdn_Cache::FEATURE_EXPIRY => 5 * 60));
-        }
-        return $Feed;
-    }
-
-    /**
      * Splish splash I was takin' a... modal ad for cloud?
      *
      * @param Gdn_Controller $sender
