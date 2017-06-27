@@ -61,34 +61,13 @@ and (orientation : portrait),
 
 /** Header **/
 
-.Head .Home {
-    background: url('images/logo-vanilla.png') center center no-repeat;
-    display: block;
-    height: 69px;
-    width: 170px;
-    overflow: hidden;
-    color: transparent;
-    font-size: 1px;
-    text-indent: -1000px;
-    white-space: nowrap;
-    margin: 0 0 0 20px;
+.Home {
+    display: inline-block;
 }
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
-    .Head .Home {
-        background-image: url('images/vanilla_logo.png');
-        background-size: 135px;
-    }
 
-    .PoweredByVanilla {
-        background-image: url('images/vanilla_logo.png');
-        background-size: 70px;
-    }
+.ossLogo-header {
+    width: 117px;
+    height: 63.92px;
 }
 
 a {
@@ -107,13 +86,11 @@ a.Title {
 .Menu a:hover {
     text-decoration: underline;
 }
-.Head {
-    margin: 20px 0 0;
-}
+
 .Head .Row {
     position: relative;
-    padding: 0 0 20px;
 }
+
 .Menu {
     position: absolute;
     top: auto;
@@ -164,12 +141,12 @@ a.Title {
     position: absolute;
     height: 76px;
     width: 76px;
-    top: 25px;
-    left: 200px;
+    top: 15px;
+    left: 130px;
 }
 
 .Head {
-    margin: 20px 0 2px !Important;
+    margin: 10px 0 5px;
     padding: 0 !Important;
 }
 
@@ -861,4 +838,21 @@ ul.token-input-list {
             margin-top: 0;
         }
     }
+}
+
+
+/// Footer ///
+
+.PoweredByVanilla {
+    background: none !important;
+    line-height: 1em;
+    overflow: visible;
+    height: auto;
+    width: 73px;
+}
+
+.ossLogo-footer {
+    display: block;
+    width: 73px;
+    height: 40px;
 }

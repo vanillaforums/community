@@ -8,7 +8,9 @@
       <div class="Head">
          <div class="Row">
             <span class="OpenSource"></span>
-            <a href="{link path="home"}" class="Home">{link path="Vanilla Forums: Community Forums Evolved"}</a>
+            <a href="{link path="home"}" title="{t c="Vanilla Forums: Community Forums Evolved"}" class="Home">
+               <img class="ossLogo ossLogo-header" alt="Vanilla OSS" src="{"/themes/vforg/design/images/svgs/vanilla-oss-logo.svg"|asset_url:true:true}">
+            </a>
             <div class="Menu">
                <a href="{link path="/addons"}" title="{t c="Themes, plugins and applications for Vanilla"}">{t c="Addons"}</a>
                <a href="{link path="/discussions"}" title="{t c="Vanilla Forums Developer Community"}">{t c="Community"}</a>
@@ -43,7 +45,9 @@
       </div>
       <div id="Foot">
          <div class="Row">
-            <a href="{vanillaurl}" class="PoweredByVanilla" title="{t c="Community Software by Vanilla Forums"}">{t c="Powered by Vanilla"}</a>
+            <a href="{vanillaurl}" class="PoweredByVanilla" title="{t c="Community Software by Vanilla Forums"}">
+               <img class="ossLogo ossLogo-footer" alt="Vanilla OSS" src="{"/themes/vforg/design/images/svgs/vanilla-oss-logo.svg"|asset_url:true:true}">
+            </a>
             {asset name="Foot"}
          </div>
       </div>

@@ -14,10 +14,10 @@
   #Content .BoxNewDiscussion { display: inline-block; }
   #Content .BoxNewDiscussion .MenuItems { min-width: 175px; } }
 /** Header **/
-.Head .Home { background: url("images/logo-vanilla.png") center center no-repeat; display: block; height: 69px; width: 170px; overflow: hidden; color: transparent; font-size: 1px; text-indent: -1000px; white-space: nowrap; margin: 0 0 0 20px; }
+.Home { display: inline-block; }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) { .Head .Home { background-image: url("images/vanilla_logo.png"); background-size: 135px; }
-  .PoweredByVanilla { background-image: url("images/vanilla_logo.png"); background-size: 70px; } }
+.ossLogo-header { width: 117px; height: 63.92px; }
+
 a { color: #012f6e; text-decoration: none; }
 
 a.Title { color: #045dcd; }
@@ -25,9 +25,7 @@ a.Title:hover { color: #ff0084; }
 
 .Menu a:hover { text-decoration: underline; }
 
-.Head { margin: 20px 0 0; }
-
-.Head .Row { position: relative; padding: 0 0 20px; }
+.Head .Row { position: relative; }
 
 .Menu { position: absolute; top: auto; bottom: 12px; right: 0; }
 
@@ -41,9 +39,9 @@ a.Title:hover { color: #ff0084; }
 
 .Hosting:hover span { color: #fff; }
 
-.OpenSource { background: url("images/open-source.png") center center no-repeat transparent; overflow: hidden; display: block; position: absolute; height: 76px; width: 76px; top: 25px; left: 200px; }
+.OpenSource { background: url("images/open-source.png") center center no-repeat transparent; overflow: hidden; display: block; position: absolute; height: 76px; width: 76px; top: 15px; left: 130px; }
 
-.Head { margin: 20px 0 2px !Important; padding: 0 !Important; }
+.Head { margin: 10px 0 5px; padding: 0 !Important; }
 
 .SiteSearch { margin: 10px auto; width: 600px; max-width: 100%; }
 
@@ -150,6 +148,8 @@ a.RenderedDownloadButton:hover { background-position: 0 -60px; }
 a.RenderedDownloadButton { display: block; height: 60px; width: 370px; background: url("images/btn-hosting.png") 0 0 no-repeat; }
 
 a.RenderedDownloadButton span { display: none; }
+
+.DataCounts .CountItemWrap { min-width: 10%; }
 
 .Reactions .Count { background: #012f6e; color: #fff; }
 
@@ -348,3 +348,7 @@ input[type=text], input[type=password], textarea, ul.token-input-list { border-r
 .Signature { font-size: 80%; opacity: .8; line-height: 1.2; }
 .Item-Body .Signature { border-top: solid 1px #777; margin-top: 15px; padding-top: 5px; }
 .Item-Body .Signature :first-child { margin-top: 0; }
+
+.PoweredByVanilla { background: none !important; line-height: 1em; overflow: visible; height: auto; width: 73px; }
+
+.ossLogo-footer { display: block; width: 73px; height: 40px; }
