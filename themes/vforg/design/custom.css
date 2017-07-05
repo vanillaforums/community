@@ -16,7 +16,7 @@
 /** Header **/
 .Home { display: inline-block; }
 
-.ossLogo-header { width: 117px; height: 63.92px; }
+.ossLogo-header { width: 97px; height: 53px; }
 
 a { color: #012f6e; text-decoration: none; }
 
@@ -38,8 +38,6 @@ a.Title:hover { color: #ff0084; }
 .Hosting span { display: block; font-weight: normal; font-size: 12px; color: #000; }
 
 .Hosting:hover span { color: #fff; }
-
-.OpenSource { background: url("images/open-source.png") center center no-repeat transparent; overflow: hidden; display: block; position: absolute; height: 76px; width: 76px; top: 15px; left: 130px; }
 
 .Head { margin: 10px 0 5px; padding: 0 !Important; }
 

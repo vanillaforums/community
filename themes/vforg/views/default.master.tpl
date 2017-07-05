@@ -7,7 +7,6 @@
    <div id="Frame">
       <div class="Head">
          <div class="Row">
-            <span class="OpenSource"></span>
             <a href="{link path="home"}" title="{t c="Vanilla Forums: Community Forums Evolved"}" class="Home">
                <img class="ossLogo ossLogo-header" alt="Vanilla OSS" src="{"/themes/vforg/design/images/svgs/vanilla-oss-logo.svg"|asset_url:true:true}">
             </a>
