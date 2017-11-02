@@ -87,7 +87,7 @@ class VFOrgHooks extends Gdn_Plugin {
             case 'news':
             case 'cloud':
             default:
-                $Url = 'http://blog.vanillaforums.com/feed/';
+                $Url = 'https://blog.vanillaforums.com/rss.xml';
         }
 
         $RawFeed = file_get_contents($Url);
