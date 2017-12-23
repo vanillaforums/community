@@ -7,9 +7,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL)
 ?>
 <h2><?php echo t('Upload a New Version'); ?></h2>
 <div class="Info"><?php
-    echo t('Addons allowable license info', "All addons must declare an appropriate GPL2-compatible license.
-    These include: GNU GPL2, MIT, BSD, GNU LGPL, or Mozilla Public License (MPL) v2.
-    Addons uploaded without explicit license information will be declared as GNU GPL2.
+    echo t('Addons allowable license info', "All addons must declare an appropriate GPL2-compatible license in their addon info using the key \"License\".
+    These include: 'GNU GPL2', 'MIT', 'BSD', 'GNU LGPL', or 'Mozilla Public License (MPL) v2'.
     By uploading your new or revised addon, you agree to these terms.");
 ?></div>
 <?php
