@@ -1,0 +1,21 @@
+{
+    "name": "Open Feed Central",
+    "className": "openfeedcentral",
+    "description": "Vanilla's Open Feed service, straight from the mothership.",
+    "version": "1.0",
+    "settingsUrl": "/settings/openfeedcentral",
+    "settingsPermission": "Garden.Settings.Manage",
+    "mobileFriendly": true,
+    "key": "openfeedcentral",
+    "type": "addon",
+    "authors": [
+        {
+            "name": "Lincoln Russell",
+            "email": "lincolnwebs@gmail.com",
+            "homepage": "http://lincolnwebs.com"
+        }
+    ],
+    "require": {
+        "vanilla": ">=2.5"
+    }
+}
