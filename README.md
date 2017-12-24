@@ -6,10 +6,8 @@ The code that powers the open.vanillaforums.com community site.
 ## Repo Tour
 
 * `applications/addons` is our addon management directory.
-* `applications/vforg` is some customizations specific to the open source site.
 * `themes/vforg` is our current, original theme.
-* `themes/communal` is an unfinished next-gen theme.
-* `plugins/vorgo` is our implementation of [Bot](https://open.vanillaforums.com/addon/bot-plugin).
+* `plugins/openfeedcentral` powers the news feeds in Vanilla Dashboards across the Internet.
 
 ## License
 
@@ -23,14 +21,8 @@ In other words, use the code how you want, but don't produce clone sites with it
 
 [See our docs](http://docs.vanillaforums.com/developers/contributing/).
 
+Our contributors' agreement is now managed automatically per GitHub repo with CLA Assistant.
+
 ## Security issues
 
 [See our docs](http://docs.vanillaforums.com/developers/).
-
-## VFOrg application features
-
-* Track & display total downloads of Vanilla and addons.
-* Enable & log update checks from remote installs (dormant since 2011).
-* Contributors Licensing Agreement (CLA) management.
-* Power dashboard feeds for remote installs.
-* Marketing pages.
