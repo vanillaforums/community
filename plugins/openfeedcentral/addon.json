@@ -8,6 +8,7 @@
     "mobileFriendly": true,
     "key": "openfeedcentral",
     "type": "addon",
+    "license": "GNU GPLv2",
     "authors": [
         {
             "name": "Lincoln Russell",

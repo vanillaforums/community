@@ -8,9 +8,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL)
 <h1><?php echo t('Create a new Addon'); ?></h1>
 
 <div class="Info"><?php
-    echo t('Addons allowable license info', "All addons must declare an appropriate GPL2-compatible license.
-    These include: GNU GPL2, MIT, BSD, GNU LGPL, or Mozilla Public License (MPL) v2.
-    Addons uploaded without explicit license information will be declared as GNU GPL2.
+    echo t('Addons allowable license info', "All addons must declare an appropriate GPL2-compatible license in their addon info using the key \"License\".
+    These include: 'GNU GPL2', 'MIT', 'BSD', 'GNU LGPL', or 'Mozilla Public License (MPL) v2'.
     By uploading your new or revised addon, you agree to these terms.");
     //echo sprintf(t('This page is only for Vanilla 2 addons.', 'This page is only for adding Vanilla 2 addons. If you want to add a Vanilla 1 addon click <a href="%s">here</a>.'), Url('/addon/addv1'));
 ?></div>
