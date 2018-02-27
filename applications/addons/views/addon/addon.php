@@ -18,8 +18,8 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 echo anchor(t($typePlural), '/addon/browse/'.strtolower($typePlural), '', array('itemprop' => 'softwareApplicationCategory'));
             ?>
         </div>
-        <span itemprop="name"><?php echo $this->data('Name'); ?></span>
-        <span itemprop="softwareVersion"><?php echo $this->data('Version'); ?></span>
+        <span itemprop="name"><?php echo htmlspecialchars($this->data('Name')); ?></span>
+        <span itemprop="softwareVersion"><?php echo htmlspecialchars($this->data('Version')); ?></span>
     </h1>
     <?php
     $addonID = $this->data('AddonID');
@@ -33,7 +33,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         echo '|'.anchor('Upload New Version', "/addon/newversion{$ver2}/$addonID");
         echo '|'.anchor('Upload Screenshot', '/addon/addpicture/'.$addonID);
         echo '|'.anchor('Upload Icon', '/addon/icon/'.$addonID);
-        
+
         if ($manager) {
             $officialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
             echo '|'.anchor('Mark as '.$officialInverse, '/addon/official/'.$addonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
@@ -68,10 +68,10 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     ?>
 
                     <dt>Author</dt>
-                    <dd><?php echo $author; ?></dd>
+                    <dd><?php echo htmlspecialchars($author); ?></dd>
 
                     <dt>Version</dt>
-                    <dd><?php echo $this->data('Version');
+                    <dd><?php echo htmlspecialchars($this->data('Version'));
                         $currentVersion = $this->data('CurrentVersion');
                         if ($currentVersion && $currentVersion != $this->data('Version')) {
                             echo ' ', anchor('('.t('Current').')', '/addon/'.AddonModel::slug($this->Data, false));
@@ -83,12 +83,12 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     <dd itemprop="datePublished"><?php echo Gdn_Format::date($this->data('DateUploaded'), 'html'); ?></dd>
 
                     <dt>Downloads</dt>
-                    <dd><meta itemprop="interactionCount" content="UserDownloads:<?php echo $this->data('CountDownloads'); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
+                    <dd><meta itemprop="interactionCount" content="UserDownloads:<?php echo htmlspecialchars($this->data('CountDownloads')); ?>" /><?php echo number_format($this->data('CountDownloads')); ?></dd>
 
                     <?php
                     if ($this->data('FileSize')) {
                         echo wrap(t('File Size'), 'dt');
-                        echo wrap('<meta itemprop="fileSize" content="'.$this->data('FileSize').'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')), 'dd');
+                        echo wrap('<meta itemprop="fileSize" content="'.htmlspecialchars($this->data('FileSize')).'"/>'.Gdn_Upload::FormatFileSize($this->data('FileSize')), 'dd');
                     }
 
                     if ($this->data('License')) {
@@ -239,7 +239,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 </table>
             </div>
             <?php endif;
-            
+
             if ($session->isValid()) {
                 echo anchor('Ask a Question', 'post/discussion?AddonID='.$addonID, 'Button BigButton');
             }
