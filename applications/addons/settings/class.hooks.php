@@ -239,7 +239,7 @@ if (!function_exists('RenderDiscussionAddonWarning')) {
             sprintf(
                 t('This discussion is related to the %s addon.'),
                 anchor(
-                    $AddonName,
+                    htmlspecialchars($AddonName),
                     'addon/' . $AddonID . '/' . Gdn_Format::url($AddonName)
                 )
             ),
