@@ -25,7 +25,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     $addonID = $this->data('AddonID');
     $ver = ($this->data('Checked') ? '' : 'v1');
     $ver2 = ($this->data('Checked') || $this->data('Vanilla2') ? '' : 'v1');
-    $author = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
+    $escapedAuthor = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
     $manager = checkPermission('Addons.Addon.Manage');
     if ($session->UserID == $this->data('InsertUserID') || $manager) {
         echo '<div class="AddonOptions">';
@@ -68,7 +68,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     ?>
 
                     <dt>Author</dt>
-                    <dd><?php echo htmlspecialchars($author); ?></dd>
+                    <dd><?php echo $escapedAuthor; ?></dd>
 
                     <dt>Version</dt>
                     <dd><?php echo htmlspecialchars($this->data('Version'));
