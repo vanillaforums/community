@@ -102,17 +102,27 @@ class ConfidenceModel extends Gdn_Model {
     public function getID($addonVersionID, $coreVersionID = false, $dataType = DATASET_TYPE_ARRAY) {
         $coreVersion = $this->checkCoreVersion($coreVersionID);
         $confidence = $this->SQL
-                ->select('c.AddonVersionID, c.CoreVersionID')
-                ->select('COUNT(c.ConfidenceID) as TotalVotes, SUM(c.Weight) as TotalWeight, AVG(c.Weight) as AverageWeight')
-                ->select('av.Version as CoreVersion')
-                ->from('Confidence c')
-                ->where('c.AddonVersionID', $addonVersionID)
-                ->where('c.CoreVersionID', $coreVersion->AddonVersionID)
-                ->join('AddonVersion av', 'c.CoreVersionID = av.AddonVersionID')
-                ->groupBy('c.AddonVersionID')
+                ->select('COUNT(ConfidenceID) as TotalVotes, SUM(Weight) as TotalWeight, AVG(Weight) as AverageWeight')
+                ->from('Confidence')
+                ->where('AddonVersionID', $addonVersionID)
+                ->where('CoreVersionID', $coreVersion->AddonVersionID)
+                ->groupBy('AddonVersionID')
                 ->get()
                 ->firstRow($dataType);
-        
+
+        if (is_a($confidence) || is_object($confidence)) {
+            setValue('AddonVersionID', $confidence, $addonVersionID);
+            setValue('CoreVersionID', $confidence, $coreVersion->AddonVersionID);
+
+            $addonCoreVersion = $this->SQL->select('Version')
+                ->from('AddonVersion')
+                ->where('AddonVersionID', $coreVersion->AddonVersionID)
+                ->get()
+                ->firstRow(DATASET_TYPE_ARRAY);
+            $coreVersion = $addonCoreVersion ? $addonCoreVersion['Version'] : null;
+            setValue('CoreVersion', $confidence, $coreVersion);
+        }
+
         return $confidence;
     }
     
