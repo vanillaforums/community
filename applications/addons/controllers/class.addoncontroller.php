@@ -494,6 +494,8 @@ class AddonController extends AddonsController {
             if ($Icon) {
                 // Overwrite info array value with the path to the saved file.
                 $AnalyzedAddon['Icon'] = $Icon;
+            } else {
+                unset($AnalyzedAddon['Icon']);
             }
 
             // Set the filename for the CDN.
@@ -1045,6 +1047,11 @@ class AddonController extends AddonsController {
 
         // Generate the target image name
         $extension = val('extension', pathinfo($imageLocation), '');
+
+        if ($extension === 'svg') {
+            return false;
+        }
+
         $targetLocation = $uploadImage->generateTargetName('addons/icons', $extension);
 
         // Save the uploaded icon
