@@ -742,50 +742,48 @@ class AddonController extends AddonsController {
             if ($FilterToType != '') {
                 $Session->setPreference('Addons.FilterType', $FilterToType);
             }
-            //if ($VanillaVersion != '') {
-                $Session->setPreference('Addons.FilterVanilla', '2');
-            //}
             if ($Sort != '') {
                 $Session->setPreference('Addons.Sort', $Sort);
             }
 
             $FilterToType = $Session->getPreference('Addons.FilterType', 'all');
-            $VanillaVersion = $Session->getPreference('Addons.FilterVanilla', '2');
             $Sort = $Session->getPreference('Addons.Sort', 'recent');
         }
 
+        // Whitelist our inputs.
         $allowedFilters = AddonModel::$TypesPlural + ['plugins,applications' => true];
         if (!array_key_exists($FilterToType, $allowedFilters)) {
             $FilterToType = 'all';
         }
-
         if ($Sort != 'popular') {
             $Sort = 'recent';
         }
 
-        if (!in_array($VanillaVersion, array('1', '2'))) {
-            $VanillaVersion = '2';
-        }
-
-        $this->Version = $VanillaVersion;
-
+        // Let's pollute the hell out of this controller, shall we?
         $this->Sort = $Sort;
-
-        $this->FilterChecked = 'checked';
+        $this->Filter = $FilterToType; // This property gets ninja'd over to `buildBrowseWheres()`.
 
         $this->addJsFile('jquery.gardenmorepager.js');
         $this->addJsFile('browse.js');
 
         list($Offset, $Limit) = offsetLimit($Page, c('Garden.Search.PerPage', 20));
 
-        $this->Filter = $FilterToType;
-
-        if ($this->Filter == 'themes') {
-            $Title = 'Browse Themes';
-        } elseif ($this->Filter == 'plugins,applications') {
-            $Title = 'Browse Plugins &amp; Applications';
-        } else {
-            $Title = 'Browse Addons';
+        switch ($this->Filter) {
+            case 'themes':
+                $Title = 'Browse All Themes';
+                break;
+            case 'locales':
+                $Title = 'Browse All Locales';
+                break;
+            case 'plugins,applications':
+                $Title = 'Browse All Plugins';
+                break;
+            case 'core':
+                $Title = 'Official Products and Plugins';
+                break;
+            default:
+                $Title = 'Browse All Types of Addons';
+                break;
         }
         $this->setData('Title', $Title);
 
@@ -795,6 +793,8 @@ class AddonController extends AddonsController {
         $SortField = $Sort == 'recent' ? 'DateUpdated' : 'CountDownloads';
         $ResultSet = $this->AddonModel->getWhere(false, $SortField, 'desc', $Limit, $Offset);
         $this->setData('Addons', $ResultSet);
+
+        // Hammer the database a second time just for the record count, sure why not.
         $this->buildBrowseWheres($Search);
         $NumResults = $this->AddonModel->getCount(false);
         $this->setData('TotalAddons', $NumResults);
@@ -829,24 +829,17 @@ class AddonController extends AddonsController {
      */
     private function buildBrowseWheres($Search = '') {
         if ($Search != '') {
-            $this->AddonModel
-                ->SQL
+            $this->AddonModel->SQL
                 ->beginWhereGroup()
                 ->like('a.Name', $Search)
                 ->orLike('a.Description', $Search)
                 ->endWhereGroup();
         }
 
-        if ($this->Version != 0) {
-            $this->AddonModel
-                ->SQL
-                ->where('a.Vanilla2', $this->Version == '1' ? '0' : '1');
-        }
-
-        $Ch = array('unchecked' => 0, 'checked' => 1);
-        if (isset($Ch[$this->FilterChecked])) {
-            $this->AddonModel->SQL->where('a.Checked', $Ch[$this->FilterChecked]);
-        }
+        // Ignore Vanilla 1 addons forever.
+        $this->AddonModel->SQL->where('a.Vanilla2', 1);
+        // Ignore unchecked addons forever.
+        $this->AddonModel->SQL->where('a.Checked', 1);
 
         // 'Type' could be via URL param or in folder structure.
         $Types = ($this->Request->get('Types')) ?: $this->Filter;
@@ -855,6 +848,17 @@ class AddonController extends AddonsController {
         if ($Types == 'all') {
             return;
         }
+
+        // If 'core', do special filtering instead. We want the forum, porter, and staff-authored plugins.
+        // This is so gross, I'm so sorry. -Linc
+        if ($Types == 'core') {
+            $this->AddonModel->SQL
+                ->where('a.AddonTypeID', AddonModel::$Types['core'])
+                ->orWhere(['a.Official' => 1, 'a.AddonTypeID' => AddonModel::$Types['plugin']])
+                ->orderBy('a.AddonTypeID', 'desc'); // Dirty hack to pin core + porter to top of list.
+            return;
+        }
+
 
         $Types = explode(',', $Types);
 

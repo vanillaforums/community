@@ -24,10 +24,10 @@ if (!property_exists($this, 'HideSearch')) {
         Show
         <?php
         echo anchor('Everything', 'addon/browse/all/'.$Suffix, 'ShowAll' . ($this->Filter == 'all' ? ' Active' : ''));
-        echo anchor('Plugins/Apps', 'addon/browse/apps/'.$Suffix, $this->Filter == 'plugins,applications' ? 'Active' : '');
+        echo anchor('Plugins', 'addon/browse/apps/'.$Suffix, $this->Filter == 'plugins,applications' ? 'Active' : '');
         echo anchor('Themes', 'addon/browse/themes/'.$Suffix, $this->Filter == 'themes' ? 'Active' : '');
         echo anchor('Locales', 'addon/browse/locales/'.$Suffix, $this->Filter == 'locales' ? 'Active' : '');
-        echo anchor('Core', 'addon/browse/core/'.$Suffix, $this->Filter == 'core' ? 'Active' : '');
+        echo anchor('Official', 'addon/browse/core/'.$Suffix, $this->Filter == 'core' ? 'Active' : '');
 
         ?>
         <strong>↳</strong> Sorted by most
