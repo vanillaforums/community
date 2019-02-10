@@ -10,7 +10,7 @@ if (!property_exists($this, 'HideSearch')) {
     echo $this->Form->open(array('action' => url($Url.$this->Sort)));
     echo $this->Form->errors();
     echo $this->Form->textBox('Keywords', array('value' => $Query));
-    echo $this->Form->button('Browse Addons');
+    echo $this->Form->button('Search Addons');
 
     $Query = urlencode($Query);
     if ($Query != '')
