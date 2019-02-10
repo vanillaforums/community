@@ -770,24 +770,27 @@ class AddonController extends AddonsController {
 
         switch ($this->Filter) {
             case 'themes':
-                $Title = 'Browse All Themes';
+                $context = 'All Themes';
                 break;
             case 'locales':
-                $Title = 'Browse All Locales';
+                $context = 'All Locales';
                 break;
             case 'plugins,applications':
-                $Title = 'Browse All Plugins';
+                $context = 'All Plugins';
                 break;
             case 'core':
-                $Title = 'Official Products and Plugins';
+                $context = 'Official Products and Plugins';
                 break;
             default:
-                $Title = 'Browse All Types of Addons';
+                $context = 'All Types of Addons';
                 break;
         }
-        $this->setData('Title', $Title);
 
-        $Search = GetIncomingValue('Keywords', '');
+        $Search = getIncomingValue('Keywords', '');
+
+        $action = ($Search) ? 'Searching' : 'Browsing';
+        $this->setData('Title', "$action $context");
+
         $this->buildBrowseWheres($Search);
 
         $SortField = $Sort == 'recent' ? 'DateUpdated' : 'CountDownloads';
@@ -853,8 +856,10 @@ class AddonController extends AddonsController {
         // This is so gross, I'm so sorry. -Linc
         if ($Types == 'core') {
             $this->AddonModel->SQL
+                ->beginWhereGroup()
                 ->where('a.AddonTypeID', AddonModel::$Types['core'])
                 ->orWhere(['a.Official' => 1, 'a.AddonTypeID' => AddonModel::$Types['plugin']])
+                ->endWhereGroup()
                 ->orderBy('a.AddonTypeID', 'desc'); // Dirty hack to pin core + porter to top of list.
             return;
         }
