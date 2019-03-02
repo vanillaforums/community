@@ -1,0 +1,81 @@
+.Header-branding {
+    background: $brand-black;
+    height: 60px;
+
+    @include maxWidth {
+        display: none;
+    }
+
+    .Container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .SearchBox {
+        max-width: 240px;
+        margin: 0;
+    }
+
+    .Header-buttons {
+        margin-left: 12px;
+    }
+}
+
+.Header-spacer {
+    flex: 1;
+}
+
+.Header-desktopNav {
+    display: flex;
+    align-items: center;
+
+
+    @include maxWidth {
+        display: none;
+    }
+
+    .Navigation-linkContainer .Navigation-link:first-child {
+        padding-left: 0
+    }
+
+    .Navigation-linkContainer::after {
+        display: none;
+    }
+}
+
+.Frame-header {
+    display: contents;
+}
+
+.Header-vanilla {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+@include maxWidth {
+    .Header-vanilla {
+        background-color: $brand-black;
+    }
+
+    .Hamburger-menuLines,
+    .Hamburger-menuLines::before,
+    .Hamburger-menuLines::after {
+        background-color: $global-color_white;
+    }
+
+    .Hamburger-menuLines::before,
+    .Hamburger-menuLines::after {
+        background-color: $global-color_white !important;
+    }
+
+    .Header-logo.mobile img {
+        max-height: 28px;
+    }
+}
+
+.Header-logo img {
+    max-height: 34px;
+}

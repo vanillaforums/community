@@ -1,0 +1,20 @@
+.DataList .Tag-Addon {
+    $tagColor: $button-primary_border;
+    $tagColor_hover: darken($tagColor, 12%);
+
+
+    border-color: $tagColor;
+
+    a {
+        color: $tagColor;
+    }
+
+    &:hover {
+        border-color: $tagColor_hover;
+
+
+        a {
+            color: $tagColor_hover;
+        }
+    }
+}
