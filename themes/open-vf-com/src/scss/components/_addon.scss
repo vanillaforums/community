@@ -1,3 +1,8 @@
+/*!
+ * @copyright 2009-2018 Vanilla Forums Inc.
+ * @license GPL-2.0-only
+ */
+
 .DataList .Tag-Addon {
     $tagColor: $button-primary_border;
     $tagColor_hover: darken($tagColor, 12%);
@@ -16,5 +21,52 @@
         a {
             color: $tagColor_hover;
         }
+    }
+}
+
+// Search
+
+body.Addons,
+body.Addon {
+    .Panel .SearchBox {
+        display: none;
+    }
+}
+
+.AddonSearch {
+    margin-top: 0;
+}
+
+.AddonSearch-searchBox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .InputBox {
+        margin-right: 12px;
+    }
+}
+
+.AddonSearch-filters {
+    float: none;
+    display: flex;
+}
+
+.AddonSearch-filterOption {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: $global_borderRadius;
+    border: 1px solid $tag_borderColor;
+    color: $tag_fg;
+    margin-right: 6px;
+    margin-bottom: 3px;
+
+    &:last-child {
+        margin-right: 12px;
+    }
+
+    &.Active {
+        color: $global-color_primary;
+        border-color: $global-color_primary;
     }
 }
