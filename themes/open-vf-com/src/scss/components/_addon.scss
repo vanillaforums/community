@@ -70,3 +70,19 @@ body.Addon {
         border-color: $global-color_primary;
     }
 }
+
+.AddonItem {
+    display: flex;
+
+    .Meta {
+        margin: 0;
+    }
+
+    .ItemContent {
+        padding-left: 12px;
+    }
+
+    .Description {
+        margin-bottom: 6px;
+    }
+}
