@@ -14,17 +14,17 @@
 class ConfidenceModel extends Gdn_Model {
 
     private $coreVersion = null;
-    
+
     /**
      * Use the Confidence table.
      */
     public function __construct() {
         parent::__construct('Confidence');
     }
-    
+
     /**
      * Get a list of addon versions of Vanilla.
-     * 
+     *
      * @param int $limit Number of core versions to return.
      * @return array
      */
@@ -43,7 +43,7 @@ class ConfidenceModel extends Gdn_Model {
 
     /**
      * Get the latest addon version of Vanilla.
-     * 
+     *
      * @return bool|stdClass False when empty, object otherwise
      */
     public function getCoreVersion() {
@@ -59,16 +59,16 @@ class ConfidenceModel extends Gdn_Model {
                 ->get()
                 ->firstRow();
         }
-        
+
         return $this->coreVersion;
     }
-    
+
     /**
      * Validate a core version id.
-     * 
+     *
      * Validates an ID and returns the addon version associated with the core
      * version. Defaults to the latest core version if the ID is invalid.
-     * 
+     *
      * @param int $id The core version to check.
      * @return stdClass
      */
@@ -83,17 +83,17 @@ class ConfidenceModel extends Gdn_Model {
                 ->limit(1)
                 ->get()
                 ->firstRow();
-        
+
         if (!$result) {
             $result = $this->getCoreVersion();
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Loads the confidence summary of an addon version against a core version.
-     * 
+     *
      * @param int $addonVersionID The addon id in question.
      * @param int $coreVersionID Defaults to latest core version if not specified.
      * @param string $dataType DATASET_TYPE_ARRAY or DATASET_TYPE_OBJECT.
@@ -109,19 +109,19 @@ class ConfidenceModel extends Gdn_Model {
                 ->where('c.AddonVersionID', $addonVersionID)
                 ->where('c.CoreVersionID', $coreVersion->AddonVersionID)
                 ->join('AddonVersion av', 'c.CoreVersionID = av.AddonVersionID')
-                ->groupBy('c.AddonVersionID')
+                ->groupBy('c.AddonVersionID, c.CoreVersionID')
                 ->get()
                 ->firstRow($dataType);
-        
+
         return $confidence;
     }
-    
+
     /**
      * Get a users vote for an addon.
-     * 
+     *
      * Get the vote of a specific user's confidence for and addon working on the
      * specified version of Vanilla.
-     * 
+     *
      * @param int $userID The user in question.
      * @param int $addonID The addon in question.
      * @param int|bool $coreID If false, use the latest core version.
@@ -138,10 +138,10 @@ class ConfidenceModel extends Gdn_Model {
                 ->get()
                 ->firstRow();
     }
-    
+
     /**
      * Automatically add the current core version if not specified in the fields.
-     * 
+     *
      * @param array $fields The data you want to insert into the model.
      * @return bool
      */
