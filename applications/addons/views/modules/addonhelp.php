@@ -20,7 +20,7 @@ if (Gdn::session()->isValid()) {
 
 <div class="Box">
     <h4>What is this stuff?</h4>
-    <p class="PanelInfo">Addons are custom features that you can add to your Vanilla forum. Addons are created by our community of developers and people like you!</p>
+    <p class="PanelText userContent">Addons are custom features that you can add to your Vanilla forum. Addons are created by our community of developers and people like you!</p>
 </div>
 
 <div class="Box">
