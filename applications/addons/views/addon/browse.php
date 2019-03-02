@@ -5,7 +5,7 @@ include($this->fetchViewLocation('helper_functions'));
 if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     echo $this->fetchView('head');
 ?>
-    <h1><?php echo $this->data('Title'); ?></h1>
+    <h1 class="AddonSearch-title"><?php echo $this->data('Title'); ?></h1>
     <ul class="DataList Addons">
         <?php
         if ($this->data('Addons')->numRows() == 0) {

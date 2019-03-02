@@ -71,6 +71,11 @@ body.Addon {
     }
 }
 
+.AddonSearch-title {
+    font-size: $global-smallTitle_fontSize;
+    margin-bottom: 12px;
+}
+
 .AddonItem {
     display: flex;
 
