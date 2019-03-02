@@ -14,6 +14,15 @@
 class AddonsHooks implements Gdn_IPlugin {
 
     /**
+     * Add the knowledge base "Addon" link to the main menu.
+     *
+     * @param Gdn_Controller $sender Sender object.
+     */
+    public function base_render_before(Gdn_Controller $sender) {
+        $sender->Menu->addLink('Addons', t('Addons'), '/addons/', false, ['class' => 'Addons']);
+    }
+
+    /**
      * Hook for discussion prefixes in /discussions.
      *
      * @param Gdn_Controller $Sender
@@ -81,7 +90,7 @@ class AddonsHooks implements Gdn_IPlugin {
             if (is_null($Discussion->AddonID)) {
                  $LabelString = t('Attach Addon...');
             }
-    
+
             $Sender->EventArguments['DiscussionOptions'][] = array(
                 'Label' => $LabelString,
                 'Url' => 'addon/attachtodiscussion/' . $Discussion->DiscussionID,
