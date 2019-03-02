@@ -81,6 +81,11 @@ class AddonController extends AddonsController {
                 // Set the canonical url.
                 $this->canonicalUrl(url('/addon/'.AddonModel::slug($Addon, false), true));
                 $this->loadConfidenceRecord($Addon);
+
+                $typeID = $this->Data['AddonTypeID'] ?? 0;
+                $addonType = array_flip(AddonModel::$TypesPlural)[$typeID] ?? 'all';
+                $addonUrl = url('/addon/browse/' . strtolower($addonType));
+                $this->addBreadcrumb(t($addonType), $addonUrl);
             }
         } else {
             $this->View = 'browse';
@@ -89,8 +94,6 @@ class AddonController extends AddonsController {
         }
 
         $this->addModule('AddonHelpModule');
-        $this->setData('_Types', AddonModel::$Types);
-        $this->setData('_TypesPlural', AddonModel::$TypesPlural);
 
         $this->render();
     }

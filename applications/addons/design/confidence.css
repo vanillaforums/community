@@ -2,7 +2,7 @@
 
 .ConfidenceBox .Sprite {
     display: block;
-    background: url('images/sprite-icons.png');
+    background: url("images/sprite-icons.png");
     background-clip: content-box;
     width: 18px;
     height: 18px;
@@ -11,7 +11,7 @@
 
 .ConfidenceBox .BigSprite {
     display: block;
-    background: url('images/sprite-icons.png');
+    background: url("images/sprite-icons.png");
     background-clip: content-box;
     width: 32px;
     height: 32px;
@@ -45,12 +45,4 @@
 
 .ConfidenceBox p {
     line-height: 50px;
-}
-
-.ConfidenceBox .Button {
-    text-align: center;
-    width: 40%;
-    margin-left: 2.5%;
-    margin-right: 2.0%;
-    line-height: 18px;
 }

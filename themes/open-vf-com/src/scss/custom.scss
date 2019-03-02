@@ -11,6 +11,7 @@
 
 @import "../../node_modules/@vanillaforums/theme-boilerplate/src/scss/custom";
 
-@import "./components/_header.scss";
-@import "./components/_panel.scss";
-@import "./components/_addon.scss";
+@import "./sections/_header.scss";
+@import "./sections/_footer.scss";
+@import "./sections/_panel.scss";
+@import "./sections/_addon.scss";

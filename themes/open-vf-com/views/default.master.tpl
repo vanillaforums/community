@@ -31,6 +31,7 @@
     locale-{$CurrentLocale.Lang}
 ">
 
+
     <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -97,6 +98,7 @@
             </div>
         </div>
         <div class="Frame-footer">
+            {asset name="Foot"}
             {include file="partials/footer.tpl"}
         </div>
     </div>

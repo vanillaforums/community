@@ -1,0 +1,271 @@
+/*!
+ * @copyright 2009-2018 Vanilla Forums Inc.
+ * @license GPL-2.0-only
+ */
+
+.DataList .Tag-Addon {
+    $tagColor: $button-primary_border;
+    $tagColor_hover: darken($tagColor, 12%);
+
+
+    border-color: $tagColor;
+
+    a {
+        color: $tagColor;
+    }
+
+    &:hover {
+        border-color: $tagColor_hover;
+
+
+        a {
+            color: $tagColor_hover;
+        }
+    }
+}
+
+// Search
+
+body.Addons,
+body.Addon {
+    .Panel .SearchBox {
+        display: none;
+    }
+
+    thead td {
+        font-weight: bold;
+    }
+}
+
+.AddonSearch {
+    margin-top: 0;
+}
+
+.AddonSearch-searchBox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .InputBox {
+        margin-right: 12px;
+    }
+}
+
+.AddonInfo-optionsGroup,
+.AddonInfo-options,
+.AddonSearch-filters {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.AddonSearch-filterOption,
+.AddonInfo-option {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: $global_borderRadius;
+    border: 1px solid $tag_borderColor;
+    color: $tag_fg;
+    margin-right: 6px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+
+    &:last-child {
+        margin-right: 12px;
+    }
+
+    &.Active {
+        color: $global-color_primary;
+        border-color: $global-color_primary;
+    }
+}
+
+.AddonInfo-optionsTitle {
+    margin-right: 6px;
+}
+
+.AddonInfo-options {
+    margin-bottom: 18px;
+}
+
+.AddonInfo-title {
+    margin-bottom: 6px;
+}
+
+.AddonSearch-title {
+    font-size: $global-smallTitle_fontSize;
+    margin-bottom: 12px;
+}
+
+.AddonItem {
+    display: flex;
+
+    .Meta {
+        margin: 0;
+    }
+
+    .ItemContent {
+        padding-left: 12px;
+    }
+
+    .Description {
+        margin-bottom: 6px;
+    }
+}
+
+.DownloadPanel {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-bottom: 18px;
+}
+
+.AddonInfo-box.AddonInfo-box {
+    flex: 1;
+    min-width: 250px;
+    margin: 12px 6px;
+    border: $component_border;
+    padding: 12px;
+    border-radius: $global_borderRadius;
+
+    h3 {
+        margin-top: 0;
+    }
+
+    dl {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    dd,
+    dt {
+        margin: 0 !important;
+        display: inline-block;
+        font-size: $global-medium_fontSize;
+    }
+
+    $titleWidth: 110px;
+
+    dt {
+        width: $titleWidth;
+        font-weight: bold;
+    }
+
+    dd {
+        width: calc(100% - #{$titleWidth})
+    }
+
+    > *:last-child {
+        margin-bottom: 0;
+    }
+
+    .VersionsTable {
+        width: 100%;
+        margin-top: 12px;
+
+        td,
+        th {
+            padding: 6px;
+        }
+
+        .DateColumn {
+            .Wrap {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .DeleteVersion {
+                padding: 0 12px;
+                font-size: 18px ;
+                line-height: 20px;
+            }
+        }
+    }
+}
+
+.AddonInfo {
+    .Questions {
+        margin-bottom: 12px;
+    }
+}
+
+.AddonInfo-versionsAction {
+    display: block;
+}
+
+.AddonInfo-confidenceIcon {
+    margin-right: 6px;
+    color: $brand-pink;
+}
+
+.AddonInfo-confidenceButtons {
+    padding: 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+
+    .Button {
+        margin: 3px;
+    }
+}
+
+.AddonInfo-tagVersion {
+    font-size: $global-medium_fontSize;
+    text-transform: none;
+    &::before {
+        content: "v";
+    }
+}
+
+.AddonInfo-screenshots {
+    margin-bottom: 18px;
+
+    h2 {
+        margin-bottom: 12px;
+    }
+
+    .AddonPicture {
+        position: relative;
+        display: inline-block;
+        img {
+            border-radius: $global_borderRadius;
+            border: $component_border;
+        }
+
+        a {
+            display: inline-block;
+        }
+
+        .DeletePicture {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 24px;
+            height: 24px;
+            width: 24px;
+            border-radius: 6px;
+            background: $global-color_white;
+            color: $global-color_black;
+            line-height: 24px;
+        }
+    }
+}
+
+.AddonInfo-description {
+    margin-bottom: 18px;
+}
+
+.AddonInfo-icon {
+    margin-bottom: 12px;
+    max-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

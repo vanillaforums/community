@@ -7,6 +7,10 @@
     background: $brand-black;
     height: 60px;
 
+    a {
+        font-weight: bold !important;
+    }
+
     @include maxWidth {
         display: none;
     }
@@ -25,6 +29,44 @@
 
     .Header-buttons {
         margin-left: 12px;
+    }
+}
+
+.Navigation-link {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.Header-brandLink {
+    color: $global-color_white;
+    display: inline-block;
+    padding: 6px 6px;
+    position: relative;
+    margin: 0 6px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 6px;
+        right: 6px;
+        height: 3px;
+        background: rgba($global-color_white, 0.6);
+        opacity: 0;
+        transition: 0.3s ease opacity;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: $global-color_white;
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        display: none;
     }
 }
 

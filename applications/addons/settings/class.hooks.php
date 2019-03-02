@@ -19,7 +19,7 @@ class AddonsHooks implements Gdn_IPlugin {
      * @param Gdn_Controller $sender Sender object.
      */
     public function base_render_before(Gdn_Controller $sender) {
-        $sender->Menu->addLink('Addons', t('Addons'), '/addons/', false, ['class' => 'Addons']);
+        $sender->Menu->addLink('Addons', t('Addons'), '/addon/browse/all/recent', false, ['class' => 'Addons']);
     }
 
     /**

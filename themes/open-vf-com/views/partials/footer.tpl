@@ -2,7 +2,7 @@
     <div class="Container">
         <div class="row">
             <div class="col">
-                <p class="Footer-copyright">{t c="© Vanilla Theme Boilerplate"} {$smarty.now|date_format:"%Y"}</p>
+                <p class="Footer-copyright">{t c="© Vanilla Forums"} {$smarty.now|date_format:"%Y"}</p>
             </div>
             <div class="col">
                 <div class="Vanilla-logo">
@@ -14,6 +14,5 @@
               </div>
             </div>
         </div>
-        {asset name="Foot"}
     </div>
 </footer>
