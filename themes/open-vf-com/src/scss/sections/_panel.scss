@@ -3,10 +3,32 @@
  * @license GPL-2.0-only
  */
 
+$panelPadding: 5px;
+
+.Panel .Box p, // Get this one into keystone itself.
 .PanelText {
-    padding: 5px;
+    padding: $panelPadding;
 
     a {
         display: inline;
+    }
+}
+
+// Hidden on desktop because it's in our main navigation.
+.Panel .BoxDiscussionFilter {
+    @include minWidth() {
+        display: none;
+    }
+}
+
+#WhosOnline {
+    ul {
+        padding: $panelPadding;
+    }
+
+    $tagColor: $global-color_vanillaBlue;
+
+    li a {
+        @include Tag($tagColor, $tag_bg, $tagColor);
     }
 }

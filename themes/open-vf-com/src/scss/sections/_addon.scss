@@ -28,7 +28,8 @@
 
 body.Addons,
 body.Addon {
-    .Panel .SearchBox {
+    .Panel .SearchBox,
+    .SearchBoxMobile {
         display: none;
     }
 

@@ -15,9 +15,7 @@
         <div class="Header-spacer"></div>
         <a class="Header-brandLink" href="https://blog.vanillaforums.com">Blog</a>
         <a class="Header-brandLink" href="https://docs.vanillaforums.com">Documentation</a>
-        <div class="Button-Controls Header-buttons">
-            <a class="Button Primary" href="http://pages.vanillaforums.com/demo-request-vanilla-forums?utm_source=vanilladocs&utm_medium=cta&utm_campaign=demo-request">Try Vanilla Cloud</a>
-        </div>
+        <a class="Header-cta" href="http://pages.vanillaforums.com/demo-request-vanilla-forums?utm_source=vanilladocs&utm_medium=cta&utm_campaign=demo-request">Try Vanilla Cloud</a>
     </div>
 </header>
 <header id="MainHeader" class="Header Header-vanilla">

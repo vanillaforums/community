@@ -1,0 +1,13 @@
+.DataList,
+.MessageList,
+.DataTableWrap {
+    .Tag-Announcement,
+    .NewCommentCount,
+    .HasNew.HasNew {
+        @include Tag($brand-pink, transparent, $brand-pink);
+    }
+
+    .Tag:first-child {
+        margin-left: 3px;
+    }
+}

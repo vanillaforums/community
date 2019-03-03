@@ -99,7 +99,12 @@
 .Header-vanilla {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
+}
+
+.Header-cta {
+    $white: $global-color_white;
+    @include Button("transparent", $white, $white, rgba($white, 0.1), $white, $white);
 }
 
 @include maxWidth {
@@ -125,4 +130,9 @@
 
 .Header-logo img {
     max-height: 34px;
+}
+
+// This should go back up to keystone.
+.mobileMebox .WhoIs {
+    width: 100%;
 }
