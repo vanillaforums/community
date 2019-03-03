@@ -130,7 +130,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 $mixedIcon = "<span class='AddonInfo-confidenceIcon icon icon-question'></span>";
 
                 if (!$confidence) {
-                    echo wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
+                    echo wrap($mixedIcon . t('The community has said nothing.'), 'p');
                 }
                 else {
                     $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
