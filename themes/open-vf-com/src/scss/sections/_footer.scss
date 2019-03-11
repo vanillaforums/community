@@ -3,4 +3,49 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+
+    .LocaleOption {
+        line-height: 24px;
+        padding: 6px;
+    }
+}
+
+.Footer {
+    padding: 0;
+}
+
+.Footer .col {
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.PoweredbyVanilla-logo {
+    margin: 0 auto;
+}
+
+.Footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Footer-socialLink {
+    color: $footer_color !important;
+    display: inline-block;
+
+    i {
+        height: 24px;
+        width: 24px;
+        font-size: 24px;
+        margin: 0 12px;
+        display: inline-block;
+    }
+}
+
+.PoweredbyVanilla-logo {
+    display: block;
+    height: 100%;
+    width: 120px;
+    color: $footer_color !important;
 }

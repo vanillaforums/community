@@ -5,6 +5,15 @@
 
 $panelPadding: 5px;
 
+.Panel {
+    @include minWidth {
+        $top: $header_minHeight + 18px;
+        top: $top;
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
 .Panel .Box p, // Get this one into keystone itself.
 .PanelText {
     padding: $panelPadding;
@@ -30,5 +39,68 @@ $panelPadding: 5px;
 
     li a {
         @include Tag($tagColor, $tag_bg, $tagColor);
+    }
+}
+
+.PanelCTA {
+    background: $global-color_vanillaBlue;
+    color: $global-color_white;
+    padding: 18px;
+    border-radius: $global-borderRadius;
+
+    .BoxButtons {
+        margin-bottom: 0;
+    }
+
+    .VanillaLogo-link {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block !important;
+        color: $global-color_white !important;
+
+        &:hover {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation: tada;
+        }
+    }
+}
+
+.PanelCTA-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 6px 0;
+}
+
+@keyframes tada {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    10%,
+    20% {
+        transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    $animation-tada-finalSize              : 1.05;
+    $animation-tada-finalRotation          : 2deg;
+
+    to {
+        transform: scale3d($animation-tada-finalSize, $animation-tada-finalSize, $animation-tada-finalSize)
+            rotate3d(0, 0, 1, $animation-tada-finalRotation);
     }
 }

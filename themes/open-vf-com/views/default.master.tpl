@@ -38,15 +38,14 @@
 
     <div class="Frame">
         <div class="Frame-top">
-            <div class="Frame-header">
-                {include file="partials/header.tpl"}
-            </div>
+            {include file="partials/header.tpl"}
             <div class="Frame-body">
                 <div class="Frame-content">
                     <div class="Container">
                         <div class="Frame-contentWrap">
                             <div class="Frame-details">
-                                {if !$isHomepage}
+                                <!-- Hide the breadcrumbs when we are on the discussions home page -->
+                                {if !$isHomepage && !(inSection('Discussions') && $Category === false)}
                                     <div class="Frame-row">
                                         <nav class="BreadcrumbsBox">
                                             {breadcrumbs}
@@ -89,6 +88,13 @@
                                             </div>
                                         {/if}
                                         {asset name="Panel"}
+                                        <div class="Box PanelCTA">
+                                            <div class="PanelCTA-logo">
+                                                {include file="partials/logo.html"}
+                                            </div>
+                                            <p class="PanelCTA-text">Tired of hosting yourself? Upgrade to the Cloud!</p>
+                                            <div class="BoxButtons"><a class="Button Primary" href="http://pages.vanillaforums.com/demo-request-vanilla-forums?utm_source=vanilladocs&utm_medium=cta&utm_campaign=demo-request">Learn More</a></div>
+                                        </div>
                                     </aside>
                                 </div>
                             </div>

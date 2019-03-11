@@ -105,6 +105,8 @@
 .Header-cta {
     $white: $global-color_white;
     @include Button("transparent", $white, $white, rgba($white, 0.1), $white, $white);
+
+    margin-left: 12px;
 }
 
 @include maxWidth {

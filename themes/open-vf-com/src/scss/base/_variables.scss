@@ -83,7 +83,7 @@ $global-default_timing:                 0.35s !default;
 
 $global-color_primary:                  $global-color_vanillaBlue !default;
 $global-color_primaryAlt:               darken($global-color_primary, 8%) !default;
-$global-color_secondary:                $global-color_pink !default;
+$global-color_secondary:                $global-color_vanillaBlue !default;
 
 $global-color_bg:                       $global-color_white !default;
 $global-color_fg:                       $global-color_grey !default; // text color | should have high contrast between $global-color_bg
@@ -217,7 +217,7 @@ $headerMebutton-hover_fg:                 $header-link_color !default;
 $headerMebutton-hover_bg:                 mix($global-color_fg, $header_bg, 8%) !default;
 $headerMebutton-active_bg:                mix($headerMebutton_fg, $header_bg, 12%) !default;
 
-$headerMeBoxAlert_fg:                     $headerMebutton_fg !default;
+$headerMeBoxAlert_fg:                     $global-color_white !default;
 $headerMeBoxAlert_bg:                     $global-color_secondary !default;
 $headerMeBoxAlert_borderColor:            $global-color_secondary !default;
 
@@ -297,8 +297,8 @@ $panel-item-hover_border:                $panel-item_border !default;
     Footer
 \* -------------------------------------------------------------- */
 
-$footer_bg:                              $theme-hover_color !default;
-$footer_color:                           $global-color_fg !default;
+$footer_bg:                              $brand-black !default;
+$footer_color:                           $global-color_white !default;
 $footer-link_color:                      $global-color_primary !default;
 $footer-link-hover_color:                $global-color_primaryAlt !default;
 $footer-base_fontSize:                   $global-medium_fontSize !default;

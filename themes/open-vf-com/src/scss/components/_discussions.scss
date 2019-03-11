@@ -37,3 +37,11 @@
         }
     }
 }
+
+// https://github.com/vanilla/vanilla/issues/8369
+.userContent.userContent.userContent,
+.userContent a {
+    @include maxWidth() {
+        font-size: 16px;
+    }
+}
