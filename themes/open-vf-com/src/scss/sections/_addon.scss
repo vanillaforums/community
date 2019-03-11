@@ -263,6 +263,10 @@ body.Addon {
     }
 }
 
+.AddonSearch form > div::after {
+    display: none !important;
+}
+
 .AddonInfo-description {
     margin-bottom: 18px;
 }
