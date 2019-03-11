@@ -253,7 +253,7 @@ if (!function_exists('RenderDiscussionAddonWarning')) {
                 )
             ),
             'div',
-            array('class' => 'Warning AddonAttachment DismissMessage')
+            array('class' => 'Info AddonAttachment DismissMessage')
         );
         return $String;
     }
