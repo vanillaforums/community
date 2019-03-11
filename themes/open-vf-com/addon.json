@@ -1,0 +1,22 @@
+{
+    "key": "open-vf-com",
+    "name": "open.vanillaforums.com",
+    "description": "Theme for https://open.vanillaforums.com",
+    "hidden": true,
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Adam (charrondev) Charron",
+            "email": "adam.c@vanillaforums.com",
+            "homepage": "http://vanillaforums.com"
+        }
+    ],
+    "isResponsive": true,
+    "license": "GPL-2.0-only",
+    "sites": [],
+    "priority": 1000,
+    "type": "theme",
+    "build": {
+        "process": "v1"
+    }
+}

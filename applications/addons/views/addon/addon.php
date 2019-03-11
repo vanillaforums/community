@@ -1,25 +1,15 @@
 <?php if (!defined('APPLICATION')) exit();
 $session = Gdn::session();
 
-?><div itemscope itemtype="http://schema.org/SoftwareApplication"><?php
+?><div itemscope itemtype="http://schema.org/SoftwareApplication" class="AddonInfo"><?php
 
 echo '<link itemprop="url" href="'.htmlspecialchars(Gdn::controller()->canonicalUrl()).'" />';
 
 if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     ?>
-    <h1>
-        <div>
-            <?php echo t('Found in: ');
-            echo anchor('Addons', '/addon/browse/');
-            ?>
-            <span>&rarr;</span> <?php
-                $typesPlural = array_flip($this->data('_TypesPlural'));
-                $typePlural = val($this->data('AddonTypeID'), $typesPlural, 'all');
-                echo anchor(t($typePlural), '/addon/browse/'.strtolower($typePlural), '', array('itemprop' => 'softwareApplicationCategory'));
-            ?>
-        </div>
+    <h1 class="AddonInfo-title">
         <span itemprop="name"><?php echo htmlspecialchars($this->data('Name')); ?></span>
-        <span itemprop="softwareVersion"><?php echo htmlspecialchars($this->data('Version')); ?></span>
+        <span itemprop="softwareVersion" class="AddonInfo-tag AddonInfo-tagVersion"><?php echo htmlspecialchars($this->data('Version')); ?></span>
     </h1>
     <?php
     $addonID = $this->data('AddonID');
@@ -27,31 +17,47 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
     $ver2 = ($this->data('Checked') || $this->data('Vanilla2') ? '' : 'v1');
     $escapedAuthor = $this->data('Official') ? t('Vanilla Staff') : userAnchor($this->Data, null, array('Px' => 'Insert', 'Rel' => 'author'));
     $manager = checkPermission('Addons.Addon.Manage');
-    if ($session->UserID == $this->data('InsertUserID') || $manager) {
-        echo '<div class="AddonOptions">';
-        echo anchor('Edit Details', "/addon/edit{$ver}/$addonID", 'Popup');
-        echo '|'.anchor('Upload New Version', "/addon/newversion{$ver2}/$addonID");
-        echo '|'.anchor('Upload Screenshot', '/addon/addpicture/'.$addonID);
-        echo '|'.anchor('Upload Icon', '/addon/icon/'.$addonID);
 
+    if ($session->UserID == $this->data('InsertUserID') || $manager) {
+        $class = "AddonInfo-option";
+        echo '<div class="AddonInfo-options">';
+        echo '<div class="AddonInfo-optionsGroup">';
+        echo '<strong class="AddonInfo-optionsTitle">Edit:</strong>';
+        echo anchor('Description', "/addon/edit{$ver}/$addonID", 'Popup ' . $class);
         if ($manager) {
             $officialInverse = $this->data('Official') ? 'Unofficial' : 'Official';
-            echo '|'.anchor('Mark as '.$officialInverse, '/addon/official/'.$addonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()));
-            echo '|'.anchor('DELETE ADDON', '/addon/delete/'.$addonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'Popup DeleteAddon Alert');
+            echo anchor('Mark '.$officialInverse, '/addon/official/'.$addonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()), $class);
+            echo anchor('Delete', '/addon/delete/'.$addonID.'?TransientKey='.urlencode(Gdn::session()->transientKey()).'&Target=/addon', 'Popup ' . $class);
         }
-        $this->fireEvent('AddonOptions');
-
+        echo "</div>";
+        echo '<div class="AddonInfo-optionsGroup">';
+        echo '<strong class="AddonInfo-optionsTitle">Upload:</strong>';
+        echo anchor('New Version', "/addon/newversion{$ver2}/$addonID",  $class);
+        echo anchor('Screenshot', '/addon/addpicture/'.$addonID,  $class);
+        echo anchor('Icon', '/addon/icon/'.$addonID,  $class);
+        echo '</div>';
         echo '</div>';
     }
 
+    if ($this->data('Official')) : ?>
+    <div class="Approved DismissMessage InfoMessage"><strong>Official!</strong> This product is maintained by the Vanilla Forums staff and core team.</div>
+    <?php endif;
+
+    echo '<div itemprop="description" class="userContent AddonInfo-description">';
+    echo Gdn_Format::html($this->data('Description'));
+    if ($this->data('Description2') && $ver != 'v1') {
+        echo '<br /><br />', Gdn_Format::markdown($this->data('Description2'));
+    }
+    echo '</div>';
     ?>
-    <?php if ($this->data('Official')) : ?>
-    <div class="Approved"><strong>Official!</strong> This product is maintained by the Vanilla Forums staff and core team.</div>
-    <?php endif; ?>
     <div class="Legal">
         <div class="DownloadPanel">
-            <div class="Box DownloadBox">
-                <p><?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $addonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?></p>
+            <div class="Box DownloadBox AddonInfo-box">
+                <?php
+                if ($this->data('Icon') != '') {
+                    echo '<img class="AddonInfo-icon Icon" src="'.Gdn_Upload::url($this->data('Icon')).'" itemprop="image" />';
+                }
+                ?>
                 <dl>
                     <?php
                     // Special Locale-only info.
@@ -105,12 +111,13 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                     $this->fireEvent('AddonProperties');
                     ?>
                 </dl>
+                <?php echo anchor('Download Now', '/get/'.($this->data('Slug') ? urlencode($this->data('Slug')) : $addonID), 'Button BigButton', array('itemprop' => 'downloadURL')); ?>
             </div>
 
             <?php
             $addonType = strtolower($this->data('Type'));
             if ($addonType && !in_array($addonType, ['core', 'locale'])) : ?>
-            <div class="Box AddonBox ConfidenceBox">
+            <div class="Box AddonBox ConfidenceBox AddonInfo-box">
                 <?php
                 $addonVersionID = $this->Data('AddonVersionID');
                 $confidence = $this->ConfidenceModel->getID($addonVersionID, false, DATASET_TYPE_OBJECT);
@@ -118,20 +125,27 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
                 echo wrap(sprintf(t('Vanilla %s Compatibility'), $coreVersion->Version), 'h3');
 
+                $worksIcon = "<span class='AddonInfo-confidenceIcon icon icon-ok'></span>";
+                $brokenIcon = "<span class='AddonInfo-confidenceIcon icon icon-ban'></span>";
+                $mixedIcon = "<span class='AddonInfo-confidenceIcon icon icon-question'></span>";
+
                 if (!$confidence) {
-                    echo wrap(sprite('Bandaid', 'BigSprite', 'Unsure') . T('The community has said nothing.'), 'p');
+                    echo wrap($mixedIcon . t('The community has said nothing.'), 'p');
                 }
                 else {
                     $percentWorking = ($confidence->TotalWeight / $confidence->TotalVotes) * 100;
                     $title = sprintf(t('%.1f%% of %d users report it as working'), $percentWorking, $confidence->TotalVotes);
                     if ($percentWorking >= 60) {
-                        echo wrap(sprite('Heart', 'BigSprite', 'Working') . T('The community says this works.'), 'p', ['title' => $title]);
+                        $icon = "<span class='AddonInfo-confidenceIcon icon icon-heart'></span>";
+                        echo wrap($worksIcon . t('The community says this works.'), 'p', ['title' => $title]);
                     }
                     else if ($percentWorking <= 40) {
-                        echo wrap(sprite('Crossbones', 'BigSprite', 'Broken') . T('The community says this is broken.'), 'p', ['title' => $title]);
+                        $icon = "<span class='AddonInfo-confidenceIcon icon icon-cross'></span>";
+                        echo wrap($brokenIcon . t('The community says this is broken.'), 'p', ['title' => $title]);
                     }
                     else {
-                        echo wrap(sprite('Warning', 'BigSprite', 'Unsure') . T('The community is split.'), 'p', ['title' => $title]);
+                        $icon = "<span class='AddonInfo-confidenceIcon icon icon-question'></span>";
+                        echo wrap($mixedIcon . t('The community is split.'), 'p', ['title' => $title]);
                     }
                 }
 
@@ -148,36 +162,19 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
 
                     echo '<div>';
                     echo wrap(t('What do you think?'), 'h4');
-                    echo anchor(sprite('Check', 'Sprite', 'It works!') . 'It works!', 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
-                    echo anchor(sprite('Cross', 'Sprite', 'It\'s broken!') . 'It\'s broken!', 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
+
+                    echo "<div class='AddonInfo-confidenceButtons'>";
+
+                    echo anchor($worksIcon . 'It works!', 'addon/works/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $worksClass]);
+                    echo anchor($brokenIcon . 'It\'s broken!', 'addon/broken/' . $addonVersionID . '/' . $coreVersion->AddonVersionID, ['class' => $brokenClass]);
+                    echo '</div>';
                     echo '</div>';
                 }
                 ?>
             </div>
             <?php endif; ?>
 
-            <?php if (is_array($this->data('Requirements')) && count($this->data('Requirements'))) : ?>
-            <div class="Box RequirementBox">
-                <h3><?php echo t('Requirements'); ?></h3>
-                <div>
-                <?php
-                $reqs = '';
-                foreach ($this->data('Requirements') as $reqType => $reqItems) {
-                    if (!is_array($reqItems) || count($reqItems) == 0) {
-                        continue;
-                    }
-                    $reqs .= '<dt>'.t($reqType).'</dt>';
-                    $reqs .= '<dd>'.htmlspecialchars(implodeAssoc(' ', ', ', $reqItems)).'</dd>';
-                }
-                if ($reqs) {
-                    echo "<dl>$reqs</dl>";
-                }
-                ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div class="Box AddonBox VersionsBox">
+            <div class="Box AddonBox VersionsBox AddonInfo-box">
                 <h3><?php echo t('Version History'); ?></h3>
                 <table class="VersionsTable">
                 <?php
@@ -192,20 +189,20 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                         $url = url('/addon/'.AddonModel::slug($this->Data, false).'-'.$version['Version']);
                         $deleteOption = '';
                         if (checkPermission('Addons.Addon.Manage')) {
-                            $deleteOption = ' '.anchor('x', '/addon/deleteversion/'.$version['AddonVersionID'], 'Popup Alert DeleteVersion');
+                            $deleteOption = ' '.anchor('×', '/addon/deleteversion/'.$version['AddonVersionID'], 'Popup Alert DeleteVersion');
                         }
                         echo '<tr>'.
                             '<td>'.anchor(htmlspecialchars($version['Version']), $url).'</td>'.
-                            '<td class="DateColumn">'.anchor(htmlspecialchars(Gdn_Format::date($version['DateInserted'])), $url).$deleteOption.'</td>'.
+                            '<td class="DateColumn"><span class="Wrap">'.anchor(htmlspecialchars(Gdn_Format::date($version['DateInserted'])), $url).$deleteOption.'</span></td>'.
                         '</tr>';
                     }
                 } else {
-                    echo '<tr><th colspan="2">No stable versions found!</th></tr>';
+                    echo '<tr><th colspan="2"><span class="AddonInfo-versionsAction">No stable versions found!</span></th></tr>';
                 }
                 ?>
                 <?php if (checkPermission('Addons.Addon.Manage')) : ?>
                 <tfoot>
-                    <tr><th colspan="2"><?php echo anchor('View details', '/addon/check/'.$this->data('AddonID')); ?></th></tr>
+                    <tr><th colspan="2"><?php echo anchor('View details', '/addon/check/'.$this->data('AddonID'), "AddonInfo-versionsAction"); ?></th></tr>
                 </tfoot>
                 <?php endif; ?>
 
@@ -215,7 +212,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             <?php
             $versions = (array)$this->data('Prereleases');
             if (count($versions) > 0) : ?>
-            <div class="Box AddonBox VersionsBox">
+            <div class="Box AddonBox VersionsBox AddonInfo-box">
                 <h3><?php echo t('Prerelease (unstable)'); ?></h3>
                 <table class="VersionsTable">
                 <?php
@@ -238,12 +235,7 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
                 ?>
                 </table>
             </div>
-            <?php endif;
-
-            if ($session->isValid()) {
-                echo anchor('Ask a Question', 'post/discussion?AddonID='.$addonID, 'Button BigButton');
-            }
-            ?>
+            <?php endif; ?>
         </div>
     <?php
 
@@ -254,35 +246,25 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
         }
     }
 
-    if ($this->data('Icon') != '') {
-        echo '<img class="Icon" src="'.Gdn_Upload::url($this->data('Icon')).'" itemprop="image" />';
-    }
-
     $currentVersion = $this->data('CurrentVersion');
     if ($currentVersion && $currentVersion != $this->data('Version')) {
         echo '<p>', sprintf(t("This is not the most recent version of this plugin.", 'This is not the most recent version of this plugin. For the most recent version click <a href="%s">here</a>.'), URL('addon/'.AddonModel::Slug($this->Data, false))), '</p>';
     }
-
-    echo '<div itemprop="description">';
-    echo Gdn_Format::html($this->data('Description'));
-    if ($this->data('Description2') && $ver != 'v1') {
-        echo '<br /><br />', Gdn_Format::markdown($this->data('Description2'));
-    }
-    echo '</div>';
 
     ?>
     </div>
     <?php
     if ($this->PictureData->numRows() > 0) {
         ?>
-        <div class="PictureBox">
+        <div class="PictureBox AddonInfo-screenshots">
+            <h2>Screenshots</h2>
             <?php
             foreach ($this->PictureData->result() as $picture) {
                 echo '<span class="AddonPicture">';
                 echo '<a rel="popable[gallery]" href="#Pic_'.$picture->AddonPictureID.'"><img src="'.Gdn_Upload::url(ChangeBasename($picture->File, 'at%s')).'" itemprop="screenshot" /></a>';
 
                 if ($session->UserID == $this->data('InsertUserID') || checkPermission('Addons.Addon.Manage')) {
-                    echo '<a class="Popup DeletePicture" href="'.Url('/addon/deletepicture/'.$picture->AddonPictureID).'">x</a>';
+                    echo '<a class="Popup DeletePicture" href="'.Url('/addon/deletepicture/'.$picture->AddonPictureID).'">×</a>';
                 }
 
                 echo '<div id="Pic_'.$picture->AddonPictureID.'" style="display: none;"><img src="'.Gdn_Upload::url(ChangeBasename($picture->File, 'ao%s')).'" /></div>';
@@ -292,6 +274,10 @@ if ($this->deliveryType() == DELIVERY_TYPE_ALL) {
             ?>
         </div>
         <?php
+    }
+
+    if ($session->isValid()) {
+        echo anchor('Ask a Question', 'post/discussion?AddonID='.$addonID, 'Button BigButton');
     }
     ?>
     <h2 class="Questions" style="position:relative;">Questions</h2>

@@ -1,0 +1,140 @@
+/*!
+ * @copyright 2009-2018 Vanilla Forums Inc.
+ * @license GPL-2.0-only
+ */
+
+.Header-branding {
+    background: $brand-black;
+    height: 60px;
+
+    a {
+        font-weight: bold !important;
+    }
+
+    @include maxWidth {
+        display: none;
+    }
+
+    .Container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .SearchBox {
+        max-width: 240px;
+        margin: 0;
+    }
+
+    .Header-buttons {
+        margin-left: 12px;
+    }
+}
+
+.Navigation-link {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.Header-brandLink {
+    color: $global-color_white;
+    display: inline-block;
+    padding: 6px 6px;
+    position: relative;
+    margin: 0 6px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 6px;
+        right: 6px;
+        height: 3px;
+        background: rgba($global-color_white, 0.6);
+        opacity: 0;
+        transition: 0.3s ease opacity;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: $global-color_white;
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        display: none;
+    }
+}
+
+.Header-spacer {
+    flex: 1;
+}
+
+.Header-desktopNav {
+    display: flex;
+    align-items: center;
+
+
+    @include maxWidth {
+        display: none;
+    }
+
+    .Navigation-linkContainer .Navigation-link:first-child {
+        padding-left: 0
+    }
+
+    .Navigation-linkContainer::after {
+        display: none;
+    }
+}
+
+.Frame-header {
+    display: contents;
+}
+
+.Header-vanilla {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.Header-cta {
+    $white: $global-color_white;
+    @include Button("transparent", $white, $white, rgba($white, 0.1), $white, $white);
+
+    margin-left: 12px;
+}
+
+@include maxWidth {
+    .Header-vanilla {
+        background-color: $brand-black;
+    }
+
+    .Hamburger-menuLines,
+    .Hamburger-menuLines::before,
+    .Hamburger-menuLines::after {
+        background-color: $global-color_white;
+    }
+
+    .Hamburger-menuLines::before,
+    .Hamburger-menuLines::after {
+        background-color: $global-color_white !important;
+    }
+
+    .Header-logo.mobile img {
+        max-height: 28px;
+    }
+}
+
+.Header-logo img {
+    max-height: 34px;
+}
+
+// This should go back up to keystone.
+.mobileMebox .WhoIs {
+    width: 100%;
+}

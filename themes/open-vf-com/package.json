@@ -1,0 +1,16 @@
+{
+    "name": "@vanillaforums/open-vf-com",
+    "version": "1.0.0",
+    "description": "The theme for https://vanillaforums.com",
+    "repository": "https://github.com/vanilla/community/tree/master/open.vf.com",
+    "author": "Adam (charrondev) Charron <adam@charrondev.com>",
+    "license": "GPL-2.0-only",
+    "private": true,
+    "dependencies": {
+        "@vanillaforums/theme-boilerplate": "^1.1.7"
+    },
+    "devDependencies": {
+        "@vanillaforums/prettier-config": "^1.0.0",
+        "prettier": "^1.16.4"
+    }
+}

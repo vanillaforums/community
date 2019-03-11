@@ -1,0 +1,47 @@
+.DataList.Discussions {
+    @include minWidth {
+        .Item {
+            position: relative;
+            padding-right: 200px;
+        }
+
+        .MItem.ViewCount,
+        .MItem.CommentCount {
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            margin-left: 6px;
+            margin-right: 6px;
+            width: 92px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba($global-color_vanillaBlue, 0.9);
+            color: $global-color_white;
+            border-radius: 6px;
+            font-size: 14px;
+            max-height: 70px;
+
+            .Number {
+                font-size: 20px;
+            }
+        }
+
+        .MItem.ViewCount {
+            right: 100px;
+        }
+        .MItem.CommentCount {
+            right: 0;
+        }
+    }
+}
+
+// https://github.com/vanilla/vanilla/issues/8369
+.userContent.userContent.userContent,
+.userContent a {
+    @include maxWidth() {
+        font-size: 16px;
+    }
+}

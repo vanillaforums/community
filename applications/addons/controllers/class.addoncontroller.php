@@ -81,6 +81,11 @@ class AddonController extends AddonsController {
                 // Set the canonical url.
                 $this->canonicalUrl(url('/addon/'.AddonModel::slug($Addon, false), true));
                 $this->loadConfidenceRecord($Addon);
+
+                $typeID = $this->Data['AddonTypeID'] ?? 0;
+                $addonType = array_flip(AddonModel::$TypesPlural)[$typeID] ?? 'all';
+                $addonUrl = url('/addon/browse/' . strtolower($addonType));
+                $this->addBreadcrumb(t($addonType), $addonUrl);
             }
         } else {
             $this->View = 'browse';
@@ -89,18 +94,16 @@ class AddonController extends AddonsController {
         }
 
         $this->addModule('AddonHelpModule');
-        $this->setData('_Types', AddonModel::$Types);
-        $this->setData('_TypesPlural', AddonModel::$TypesPlural);
 
         $this->render();
     }
 
     /**
      * Get the confidence record.
-     * 
+     *
      * Loads the current confidence record for the current addon version against
      * the latest core version and adds it to the controller data set.
-     * 
+     *
      * @param mixed $addon The addon from which to load the confidence record.
      * @return void
      */
@@ -109,46 +112,46 @@ class AddonController extends AddonsController {
         if (!$session->IsValid()) {
             return;
         }
-        
+
         $versionID = val('AddonVersionID', $addon);
-        
+
         $existingConfidenceRecord = $this->ConfidenceModel->getConfidenceVote($session->UserID, $versionID);
         if ($existingConfidenceRecord) {
             $this->setData('UserConfidenceRecord', $existingConfidenceRecord);
         }
     }
-    
+
     /**
      * The current user thinks this addon works with this Vanilla version.
-     * 
+     *
      * Mark the current user as saying the addon works with a specific version
      * of Vanilla
-     * 
+     *
      * @param int $addonVersionID Addon version to say works.
      * @param int $coreVersionID Default to the latest verion of Vanilla.
      */
     public function works($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 1);
     }
-    
+
     /**
      * The current user thinks this addon is broken with this Vanilla version.
-     * 
+     *
      * Mark the current user as saying the addon is broken with a specific
      * version of Vanilla
-     * 
+     *
      * @param int $addonVersionID Addon version to say is broken.
      * @param int $coreVersionID Default to the latest verion of Vanilla.
      */
     public function broken($addonVersionID, $coreVersionID = false) {
         $this->updateVote($addonVersionID, $coreVersionID, 0);
     }
-    
+
     /**
      * This is the workhorse of the confidence voting logic.
-     * 
+     *
      * Update a users vote on an addon against a specific version of Vanilla.
-     * 
+     *
      * @param int $addonVersionID Addon version to vote for.
      * @param int $coreVersionID Core version to vote for.
      * @param int $weight Weight to give to the vote.
@@ -161,16 +164,16 @@ class AddonController extends AddonsController {
         if (!$session->isValid()) {
             throw permissionException('@You must be signed in.');
         }
-                
+
         if (!$this->Form->authenticatedPostBack(true)) {
             throw new Gdn_UserException(t('You must POST to this page.'));
         }
-        
+
         $addon = $this->AddonModel->getVersion($addonVersionID);
         if (!$addon) {
             throw notFoundException('Addon');
         }
-        
+
         $currentVote = $this->ConfidenceModel->getConfidenceVote($session->UserID, $addon['AddonVersionID'], $coreVersionID);
         if ($currentVote === false) {
             $this->ConfidenceModel->insert([
@@ -185,7 +188,7 @@ class AddonController extends AddonsController {
                 'UserID' => $currentVote->UserID
             ]);
         }
-        
+
         /*
          * Update the UI via js targets
          */
@@ -200,12 +203,12 @@ class AddonController extends AddonsController {
             $this->jsonTarget('.BrokenButton', 'Disabled', 'RemoveClass');
             $this->jsonTarget('.BrokenButton', 'Active', 'AddClass');
         }
-        
+
         $this->setJson('success', true);
         $this->setJson('weight', $weight);
         $this->render('blank', 'utility', 'dashboard');
     }
-    
+
     /**
      * Add a new addon.
      */
@@ -416,7 +419,7 @@ class AddonController extends AddonsController {
         if ($Addon['InsertUserID'] != $Session->UserID) {
             $this->permission('Addons.Addon.Manage');
         }
-        
+
         $this->addModule('AddonHelpModule');
 
         $this->Form->setModel($this->AddonModel);
@@ -789,7 +792,7 @@ class AddonController extends AddonsController {
         $Search = getIncomingValue('Keywords', '');
 
         $action = ($Search) ? 'Searching' : 'Browsing';
-        $this->setData('Title', "$action $context");
+        $this->setData('Title', "$action <em>$context</em>");
 
         $this->buildBrowseWheres($Search);
 

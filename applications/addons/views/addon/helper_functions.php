@@ -9,48 +9,48 @@
 function writeAddon($Addon, $Alt) {
     $Url = '/addon/'.AddonModel::slug($Addon, FALSE);
     ?>
-    <li class="Item AddonRow<?php echo $Alt; ?>">
+    <li class="Item AddonItem<?php echo $Alt; ?>">
         <?php
         if ($Addon->Icon != '') {
-            echo '<a class="Icon" href="'.url($Url).'"><div class="IconWrap"><img src="'.Gdn_Upload::url($Addon->Icon).'" /></div></a>';
+            echo '<a class="IndexPhoto PhotoWrap" href="'.url($Url).'"><img src="'.Gdn_Upload::url($Addon->Icon).'" /></a>';
         }
         ?>
-        <div class="ItemContent">
+        <div class="ItemContent ItemContent-addon">
             <?php
             echo anchor(htmlspecialchars($Addon->Name), $Url, 'Title');
 
-            echo '<div class="Description">', anchor(htmlspecialchars(sliceString(Gdn_Format::text($Addon->Description), 300)), $Url), '</div>';
+            echo '<div class="Description">', sliceString(Gdn_Format::plainText($Addon->Description), 300), '</div>';
             ?>
             <div class="Meta">
-                <span class="TypeTag"><?php echo $Addon->Type; ?></span>
+                <span class="Tag TypeTag"><?php echo $Addon->Type; ?></span>
                 <?php if ($Addon->Type === 'Locale') : ?>
                     <?php if (!is_null($Addon->EnName)) : ?>
-                <span class="EnName">
+                <span class="MItem EnName">
                     Name (en)
                     <span><?php echo htmlspecialchars($Addon->EnName); ?></span>
                 </span>
                     <?php endif; ?>
                     <?php if (!is_null($Addon->PercentComplete)) : ?>
-                <span class="PercentComplete">
+                <span class="MItem PercentComplete">
                     Translated
                     <span><?php echo (int)$Addon->PercentComplete.'%'; ?></span>
                 </span>
                     <?php endif; ?>
                 <?php else : ?>
-                <span class="Version">
+                <span class="MItem Version">
                     Version
                     <span><?php echo htmlspecialchars($Addon->Version); ?></span>
                 </span>
                 <?php endif; ?>
-                <span class="Author">
+                <span class="MItem Author">
                     Author
                     <span><?php echo val('Official', $Addon) ? t('Vanilla Staff') : htmlspecialchars($Addon->InsertName); ?></span>
                 </span>
-                <span class="Downloads">
+                <span class="MItem Downloads">
                     Downloads
                     <span><?php echo number_format($Addon->CountDownloads); ?></span>
                 </span>
-                <span class="Updated">
+                <span class="MItem Updated">
                     Updated
                     <span><?php echo Gdn_Format::date($Addon->DateUpdated, 'html'); ?></span>
                 </span>
