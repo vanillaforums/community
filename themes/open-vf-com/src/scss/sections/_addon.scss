@@ -36,6 +36,10 @@ body.Addon {
     thead td {
         font-weight: bold;
     }
+
+    .AddonItem .PhotoWrap {
+        border-radius: $global_borderRadius;
+    }
 }
 
 .AddonSearch {
@@ -269,4 +273,5 @@ body.Addon {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    border-radius: $global_borderRadius;
 }
