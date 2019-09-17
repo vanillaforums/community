@@ -786,7 +786,7 @@ class AddonModel extends Gdn_Model {
 function validateAddonKey($Value) {
     if (is_numeric($Value)) {
         return false;
-    } elseif (preg_match('`[-,;:/]`', $Value) || strpos($Value, '\\') !== false) {
+    } elseif (preg_match('`[,;:/]`', $Value) || strpos($Value, '\\') !== false) {
         return false;
     }
     return true;
