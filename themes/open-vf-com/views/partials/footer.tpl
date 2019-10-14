@@ -7,6 +7,11 @@
             <div class="col">
                 <ul class="Footer-social">
                     <li>
+                        <a class="Footer-socialLink" href="https://github.com/vanilla/vanilla">
+                            <i class="icon icon-github"></i>
+                        </a>
+                    </li>
+                    <li>
                         <a class="Footer-socialLink" href="https://www.facebook.com/vanillaforums">
                             <i class="icon icon-twitter"></i>
                         </a>
