@@ -37,5 +37,5 @@
          <h1>Big Communities</h1>
          <p>Get help hosting &amp; growing your community</p>
      </div>
-     <?php echo anchor(wrap('<strong>See Plans &amp; Pricing</strong> 30-day Free Trial. Take control of your community.'), 'http://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
+     <?php echo anchor(wrap('<strong>See Plans &amp; Pricing</strong>Take control of your community.'), 'https://vanillaforums.com/plans', 'RenderedDownloadButton'); ?>
 </div>
