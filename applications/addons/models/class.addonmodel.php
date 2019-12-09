@@ -325,25 +325,21 @@ class AddonModel extends Gdn_Model {
      * @return array
      */
     public function getSlug($slug, $getVersions = false) {
-        if (is_numeric($slug)) {
-            $addon = $this->getID($slug, false, ['GetVersions' => $getVersions]);
-        } else {
-            // This is a string identifier for the addon.
-			$parts = $this->parseSlug($slug);
-			if ($parts == []) {
-				return false;
-			}
+		// This is a string identifier for the addon.
+		$parts = $this->parseSlug($slug);
+		if ($parts == []) {
+			return false;
+		}
 
-            if (is_numeric($parts['key'])) {
-                $addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
-            } else {
-                $addon = $this->getID(
-					[$parts['key'], $parts['typeID'], $parts['version']					],
-					false,
-					['GetVersions' => $getVersions]
-				);
-            }
-        }
+		if (is_numeric($parts['key'])) {
+			$addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
+		} else {
+			$addon = $this->getID(
+				[$parts['key'], $parts['typeID'], $parts['version']					],
+				false,
+				['GetVersions' => $getVersions]
+			);
+		}
 
         if (!$addon) {
             return false;
