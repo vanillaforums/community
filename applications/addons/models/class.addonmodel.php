@@ -280,12 +280,12 @@ class AddonModel extends Gdn_Model {
         // Loop through all of the IDs and parse them out.
         foreach ($IDs as $ID) {
             $parts = explode('-', $ID, 3);
-			$parts = $this->getSlug($ID);
+            $parts = $this->getSlug($ID);
 
             if (is_numeric($parts['key'])) {
                 $addonIDs[] = $parts['key'];
             } else {
-				$addonTypeIDs[$parts['typeID']][] = $parts['key'];
+                $addonTypeIDs[$parts['typeID']][] = $parts['key'];
             }
         }
         $result = [];
@@ -322,21 +322,21 @@ class AddonModel extends Gdn_Model {
      * @return array
      */
     public function getSlug($slug, $getVersions = false) {
-		// This is a string identifier for the addon.
-		$parts = $this->parseSlug($slug);
-		if ($parts == []) {
-			return false;
-		}
+        // This is a string identifier for the addon.
+        $parts = $this->parseSlug($slug);
+        if ($parts == []) {
+            return false;
+        }
 
-		if (is_numeric($parts['key'])) {
-			$addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
-		} else {
-			$addon = $this->getID(
-				[$parts['key'], $parts['typeID'], $parts['version']					],
-				false,
-				['GetVersions' => $getVersions]
-			);
-		}
+        if (is_numeric($parts['key'])) {
+            $addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
+        } else {
+            $addon = $this->getID(
+                [$parts['key'], $parts['typeID'], $parts['version']                    ],
+                false,
+                ['GetVersions' => $getVersions]
+            );
+        }
 
         if (!$addon) {
             return false;
@@ -770,56 +770,56 @@ class AddonModel extends Gdn_Model {
             $this->SQL->history()->put('Addon', array('CurrentAddonVersionID' => $MaxVersion->Version), array('AddonID' => $AddonID));
         }
     }
-	
-	/**
-	 * Parse a slug and returns information array about the plugin.
-	 *
-	 * Possible values of the returned array are:
-	 *   - version: the Version number
-	 *   - type: one of self::$Types
-	 *   - typeID: numeric key for Vanilla's addon types
-	 *   - key: the key of the plugin
-	 *
-	 * @param string $slug The slug to parse.
-	 *
-	 * @return array Addon info (version, type, type id and key)
-	 */
-	public function parseSlug($slug) {
-		$parts = explode('-', $slug);
-		
-		if (is_numeric($parts[0])) {
-			// Slug is numeric ID.
-			return ['key' => $parts[0]];
-		}
-		
-		$end = array_pop($parts);
-		$type = strtolower($end);
-		if (in_array($type, self::$Types)) {
-			// Slug ends with one of self::Types without version number.
-			return [
-				'version' => false,
-				'type' => $type,
-				'typeID' => self::$Types[$type],
-				'key' => implode('-', $parts)
-			];
-		}
-		
-		// If $end is no addon type, it must the version number.
-		$version = $end;
-		$end = array_pop($parts);
-		if (in_array($end, self::$Types)) {
-			// Slug ends with type and version number.	
-			return [
-				'version' => $version,
-				'type' => $end,
-				'typeID' => self::$Types[$end],
-				'key' => implode('-', $parts)
-			];
-		}
+    
+    /**
+     * Parse a slug and returns information array about the plugin.
+     *
+     * Possible values of the returned array are:
+     *   - version: the Version number
+     *   - type: one of self::$Types
+     *   - typeID: numeric key for Vanilla's addon types
+     *   - key: the key of the plugin
+     *
+     * @param string $slug The slug to parse.
+     *
+     * @return array Addon info (version, type, type id and key)
+     */
+    public function parseSlug($slug) {
+        $parts = explode('-', $slug);
+        
+        if (is_numeric($parts[0])) {
+            // Slug is numeric ID.
+            return ['key' => $parts[0]];
+        }
+        
+        $end = array_pop($parts);
+        $type = strtolower($end);
+        if (in_array($type, self::$Types)) {
+            // Slug ends with one of self::Types without version number.
+            return [
+                'version' => false,
+                'type' => $type,
+                'typeID' => self::$Types[$type],
+                'key' => implode('-', $parts)
+            ];
+        }
+        
+        // If $end is no addon type, it must the version number.
+        $version = $end;
+        $end = array_pop($parts);
+        if (in_array($end, self::$Types)) {
+            // Slug ends with type and version number.    
+            return [
+                'version' => $version,
+                'type' => $end,
+                'typeID' => self::$Types[$end],
+                'key' => implode('-', $parts)
+            ];
+        }
 
-		// Parsing failed.
-		return [];
-	}
+        // Parsing failed.
+        return [];
+    }
 }
 
 /**
