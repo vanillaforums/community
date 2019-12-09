@@ -770,7 +770,7 @@ class AddonModel extends Gdn_Model {
             $this->SQL->history()->put('Addon', array('CurrentAddonVersionID' => $MaxVersion->Version), array('AddonID' => $AddonID));
         }
     }
-    
+
     /**
      * Parse a slug and returns information array about the plugin.
      *
@@ -786,12 +786,12 @@ class AddonModel extends Gdn_Model {
      */
     public function parseSlug($slug) {
         $parts = explode('-', $slug);
-        
+
         if (is_numeric($parts[0])) {
             // Slug is numeric ID.
             return ['key' => $parts[0]];
         }
-        
+
         $end = array_pop($parts);
         $type = strtolower($end);
         if (in_array($type, self::$Types)) {
@@ -803,12 +803,12 @@ class AddonModel extends Gdn_Model {
                 'key' => implode('-', $parts)
             ];
         }
-        
+
         // If $end is no addon type, it must the version number.
         $version = $end;
         $end = array_pop($parts);
         if (in_array($end, self::$Types)) {
-            // Slug ends with type and version number.    
+            // Slug ends with type and version number.
             return [
                 'version' => $version,
                 'type' => $end,
