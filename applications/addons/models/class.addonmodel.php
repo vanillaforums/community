@@ -274,21 +274,18 @@ class AddonModel extends Gdn_Model {
      * @return Gdn_DataSet
      */
     public function getIDs($IDs) {
-        $addonTypeIDs = array();
-        $addonIDs = array();
+        $addonTypeIDs = [];
+        $addonIDs = [];
 
         // Loop through all of the IDs and parse them out.
         foreach ($IDs as $ID) {
             $parts = explode('-', $ID, 3);
+			$parts = $this->getSlug($ID);
 
-            if (is_numeric($parts[0])) {
-                $addonIDs[] = $parts[0];
+            if (is_numeric($parts['key'])) {
+                $addonIDs[] = $parts['key'];
             } else {
-                $key = $parts[0];
-                $type = val(1, $parts);
-                if (isset(self::$Types[$type])) {
-                    $addonTypeIDs[self::$Types[$type]][] = $key;
-                }
+				$addonTypeIDs[$parts['typeID']][] = $parts['key'];
             }
         }
         $result = [];
