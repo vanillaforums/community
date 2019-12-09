@@ -274,45 +274,45 @@ class AddonModel extends Gdn_Model {
      * @return Gdn_DataSet
      */
     public function getIDs($IDs) {
-        $AddonTypeIDs = array();
-        $AddonIDs = array();
+        $addonTypeIDs = array();
+        $addonIDs = array();
 
         // Loop through all of the IDs and parse them out.
         foreach ($IDs as $ID) {
-            $Parts = explode('-', $ID, 3);
+            $parts = explode('-', $ID, 3);
 
-            if (is_numeric($Parts[0])) {
-                $AddonIDs[] = $Parts[0];
+            if (is_numeric($parts[0])) {
+                $addonIDs[] = $parts[0];
             } else {
-                $Key = $Parts[0];
-                $Type = val(1, $Parts);
-                if (isset(self::$Types[$Type])) {
-                    $AddonTypeIDs[self::$Types[$Type]][] = $Key;
+                $key = $parts[0];
+                $type = val(1, $parts);
+                if (isset(self::$Types[$type])) {
+                    $addonTypeIDs[self::$Types[$type]][] = $key;
                 }
             }
         }
-        $Result = array();
+        $result = [];
 
         // Get all of the Addons by ID.
-        if (count($AddonIDs) > 0) {
+        if (count($addonIDs) > 0) {
             $this->addonQuery();
-            $Addons = $this->SQL->whereIn('a.AddonID', $AddonIDs)->get()->result();
-            $Result = array_merge($Result, $Addons);
+            $addons = $this->SQL->whereIn('a.AddonID', $addonIDs)->get()->result();
+            $result = array_merge($result, $addons);
         }
 
         // Get all of the Addons by type.
-        foreach ($AddonTypeIDs as $TypeID => $Keys) {
+        foreach ($addonTypeIDs as $typeID => $keys) {
             $this->addonQuery();
-            $Addons = $this->SQL
-                ->where('a.AddonTypeID', $TypeID)
-                ->whereIn('a.AddonKey', $Keys)
+            $addons = $this->SQL
+                ->where('a.AddonTypeID', $typeID)
+                ->whereIn('a.AddonKey', $keys)
                 ->get()->result();
-            $Result = array_merge($Result, $Addons);
+            $result = array_merge($result, $addons);
         }
 
-        $this->setCalculatedFields($Result);
-        $DataSet = new Gdn_DataSet($Result);
-        return $DataSet;
+        $this->setCalculatedFields($result);
+        $dataSet = new Gdn_DataSet($result);
+        return $dataSet;
     }
 
     /**
