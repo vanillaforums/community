@@ -329,17 +329,19 @@ class AddonModel extends Gdn_Model {
             $addon = $this->getID($slug, false, ['GetVersions' => $getVersions]);
         } else {
             // This is a string identifier for the addon.
-            $parts = explode('-', $slug, 3);
-            $key = val(0, $parts);
+			$parts = $this->parseSlug($slug);
+			if ($parts == []) {
+				return false;
+			}
 
-            if (is_numeric($key)) {
-                $addon = $this->getID($key, false, ['GetVersions' => $getVersions]);
+            if (is_numeric($parts['key'])) {
+                $addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
             } else {
-                $type = strtolower(val(1, $parts));
-                $typeID = val($type, self::$Types, 0);
-                $version = val(2, $parts);
-
-                $addon = $this->getID(array($key, $typeID, $version), false, ['GetVersions' => $getVersions]);
+                $addon = $this->getID(
+					[$parts['key'], $parts['typeID'], $parts['version']					],
+					false,
+					['GetVersions' => $getVersions]
+				);
             }
         }
 
@@ -798,12 +800,13 @@ class AddonModel extends Gdn_Model {
 		}
 		
 		$end = array_pop($parts);
-		if (in_array($end, self::$Types)) {
+		$type = strtolower($end);
+		if (in_array($type, self::$Types)) {
 			// Slug ends with one of self::Types without version number.
 			return [
 				'version' => false,
-				'type' => $end,
-				'typeID' => self::$Types[$end],
+				'type' => $type,
+				'typeID' => self::$Types[$type],
 				'key' => implode('-', $parts)
 			];
 		}
