@@ -775,6 +775,55 @@ class AddonModel extends Gdn_Model {
             $this->SQL->history()->put('Addon', array('CurrentAddonVersionID' => $MaxVersion->Version), array('AddonID' => $AddonID));
         }
     }
+	
+	/**
+	 * Parse a slug and returns information array about the plugin.
+	 *
+	 * Possible values of the returned array are:
+	 *   - version: the Version number
+	 *   - type: one of self::$Types
+	 *   - typeID: numeric key for Vanilla's addon types
+	 *   - key: the key of the plugin
+	 *
+	 * @param string $slug The slug to parse.
+	 *
+	 * @return array Addon info (version, type, type id and key)
+	 */
+	public function parseSlug($slug) {
+		$parts = explode('-', $slug);
+		
+		if (is_numeric($parts[0])) {
+			// Slug is numeric ID.
+			return ['key' => $parts[0]];
+		}
+		
+		$end = array_pop($parts);
+		if (in_array($end, self::$Types)) {
+			// Slug ends with one of self::Types without version number.
+			return [
+				'version' => false,
+				'type' => $end,
+				'typeID' => self::$Types[$end],
+				'key' => implode('-', $parts)
+			];
+		}
+		
+		// If $end is no addon type, it must the version number.
+		$version = $end;
+		$end = array_pop($parts);
+		if (in_array($end, self::$Types)) {
+			// Slug ends with type and version number.	
+			return [
+				'version' => $version,
+				'type' => $end,
+				'typeID' => self::$Types[$end],
+				'key' => implode('-', $parts)
+			];
+		}
+
+		// Parsing failed.
+		return [];
+	}
 }
 
 /**
