@@ -807,7 +807,7 @@ class AddonModel extends Gdn_Model {
         // If $end is no addon type, it must the version number.
         $version = $end;
         $end = array_pop($parts);
-        if (in_array($end, self::$Types)) {
+        if (array_key_exists($end, self::$Types)) {
             // Slug ends with type and version number.
             return [
                 'version' => $version,
