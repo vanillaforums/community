@@ -362,8 +362,8 @@ class AddonModel extends Gdn_Model {
                         $addon['Releases'][] = $version;
                         // Find the latest stable version.
                         if (!$foundMax) {
-                           $maxVersion = $version;
-                           $foundMax = true;
+                            $maxVersion = $version;
+                            $foundMax = true;
                         }
                     } elseif ($foundMax === false) {
                         // Only list prereleases new than the current stable.
@@ -794,7 +794,7 @@ class AddonModel extends Gdn_Model {
 
         $end = array_pop($parts);
         $type = strtolower($end);
-        if (in_array($type, self::$Types)) {
+        if (array_key_exists($type, self::$Types)) {
             // Slug ends with one of self::Types without version number.
             return [
                 'version' => false,
