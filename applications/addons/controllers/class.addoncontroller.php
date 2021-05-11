@@ -427,7 +427,7 @@ class AddonController extends AddonsController {
 
         if ($this->Form->authenticatedPostBack()) {
             $AnalyzedAddon = $this->handleAddonUpload();
-            if($Addon['Description2'] != $AnalyzedAddon['Description2'] && $Addon['Description2'] != '') {
+            if ($Addon['Description2'] != $AnalyzedAddon['Description2'] && $Addon['Description2'] != '') {
                 $this->Form->setFormValue('Description2', $Addon['Description2']);
             }
             $AnalyzedAddon['AddonID'] = $AddonID;
@@ -487,8 +487,7 @@ class AddonController extends AddonsController {
                 if ($Readme) {
                     $AnalyzedAddon['Description2'] = $Readme;
                 }
-            }
-            else {
+            } else {
                 $AnalyzedAddon['Description2'] = $formDescription;
             }
 
@@ -637,7 +636,6 @@ class AddonController extends AddonsController {
         }
 
         if ($this->Form->authenticatedPostBack()) {
-
             if (!$this->Form->getFormValue('DetachConfirm', false)) {
                  $this->Form->addError(t('You must confirm the detachment'), 'DetachConfirm');
             } else {
