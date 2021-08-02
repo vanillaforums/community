@@ -3,7 +3,8 @@
         {
             "name": "production",
             "sites": [
-                5018160
+                5018160,
+                6032202
             ],
             "branch": "master"
         }
