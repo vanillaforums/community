@@ -74,10 +74,9 @@ class AddonsHooks implements Gdn_IPlugin {
      * Get addon data when viewing a discussion.
      *
      * @param DiscussionsController $Sender
-     * @param array $Args
      */
-    public function discussionModel_afterAddColumns_handler($Sender, $Args) {
-        AddonModel::joinAddons($Args['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
+    public function discussionModel_afterAddColumns_handler($Sender) {
+        AddonModel::joinAddons($Sender->EventArguments['Data'], 'AddonID', array('Name', 'Icon', 'AddonKey', 'AddonTypeID', 'Checked'));
     }
 
     /**
