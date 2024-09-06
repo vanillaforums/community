@@ -15,7 +15,7 @@
         <div class="Header-spacer"></div>
         <a class="Header-brandLink" href="https://vanilla.higherlogic.com/blog/">Blog</a>
         <a class="Header-brandLink" href="https://docs.vanillaforums.com">Documentation</a>
-        <a class="Header-cta" href="https://www.higherlogic.com/vanilla-demo-request/">Try Vanilla Cloud</a>
+        <a class="Header-cta" href="https://www.higherlogic.com/vanilla-demo-request/">Book a Demo</a>
     </div>
 </header>
 <header id="MainHeader" class="Header Header-vanilla">
