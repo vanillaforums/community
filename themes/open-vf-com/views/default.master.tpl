@@ -93,7 +93,7 @@
                                                 {include file="partials/logo.html"}
                                             </div>
                                             <p class="PanelCTA-text">Tired of hosting yourself? Upgrade to the Cloud!</p>
-                                            <div class="BoxButtons"><a class="Button Primary" href="http://pages.vanillaforums.com/demo-request-vanilla-forums?utm_source=vanilladocs&utm_medium=cta&utm_campaign=demo-request">Learn More</a></div>
+                                            <div class="BoxButtons"><a class="Button Primary" href="https://www.higherlogic.com/vanilla-demo-request/">Learn More</a></div>
                                         </div>
                                     </aside>
                                 </div>
