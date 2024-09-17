@@ -274,45 +274,42 @@ class AddonModel extends Gdn_Model {
      * @return Gdn_DataSet
      */
     public function getIDs($IDs) {
-        $AddonTypeIDs = array();
-        $AddonIDs = array();
+        $addonTypeIDs = [];
+        $addonIDs = [];
 
         // Loop through all of the IDs and parse them out.
         foreach ($IDs as $ID) {
-            $Parts = explode('-', $ID, 3);
+            $parts = explode('-', $ID, 3);
+            $parts = $this->getSlug($ID);
 
-            if (is_numeric($Parts[0])) {
-                $AddonIDs[] = $Parts[0];
+            if (is_numeric($parts['key'])) {
+                $addonIDs[] = $parts['key'];
             } else {
-                $Key = $Parts[0];
-                $Type = val(1, $Parts);
-                if (isset(self::$Types[$Type])) {
-                    $AddonTypeIDs[self::$Types[$Type]][] = $Key;
-                }
+                $addonTypeIDs[$parts['typeID']][] = $parts['key'];
             }
         }
-        $Result = array();
+        $result = [];
 
         // Get all of the Addons by ID.
-        if (count($AddonIDs) > 0) {
+        if (count($addonIDs) > 0) {
             $this->addonQuery();
-            $Addons = $this->SQL->whereIn('a.AddonID', $AddonIDs)->get()->result();
-            $Result = array_merge($Result, $Addons);
+            $addons = $this->SQL->whereIn('a.AddonID', $addonIDs)->get()->result();
+            $result = array_merge($result, $addons);
         }
 
         // Get all of the Addons by type.
-        foreach ($AddonTypeIDs as $TypeID => $Keys) {
+        foreach ($addonTypeIDs as $typeID => $keys) {
             $this->addonQuery();
-            $Addons = $this->SQL
-                ->where('a.AddonTypeID', $TypeID)
-                ->whereIn('a.AddonKey', $Keys)
+            $addons = $this->SQL
+                ->where('a.AddonTypeID', $typeID)
+                ->whereIn('a.AddonKey', $keys)
                 ->get()->result();
-            $Result = array_merge($Result, $Addons);
+            $result = array_merge($result, $addons);
         }
 
-        $this->setCalculatedFields($Result);
-        $DataSet = new Gdn_DataSet($Result);
-        return $DataSet;
+        $this->setCalculatedFields($result);
+        $dataSet = new Gdn_DataSet($result);
+        return $dataSet;
     }
 
     /**
@@ -325,22 +322,20 @@ class AddonModel extends Gdn_Model {
      * @return array
      */
     public function getSlug($slug, $getVersions = false) {
-        if (is_numeric($slug)) {
-            $addon = $this->getID($slug, false, ['GetVersions' => $getVersions]);
+        // This is a string identifier for the addon.
+        $parts = $this->parseSlug($slug);
+        if ($parts == []) {
+            return false;
+        }
+
+        if (is_numeric($parts['key'])) {
+            $addon = $this->getID($parts['key'], false, ['GetVersions' => $getVersions]);
         } else {
-            // This is a string identifier for the addon.
-            $parts = explode('-', $slug, 3);
-            $key = val(0, $parts);
-
-            if (is_numeric($key)) {
-                $addon = $this->getID($key, false, ['GetVersions' => $getVersions]);
-            } else {
-                $type = strtolower(val(1, $parts));
-                $typeID = val($type, self::$Types, 0);
-                $version = val(2, $parts);
-
-                $addon = $this->getID(array($key, $typeID, $version), false, ['GetVersions' => $getVersions]);
-            }
+            $addon = $this->getID(
+                [$parts['key'], $parts['typeID'], $parts['version']                    ],
+                false,
+                ['GetVersions' => $getVersions]
+            );
         }
 
         if (!$addon) {
@@ -367,8 +362,8 @@ class AddonModel extends Gdn_Model {
                         $addon['Releases'][] = $version;
                         // Find the latest stable version.
                         if (!$foundMax) {
-                           $maxVersion = $version;
-                           $foundMax = true;
+                            $maxVersion = $version;
+                            $foundMax = true;
                         }
                     } elseif ($foundMax === false) {
                         // Only list prereleases new than the current stable.
@@ -774,6 +769,56 @@ class AddonModel extends Gdn_Model {
         if ($MaxVersion) {
             $this->SQL->history()->put('Addon', array('CurrentAddonVersionID' => $MaxVersion->Version), array('AddonID' => $AddonID));
         }
+    }
+
+    /**
+     * Parse a slug and returns information array about the plugin.
+     *
+     * Possible values of the returned array are:
+     *   - version: the Version number
+     *   - type: one of self::$Types
+     *   - typeID: numeric key for Vanilla's addon types
+     *   - key: the key of the plugin
+     *
+     * @param string $slug The slug to parse.
+     *
+     * @return array Addon info (version, type, type id and key)
+     */
+    public function parseSlug($slug) {
+        $parts = explode('-', $slug);
+
+        if (is_numeric($parts[0])) {
+            // Slug is numeric ID.
+            return ['key' => $parts[0]];
+        }
+
+        $end = array_pop($parts);
+        $type = strtolower($end);
+        if (array_key_exists($type, self::$Types)) {
+            // Slug ends with one of self::Types without version number.
+            return [
+                'version' => false,
+                'type' => $type,
+                'typeID' => self::$Types[$type],
+                'key' => implode('-', $parts)
+            ];
+        }
+
+        // If $end is no addon type, it must the version number.
+        $version = $end;
+        $end = array_pop($parts);
+        if (array_key_exists($end, self::$Types)) {
+            // Slug ends with type and version number.
+            return [
+                'version' => $version,
+                'type' => $end,
+                'typeID' => self::$Types[$end],
+                'key' => implode('-', $parts)
+            ];
+        }
+
+        // Parsing failed.
+        return [];
     }
 }
 
