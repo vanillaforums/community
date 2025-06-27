@@ -4,10 +4,8 @@ The code that powers the open.vanillaforums.com community site.
 
 ## Repo Tour
 
--   `applications/addons` is our addon management directory.
 -   `themes/open-vf-com` is our current, new theme.
 -   `themes/vforg` is the old, original theme.
--   `plugins/openfeedcentral` powers the news feeds in Vanilla Dashboards across the Internet.
 
 ## License
 
