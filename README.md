@@ -4,8 +4,7 @@ The code that powers the open.vanillaforums.com community site.
 
 ## Repo Tour
 
--   `themes/open-vf-com` is our current, new theme.
--   `themes/vforg` is the old, original theme.
+-   `themes/open-vf-com` is our current theme.
 
 ## License
 
